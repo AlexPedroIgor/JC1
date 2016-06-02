@@ -5,3 +5,8 @@ Alunos:
         Alex
         Pedro
         Igor
+
+		
+## Copyright & License
+
+Copyright (c) 2016 Alex, Pedro e Igor - Released under the [MIT license](LICENSE).
