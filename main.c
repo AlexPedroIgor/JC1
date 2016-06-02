@@ -5,3 +5,4 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
+#include "main.h"
