@@ -52,7 +52,7 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 	// **************
 	//
 
-	// Variavel que carrega a imagem no plano de fundo
+	// Variavel que carrega a opcao de iniciar o jogo
 	SDL_Texture* gIniciar_Jogo = NULL;
 
 	// Carregando plano de fundo na memoria
@@ -60,6 +60,19 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 
 	// Carregando imagem na tela
 	gIniciar_Jogo = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao de iniciar o jogo pressionado
+	SDL_Texture* gIniciar_Jogo_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/iniciar_jogo_pressionado.png");
+
+	// Carregando imagem na tela
+	gIniciar_Jogo_pressionado = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpando memoria
@@ -87,7 +100,7 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 	// ********
 	//
 
-	// Variavel que carrega a imagem no plano de fundo
+	// Variavel que carrega a opcao do menu de opcoes
 	SDL_Texture* gOpcoes = NULL;
 
 	// Carregando plano de fundo na memoria
@@ -95,6 +108,19 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 
 	// Carregando imagem na tela
 	gOpcoes = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao do menu de opcoes pressionado
+	SDL_Texture* gOpcoes_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/opcoes_pressionado.png");
+
+	// Carregando imagem na tela
+	gOpcoes_pressionado = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpando memoria
@@ -122,7 +148,7 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 	// **************
 	//
 
-	// Variavel que carrega a imagem no plano de fundo
+	// Variavel que carrega a opcao de sair do jogo
 	SDL_Texture* gSair = NULL;
 
 	// Carregando plano de fundo na memoria
@@ -130,6 +156,19 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 
 	// Carregando imagem na tela
 	gSair = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao de sair do jogo
+	SDL_Texture* gSair_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/sair_pressionado.png");
+
+	// Carregando imagem na tela
+	gSair_pressionado = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpando memoria
@@ -160,6 +199,14 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 	while(menuRodando)
 	{
 
+		// Salva posicao do mouse
+		struct POSICAO_DO_MOUSE
+		{
+			int x, y;
+		}posicao_do_mouse;
+
+		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
 		{
@@ -170,17 +217,12 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				jogoRodando = FALSO;
 			}
 
-			// Evento de mouse
+			//
+			// Eventos de clique do mouse
+			//
+
 			if (event.type == SDL_MOUSEBUTTONDOWN)
 			{
-
-				// Salva posicao do mouse
-				struct POSICAO_DO_MOUSE
-				{
-					int x, y;
-				}posicao_do_mouse;
-
-				SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
 
 				//
 				// Acoes
@@ -199,8 +241,8 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				// Menu de opcoes
 				if (posicao_do_mouse.x > 450
 					&& posicao_do_mouse.x < 700
-					&& posicao_do_mouse.y > 250
-					&& posicao_do_mouse.y < 300)
+					&& posicao_do_mouse.y > 300
+					&& posicao_do_mouse.y < 350)
 				{
 					
 				}
@@ -216,35 +258,56 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				}
 			}
 		}
-
-
 		// Limpa tela anterior
 		SDL_RenderClear(renderer);
 
 		// Renderiza plano de fundo
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
 
-		// Renderiza opcao de iniciar jogo
-		SDL_RenderCopy(renderer, gIniciar_Jogo, NULL, &iniciar_jogo);
+		//
+		// Animacao das opcoes
+		//
 
-		// Renderiza opcao de opcoes do jogo
-		SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
+		// Iniciar jogo - animacao
+		if (posicao_do_mouse.x > 450
+			&& posicao_do_mouse.x < 700
+			&& posicao_do_mouse.y > 250
+			&& posicao_do_mouse.y < 300)
+				SDL_RenderCopy(renderer, gIniciar_Jogo_pressionado, NULL, &iniciar_jogo);
+		else
+			SDL_RenderCopy(renderer, gIniciar_Jogo, NULL, &iniciar_jogo);
 
-		// Renderiza opcao de sair do jogo
-		SDL_RenderCopy(renderer, gSair, NULL, &sair);
+		// Menu de opcoes - animacao
+		if (posicao_do_mouse.x > 450
+			&& posicao_do_mouse.x < 700
+			&& posicao_do_mouse.y > 300
+			&& posicao_do_mouse.y < 350)
+				SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
+		else
+			SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
+
+		// Sair do jogo - animacao
+		if (posicao_do_mouse.x > 450
+			&& posicao_do_mouse.x < 700
+			&& posicao_do_mouse.y > 350
+			&& posicao_do_mouse.y < 400)
+				SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
+		else
+			SDL_RenderCopy(renderer, gSair, NULL, &sair);
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
-
-		// Esperar por 1 segundo
-		SDL_Delay(15);
+		
 	}
 
 	// Limpando memoria
 	SDL_DestroyTexture(gFundo);
 	SDL_DestroyTexture(gIniciar_Jogo);
+	SDL_DestroyTexture(gIniciar_Jogo_pressionado);
 	SDL_DestroyTexture(gOpcoes);
+	SDL_DestroyTexture(gOpcoes_pressionado);
 	SDL_DestroyTexture(gSair);
+	SDL_DestroyTexture(gSair_pressionado);
 
 	//
 	// **********************
