@@ -12,8 +12,21 @@
 #define VERDADEIRO 1
 #define FALSO 0
 
-// Evento de jogo rodando para loop
-int jogoRodando;
+// Modos de jogo
+#define	MENU_PRINCIPAL		1
+#define	JOGO_SINGLEPAYER	2
+#define	JOGO_MULTIPLAYER	3
+#define OPCOES				4
+
+// Variaveis utilizadas em todo o jogo
+int jogoRodando, estadoDeJogo;
+
+// Nome do Jogo
+#define NOME_DO_JOGO "JOGO SEM NOME"
+
+// Tamanho de Tela
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 int main (int argc, char **argv);
 

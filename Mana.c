@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 	SDL_Texture* gFundo = NULL;
 
 	// Carregando plano de fundo na memoria
-	Loading_Surf_Fundo = IMG_Load("pokemonuniverse.jpg");
+	Loading_Surf_Fundo = IMG_Load("arte/fundo/fundo.jpg");
 
 	// Carregando imagem na tela
 	gFundo = SDL_CreateTextureFromSurface(renderer,
@@ -122,8 +122,8 @@ int main(int argc, char **argv)
 	SDL_Surface* Loading_Surf_jogador2 = NULL;
 
 	// Carregando imagem na memoria
-	Loading_Surf_Jogador = IMG_Load("Mage w.png");
-	Loading_Surf_jogador2 = IMG_Load("Archer w.png");
+	Loading_Surf_Jogador = IMG_Load("arte/personagens/jogador1/Mage w.png");
+	Loading_Surf_jogador2 = IMG_Load("arte/personagens/jogador1/Archer w.png");
 
 	// Variavel que vai mostrar a imagem do jogador
 	SDL_Texture* gJogador = NULL;

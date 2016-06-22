@@ -7,24 +7,16 @@
 
 #include "main.h"
 #include "menu_principal.h"
+#include "jogo.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Tamanho de Tela
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-
-// Modos de jogo
-#define	MENU_PRINCIPAL		1
-#define	JOGO_SINGLEPAYER	2
-#define	JOGO_MULTIPLAYER	3
-#define OPCOES				4
-
+// Inicia programa no Menu Principal
 int estadoDeJogo = MENU_PRINCIPAL;
 
 // Evento de jogo rodando para loop
-jogoRodando = VERDADEIRO;
+int jogoRodando = VERDADEIRO;
 
 // Iniciando o programa
 int main (int argc, char **argv)
@@ -43,7 +35,7 @@ int main (int argc, char **argv)
 	SDL_Window* window = NULL;
 
 	// Criando a janela
-	window = SDL_CreateWindow("JOGO SEM NOME",
+	window = SDL_CreateWindow(NOME_DO_JOGO,
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 
@@ -78,15 +70,14 @@ int main (int argc, char **argv)
 				roda_MenuPrincipal(renderer, event);
 				break;
 
-			/*
 			case JOGO_SINGLEPAYER:
 				roda_JogoSinglePlayer(renderer, event);
 				break;
-
+			
 			case JOGO_MULTIPLAYER:
 				roda_JogoMultiPlayer(renderer, event);
 				break;
-
+			/*
 			case OPCOES:
 				roda_Opcoes(renderer, event);
 				break;
