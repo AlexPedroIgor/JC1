@@ -27,8 +27,8 @@ int main (int argc, char **argv)
 	// **********************
 	//
 
-	// Inicializa video
-	if (SDL_Init (SDL_INIT_VIDEO) != 0)
+	// Inicializa SDL completo
+	if (SDL_Init (SDL_INIT_EVERYTHING) != 0)
 		ERRO(1);
 
 	// Variavel que representa a janela
@@ -44,6 +44,9 @@ int main (int argc, char **argv)
 
 	// Inicia o render
 	renderer = SDL_CreateRenderer(window, -1, 0);
+
+	// Inicial o mixer de som
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
 
 	//
 	// **********************
@@ -99,8 +102,9 @@ int main (int argc, char **argv)
 	// *****************
 	//
 
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer); // Finaliza o renderer
+	Mix_CloseAudio(); // Finaliza o mixer de som
+	SDL_DestroyWindow(window); // Fecha a janela
 
 	//
 	// *****************
@@ -119,8 +123,8 @@ void ERRO (int codigo)
 	switch (codigo)
 	{
 		case 1: // Falha na inicializacao do SDL_INIT_VIDEO
-			printf("Nao foi possivel inicializar o video.\n");
-			printf("Falha no SDL_INIT_VIDEO: %s\n", SDL_GetError() );
+			printf("Nao foi possivel inicializar o SDL.\n");
+			printf("Falha no SDL_INIT_EVERYTHING: %s\n", SDL_GetError() );
 			break;
 	}
 }

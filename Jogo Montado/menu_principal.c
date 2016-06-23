@@ -236,10 +236,39 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 	// *********************************************************************
 
 	//
+	// *************
+	// INICIA SONS | inicio
+	// *************
+	//
+
+	// Variaveis de som
+	Mix_Music* click = NULL; // click
+
+	// Carrega sons
+	click = Mix_LoadWAV("sons/efeitos/click.wav"); // click
+
+	//
+	// *************
+	// INICIA SONS | fim
+	// *************
+	//
+
+	// *********************************************************************
+
+	//
 	// **********************
 	// Loop do menu rodando | inicio
 	// **********************
 	//
+
+	// Variavel para uso do som nas selecoes
+	int SELECIONADO;
+
+	#define BOTAO_INICIAR_JOGO	1
+	#define BOTAO_OPCOES		2
+	#define BOTAO_SAIR			3
+
+	SELECIONADO = BOTAO_INICIAR_JOGO;
 
 	while(telaInicialRodando)
 	{
@@ -261,6 +290,73 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 				menuRodando = FALSO;
 				telaInicialRodando = FALSO;
 				jogoRodando = FALSO;
+			}
+
+			//
+			// Eventos de tecla pressionada
+			//
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_UP:
+						switch (SELECIONADO)
+						{
+							case BOTAO_INICIAR_JOGO:
+								break;
+
+							case BOTAO_OPCOES:
+								SELECIONADO = BOTAO_INICIAR_JOGO;
+								Mix_PlayChannel (-1, click, 0); // click
+								break;
+
+							case BOTAO_SAIR:
+								SELECIONADO = BOTAO_OPCOES;
+								Mix_PlayChannel (-1, click, 0); // click
+								break;
+						}
+						break;
+
+					case SDLK_DOWN:
+						switch (SELECIONADO)
+						{
+							case BOTAO_INICIAR_JOGO:
+								SELECIONADO = BOTAO_OPCOES;
+								Mix_PlayChannel (-1, click, 0); // click
+								break;
+
+							case BOTAO_OPCOES:
+								SELECIONADO = BOTAO_SAIR;
+								Mix_PlayChannel (-1, click, 0); // click
+								break;
+
+							case BOTAO_SAIR:
+							break;
+						}
+						break;
+
+					case SDLK_RETURN:
+						switch (SELECIONADO)
+						{
+							case BOTAO_INICIAR_JOGO:
+								Mix_PlayChannel (-1, click, 0); // click
+								telaInicialRodando = FALSO;
+								modoDeMenu = QND_DE_JOGADORES;
+								break;
+
+							case BOTAO_OPCOES:
+								Mix_PlayChannel (-1, click, 0); // click
+								break;
+
+							case BOTAO_SAIR:
+								Mix_PlayChannel (-1, click, 0); // click
+								menuRodando = FALSO;
+								telaInicialRodando = FALSO;
+								jogoRodando = FALSO;
+								break;
+						}
+						break;
+				}
 			}
 
 			//
@@ -316,29 +412,53 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 		//
 
 		// Iniciar jogo - animacao
-		if (posicao_do_mouse.x > 450
+		if ((posicao_do_mouse.x > 450
 			&& posicao_do_mouse.x < 700
 			&& posicao_do_mouse.y > 250
 			&& posicao_do_mouse.y < 300)
-				SDL_RenderCopy(renderer, gIniciar_Jogo_pressionado, NULL, &iniciar_jogo);
+			|| SELECIONADO == BOTAO_INICIAR_JOGO)
+		{
+			SDL_RenderCopy(renderer, gIniciar_Jogo_pressionado, NULL, &iniciar_jogo);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_INICIAR_JOGO)
+				Mix_PlayChannel (-1, click, 0);
+			SELECIONADO = BOTAO_INICIAR_JOGO;
+		}
 		else
 			SDL_RenderCopy(renderer, gIniciar_Jogo, NULL, &iniciar_jogo);
 
 		// Menu de opcoes - animacao
-		if (posicao_do_mouse.x > 450
+		if ((posicao_do_mouse.x > 450
 			&& posicao_do_mouse.x < 700
 			&& posicao_do_mouse.y > 300
 			&& posicao_do_mouse.y < 350)
-				SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
+			|| SELECIONADO == BOTAO_OPCOES)
+		{
+			SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_OPCOES)
+				Mix_PlayChannel (-1, click, 0);
+			SELECIONADO = BOTAO_OPCOES;
+		}
 		else
 			SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
 
 		// Sair do jogo - animacao
-		if (posicao_do_mouse.x > 450
+		if ((posicao_do_mouse.x > 450
 			&& posicao_do_mouse.x < 700
 			&& posicao_do_mouse.y > 350
 			&& posicao_do_mouse.y < 400)
-				SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
+			|| SELECIONADO == BOTAO_SAIR)
+		{
+			SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_SAIR)
+				Mix_PlayChannel (-1, click, 0);
+			SELECIONADO = BOTAO_SAIR;
+		}
 		else
 			SDL_RenderCopy(renderer, gSair, NULL, &sair);
 
@@ -347,7 +467,7 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 		
 	}
 
-	// Limpando memoria
+	// Limpando memoria - imagens
 	SDL_DestroyTexture(gFundo);
 	SDL_DestroyTexture(gIniciar_Jogo);
 	SDL_DestroyTexture(gIniciar_Jogo_pressionado);
@@ -355,6 +475,9 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 	SDL_DestroyTexture(gOpcoes_pressionado);
 	SDL_DestroyTexture(gSair);
 	SDL_DestroyTexture(gSair_pressionado);
+
+	// Limpando memoria - sons
+	Mix_FreeChunk(click);
 
 	//
 	// **********************
@@ -368,6 +491,352 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 // Escolha modo singleplayer ou modo multiplayer
 // Estado de jogo em Menu Principal
 void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
+{
+	// Variavel para manter menu
+	int escolhaDeJogadoresRodando = VERDADEIRO;
+
+	// Variavel que carrega a imagens
+	SDL_Surface* Loading_Surf = NULL;
+
+	// *********************************************************************
+
+	//
+	// ****************
+	// PLANO DE FUNDO | inicio
+	// ****************
+	//
+
+	// Variavel que carrega a imagem no plano de fundo
+	SDL_Texture* gFundo = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/fundo/menu_principal.jpg");
+
+	// Carregando imagem na tela
+	gFundo = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	//
+	// ****************
+	// PLANO DE FUNDO | fim
+	// ****************
+	//
+
+	// *********************************************************************
+
+	//
+	// ***********
+	// 1 JOGADOR | inicio
+	// ***********
+	//
+
+	// Variavel que carrega a opcao de iniciar o jogo
+	SDL_Texture* g1Jogador = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/1_jogador.png");
+
+	// Carregando imagem na tela
+	g1Jogador = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao de iniciar o jogo pressionado
+	SDL_Texture* g1Jogador_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/1_jogador_pressionado.png");
+
+	// Carregando imagem na tela
+	g1Jogador_pressionado = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect iniciar_jogo;
+
+	iniciar_jogo.x = 275;
+	iniciar_jogo.y = 250;
+	iniciar_jogo.w = 250;
+	iniciar_jogo.h = 50;
+
+	//
+	// ***********
+	// 1 JOGADOR | fim
+	// ***********
+	//
+
+	// *********************************************************************
+
+	//
+	// *************
+	// 2 JOGADORES | inicio
+	// *************
+	//
+
+	// Variavel que carrega a opcao do menu de opcoes
+	SDL_Texture* g2Jogadores = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/2_jogadores.png");
+
+	// Carregando imagem na tela
+	g2Jogadores = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao do menu de opcoes pressionado
+	SDL_Texture* g2Jogadores_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/2_jogadores_presionado.png");
+
+	// Carregando imagem na tela
+	g2Jogadores_pressionado = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect opcoes;
+
+	opcoes.x = 275;
+	opcoes.y = 300;
+	opcoes.w = 250;
+	opcoes.h = 50;
+
+	//
+	// *************
+	// 2 JOGADORES | fim
+	// *************
+	//
+
+	// *********************************************************************
+
+	//
+	// *************
+	// INICIA SONS | inicio
+	// *************
+	//
+
+	// Variaveis de som
+	Mix_Music* click = NULL; // click
+
+	// Carrega sons
+	click = Mix_LoadWAV("sons/efeitos/click.wav"); // click
+
+	//
+	// *************
+	// INICIA SONS | fim
+	// *************
+	//
+
+	// *********************************************************************
+
+	//
+	// **********************
+	// Loop do menu rodando | inicio
+	// **********************
+	//
+
+	// Variavel para uso do som nas selecoes
+	int SELECIONADO;
+
+	#define BOTAO_1JOGADOR		1
+	#define BOTAO_2JOGADORES	2
+
+	SELECIONADO = BOTAO_1JOGADOR;
+
+	while(escolhaDeJogadoresRodando)
+	{
+
+		// Salva posicao do mouse
+		struct POSICAO_DO_MOUSE
+		{
+			int x, y;
+		}posicao_do_mouse;
+
+		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+
+		// Verifica eventos
+		if (SDL_PollEvent (&event))
+		{
+			// Finaliza o jogo
+			if (event.type == SDL_QUIT)
+			{
+				menuRodando = FALSO;
+				escolhaDeJogadoresRodando = FALSO;
+				jogoRodando = FALSO;
+			}
+
+			//
+			// Eventos de tecla pressionada
+			//
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_UP:
+						switch (SELECIONADO)
+						{
+							case BOTAO_1JOGADOR:
+								break;
+
+							case BOTAO_2JOGADORES:
+								SELECIONADO = BOTAO_1JOGADOR;
+								Mix_PlayChannel (-1, click, 0); // click
+								break;
+						}
+						break;
+
+					case SDLK_DOWN:
+						switch (SELECIONADO)
+						{
+							case BOTAO_1JOGADOR:
+								SELECIONADO = BOTAO_2JOGADORES;
+								Mix_PlayChannel (-1, click, 0); // click
+								break;
+
+							case BOTAO_2JOGADORES:
+								break;
+						}
+						break;
+
+					case SDLK_RETURN:
+						switch (SELECIONADO)
+						{
+							case BOTAO_1JOGADOR:
+								Mix_PlayChannel (-1, click, 0); // click
+								menuRodando = FALSO;
+								escolhaDeJogadoresRodando = FALSO;
+								estadoDeJogo = JOGO_SINGLEPAYER;
+								break;
+
+							case BOTAO_2JOGADORES:
+								Mix_PlayChannel (-1, click, 0); // click
+								menuRodando = FALSO;
+								escolhaDeJogadoresRodando = FALSO;
+								estadoDeJogo = JOGO_MULTIPLAYER;
+								break;
+						}
+						break;
+				}
+			}
+
+			//
+			// Eventos de clique do mouse
+			//
+
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+
+				//
+				// Acoes
+				//
+
+				// 1 Jogador
+				if (posicao_do_mouse.x > 275
+					&& posicao_do_mouse.x < 525
+					&& posicao_do_mouse.y > 250
+					&& posicao_do_mouse.y < 300)
+				{
+					menuRodando = FALSO;
+					escolhaDeJogadoresRodando = FALSO;
+					estadoDeJogo = JOGO_SINGLEPAYER;
+				}
+
+				// 2 Jogadores
+				if (posicao_do_mouse.x > 275
+					&& posicao_do_mouse.x < 525
+					&& posicao_do_mouse.y > 300
+					&& posicao_do_mouse.y < 350)
+				{
+					menuRodando = FALSO;
+					escolhaDeJogadoresRodando = FALSO;
+					estadoDeJogo = JOGO_MULTIPLAYER;
+				}
+			}
+		}
+		// Limpa tela anterior
+		SDL_RenderClear(renderer);
+
+		// Renderiza plano de fundo
+		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+
+		//
+		// Animacao das opcoes
+		//
+
+		// 1 Jogador - animacao
+		if ((posicao_do_mouse.x > 275
+			&& posicao_do_mouse.x < 525
+			&& posicao_do_mouse.y > 250
+			&& posicao_do_mouse.y < 300)
+			|| SELECIONADO == BOTAO_1JOGADOR)
+		{
+			SDL_RenderCopy(renderer, g1Jogador_pressionado, NULL, &iniciar_jogo);
+			
+			// Animacao de som
+			if (SELECIONADO != BOTAO_1JOGADOR)
+				Mix_PlayChannel (-1, click, 0);
+			SELECIONADO = BOTAO_1JOGADOR;
+		}
+		else
+			SDL_RenderCopy(renderer, g1Jogador, NULL, &iniciar_jogo);
+
+		// 2 Jogadores - animacao
+		if ((posicao_do_mouse.x > 275
+			&& posicao_do_mouse.x < 525
+			&& posicao_do_mouse.y > 300
+			&& posicao_do_mouse.y < 350)
+			|| SELECIONADO == BOTAO_2JOGADORES)
+		{
+			SDL_RenderCopy(renderer, g2Jogadores_pressionado, NULL, &opcoes);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_2JOGADORES)
+				Mix_PlayChannel (-1, click, 0);
+			SELECIONADO = BOTAO_2JOGADORES;
+		}
+		else
+			SDL_RenderCopy(renderer, g2Jogadores, NULL, &opcoes);
+
+		// Atualiza tela
+		SDL_RenderPresent(renderer);
+		
+	}
+
+	// Limpando memoria - imagens
+	SDL_DestroyTexture(gFundo);
+	SDL_DestroyTexture(g1Jogador);
+	SDL_DestroyTexture(g1Jogador_pressionado);
+	SDL_DestroyTexture(g2Jogadores);
+	SDL_DestroyTexture(g2Jogadores_pressionado);
+
+	// Limpando memoria - sons
+	Mix_FreeChunk(click);
+
+	//
+	// **********************
+	// Loop do menu rodando | fim
+	// **********************
+	//
+
+	// *********************************************************************
+}
+
+// Selecao de personagens - singleplayer
+void roda_SelecaoDePersonagem1(SDL_Renderer* renderer, SDL_Event event)
 {
 	// Variavel para manter menu
 	int escolhaDeJogadoresRodando = VERDADEIRO;
@@ -609,12 +1078,6 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 	//
 
 	// *********************************************************************
-}
-
-// Selecao de personagens - singleplayer
-void roda_SelecaoDePersonagem1(SDL_Renderer* renderer, SDL_Event event)
-{
-
 }
 
 // Selecao de personagens - multiplayer
