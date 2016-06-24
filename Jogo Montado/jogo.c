@@ -11,6 +11,11 @@
 // Modo de jogo em Single Player
 void roda_JogoSinglePlayer(SDL_Renderer* renderer, SDL_Event event)
 {
+	// Carrega musica de fundo do jogo
+	Mix_Music* musica = NULL;
+	musica = Mix_LoadMUS("sons/musicas/jogo.mid");
+	Mix_PlayMusic(musica, -1);
+
 	// Variavel para manter loop do jogo
 	int singlePlayerRodando = VERDADEIRO;
 
@@ -320,9 +325,13 @@ void roda_JogoSinglePlayer(SDL_Renderer* renderer, SDL_Event event)
 
 	}
 
-	// Limpando memoria
+	// Limpando memoria - imagens
 	SDL_DestroyTexture(gFundo);
 	SDL_DestroyTexture(gJogador);
+
+	// Encerra musica de fundo
+	Mix_HaltMusic();
+	Mix_FreeMusic(musica);
 
 	//
 	// **************
@@ -337,6 +346,11 @@ void roda_JogoSinglePlayer(SDL_Renderer* renderer, SDL_Event event)
 // Modo de Jogo em MultiPlayer
 void roda_JogoMultiPlayer(SDL_Renderer* renderer, SDL_Event event)
 {
+	// Carrega musica de fundo do menu
+	Mix_Music* musica = NULL;
+	musica = Mix_LoadMUS("sons/musicas/jogo.mid");
+	Mix_PlayMusic(musica, -1);
+
 	// Variavel para manter loop do jogo
 	int multiPlayerRodando = VERDADEIRO;
 
@@ -894,10 +908,14 @@ void roda_JogoMultiPlayer(SDL_Renderer* renderer, SDL_Event event)
 
 	}
 
-	// Limpando memoria
+	// Limpando memoria - imagens
 	SDL_DestroyTexture(gFundo);
 	SDL_DestroyTexture(gJogador1);
 	SDL_DestroyTexture(gJogador2);
+
+	// Encerra musica de fundo
+	Mix_HaltMusic();
+	Mix_FreeMusic(musica);
 
 	//
 	// **************

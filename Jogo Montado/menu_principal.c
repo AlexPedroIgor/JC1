@@ -29,6 +29,11 @@ void roda_SelecaoDePersonagem2(SDL_Renderer* renderer, SDL_Event event);
 // Inicia menu principal
 void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 {
+	// Carrega musica de fundo do menu
+	Mix_Music* musica = NULL;
+	musica = Mix_LoadMUS("sons/musicas/menu.mid");
+	Mix_PlayMusic(musica, -1);
+
 	while (menuRodando)
 	{
 		switch (modoDeMenu)
@@ -50,6 +55,10 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				break;
 		}
 	}
+
+	// Encerra musica de fundo
+	Mix_HaltMusic();
+	Mix_FreeMusic(musica);
 }
 
 
