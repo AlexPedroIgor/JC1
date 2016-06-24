@@ -252,9 +252,13 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 	// Variaveis de som
 	Mix_Music* click = NULL; // click
+	Mix_Music* select = NULL; // selecionar opcao
+	Mix_Music* voltar = NULL; // voltar tela
 
 	// Carrega sons
 	click = Mix_LoadWAV("sons/efeitos/click.wav"); // click
+	select = Mix_LoadWAV("sons/efeitos/select.wav"); // selecionar opcao
+	voltar = Mix_LoadWAV("sons/efeitos/voltar.wav"); // voltar tela
 
 	//
 	// *************
@@ -348,17 +352,19 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 						switch (SELECIONADO)
 						{
 							case BOTAO_INICIAR_JOGO:
-								Mix_PlayChannel (-1, click, 0); // click
+								Mix_PlayChannel (-1, select, 0); // som
+								SDL_Delay(400); // Delay de 4 segundos
 								telaInicialRodando = FALSO;
 								modoDeMenu = QND_DE_JOGADORES;
 								break;
 
 							case BOTAO_OPCOES:
-								Mix_PlayChannel (-1, click, 0); // click
+								Mix_PlayChannel (-1, select, 0); // som
 								break;
 
 							case BOTAO_SAIR:
-								Mix_PlayChannel (-1, click, 0); // click
+								Mix_PlayChannel (-1, voltar, 0); // som
+								SDL_Delay(500); // Delay de 5 segundos
 								menuRodando = FALSO;
 								telaInicialRodando = FALSO;
 								jogoRodando = FALSO;
@@ -385,6 +391,8 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 250
 					&& posicao_do_mouse.y < 300)
 				{
+					Mix_PlayChannel (-1, select, 0); // som
+					SDL_Delay(400); // Delay de 4 segundos
 					telaInicialRodando = FALSO;
 					modoDeMenu = QND_DE_JOGADORES;
 				}
@@ -395,7 +403,8 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					
+					Mix_PlayChannel (-1, select, 0); // som
+					SDL_Delay(400); // Delay de 4 segundos
 				}
 
 				// Sair do jogo
@@ -404,6 +413,8 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 350
 					&& posicao_do_mouse.y < 400)
 				{
+					Mix_PlayChannel (-1, voltar, 0); // som
+					SDL_Delay(500); // Delay de 5 segundos
 					menuRodando = FALSO;
 					telaInicialRodando = FALSO;
 					jogoRodando = FALSO;
@@ -487,6 +498,8 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 	// Limpando memoria - sons
 	Mix_FreeChunk(click);
+	Mix_FreeChunk(select);
+	Mix_FreeChunk(voltar);
 
 	//
 	// **********************
@@ -640,9 +653,13 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 
 	// Variaveis de som
 	Mix_Music* click = NULL; // click
+	Mix_Music* select = NULL; // selecionar opcao
+	Mix_Music* voltar = NULL; // voltar tela
 
 	// Carrega sons
 	click = Mix_LoadWAV("sons/efeitos/click.wav"); // click
+	select = Mix_LoadWAV("sons/efeitos/select.wav"); // selecionar opcao
+	voltar = Mix_LoadWAV("sons/efeitos/voltar.wav"); // voltar tela
 
 	//
 	// *************
@@ -695,6 +712,13 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 			{
 				switch (event.key.keysym.sym)
 				{
+					case SDLK_ESCAPE:
+						Mix_PlayChannel (-1, voltar, 1); // som
+						SDL_Delay(400); // Delay de 4 segundos
+						modoDeMenu = TELA_INICIAL;
+						escolhaDeJogadoresRodando = FALSO;
+						break;
+
 					case SDLK_UP:
 						switch (SELECIONADO)
 						{
@@ -725,14 +749,16 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 						switch (SELECIONADO)
 						{
 							case BOTAO_1JOGADOR:
-								Mix_PlayChannel (-1, click, 0); // click
+								Mix_PlayChannel (-1, select, 0); // som
+								SDL_Delay(400); // Delay de 4 segundos
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
 								estadoDeJogo = JOGO_SINGLEPAYER;
 								break;
 
 							case BOTAO_2JOGADORES:
-								Mix_PlayChannel (-1, click, 0); // click
+								Mix_PlayChannel (-1, select, 0); // som
+								SDL_Delay(400); // Delay de 4 segundos
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
 								estadoDeJogo = JOGO_MULTIPLAYER;
@@ -759,6 +785,8 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 250
 					&& posicao_do_mouse.y < 300)
 				{
+					Mix_PlayChannel (-1, select, 0); // som
+					SDL_Delay(400); // Delay de 4 segundos
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
 					estadoDeJogo = JOGO_SINGLEPAYER;
@@ -770,6 +798,8 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
+					Mix_PlayChannel (-1, select, 0); // som
+					SDL_Delay(400); // Delay de 4 segundos
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
 					estadoDeJogo = JOGO_MULTIPLAYER;
@@ -834,6 +864,8 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 
 	// Limpando memoria - sons
 	Mix_FreeChunk(click);
+	Mix_FreeChunk(select);
+	Mix_FreeChunk(voltar);
 
 	//
 	// **********************

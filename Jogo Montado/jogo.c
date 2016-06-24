@@ -320,8 +320,8 @@ void roda_JogoSinglePlayer(SDL_Renderer* renderer, SDL_Event event)
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
-		// Delay (15 = 1 segundo)
-		SDL_Delay(15);
+		// FPS
+		SDL_Delay( 1000/FPS );
 
 	}
 
@@ -903,8 +903,8 @@ void roda_JogoMultiPlayer(SDL_Renderer* renderer, SDL_Event event)
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
-		// Delay (15 = 1 segundo)
-		SDL_Delay(15);
+		// FPS
+		SDL_Delay( 1000/FPS );
 
 	}
 
