@@ -10,8 +10,8 @@
 #include <SDL2/SDL_mixer.h>
 
 // Condicionais
-#define VERDADEIRO				1
-#define FALSO					0
+#define VERDADEIRO				  1
+#define FALSO					      0
 
 // Modos de jogo
 #define	MENU_PRINCIPAL			1
@@ -25,11 +25,11 @@ int jogoRodando, estadoDeJogo;
 #define NOME_DO_JOGO "JOGO SEM NOME"
 
 // Tamanho de Tela
-#define SCREEN_WIDTH			800
-#define SCREEN_HEIGHT			600
+#define SCREEN_WIDTH			  800
+#define SCREEN_HEIGHT			  600
 
 // Framerate do jogo
-#define FPS						60
+#define FPS						      60
 
 int main (int argc, char **argv);
 
