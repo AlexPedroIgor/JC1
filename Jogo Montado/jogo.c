@@ -7,6 +7,7 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 #include "main.h"
+#include "efeitos_sonoros.h"
 
 // Modo de jogo em Single Player
 void roda_JogoSinglePlayer(SDL_Renderer* renderer, SDL_Event event)

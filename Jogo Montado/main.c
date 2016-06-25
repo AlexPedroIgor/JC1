@@ -80,11 +80,6 @@ int main (int argc, char **argv)
 			case JOGO_MULTIPLAYER:
 				roda_JogoMultiPlayer(renderer, event);
 				break;
-			/*
-			case OPCOES:
-				roda_Opcoes(renderer, event);
-				break;
-			*/
 		}
 	}
 

@@ -16,6 +16,8 @@ void roda_SelecaoDePersonagem1(SDL_Renderer* renderer, SDL_Event event);
 
 void roda_SelecaoDePersonagem2(SDL_Renderer* renderer, SDL_Event event);
 
+void roda_Opcoes(SDL_Renderer* renderer, SDL_Event event);
+
 #endif
 
 // fim
