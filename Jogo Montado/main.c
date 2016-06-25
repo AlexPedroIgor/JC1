@@ -12,6 +12,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Pre carregamento das funcoes
+int main (int argc, char **argv);
+void ERRO (int codigo);
+
 // Inicia programa no Menu Principal
 int estadoDeJogo = MENU_PRINCIPAL;
 

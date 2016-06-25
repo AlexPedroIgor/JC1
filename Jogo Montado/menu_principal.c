@@ -7,7 +7,7 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 #include "main.h"
-#include "efeitos_sonoros.h"
+#include "som.h"
 
 // Definicao de menus
 #define TELA_INICIAL					1
@@ -32,10 +32,8 @@ void roda_Opcoes(SDL_Renderer* renderer, SDL_Event event);
 // Inicia menu principal
 void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 {
-	// Carrega musica de fundo do menu
-	Mix_Music* musica = NULL;
-	musica = Mix_LoadMUS("sons/musicas/menu.mid");
-	Mix_PlayMusic(musica, -1);
+	// Toca musica da fundo
+	toca_musica(MUSICA_INICIAL);
 
 	while (menuRodando)
 	{
@@ -50,6 +48,7 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				break;
 
 			case QND_DE_JOGADORES:
+				toca_musica(MUSICA_DE_SELECAO);
 				roda_Escolha_de_jogadores(renderer, event);
 				break;
 
@@ -62,10 +61,6 @@ void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				break;
 		}
 	}
-
-	// Encerra musica de fundo
-	Mix_HaltMusic();
-	Mix_FreeMusic(musica);
 }
 
 
@@ -469,6 +464,9 @@ void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
+
+		// FPS
+		SDL_Delay( 1000/FPS );
 		
 	}
 
@@ -675,6 +673,7 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 						SDL_Delay(400); // Delay de 0.4 segundos
 						modoDeMenu = TELA_INICIAL;
 						escolhaDeJogadoresRodando = FALSO;
+						toca_musica(MUSICA_INICIAL);
 						break;
 
 					case SDLK_UP:
@@ -810,6 +809,9 @@ void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
+
+		// FPS
+		SDL_Delay( 1000/FPS );
 		
 	}
 

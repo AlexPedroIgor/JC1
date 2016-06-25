@@ -6,8 +6,8 @@
 
 #include "main.h"
 
+// Funcoes do jogo
 void roda_JogoSinglePlayer(SDL_Renderer* renderer, SDL_Event event);
-
 void roda_JogoMultiPlayer(SDL_Renderer* renderer, SDL_Event event);
 
 #endif

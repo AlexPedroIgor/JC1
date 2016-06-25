@@ -6,16 +6,12 @@
 
 #include "main.h"
 
+// Funcoes do menu principal
 void roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event);
-
 void roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
-
 void roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event);
-
 void roda_SelecaoDePersonagem1(SDL_Renderer* renderer, SDL_Event event);
-
 void roda_SelecaoDePersonagem2(SDL_Renderer* renderer, SDL_Event event);
-
 void roda_Opcoes(SDL_Renderer* renderer, SDL_Event event);
 
 #endif

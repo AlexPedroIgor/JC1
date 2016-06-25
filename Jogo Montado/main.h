@@ -31,8 +31,8 @@ int jogoRodando, estadoDeJogo;
 // Framerate do jogo
 #define FPS						      60
 
+// Funcoes do main
 int main (int argc, char **argv);
-
 void ERRO (int erro);
 
 #endif
