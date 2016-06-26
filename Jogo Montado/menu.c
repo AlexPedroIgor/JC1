@@ -21,16 +21,17 @@ int modoDeMenu = TELA_INICIAL;
 int menuRodando = VERDADEIRO;
 
 // Funcoes utilizadas
+void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
 void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event);
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event);
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event);
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event);
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
+void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 
 // ******************
 
 // Inicia menu principal
-void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
+void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
 	// Toca musica da fundo
 	Toca_Musica(MUSICA_INICIAL);
@@ -44,7 +45,7 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				break;
 
 			case OPCOES:
-				Roda_Opcoes(renderer, event);
+				Roda_Opcoes(renderer, event, jogador1, jogador2);
 				break;
 
 			case QND_DE_JOGADORES:
@@ -53,11 +54,11 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event)
 				break;
 
 			case SELECAO_DE_PERSONAGEM1:
-				Roda_SelecaoDePersonagem_Singleplayer(renderer, event);
+				Roda_SelecaoDePersonagem_Singleplayer(renderer, event, jogador1);
 				break;
 
 			case SELECAO_DE_PERSONAGEM2:
-				Roda_SelecaoDePersonagem_Multiplayer(renderer, event);
+				Roda_SelecaoDePersonagem_Multiplayer(renderer, event, jogador1, jogador2);
 				break;
 		}
 	}
@@ -833,18 +834,18 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 }
 
 // Selecao de personagens - singleplayer
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event)
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1)
 {
 
 }
 
 // Selecao de personagens - multiplayer
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event)
+void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
 
 }
 
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event)
+void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
 
 }

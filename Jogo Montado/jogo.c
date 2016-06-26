@@ -11,14 +11,14 @@
 #include "config.h"
 
 // Pre carregamento das funcoes
-void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event);
-void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event);
+void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
+void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 void Movimenta_Jogador(Jogador* jogador);
 
 // ********************************************************************
 
 // Modo de jogo em Single Player
-void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event)
+void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1)
 {
 	// Toca musica de fundo
 	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
@@ -64,18 +64,15 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event)
 	// *********
 	//
 
-	// Inicializa jogador
-	Jogador jogador1 = Carrega_Jogador(1);
-
 	// Define posicao do jogador em tela
-	jogador1.posicao.x = SCREEN_WIDTH/2;
-	jogador1.posicao.y = SCREEN_HEIGHT/2;
+	jogador1->posicao.x = SCREEN_WIDTH/2;
+	jogador1->posicao.y = SCREEN_HEIGHT/2;
 
 	// Carrega imagem na memoria
 	Loading_Surf = IMG_Load(MAGE_W);
 
 	// Carrega imagem na tela
-	jogador1.sprite = SDL_CreateTextureFromSurface(renderer,
+	jogador1->sprite = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpa memoria
@@ -109,7 +106,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event)
 
 			// Movimentacao do jogador
 			if (event.type == SDL_KEYDOWN)
-				Movimenta_Jogador(&jogador1);
+				Movimenta_Jogador(jogador1);
 		}
 
 		// Limpa tela anterior
@@ -119,7 +116,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event)
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
 
 		// Renderiza jogador
-		SDL_RenderCopy(renderer, jogador1.sprite, &jogador1.frame, &jogador1.posicao);
+		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
@@ -131,7 +128,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event)
 
 	// Limpando memoria - imagens
 	SDL_DestroyTexture(gFundo);
-	SDL_DestroyTexture(jogador1.sprite);
+	SDL_DestroyTexture(jogador1->sprite);
 
 	//
 	// **************
@@ -143,7 +140,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event)
 }
 
 // Modo de Jogo em MultiPlayer
-void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event)
+void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
 	// Toca musica de fundo
 	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
@@ -189,18 +186,15 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event)
 	// ***********
 	//
 
-	// Inicializa jogador
-	Jogador jogador1 = Carrega_Jogador(1);
-
 	// Define posicao do jogador em tela
-	jogador1.posicao.x = SCREEN_WIDTH/2 + 40;
-	jogador1.posicao.y = SCREEN_HEIGHT/2;
+	jogador1->posicao.x = SCREEN_WIDTH/2 + 40;
+	jogador1->posicao.y = SCREEN_HEIGHT/2;
 
 	// Carrega imagem na memoria
 	Loading_Surf = IMG_Load(MAGE_W);
 
 	// Carrega imagem na tela
-	jogador1.sprite = SDL_CreateTextureFromSurface(renderer,
+	jogador1->sprite = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpa memoria
@@ -220,18 +214,15 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event)
 	// ***********
 	//
 
-	// Inicializa jogador
-	Jogador jogador2 = Carrega_Jogador(2);
-
 	// Define posicao do jogador em tela
-	jogador2.posicao.x = SCREEN_WIDTH/2 - 85;
-	jogador2.posicao.y = SCREEN_HEIGHT/2;
+	jogador2->posicao.x = SCREEN_WIDTH/2 - 85;
+	jogador2->posicao.y = SCREEN_HEIGHT/2;
 
 	// Carrega imagem na memoria
 	Loading_Surf = IMG_Load(ARCHER_W);
 
 	// Carrega imagem na tela
-	jogador2.sprite = SDL_CreateTextureFromSurface(renderer,
+	jogador2->sprite = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpa memoria
@@ -267,10 +258,10 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event)
 			if (event.type == SDL_KEYDOWN)
 			{
 				// Jogador 1
-				Movimenta_Jogador(&jogador1);
+				Movimenta_Jogador(jogador1);
 
 				// Jogador 2
-				Movimenta_Jogador(&jogador2);
+				Movimenta_Jogador(jogador2);
 			}
 		}
 
@@ -281,10 +272,10 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event)
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
 
 		// Renderiza jogador 1
-		SDL_RenderCopy(renderer, jogador1.sprite, &jogador1.frame, &jogador1.posicao);
+		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
 
 		// Renderiza jogador 2
-		SDL_RenderCopy(renderer, jogador2.sprite, &jogador2.frame, &jogador2.posicao);
+		SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
@@ -296,8 +287,8 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event)
 
 	// Limpando memoria - imagens
 	SDL_DestroyTexture(gFundo);
-	SDL_DestroyTexture(jogador1.sprite);
-	SDL_DestroyTexture(jogador2.sprite);
+	SDL_DestroyTexture(jogador1->sprite);
+	SDL_DestroyTexture(jogador2->sprite);
 
 	//
 	// **************

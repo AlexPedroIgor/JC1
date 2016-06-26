@@ -6,15 +6,11 @@
 */
 
 #include "main.h"
-#include "menu_principal.h"
+#include "menu.h"
 #include "jogo.h"
 #include "config.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
 // Pre carregamento das funcoes
-int main (int argc, char **argv);
 void ERRO (int codigo);
 
 // Inicia programa no Menu Principal
@@ -67,6 +63,10 @@ int main (int argc, char **argv)
 	// **********************
 	//
 
+	// Carrega jogadores
+	Jogador jogador1 = Carrega_Jogador(1);
+	Jogador jogador2 = Carrega_Jogador(2);
+
 	// Inicializa teste de eventos
 	SDL_Event event;
 
@@ -75,15 +75,15 @@ int main (int argc, char **argv)
 		switch (estadoDeJogo)
 		{
 			case MENU_PRINCIPAL:
-				Roda_MenuPrincipal(renderer, event);
+				Roda_MenuPrincipal(renderer, event, &jogador1, &jogador2);
 				break;
 
 			case JOGO_SINGLEPAYER:
-				Roda_Jogo_Singleplayer(renderer, event);
+				Roda_Jogo_Singleplayer(renderer, event, &jogador1);
 				break;
 			
 			case JOGO_MULTIPLAYER:
-				Roda_Jogo_Multiplayer(renderer, event);
+				Roda_Jogo_Multiplayer(renderer, event, &jogador1, &jogador2);
 				break;
 		}
 	}
