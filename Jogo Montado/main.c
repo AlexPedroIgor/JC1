@@ -8,6 +8,7 @@
 #include "main.h"
 #include "menu_principal.h"
 #include "jogo.h"
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -74,15 +75,15 @@ int main (int argc, char **argv)
 		switch (estadoDeJogo)
 		{
 			case MENU_PRINCIPAL:
-				roda_MenuPrincipal(renderer, event);
+				Roda_MenuPrincipal(renderer, event);
 				break;
 
 			case JOGO_SINGLEPAYER:
-				roda_JogoSinglePlayer(renderer, event);
+				Roda_Jogo_Singleplayer(renderer, event);
 				break;
 			
 			case JOGO_MULTIPLAYER:
-				roda_JogoMultiPlayer(renderer, event);
+				Roda_Jogo_Multiplayer(renderer, event);
 				break;
 		}
 	}

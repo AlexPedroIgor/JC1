@@ -11,26 +11,26 @@
 #include "som.h"
 
 // Pre carregamento das funcoes
-void efeito_sonoro(int nome_do_efeito);
-Mix_Chunk* carrega_efeito_sonoro(int nome_do_efeito);
-void toca_musica(int nome_da_musica);
-Mix_Music* carrega_musica(int nome_da_musica);
+void Efeito_Sonoro(int nome_do_efeito);
+Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
+void Toca_Musica(int nome_da_musica);
+Mix_Music* Carrega_Musica(int nome_da_musica);
 
 // ****************************************************
 
 // Roda efeitos sonoros
-void efeito_sonoro(int nome_do_efeito)
+void Efeito_Sonoro(int nome_do_efeito)
 {
 	// Carrega e recebe o efeito sonoro da funcao de carregamento
 	Mix_Chunk* som = NULL;
-	som = carrega_efeito_sonoro(nome_do_efeito);
+	som = Carrega_Efeito_Sonoro(nome_do_efeito);
 
 	// Toca o efeito sonoro
 	Mix_PlayChannel (-1, som, 0);
 }
 
 // Carrega efeitos sonoros na memoria
-Mix_Chunk* carrega_efeito_sonoro(int nome_do_efeito)
+Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 {
 	// Variavel para conter o efeito sonoro
 	Mix_Chunk* som = NULL;
@@ -55,17 +55,17 @@ Mix_Chunk* carrega_efeito_sonoro(int nome_do_efeito)
 	return som;
 }
 
-void toca_musica(int nome_da_musica)
+void Toca_Musica(int nome_da_musica)
 {
 	// Carrega e recebe a musica da funcao de carregamento
 	Mix_Music* musica = NULL;
-	musica = carrega_musica(nome_da_musica);
+	musica = Carrega_Musica(nome_da_musica);
 
 	// Toca a musica
 	Mix_PlayMusic (musica, -1);
 }
 
-Mix_Music* carrega_musica(int nome_da_musica)
+Mix_Music* Carrega_Musica(int nome_da_musica)
 {
 	// Variavel para conter a musica
 	Mix_Music* musica = NULL;

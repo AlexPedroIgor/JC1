@@ -25,11 +25,11 @@
 #define		MUSICA_DE_FUNDO_DO_JOGO				3
 
 // Funcoes
-void efeito_sonoro(int nome_do_efeito);
-Mix_Chunk* carrega_efeito_sonoro(int nome_do_efeito);
-void toca_musica(int nome_da_musica);
-Mix_Music* carrega_musica(int nome_da_musica);
+void Efeito_Sonoro(int nome_do_efeito);
+Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
+void Toca_Musica(int nome_da_musica);
+Mix_Music* Carrega_Musica(int nome_da_musica);
 
 #endif
 
-// fim 
+// fim
