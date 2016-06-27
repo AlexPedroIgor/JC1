@@ -76,12 +76,29 @@ int Colisao_Retangular(Objeto* Objeto1, Objeto* Objeto2)
 // Sistema de colisao por perimetro (verifica os perimetros)
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 {
+	printf("Objeto 1\n");
+	printf("X: %d\nY: %d\n", objeto1->posicao.x, objeto1->posicao.y);
+	printf("Objeto 2\n");
+	printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
+
 	// Superior
-	if ( (objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h)
-		&& objeto1->posicao.x >= objeto2->posicao.x
-		&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w
-		&& objeto1->movimento.cima)
-		return VERDADEIRO;
+	if (objeto1->movimento.cima)
+	{
+		if (objeto1->posicao.y > objeto2->posicao.y + objeto2->frame.h)
+		{
+
+			if ( (objeto1->posicao.x >= objeto2->posicao.x
+					&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w)
+				|| (objeto1->posicao.x + objeto1->frame.w >= objeto2->posicao.w
+					&& objeto1->posicao.x + objeto1->frame.w <= objeto2->posicao.x + objeto2->frame.w))
+			{
+
+				return VERDADEIRO;
+			}
+		}
+	}
+
+
 
 	// Inferior
 	else if ( (objeto1->posicao.y + objeto1->frame.h >= objeto2->posicao.y)
@@ -104,7 +121,9 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		&& objeto1->movimento.direita)
 		return VERDADEIRO;
 
+
 	else
+		printf("oi\n");
 		return FALSO;
 }
 
@@ -112,22 +131,22 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 int Colisao_LimiteDeTela(Objeto* objeto)
 {
 	// Superior
-	if (objeto->posicao.y == 0
+	if (objeto->posicao.y <= 10
 		&& objeto->movimento.cima)
 		return VERDADEIRO;
 
 	// Inferior
-	else if ( ( (objeto->posicao.y + objeto->frame.h) >= SCREEN_HEIGHT)
+	else if ( (objeto->posicao.y + objeto->frame.h >= 560)
 		&& objeto->movimento.baixo)
 		return VERDADEIRO;
 
 	// Lateral esquerda
-	else if (objeto->posicao.x == 0
+	else if (objeto->posicao.x <= 45
 		&& objeto->movimento.esquerda)
 		return VERDADEIRO;
 
 	// Lateral direita
-	else if ( ( (objeto->posicao.x + objeto->frame.w) >= SCREEN_WIDTH)
+	else if ( (objeto->posicao.x + objeto->frame.w >= 750)
 		&& objeto->movimento.direita)
 		return VERDADEIRO;
 
@@ -178,10 +197,8 @@ int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2)
 	objeto2.frame.w = jogador2->frame.w;
 	objeto2.frame.h = jogador2->frame.h;
 
-	printf("Jogador %d\n", jogador1->numero);
-	printf("X: %d\nY: %d\n", objeto1.posicao.x, objeto1.posicao.y);
-	printf("Jogador %d\n", jogador2->numero);
-	printf("X: %d\nY: %d\n", objeto2.posicao.x, objeto2.posicao.y);
+	objeto1.numero = jogador1->numero;
+	objeto2.numero = jogador2->numero;
 
 	// Verificacao por meio da funcao de colisao de objetos
 	if (Colisao_Perimetro(&objeto1, &objeto2))

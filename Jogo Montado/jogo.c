@@ -305,15 +305,16 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 {
 	// Verifica colisao de jogadores caso esteja no multiplayer
 	int movimento_permitido_jogador;
-	if (jogador2 != NULL)
+	if (jogador2 == NULL)
+		movimento_permitido_jogador = VERDADEIRO;
+	
+	else
 	{
 		if (Colisao_Entre_Jogadores(jogador, jogador2))
 			movimento_permitido_jogador = FALSO;
 		else
 			movimento_permitido_jogador = VERDADEIRO;
 	}
-	else
-		movimento_permitido_jogador = VERDADEIRO;
 
 
 	// Carrega teclas de acao
