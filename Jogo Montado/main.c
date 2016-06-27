@@ -9,6 +9,7 @@
 #include "menu.h"
 #include "jogo.h"
 #include "config.h"
+#include "fisica.h"
 
 // Pre carregamento das funcoes
 void ERRO (int codigo);

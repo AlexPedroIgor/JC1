@@ -22,11 +22,11 @@ Jogador Carrega_Jogador(int numero)
 	Jogador jogador;
 
 	// Numero do jogador
-	jogador.jogador = numero;
+	jogador.numero = numero;
 
 	// Velocidade de movimento do jogador
-	jogador.movimento.x = VEL;
-	jogador.movimento.y = VEL;
+	jogador.velocidade.x = VEL;
+	jogador.velocidade.y = VEL;
 
 	// Dimensoes da imagem do sprite do jogador
 	jogador.fullH = SPRITE_FULL_H;
@@ -55,22 +55,22 @@ void Carrega_Teclas_de_Acao(Jogador* jogador)
 	const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
 	// Atribui uma tecla para cada jogador
-	switch (jogador->jogador)
+	switch (jogador->numero)
 	{
 		case 1: // Jogador 1
-			jogador->tecla_de_acao.cima = keystates[SDL_SCANCODE_UP];
-			jogador->tecla_de_acao.baixo = keystates[SDL_SCANCODE_DOWN];
-			jogador->tecla_de_acao.esquerda = keystates[SDL_SCANCODE_LEFT];
-			jogador->tecla_de_acao.direita = keystates[SDL_SCANCODE_RIGHT];
-			jogador->tecla_de_acao.ataque = keystates[SDL_SCANCODE_RETURN];
+			jogador->movimento.cima = keystates[SDL_SCANCODE_UP];
+			jogador->movimento.baixo = keystates[SDL_SCANCODE_DOWN];
+			jogador->movimento.esquerda = keystates[SDL_SCANCODE_LEFT];
+			jogador->movimento.direita = keystates[SDL_SCANCODE_RIGHT];
+			jogador->movimento.ataque = keystates[SDL_SCANCODE_RETURN];
 			break;
 
 		case 2: // Jogador 2
-			jogador->tecla_de_acao.cima = keystates[SDL_SCANCODE_W];
-			jogador->tecla_de_acao.baixo = keystates[SDL_SCANCODE_S];
-			jogador->tecla_de_acao.esquerda = keystates[SDL_SCANCODE_A];
-			jogador->tecla_de_acao.direita = keystates[SDL_SCANCODE_D];
-			jogador->tecla_de_acao.ataque = keystates[SDL_SCANCODE_BACKSPACE];
+			jogador->movimento.cima = keystates[SDL_SCANCODE_W];
+			jogador->movimento.baixo = keystates[SDL_SCANCODE_S];
+			jogador->movimento.esquerda = keystates[SDL_SCANCODE_A];
+			jogador->movimento.direita = keystates[SDL_SCANCODE_D];
+			jogador->movimento.ataque = keystates[SDL_SCANCODE_BACKSPACE];
 			break;
 	}
 }

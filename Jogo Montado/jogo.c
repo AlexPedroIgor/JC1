@@ -7,13 +7,15 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 #include "main.h"
+#include "jogo.h"
 #include "som.h"
 #include "config.h"
+#include "fisica.h"
 
 // Pre carregamento das funcoes
 void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
 void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Movimenta_Jogador(Jogador* jogador);
+void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2);
 
 // ********************************************************************
 
@@ -106,7 +108,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 			// Movimentacao do jogador
 			if (event.type == SDL_KEYDOWN)
-				Movimenta_Jogador(jogador1);
+				Movimenta_Jogador(jogador1, NULL);
 		}
 
 		// Limpa tela anterior
@@ -258,10 +260,10 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 			if (event.type == SDL_KEYDOWN)
 			{
 				// Jogador 1
-				Movimenta_Jogador(jogador1);
+				Movimenta_Jogador(jogador1, jogador2);
 
 				// Jogador 2
-				Movimenta_Jogador(jogador2);
+				Movimenta_Jogador(jogador2, jogador1);
 			}
 		}
 
@@ -299,17 +301,37 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	// *********************************************************************
 }
 
-void Movimenta_Jogador(Jogador* jogador)
+void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 {
+	// Verifica colisao de jogadores caso esteja no multiplayer
+	int movimento_permitido_jogador;
+	if (jogador2 != NULL)
+	{
+		if (Colisao_Entre_Jogadores(jogador, jogador2))
+			movimento_permitido_jogador = FALSO;
+		else
+			movimento_permitido_jogador = VERDADEIRO;
+	}
+	else
+		movimento_permitido_jogador = VERDADEIRO;
+
+
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
+
+	// Verifica colisao de tela
+	int movimento_permitido;
+	if (Colisao_Jogador_LimiteDeTela(jogador))
+		movimento_permitido = FALSO;
+	else
+		movimento_permitido = VERDADEIRO;
 
 	//
 	// Movimentos diagonais
 	//
 
 	// Nordeste
-	if (jogador->tecla_de_acao.cima && jogador->tecla_de_acao.esquerda)
+	if (jogador->movimento.cima && jogador->movimento.esquerda)
 	{
 		// Animacao
 		jogador->frame.y = 512;
@@ -321,16 +343,15 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimentacao
-		if (jogador->posicao.y > 0
-			&& jogador->posicao.x > 0)
+		if (movimento_permitido && movimento_permitido_jogador)
 		{
-			jogador->posicao.y -= jogador->movimento.y;
-			jogador->posicao.x -= jogador->movimento.x;
+			jogador->posicao.y -= jogador->velocidade.y;
+			jogador->posicao.x -= jogador->velocidade.x;
 		}
 	}
 
 	// Noroeste
-	else if (jogador->tecla_de_acao.cima && jogador->tecla_de_acao.direita)
+	else if (jogador->movimento.cima && jogador->movimento.direita)
 	{
 		// Animacao
 		jogador->frame.y = 512;
@@ -342,16 +363,15 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimentacao
-		if (jogador->posicao.y > 0
-			&& jogador->posicao.x < SCREEN_WIDTH - jogador->frame.w)
+		if (movimento_permitido && movimento_permitido_jogador)
 		{
-			jogador->posicao.y -= jogador->movimento.y;
-			jogador->posicao.x += jogador->movimento.x;
+			jogador->posicao.y -= jogador->velocidade.y;
+			jogador->posicao.x += jogador->velocidade.x;
 		}
 	}
 
 	// Suldeste
-	else if (jogador->tecla_de_acao.baixo && jogador->tecla_de_acao.esquerda)
+	else if (jogador->movimento.baixo && jogador->movimento.esquerda)
 	{
 		// Animacao
 		jogador->frame.y = 640;
@@ -363,16 +383,15 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimentacao
-		if (jogador->posicao.y < SCREEN_HEIGHT
-			&& jogador->posicao.x > 0)
+		if (movimento_permitido && movimento_permitido_jogador)
 		{
-			jogador->posicao.y += jogador->movimento.y;
-			jogador->posicao.x -= jogador->movimento.x;
+			jogador->posicao.y += jogador->velocidade.y;
+			jogador->posicao.x -= jogador->velocidade.x;
 		}
 	}
 
 	// Suldoeste
-	else if (jogador->tecla_de_acao.baixo && jogador->tecla_de_acao.direita)
+	else if (jogador->movimento.baixo && jogador->movimento.direita)
 	{
 		// Animacao
 		jogador->frame.y = 640;
@@ -384,11 +403,10 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimentacao
-		if (jogador->posicao.y < SCREEN_HEIGHT
-			&& jogador->posicao.x < SCREEN_WIDTH - jogador->frame.w)
+		if (movimento_permitido && movimento_permitido_jogador)
 		{
-			jogador->posicao.y += jogador->movimento.y;
-			jogador->posicao.x += jogador->movimento.x;
+			jogador->posicao.y += jogador->velocidade.y;
+			jogador->posicao.x += jogador->velocidade.x;
 		}
 	}
 
@@ -397,7 +415,7 @@ void Movimenta_Jogador(Jogador* jogador)
 	//
 
 	// Cima
-	else if (jogador->tecla_de_acao.cima)
+	else if (jogador->movimento.cima)
 	{
 		// Animacao
 		jogador->frame.y = 512;
@@ -408,12 +426,12 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimento
-		if (jogador->posicao.y > 0)
-			jogador->posicao.y -= jogador->movimento.y;
+		if (movimento_permitido && movimento_permitido_jogador)
+			jogador->posicao.y -= jogador->velocidade.y;
 	}
 
 	// Baixo
-	else if (jogador->tecla_de_acao.baixo)
+	else if (jogador->movimento.baixo)
 	{
 		// Animacao
 		jogador->frame.y = 640;
@@ -424,12 +442,12 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimento
-		if (jogador->posicao.y < SCREEN_HEIGHT - jogador->frame.h)
-			jogador->posicao.y += jogador->movimento.y;
+		if (movimento_permitido && movimento_permitido_jogador)
+			jogador->posicao.y += jogador->velocidade.y;
 	}
 
 	// Esquerda
-	else if (jogador->tecla_de_acao.esquerda)
+	else if (jogador->movimento.esquerda)
 	{
 		// Animacao
 		jogador->frame.y = 576;
@@ -440,12 +458,12 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimento
-		if (jogador->posicao.x > 0)
-			jogador->posicao.x -= jogador->movimento.x;
+		if (movimento_permitido && movimento_permitido_jogador)
+			jogador->posicao.x -= jogador->velocidade.x;
 	}
 
 	// Direita
-	else if (jogador->tecla_de_acao.direita)
+	else if (jogador->movimento.direita)
 	{
 		// Animacao
 		jogador->frame.y = 704;
@@ -456,7 +474,7 @@ void Movimenta_Jogador(Jogador* jogador)
 			jogador->frame.x = 0;
 
 		// Movimento
-		if (jogador->posicao.x < SCREEN_WIDTH - jogador->frame.w)
-			jogador->posicao.x += jogador->movimento.x;
+		if (movimento_permitido && movimento_permitido_jogador)
+			jogador->posicao.x += jogador->velocidade.x;
 	}
 }

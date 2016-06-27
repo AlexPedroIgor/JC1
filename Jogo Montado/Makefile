@@ -8,14 +8,14 @@
 ############################### Makefile ###############################
 
 all: meujogo
-meujogo: main.o menu.o jogo.o som.o config.o
+meujogo: main.o menu.o jogo.o som.o config.o fisica.o
 		# Compilando os objetos
-		gcc -o meujogo som.o jogo.o menu.o config.o main.o -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/meujogo.gccmessages
+		gcc -o meujogo som.o jogo.o menu.o config.o main.o fisica.o -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/meujogo.gccmessages
 #------> Execucao dos arquivos
 som.o: som.c main.h som.h
 		gcc -o som.o -c som.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/som.gccmessages
 #
-jogo.o: jogo.c main.h som.h config.h
+jogo.o: jogo.c main.h som.h config.h fisica.h
 		gcc -o jogo.o -c jogo.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/jogo.gccmessages
 #
 menu.o: menu.c som.h main.h config.h
@@ -24,7 +24,10 @@ menu.o: menu.c som.h main.h config.h
 config.o: config.c main.h
 		gcc -o config.o -c config.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/config.gccmessages
 #
-main.o: main.c main.h menu.h jogo.h config.h
+fisica.o: fisica.c main.h config.h
+		gcc -o fisica.o -c fisica.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/fisica.gccmessages
+#
+main.o: main.c main.h menu.h jogo.h config.h fisica.h
 		gcc -o main.o -c main.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/main.gccmessages
 #
 clean:
