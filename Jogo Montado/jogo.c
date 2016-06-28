@@ -528,8 +528,13 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	SDL_Surface* Loading_Surf = NULL;
 
 	// *********************************************************************
+
+	//
+	// ******************
 	//	Esucrecer a tela| inicio
 	//	*****************
+	//
+
 	SDL_Texture* gEscurecer = NULL	;
 
 	Loading_Surf = IMG_Load("arte/fundo/Escurecer.png"); 
@@ -544,6 +549,15 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	escurecer.y = 0;
 	escurecer.w = SCREEN_WIDTH;
 	escurecer.h = SCREEN_HEIGHT;
+
+	//
+	// ******************
+	//	Esucrecer a tela| fim
+	// ******************
+	//
+
+	// *********************************************************************
+
 	//
 	// *******
 	// PAUSE | inicio
@@ -828,6 +842,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 						break;
 				}
 			}
+
 			// Eventos de mouse
 			if (event.type == SDL_MOUSEBUTTONDOWN)
 			{
@@ -860,6 +875,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 					multiPlayerRodando = FALSO;
 					estadoDeJogo = MENU_PRINCIPAL;
 				}
+			}
 		}
 
 		// Limpa tela anterior
@@ -885,8 +901,10 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 		// Renderiza partes da tela do pause
 		//
 
-		// Pause escrito em tela
+		// Escurecer tela
 		SDL_RenderCopy(renderer, gEscurecer, NULL, &escurecer);
+
+		// Pause escrito em tela
 		SDL_RenderCopy(renderer, gPause, NULL, &pause);
 
 		//
@@ -954,6 +972,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	}
 
 	// Limpando memoria - imagens
+	SDL_DestroyTexture(gEscurecer);
 	SDL_DestroyTexture(gPause);
 	SDL_DestroyTexture(gContinuar);
 	SDL_DestroyTexture(gContinuar_pressionado);
