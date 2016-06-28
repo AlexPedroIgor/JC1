@@ -202,10 +202,13 @@ int Colisao_Retangular(Objeto* Objeto1, Objeto* Objeto2)
 // Sistema de colisao por perimetro (verifica os perimetros)
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 {
+	/*
+	// Imprime posicao dos objetos
 	printf("Objeto 1\n");
 	printf("X: %d\nY: %d\n", objeto1->posicao.x, objeto1->posicao.y);
 	printf("Objeto 2\n");
 	printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
+	*/
 
 	// Superior
 	if ( (objeto1->posicao.y >= objeto2->posicao.y )
@@ -238,7 +241,6 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.direita)
 		return VERDADEIRO;
-
 
 	else
 		return FALSO;

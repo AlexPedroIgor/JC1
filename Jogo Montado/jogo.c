@@ -16,8 +16,11 @@
 void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
 void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo, Jogador* jogador1, Jogador* jogador2);
 
 // ********************************************************************
+
+int singlePlayerRodando, multiPlayerRodando;
 
 // Modo de jogo em Single Player
 void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1)
@@ -26,7 +29,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
 
 	// Variavel para manter loop do jogo
-	int singlePlayerRodando = VERDADEIRO;
+	singlePlayerRodando = VERDADEIRO;
 
 	// Variavel para carregar imagens
 	SDL_Surface* Loading_Surf = NULL;
@@ -106,9 +109,15 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 				jogoRodando = FALSO;
 			}
 
-			// Movimentacao do jogador
+			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
+			{
+				// Pause
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+					Roda_Pause(renderer, event, gFundo, jogador1, NULL);
+				// Movimento do jogador
 				Movimenta_Jogador(jogador1, NULL);
+			}
 		}
 
 		// Limpa tela anterior
@@ -148,7 +157,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
 
 	// Variavel para manter loop do jogo
-	int multiPlayerRodando = VERDADEIRO;
+	multiPlayerRodando = VERDADEIRO;
 
 	// Variavel para carregar imagens
 	SDL_Surface* Loading_Surf = NULL;
@@ -256,13 +265,17 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 				jogoRodando = FALSO;
 			}
 
-			// Movimentacao dos jogadores
+			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				// Jogador 1
+				// Pause
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+					Roda_Pause(renderer, event, gFundo, jogador1, jogador2);
+
+				// Movimentacao do Jogador 1
 				Movimenta_Jogador(jogador1, jogador2);
 
-				// Jogador 2
+				// Movimentacao do Jogador 2
 				Movimenta_Jogador(jogador2, jogador1);
 			}
 		}
@@ -502,4 +515,54 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 		if (movimento_permitido && movimento_permitido_jogador)
 			jogador->posicao.x += jogador->velocidade.x;
 	}
+}
+
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
+	Jogador* jogador1, Jogador* jogador2)
+{
+	int pauseRodando = VERDADEIRO;
+
+	// Loop do pause
+	while (pauseRodando)
+	{
+		// Verifica eventos
+		if (SDL_PollEvent (&event))
+		{
+			// Finaliza o jogo
+			if (event.type == SDL_QUIT)
+			{
+				pauseRodando = FALSO;
+				singlePlayerRodando = FALSO;
+				multiPlayerRodando = FALSO;
+				jogoRodando = FALSO;
+			}
+
+			// Eventos de tecla pressionada
+			if (event.type == SDL_KEYDOWN)
+			{
+				// Encerra o pause
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+					pauseRodando = FALSO;
+			}
+		}
+
+		// Limpa tela anterior
+		SDL_RenderClear(renderer);
+
+		// Renderiza plano de fundo
+		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+
+		// Renderiza jogador 1
+		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
+
+		// Renderiza Jogador 2 caso exista
+		if (jogador2 != NULL)
+			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
+
+		// Atualiza tela
+		SDL_RenderPresent(renderer);
+
+		// FPS
+		SDL_Delay( 1000/FPS );
+	}	
 }
