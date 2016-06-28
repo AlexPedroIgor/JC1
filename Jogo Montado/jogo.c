@@ -307,7 +307,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 	int movimento_permitido_jogador;
 	if (jogador2 == NULL)
 		movimento_permitido_jogador = VERDADEIRO;
-	
+
 	else
 	{
 		if (Colisao_Entre_Jogadores(jogador, jogador2))
