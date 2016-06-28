@@ -343,6 +343,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 		else
 			jogador->frame.x = 0;
 
+		// Salva movimento de animacao
+		jogador->animacao = QUADRANTE2;
+
 		// Movimentacao
 		if (movimento_permitido && movimento_permitido_jogador)
 		{
@@ -362,6 +365,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 
 		else
 			jogador->frame.x = 0;
+
+		// Salva movimento de animacao
+		jogador->animacao = QUADRANTE1;
 
 		// Movimentacao
 		if (movimento_permitido && movimento_permitido_jogador)
@@ -383,6 +389,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 		else
 			jogador->frame.x = 0;
 
+		// Salva movimento de animacao
+		jogador->animacao = QUADRANTE3;
+
 		// Movimentacao
 		if (movimento_permitido && movimento_permitido_jogador)
 		{
@@ -402,6 +411,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 
 		else
 			jogador->frame.x = 0;
+
+		// Salva movimento de animacao
+		jogador->animacao = QUADRANTE4;
 
 		// Movimentacao
 		if (movimento_permitido && movimento_permitido_jogador)
@@ -426,6 +438,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 		else
 			jogador->frame.x = 0;
 
+		// Salva movimento de animacao
+		jogador->animacao = CIMA;
+
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)
 			jogador->posicao.y -= jogador->velocidade.y;
@@ -441,6 +456,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 			jogador->frame.x += 64;
 		else
 			jogador->frame.x = 0;
+
+		// Salva movimento de animacao
+		jogador->animacao = BAIXO;
 
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)
@@ -458,6 +476,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 		else
 			jogador->frame.x = 0;
 
+		// Salva movimento de animacao
+		jogador->animacao = ESQUERDA;
+
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)
 			jogador->posicao.x -= jogador->velocidade.x;
@@ -473,6 +494,9 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 			jogador->frame.x += 64;
 		else
 			jogador->frame.x = 0;
+
+		// Salva movimento de animacao
+		jogador->animacao = DIREITA;
 
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)

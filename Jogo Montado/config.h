@@ -7,7 +7,7 @@
 #include "main.h"
 
 // Velocidade de movimento dos jogadores
-#define VEL 5.0
+#define VEL		5.0
 
 // Localizacao dos sprites de jogador
 #define MAGE_W "arte/personagens/jogador1/Mage w.png"
@@ -16,10 +16,20 @@
 #define ARTHER_M "arte/personagens/jogador2/Archer m.png"
 
 // Caracteristicas dos sprites de jogador
-#define SPRITE_FULL_W 832
-#define SPRITE_FULL_H 1344
-#define SPRITE_FRAME_W 64
-#define SPRITE_FRAME_H 64
+#define SPRITE_FULL_W		832
+#define SPRITE_FULL_H		1344
+#define SPRITE_FRAME_W		64
+#define SPRITE_FRAME_H		64
+
+// Movimentos de animacao
+#define CIMA			1
+#define BAIXO			2
+#define ESQUERDA		3
+#define DIREITA			4
+#define QUADRANTE1		5
+#define QUADRANTE2		6
+#define QUADRANTE3		7
+#define QUADRANTE4		8
 
 // Estrutura para jogador
 typedef struct 
@@ -36,6 +46,9 @@ typedef struct
 		int direita;
 		int ataque;
 	} movimento;
+
+	// Animacao de movimentacao
+	int animacao;
 
 	// Velocidade de movimento
 	struct
