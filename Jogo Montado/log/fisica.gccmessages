@@ -1,0 +1,16 @@
+fisica.c: In function ‘Colisao_Circular’:
+fisica.c:158:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+fisica.c: In function ‘Colisao_Entre_Jogador_Inimigo’:
+fisica.c:335:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+fisica.c: In function ‘Colisao_Impacto_Jogador’:
+fisica.c:341:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+fisica.c: In function ‘Colisao_Impacto_Inimigo’:
+fisica.c:347:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^

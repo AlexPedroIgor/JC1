@@ -57,7 +57,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 	//
 	// ****************
-	// PLANO DE FUNDO | inicio
+	// PLANO DE FUNDO | fim
 	// ****************
 	//
 
@@ -112,11 +112,12 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
+				// Movimento do jogador
+				Movimenta_Jogador(jogador1, NULL);
+
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					Roda_Pause(renderer, event, gFundo, jogador1, NULL);
-				// Movimento do jogador
-				Movimenta_Jogador(jogador1, NULL);
 			}
 		}
 
@@ -520,11 +521,213 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	Jogador* jogador1, Jogador* jogador2)
 {
+	// Variavel para manter o loop do pause
 	int pauseRodando = VERDADEIRO;
+
+	// Variavel para carregar imagens
+	SDL_Surface* Loading_Surf = NULL;
+
+	// *********************************************************************
+
+	//
+	// *******
+	// PAUSE | inicio
+	// *******
+	//
+
+	// Variavel para conter plano de fundo
+	SDL_Texture* gPause = NULL;
+
+	// Carrega plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/pause.png");
+
+	// Carrega imagem na tela
+	gPause = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpa variavel Loading_Surf
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect pause;
+
+	pause.x = 275;
+	pause.y = 150;
+	pause.w = 250;
+	pause.h = 50;
+
+	//
+	// *******
+	// PAUSE | fim
+	// *******
+	//
+
+	// *********************************************************************
+
+	//
+	// ****************
+	// CONTINUAR JOGO | inicio
+	// ****************
+	//
+
+	// Variavel que carrega a opcao de iniciar o jogo
+	SDL_Texture* gContinuar = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/iniciar_jogo.png");
+
+	// Carregando imagem na tela
+	gContinuar = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao de iniciar o jogo pressionado
+	SDL_Texture* gContinuar_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/iniciar_jogo_pressionado.png");
+
+	// Carregando imagem na tela
+	gContinuar_pressionado = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect continuar;
+
+	continuar.x = 275;
+	continuar.y = 250;
+	continuar.w = 250;
+	continuar.h = 50;
+
+	//
+	// **************
+	// INICIAR JOGO | fim
+	// **************
+	//
+
+	// *********************************************************************
+
+	//
+	// ********
+	// OPCOES | inicio
+	// ********
+	//
+
+	// Variavel que carrega a opcao do menu de opcoes
+	SDL_Texture* gOpcoes = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/opcoes.png");
+
+	// Carregando imagem na tela
+	gOpcoes = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao do menu de opcoes pressionado
+	SDL_Texture* gOpcoes_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/opcoes_pressionado.png");
+
+	// Carregando imagem na tela
+	gOpcoes_pressionado = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect opcoes;
+
+	opcoes.x = 275;
+	opcoes.y = 300;
+	opcoes.w = 250;
+	opcoes.h = 50;
+
+	//
+	// ********
+	// OPCOES | fim
+	// ********
+	//
+
+	// *********************************************************************
+
+	//
+	// **************
+	// SAIR DO JOGO | inicio
+	// **************
+	//
+
+	// Variavel que carrega a opcao de sair do jogo
+	SDL_Texture* gSair = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/sair.png");
+
+	// Carregando imagem na tela
+	gSair = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao de sair do jogo
+	SDL_Texture* gSair_pressionado = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/sair_pressionado.png");
+
+	// Carregando imagem na tela
+	gSair_pressionado = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect sair;
+
+	sair.x = 275;
+	sair.y = 350;
+	sair.w = 250;
+	sair.h = 50;
+
+	//
+	// **************
+	// SAIR DO JOGO | fim
+	// **************
+	//
+
+	// *********************************************************************
+
+	// Variavel para uso do som nas selecoes
+	int SELECIONADO;
+
+	#define BOTAO_CONTINUAR			1
+	#define BOTAO_OPCOES			2
+	#define BOTAO_SAIR				3
+
+	SELECIONADO = BOTAO_CONTINUAR;
 
 	// Loop do pause
 	while (pauseRodando)
 	{
+		// Salva posicao do mouse
+		struct POSICAO_DO_MOUSE
+		{
+			int x, y;
+		}posicao_do_mouse;
+
+		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
 		{
@@ -540,14 +743,84 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				// Encerra o pause
-				if (event.key.keysym.sym == SDLK_ESCAPE)
-					pauseRodando = FALSO;
+				
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_ESCAPE: // Encerra o pause
+						Efeito_Sonoro(SELECT);
+						SDL_Delay(400); // Delay de 0.4 segundos
+						pauseRodando = FALSO;
+						break;
+
+					case SDLK_UP:
+						switch (SELECIONADO)
+						{
+							case BOTAO_CONTINUAR:
+								break;
+
+							case BOTAO_OPCOES:
+								SELECIONADO = BOTAO_CONTINUAR;
+								Efeito_Sonoro(CLICK);
+								break;
+
+							case BOTAO_SAIR:
+								SELECIONADO = BOTAO_OPCOES;
+								Efeito_Sonoro(CLICK);
+								break;
+						}
+						break;
+
+					case SDLK_DOWN:
+						switch (SELECIONADO)
+						{
+							case BOTAO_CONTINUAR:
+								SELECIONADO = BOTAO_OPCOES;
+								Efeito_Sonoro(CLICK);
+								break;
+
+							case BOTAO_OPCOES:
+								SELECIONADO = BOTAO_SAIR;
+								Efeito_Sonoro(CLICK);
+								break;
+
+							case BOTAO_SAIR:
+							break;
+						}
+						break;
+
+					case SDLK_RETURN:
+						switch (SELECIONADO)
+						{
+							case BOTAO_CONTINUAR:
+								Efeito_Sonoro(SELECT);
+								SDL_Delay(400); // Delay de 0.4 segundos
+								pauseRodando = FALSO;
+								break;
+
+							case BOTAO_OPCOES:
+								Efeito_Sonoro(SELECT);
+								break;
+
+							case BOTAO_SAIR:
+								Efeito_Sonoro(VOLTAR);
+								SDL_Delay(500); // Delay de 0.5 segundos
+								pauseRodando = FALSO;
+								singlePlayerRodando = FALSO;
+								multiPlayerRodando = FALSO;
+								estadoDeJogo = MENU_PRINCIPAL;
+								break;
+						}
+						break;
+				}
 			}
 		}
 
 		// Limpa tela anterior
 		SDL_RenderClear(renderer);
+
+		//
+		// Rendezira jogo pausado
+		//
 
 		// Renderiza plano de fundo
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
@@ -559,10 +832,85 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 		if (jogador2 != NULL)
 			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
 
+		// **********************************************************************************
+
+		//
+		// Renderiza partes da tela do pause
+		//
+
+		// Pause escrito em tela
+		SDL_RenderCopy(renderer, gPause, NULL, &pause);
+
+		//
+		// Animacao das opcoes
+		//
+
+		// Continuar jogo - animacao
+		if ((posicao_do_mouse.x > 450
+			&& posicao_do_mouse.x < 700
+			&& posicao_do_mouse.y > 250
+			&& posicao_do_mouse.y < 300)
+			|| SELECIONADO == BOTAO_CONTINUAR)
+		{
+			SDL_RenderCopy(renderer, gContinuar_pressionado, NULL, &continuar);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_CONTINUAR)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_CONTINUAR;
+		}
+		else
+			SDL_RenderCopy(renderer, gContinuar, NULL, &continuar);
+
+		// Menu de opcoes - animacao
+		if ((posicao_do_mouse.x > 275
+			&& posicao_do_mouse.x < 575
+			&& posicao_do_mouse.y > 300
+			&& posicao_do_mouse.y < 350)
+			|| SELECIONADO == BOTAO_OPCOES)
+		{
+			SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_OPCOES)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_OPCOES;
+		}
+		else
+			SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
+
+		// Sair do jogo - animacao
+		if ((posicao_do_mouse.x > 275
+			&& posicao_do_mouse.x < 575
+			&& posicao_do_mouse.y > 350
+			&& posicao_do_mouse.y < 400)
+			|| SELECIONADO == BOTAO_SAIR)
+		{
+			SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_SAIR)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_SAIR;
+		}
+		else
+			SDL_RenderCopy(renderer, gSair, NULL, &sair);
+
+		// **********************************************************************************
+
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
 		// FPS
 		SDL_Delay( 1000/FPS );
-	}	
+	}
+
+	// Limpando memoria - imagens
+	SDL_DestroyTexture(gPause);
+	SDL_DestroyTexture(gContinuar);
+	SDL_DestroyTexture(gContinuar_pressionado);
+	SDL_DestroyTexture(gOpcoes);
+	SDL_DestroyTexture(gOpcoes_pressionado);
+	SDL_DestroyTexture(gSair);
+	SDL_DestroyTexture(gSair_pressionado);
 }

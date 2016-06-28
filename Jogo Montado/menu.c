@@ -17,7 +17,7 @@
 #define SELECAO_DE_PERSONAGEM2			5
 
 // Inicia na tela inicial
-int modoDeMenu = TELA_INICIAL;
+int modoDeMenu;
 int menuRodando = VERDADEIRO;
 
 // Funcoes utilizadas
@@ -33,6 +33,9 @@ void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jog
 // Inicia menu principal
 void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
+	// Inicia na tela inicial
+	modoDeMenu = TELA_INICIAL;
+
 	// Toca musica da fundo
 	Toca_Musica(MUSICA_INICIAL);
 
