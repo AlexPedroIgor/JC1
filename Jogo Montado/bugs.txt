@@ -1,1 +1,10 @@
-- colisao entre jogadores no modo multiplayer 
+Bugs para corrigir com pressa:
+
+- 
+
+
+Bugs para corrigir sem pressa:
+
+- colisão entre perímetros não funciona muito bem se os jogadores se movimentarem devagar, tecla por tecla
+
+- colisão circular não funciona
