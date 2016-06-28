@@ -279,6 +279,71 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
 
+		// ***********************************************************************
+
+		// Limpa tela anterior
+		SDL_RenderClear(renderer);
+
+		// Renderiza plano de fundo
+		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+
+		//
+		// Animacao das opcoes
+		//
+
+		// Iniciar jogo - animacao
+		if ((posicao_do_mouse.x > 450
+			&& posicao_do_mouse.x < 700
+			&& posicao_do_mouse.y > 250
+			&& posicao_do_mouse.y < 300)
+			|| SELECIONADO == BOTAO_INICIAR_JOGO)
+		{
+			SDL_RenderCopy(renderer, gIniciar_Jogo_pressionado, NULL, &iniciar_jogo);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_INICIAR_JOGO)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_INICIAR_JOGO;
+		}
+		else
+			SDL_RenderCopy(renderer, gIniciar_Jogo, NULL, &iniciar_jogo);
+
+		// Menu de opcoes - animacao
+		if ((posicao_do_mouse.x > 450
+			&& posicao_do_mouse.x < 700
+			&& posicao_do_mouse.y > 300
+			&& posicao_do_mouse.y < 350)
+			|| SELECIONADO == BOTAO_OPCOES)
+		{
+			SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_OPCOES)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_OPCOES;
+		}
+		else
+			SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
+
+		// Sair do jogo - animacao
+		if ((posicao_do_mouse.x > 450
+			&& posicao_do_mouse.x < 700
+			&& posicao_do_mouse.y > 350
+			&& posicao_do_mouse.y < 400)
+			|| SELECIONADO == BOTAO_SAIR)
+		{
+			SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_SAIR)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_SAIR;
+		}
+		else
+			SDL_RenderCopy(renderer, gSair, NULL, &sair);
+
+		// ***********************************************************************
+
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
 		{
@@ -371,10 +436,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 				//
 
 				// Iniciar jogo
-				if (posicao_do_mouse.x > 450
-					&& posicao_do_mouse.x < 700
-					&& posicao_do_mouse.y > 250
-					&& posicao_do_mouse.y < 300)
+				if (SELECIONADO == BOTAO_INICIAR_JOGO)
 				{
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
@@ -383,20 +445,14 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 				}
 
 				// Menu de opcoes
-				if (posicao_do_mouse.x > 450
-					&& posicao_do_mouse.x < 700
-					&& posicao_do_mouse.y > 300
-					&& posicao_do_mouse.y < 350)
+				if (SELECIONADO == BOTAO_OPCOES)
 				{
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 
 				// Sair do jogo
-				if (posicao_do_mouse.x > 450
-					&& posicao_do_mouse.x < 700
-					&& posicao_do_mouse.y > 350
-					&& posicao_do_mouse.y < 400)
+				if (SELECIONADO == BOTAO_SAIR)
 				{
 					Efeito_Sonoro(VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
@@ -406,67 +462,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 				}
 			}
 		}
-		// Limpa tela anterior
-		SDL_RenderClear(renderer);
-
-		// Renderiza plano de fundo
-		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
-
-		//
-		// Animacao das opcoes
-		//
-
-		// Iniciar jogo - animacao
-		if ((posicao_do_mouse.x > 450
-			&& posicao_do_mouse.x < 700
-			&& posicao_do_mouse.y > 250
-			&& posicao_do_mouse.y < 300)
-			|| SELECIONADO == BOTAO_INICIAR_JOGO)
-		{
-			SDL_RenderCopy(renderer, gIniciar_Jogo_pressionado, NULL, &iniciar_jogo);
-
-			// Animacao de som
-			if (SELECIONADO != BOTAO_INICIAR_JOGO)
-				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_INICIAR_JOGO;
-		}
-		else
-			SDL_RenderCopy(renderer, gIniciar_Jogo, NULL, &iniciar_jogo);
-
-		// Menu de opcoes - animacao
-		if ((posicao_do_mouse.x > 450
-			&& posicao_do_mouse.x < 700
-			&& posicao_do_mouse.y > 300
-			&& posicao_do_mouse.y < 350)
-			|| SELECIONADO == BOTAO_OPCOES)
-		{
-			SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
-
-			// Animacao de som
-			if (SELECIONADO != BOTAO_OPCOES)
-				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_OPCOES;
-		}
-		else
-			SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
-
-		// Sair do jogo - animacao
-		if ((posicao_do_mouse.x > 450
-			&& posicao_do_mouse.x < 700
-			&& posicao_do_mouse.y > 350
-			&& posicao_do_mouse.y < 400)
-			|| SELECIONADO == BOTAO_SAIR)
-		{
-			SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
-
-			// Animacao de som
-			if (SELECIONADO != BOTAO_SAIR)
-				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_SAIR;
-		}
-		else
-			SDL_RenderCopy(renderer, gSair, NULL, &sair);
-
+		
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
@@ -655,6 +651,54 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 
 		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
 
+		// ************************************************************
+
+		// Limpa tela anterior
+		SDL_RenderClear(renderer);
+
+		// Renderiza plano de fundo
+		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+
+		//
+		// Animacao das opcoes
+		//
+
+		// 1 Jogador - animacao
+		if ((posicao_do_mouse.x > 275
+			&& posicao_do_mouse.x < 525
+			&& posicao_do_mouse.y > 250
+			&& posicao_do_mouse.y < 300)
+			|| SELECIONADO == BOTAO_1JOGADOR)
+		{
+			SDL_RenderCopy(renderer, g1Jogador_pressionado, NULL, &iniciar_jogo);
+			
+			// Animacao de som
+			if (SELECIONADO != BOTAO_1JOGADOR)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_1JOGADOR;
+		}
+		else
+			SDL_RenderCopy(renderer, g1Jogador, NULL, &iniciar_jogo);
+
+		// 2 Jogadores - animacao
+		if ((posicao_do_mouse.x > 275
+			&& posicao_do_mouse.x < 525
+			&& posicao_do_mouse.y > 300
+			&& posicao_do_mouse.y < 350)
+			|| SELECIONADO == BOTAO_2JOGADORES)
+		{
+			SDL_RenderCopy(renderer, g2Jogadores_pressionado, NULL, &opcoes);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_2JOGADORES)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_2JOGADORES;
+		}
+		else
+			SDL_RenderCopy(renderer, g2Jogadores, NULL, &opcoes);
+
+		// ************************************************************
+
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
 		{
@@ -742,10 +786,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 				//
 
 				// 1 Jogador
-				if (posicao_do_mouse.x > 275
-					&& posicao_do_mouse.x < 525
-					&& posicao_do_mouse.y > 250
-					&& posicao_do_mouse.y < 300)
+				if (SELECIONADO == BOTAO_1JOGADOR)
 				{
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
@@ -755,10 +796,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 				}
 
 				// 2 Jogadores
-				if (posicao_do_mouse.x > 275
-					&& posicao_do_mouse.x < 525
-					&& posicao_do_mouse.y > 300
-					&& posicao_do_mouse.y < 350)
+				if (SELECIONADO == BOTAO_2JOGADORES)
 				{
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
@@ -768,50 +806,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 				}
 			}
 		}
-		// Limpa tela anterior
-		SDL_RenderClear(renderer);
-
-		// Renderiza plano de fundo
-		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
-
-		//
-		// Animacao das opcoes
-		//
-
-		// 1 Jogador - animacao
-		if ((posicao_do_mouse.x > 275
-			&& posicao_do_mouse.x < 525
-			&& posicao_do_mouse.y > 250
-			&& posicao_do_mouse.y < 300)
-			|| SELECIONADO == BOTAO_1JOGADOR)
-		{
-			SDL_RenderCopy(renderer, g1Jogador_pressionado, NULL, &iniciar_jogo);
-			
-			// Animacao de som
-			if (SELECIONADO != BOTAO_1JOGADOR)
-				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_1JOGADOR;
-		}
-		else
-			SDL_RenderCopy(renderer, g1Jogador, NULL, &iniciar_jogo);
-
-		// 2 Jogadores - animacao
-		if ((posicao_do_mouse.x > 275
-			&& posicao_do_mouse.x < 525
-			&& posicao_do_mouse.y > 300
-			&& posicao_do_mouse.y < 350)
-			|| SELECIONADO == BOTAO_2JOGADORES)
-		{
-			SDL_RenderCopy(renderer, g2Jogadores_pressionado, NULL, &opcoes);
-
-			// Animacao de som
-			if (SELECIONADO != BOTAO_2JOGADORES)
-				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_2JOGADORES;
-		}
-		else
-			SDL_RenderCopy(renderer, g2Jogadores, NULL, &opcoes);
-
+		
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
