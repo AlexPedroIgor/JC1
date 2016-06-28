@@ -532,7 +532,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	//	*****************
 	SDL_Texture* gEscurecer = NULL	;
 
-	Loading_Surf = IMG_Load("arte/fundo/Esucrecer.png"); 
+	Loading_Surf = IMG_Load("arte/fundo/Escurecer.png"); 
 
 	gEscurecer = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
