@@ -7,7 +7,7 @@
 #include "main.h"
 
 // Funcoes de colisao
-int Colisao_Circular(Objeto* objeto1, Objeto* bjeto2);
+int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
 int Colisao_Retangular(Objeto* Objeto1, Objeto* Objeto2);
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
 int Colisao_LimiteDeTela(Objeto* objeto);
