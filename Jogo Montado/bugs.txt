@@ -1,6 +1,6 @@
 Bugs para corrigir com pressa:
 
-- Jogo travando quando seleciona a opção de sair do pause e ir para o menu principal
+- Jogo fica lento quando clica pelo mouse
 
 
 Bugs para corrigir sem pressa:

@@ -18,7 +18,7 @@
 
 // Inicia na tela inicial
 int modoDeMenu;
-int menuRodando = VERDADEIRO;
+int menuRodando;
 
 // Funcoes utilizadas
 void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
@@ -35,6 +35,7 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogado
 {
 	// Inicia na tela inicial
 	modoDeMenu = TELA_INICIAL;
+	menuRodando = VERDADEIRO;
 
 	// Toca musica da fundo
 	Toca_Musica(MUSICA_INICIAL);
