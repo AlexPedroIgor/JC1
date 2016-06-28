@@ -828,6 +828,38 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 						break;
 				}
 			}
+			// Eventos de mouse
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				//
+				// Acoes
+				//
+
+				// Continuar jogo
+				if (SELECIONADO == BOTAO_CONTINUAR)
+				{
+					Efeito_Sonoro(SELECT);
+					SDL_Delay(400); // Delay de 0.4 segundos
+					pauseRodando = FALSO;
+				}
+
+				// Opcoes
+				if (SELECIONADO == BOTAO_OPCOES)
+				{
+					Efeito_Sonoro(SELECT);
+					SDL_Delay(400); // Delay de 0.4 segundos
+				}
+
+				// Sair
+				if (SELECIONADO == BOTAO_SAIR)
+				{
+					Efeito_Sonoro(VOLTAR);
+					SDL_Delay(500); // Delay de 0.5 segundos
+					pauseRodando = FALSO;
+					singlePlayerRodando = FALSO;
+					multiPlayerRodando = FALSO;
+					estadoDeJogo = MENU_PRINCIPAL;
+				}
 		}
 
 		// Limpa tela anterior
