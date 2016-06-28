@@ -574,7 +574,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	SDL_Texture* gContinuar = NULL;
 
 	// Carregando plano de fundo na memoria
-	Loading_Surf = IMG_Load("arte/menu/iniciar_jogo.png");
+	Loading_Surf = IMG_Load("arte/menu/continuar.png");
 
 	// Carregando imagem na tela
 	gContinuar = SDL_CreateTextureFromSurface(renderer,
@@ -587,7 +587,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	SDL_Texture* gContinuar_pressionado = NULL;
 
 	// Carregando plano de fundo na memoria
-	Loading_Surf = IMG_Load("arte/menu/iniciar_jogo_pressionado.png");
+	Loading_Surf = IMG_Load("arte/menu/continuar_pressionado.png");
 
 	// Carregando imagem na tela
 	gContinuar_pressionado = SDL_CreateTextureFromSurface(renderer,
