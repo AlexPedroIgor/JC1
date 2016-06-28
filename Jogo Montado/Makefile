@@ -10,7 +10,7 @@
 all: meujogo
 meujogo: main.o menu.o jogo.o som.o config.o fisica.o
 		# Compilando os objetos
-		gcc -o meujogo som.o jogo.o menu.o config.o main.o fisica.o -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/meujogo.gccmessages
+		gcc -o meujogo som.o jogo.o menu.o config.o main.o fisica.o -lm -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/meujogo.gccmessages
 #------> Execucao dos arquivos
 som.o: som.c main.h som.h
 		gcc -o som.o -c som.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/som.gccmessages
@@ -25,7 +25,7 @@ config.o: config.c main.h
 		gcc -o config.o -c config.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/config.gccmessages
 #
 fisica.o: fisica.c main.h config.h
-		gcc -o fisica.o -c fisica.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/fisica.gccmessages
+		gcc -o fisica.o -c fisica.c -Wall -lm -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/fisica.gccmessages
 #
 main.o: main.c main.h menu.h jogo.h config.h fisica.h
 		gcc -o main.o -c main.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/main.gccmessages
