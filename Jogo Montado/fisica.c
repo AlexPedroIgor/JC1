@@ -9,7 +9,6 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */ 
 
-
 #include "main.h"
 #include "fisica.h"
 #include "config.h"
@@ -82,48 +81,39 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 	printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
 
 	// Superior
-	if (objeto1->movimento.cima)
-	{
-		if (objeto1->posicao.y > objeto2->posicao.y + objeto2->frame.h)
-		{
-
-			if ( (objeto1->posicao.x >= objeto2->posicao.x
-					&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w)
-				|| (objeto1->posicao.x + objeto1->frame.w >= objeto2->posicao.w
-					&& objeto1->posicao.x + objeto1->frame.w <= objeto2->posicao.x + objeto2->frame.w))
-			{
-
-				return VERDADEIRO;
-			}
-		}
-	}
-
-
+	if ( (objeto1->posicao.y >= objeto2->posicao.y )
+		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
+		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + 30
+		&& objeto1->movimento.cima)
+		return VERDADEIRO;
 
 	// Inferior
-	else if ( (objeto1->posicao.y + objeto1->frame.h >= objeto2->posicao.y)
-		&& objeto1->posicao.x >= objeto2->posicao.x
-		&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w
+	else if ( (objeto1->posicao.y <= objeto2->posicao.y)
+		&& objeto1->posicao.y   + objeto1->frame.h  >= objeto2->posicao.y
+		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + 30
 		&& objeto1->movimento.baixo)
 		return VERDADEIRO;
 
 	// Lateral esquerda
-	else if ( (objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w)
-		&& objeto1->posicao.y >= objeto2->posicao.y
-		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
+	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 35)
+		&& objeto1->posicao.x >= objeto2->posicao.x 
+		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
+		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.esquerda)
 		return VERDADEIRO;
 
 	// Lateral direita
-	else if ( (objeto1->posicao.x + objeto1->frame.w >= objeto2->posicao.x)
-		&& objeto1->posicao.y >= objeto2->posicao.y
-		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
+	else if ( (objeto1->posicao.x + 35 >= objeto2->posicao.x )
+		&& objeto1->posicao.x <= objeto2->posicao.x
+		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
+		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.direita)
 		return VERDADEIRO;
 
 
 	else
-		printf("oi\n");
 		return FALSO;
 }
 
@@ -202,7 +192,9 @@ int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2)
 
 	// Verificacao por meio da funcao de colisao de objetos
 	if (Colisao_Perimetro(&objeto1, &objeto2))
+	{
 		return VERDADEIRO;
+	}
 	else
 		return FALSO;
 }
