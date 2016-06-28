@@ -528,7 +528,22 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 	SDL_Surface* Loading_Surf = NULL;
 
 	// *********************************************************************
+	//	Esucrecer a tela| inicio
+	//	*****************
+	SDL_Texture* gEscurecer = NULL	;
 
+	Loading_Surf = IMG_Load("arte/fundo/Esucrecer.png"); 
+
+	gEscurecer = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	SDL_Rect escurecer;
+
+	escurecer.x = 0;
+	escurecer.y = 0;
+	escurecer.w = SCREEN_WIDTH;
+	escurecer.h = SCREEN_HEIGHT;
 	//
 	// *******
 	// PAUSE | inicio
@@ -839,6 +854,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 		//
 
 		// Pause escrito em tela
+		SDL_RenderCopy(renderer, gEscurecer, NULL, &escurecer);
 		SDL_RenderCopy(renderer, gPause, NULL, &pause);
 
 		//
