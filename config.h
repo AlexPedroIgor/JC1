@@ -98,7 +98,7 @@ typedef struct
 }Objeto;
 
 // Struct para mapas
-struct
+typedef struct
 {
 	int numero;
 
@@ -112,7 +112,7 @@ struct
 		{
 			struct
 			{
-				char local[];
+				char local[22];
 
 				SDL_Texture* sprite;
 
