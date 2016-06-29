@@ -6,6 +6,38 @@
 
 #include "main.h"
 
+// Estrutura para inimigos
+typedef struct 
+{
+	// Numero do inimigo
+	int numero;
+
+	// Movimentacao
+	struct
+	{
+		int cima;
+		int baixo;
+		int esquerda;
+		int direita;
+		int ataque;
+	} movimento;
+
+	// Velocidade de movimento
+	struct
+	{
+		float x, y;
+	}velocidade;
+
+	// Dimensoes dos sprites da imagem
+	int fullW, fullH;
+
+	// Rect para frame e posicao em tela
+	SDL_Rect frame, posicao;
+
+	// Imagem do sprite do inimigo
+	SDL_Texture* sprite;
+}Inimigo;
+
 // Funcoes
 
 #endif
