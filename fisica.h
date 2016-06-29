@@ -5,6 +5,7 @@
 #define FISICA_H
 
 #include "main.h"
+#include "inimigo.h"
 
 // Funcoes de colisao
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);

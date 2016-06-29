@@ -27,7 +27,7 @@ config.o: config.c main.h
 inimigo.o: inimigo.c main.h config.h
 		gcc -o inimigo.o -c inimigo.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/inimigo.gccmessages
 #
-fisica.o: fisica.c main.h config.h
+fisica.o: fisica.c main.h config.h inimigo.h
 		gcc -o fisica.o -c fisica.c -Wall -lm -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/fisica.gccmessages
 #
 main.o: main.c main.h menu.h jogo.h config.h fisica.h
