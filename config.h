@@ -97,38 +97,6 @@ typedef struct
 	SDL_Texture* sprite;
 }Objeto;
 
-// Estrutura para inimigos
-typedef struct 
-{
-	// Numero do inimigo
-	int numero;
-
-	// Movimentacao
-	struct
-	{
-		int cima;
-		int baixo;
-		int esquerda;
-		int direita;
-		int ataque;
-	} movimento;
-
-	// Velocidade de movimento
-	struct
-	{
-		float x, y;
-	}velocidade;
-
-	// Dimensoes dos sprites da imagem
-	int fullW, fullH;
-
-	// Rect para frame e posicao em tela
-	SDL_Rect frame, posicao;
-
-	// Imagem do sprite do inimigo
-	SDL_Texture* sprite;
-}Inimigo;
-
 // Funcoes
 Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
