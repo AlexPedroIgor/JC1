@@ -9,6 +9,7 @@
 
 #include "main.h"
 #include "inimigo.h"
+#include "config.h"
 
 
 // fim

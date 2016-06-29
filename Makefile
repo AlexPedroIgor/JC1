@@ -24,7 +24,7 @@ menu.o: menu.c som.h main.h config.h
 config.o: config.c main.h
 		gcc -o config.o -c config.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/config.gccmessages
 #
-inimigo.o: inimigo.c main.h
+inimigo.o: inimigo.c main.h config.h
 		gcc -o inimigo.o -c inimigo.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/inimigo.gccmessages
 #
 fisica.o: fisica.c main.h config.h
