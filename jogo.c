@@ -49,7 +49,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	SDL_Texture* gFundo = NULL;
 
 	// Carrega plano de fundo na memoria
-	Loading_Surf = IMG_Load("arte/fundo/fundo1.jpg");
+	Loading_Surf = IMG_Load("arte/fundo/fundo01.jpg");
 
 	// Carrega imagem na tela
 	gFundo = SDL_CreateTextureFromSurface(renderer,
@@ -178,7 +178,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	SDL_Texture* gFundo = NULL;
 
 	// Carrega plano de fundo na memoria
-	Loading_Surf = IMG_Load("arte/fundo/fundo1.jpg");
+	Loading_Surf = IMG_Load("arte/fundo/fundo01.jpg");
 
 	// Carrega imagem na tela
 	gFundo = SDL_CreateTextureFromSurface(renderer,
