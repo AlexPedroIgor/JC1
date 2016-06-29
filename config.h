@@ -97,6 +97,33 @@ typedef struct
 	SDL_Texture* sprite;
 }Objeto;
 
+// Struct para mapas
+struct
+{
+	int numero;
+
+	struct
+	{
+		char local[22];
+		
+		SDL_Texture* sprite;
+
+		struct
+		{
+			struct
+			{
+				char local[];
+
+				SDL_Texture* sprite;
+
+				SDL_Rect frame, posicao;
+
+			}cima, baixo, esquerda, direita;
+
+		}portal;
+	}mapa;
+}Fase;
+
 // Funcoes
 Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
