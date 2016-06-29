@@ -1,6 +1,6 @@
 Bugs para corrigir com pressa:
 
-- Jogo fica lento quando clica pelo mouse
+- Menu fica lento quando clica pelo mouse
 
 
 Bugs para corrigir sem pressa:
