@@ -31,6 +31,14 @@
 #define QUADRANTE3		7
 #define QUADRANTE4		8
 
+// Localizacao dos portais
+#define PORTAL_1D "arte/portal/vd.png"
+#define PORTAL_1L "arte/portal/vl.png"
+#define PORTAL_2D "arte/portal/ad.png"
+#define PORTAL_2L "arte/portal/al.png"
+#define PORTAL_3D "arte/portal/cd.png"
+#define PORTAL_3L "arte/portal/cl.png"
+
 // Estrutura para jogador
 typedef struct 
 {
@@ -100,28 +108,43 @@ typedef struct
 // Struct para mapas
 typedef struct
 {
+	// Numero da fase
 	int numero;
 
+	// Vetor de fases
 	struct
 	{
+		// Variavel que contem localizacao do sprite
 		char local[22];
 		
+		// Sprite
 		SDL_Texture* sprite;
 
+		// Portais
 		struct
 		{
 			struct
 			{
-				char local[22];
+				// Variavel que contem localizacao dos portais
+				char local[18];
 
+				// Tipo de portal
+				int tipo;
+				/*
+				Portal 1 - Portal Vermelho		- Inimigos saindo do portal
+				Portal 2 - Portal Azul			- Jogadores podem passar
+				Portal 3 - Portal Cinza			- Portal desativado
+				*/
+
+				// Sprite dos portais
 				SDL_Texture* sprite;
 
+				// Rect para portais
 				SDL_Rect frame, posicao;
 
 			}cima, baixo, esquerda, direita;
-
 		}portal;
-	}mapa;
+	}*mapa;
 }Fase;
 
 // Funcoes

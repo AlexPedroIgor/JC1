@@ -74,3 +74,38 @@ void Carrega_Teclas_de_Acao(Jogador* jogador)
 			break;
 	}
 }
+
+/*
+// Carrega fases do jogo
+Fase Carrega_Fases(SDL_Renderer* renderer)
+{
+	// Inicializa variavel
+	Fase fase;
+
+	// Carrega localizacao dos mapas
+	int i;
+
+	for (i = 0; i != 4; i++)
+	{
+		switch (i)
+		{
+			case 0:
+				fase.mapa[i].local = "arte/fundo/fundo01.jpg";
+				break;
+
+			case 1:
+				fase.mapa[i].local = "arte/fundo/fundo02.jpg";
+				break;
+
+			case 2:
+				fase.mapa[i].local = "arte/fundo/fundo03.jpg";
+				break;
+
+			case 3:
+				fase.mapa[i].local = "arte/fundo/fundoB1.jpg";
+				break;
+		}
+		
+	}
+}
+*/

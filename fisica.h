@@ -17,6 +17,10 @@ int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2);
 int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo);
 int Colisao_Impacto_Jogador(Jogador* jogador, Objeto* objeto);
 int Colisao_Impacto_Inimigo(Inimigo* inimigo, Objeto* objeto);
+int Distancia(Objeto* objeto1, Objeto* objeto2);
+int Distancia(Objeto* objeto1, Objeto* objeto2);
+Objeto Converte_Jogador_Objeto(Jogador* Jogador);
+Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
 
 #endif
 

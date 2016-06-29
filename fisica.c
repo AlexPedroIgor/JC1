@@ -23,6 +23,10 @@ int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2);
 int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo);
 int Colisao_Impacto_Jogador(Jogador* jogador, Objeto* objeto);
 int Colisao_Impacto_Inimigo(Inimigo* inimigo, Objeto* objeto);
+int Distancia(Objeto* objeto1, Objeto* objeto2);
+Objeto Converte_Jogador_Objeto(Jogador* Jogador);
+Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
+
 
 // Sistema de colisao em circulos (verifica tangentes dos circulos)
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2)
@@ -344,4 +348,114 @@ int Colisao_Impacto_Jogador(Jogador* jogador, Objeto* objeto)
 int Colisao_Impacto_Inimigo(Inimigo* inimigo, Objeto* objeto)
 {
 
+}
+
+// Verifica distancia entre dois objetos
+int Distancia(Objeto* objeto1, Objeto* objeto2)
+{
+	struct
+	{
+		int raio;
+		struct
+		{
+			int x, y;
+		}centro;
+	}circulo1, circulo2;
+
+	circulo1.centro.x = objeto1->posicao.x + (objeto1->frame.w/2);
+	circulo1.centro.y = objeto1->posicao.y + (objeto1->frame.h/2);
+	circulo1.raio = objeto1->frame.w/2;
+
+	circulo2.centro.x = objeto2->posicao.x + (objeto2->frame.w/2);
+	circulo2.centro.y = objeto2->posicao.y + (objeto2->frame.h/2);
+	circulo2.raio = objeto2->frame.w/2;
+
+	int raios = circulo1.raio + circulo2.raio;
+
+	int distancia, quadrante;
+
+	// Calculo da distancia
+
+	// Eixo X
+	if (circulo1.centro.x == circulo2.centro.x)
+	{
+		distancia = abs(circulo1.centro.y - circulo2.centro.y);
+	}
+	// Eixo Y
+	else if (circulo1.centro.y == circulo2.centro.y)
+		{
+			distancia = abs(circulo1.centro.x - circulo2.centro.x);
+		}
+	// Quadrante 1
+	else if (circulo1.centro.x > circulo2.centro.x
+		&& circulo2.centro.y > circulo2.centro.y)
+	{
+		quadrante = 1;
+		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
+			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
+	}
+	// Quadrante 2
+	else if (circulo1.centro.x < circulo2.centro.x
+		&& circulo1.centro.y > circulo2.centro.y)
+	{
+		quadrante = 2;
+		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
+			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
+	}
+	// Quatrande 3
+	else if (circulo1.centro.x < circulo2.centro.x
+		&& circulo1.centro.y < circulo2.centro.y)
+	{
+		quadrante = 3;
+		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
+			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
+	}
+	// Quadrante 4
+	else if (circulo1.centro.x > circulo2.centro.x
+		&& circulo1.centro.y < circulo2.centro.y)
+	{
+		quadrante = 4;
+		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
+			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
+	}
+
+	return distancia;
+}
+
+// Converte jogador em objeto
+Objeto Converte_Jogador_Objeto(Jogador* jogador)
+{
+	// Conversao de jogadores em objetos
+	Objeto objeto;
+
+	// Jogador 1
+	objeto.posicao.x = jogador->posicao.x;
+	objeto.posicao.y = jogador->posicao.y;
+	objeto.frame.w = jogador->frame.w;
+	objeto.frame.h = jogador->frame.h;
+	objeto.movimento.cima = jogador->movimento.cima;
+	objeto.movimento.baixo = jogador->movimento.baixo;
+	objeto.movimento.esquerda = jogador->movimento.esquerda;
+	objeto.movimento.direita = jogador->movimento.direita;
+
+	return objeto;
+}
+
+// Converte inimigo em objeto
+Objeto Converte_Inimigo_Objeto(Inimigo* inimigo)
+{
+	// Conversao de jogadores em objetos
+	Objeto objeto;
+
+	// Jogador 1
+	objeto.posicao.x = inimigo->posicao.x;
+	objeto.posicao.y = inimigo->posicao.y;
+	objeto.frame.w = inimigo->frame.w;
+	objeto.frame.h = inimigo->frame.h;
+	objeto.movimento.cima = inimigo->movimento.cima;
+	objeto.movimento.baixo = inimigo->movimento.baixo;
+	objeto.movimento.esquerda = inimigo->movimento.esquerda;
+	objeto.movimento.direita = inimigo->movimento.direita;
+
+	return objeto;
 }

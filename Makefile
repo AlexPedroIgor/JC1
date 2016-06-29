@@ -10,7 +10,7 @@
 all: meujogo
 meujogo: main.o menu.o jogo.o som.o config.o fisica.o inimigo.o
 		# Compilando o jogo
-		gcc -o meujogo som.o jogo.o menu.o config.o main.o fisica.o -lm -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/meujogo.gccmessages
+		gcc -o meujogo som.o jogo.o menu.o config.o main.o fisica.o inimigo.o -lm -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/meujogo.gccmessages
 #------> Execucao dos arquivos
 som.o: som.c main.h som.h
 		gcc -o som.o -c som.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer 2>log/som.gccmessages
