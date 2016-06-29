@@ -75,37 +75,78 @@ void Carrega_Teclas_de_Acao(Jogador* jogador)
 	}
 }
 
-/*
 // Carrega fases do jogo
-Fase Carrega_Fases(SDL_Renderer* renderer)
+Fase Inicializa_Fases(SDL_Renderer* renderer)
 {
 	// Inicializa variavel
 	Fase fase;
 
-	// Carrega localizacao dos mapas
+	// Variaveis dos portais
 	int i;
-
 	for (i = 0; i != 4; i++)
 	{
-		switch (i)
-		{
-			case 0:
-				fase.mapa[i].local = "arte/fundo/fundo01.jpg";
-				break;
+		// Define portal tipo 1 para todos os lados
+		fase.mapa[i].portal.cima.tipo = 1;
+		fase.mapa[i].portal.baixo.tipo = 1;
+		fase.mapa[i].portal.esquerda.tipo = 1;
+		fase.mapa[i].portal.direita.tipo = 1;
 
-			case 1:
-				fase.mapa[i].local = "arte/fundo/fundo02.jpg";
-				break;
+		//
+		// Posicao nos frames
+		//
 
-			case 2:
-				fase.mapa[i].local = "arte/fundo/fundo03.jpg";
-				break;
+		// Cima
+		fase.mapa[i].portal.cima.frame.x = 0;
+		fase.mapa[i].portal.cima.frame.y = 0;
+		fase.mapa[i].portal.cima.frame.w = 0;
+		fase.mapa[i].portal.cima.frame.h = 0;
 
-			case 3:
-				fase.mapa[i].local = "arte/fundo/fundoB1.jpg";
-				break;
-		}
-		
+		// Baixo
+		fase.mapa[i].portal.baixo.frame.x = 0;
+		fase.mapa[i].portal.baixo.frame.y = 0;
+		fase.mapa[i].portal.baixo.frame.w = 0;
+		fase.mapa[i].portal.baixo.frame.h = 0;
+
+		// Esquerda
+		fase.mapa[i].portal.esquerda.frame.x = 0;
+		fase.mapa[i].portal.esquerda.frame.y = 0;
+		fase.mapa[i].portal.esquerda.frame.w = 0;
+		fase.mapa[i].portal.esquerda.frame.h = 0;
+
+		// Direita
+		fase.mapa[i].portal.direita.frame.x = 0;
+		fase.mapa[i].portal.direita.frame.y = 0;
+		fase.mapa[i].portal.direita.frame.w = 0;
+		fase.mapa[i].portal.direita.frame.h = 0;
+
+		//
+		// Posicao na tela
+		//
+
+		// Cima
+		fase.mapa[i].portal.cima.posicao.x = 0;
+		fase.mapa[i].portal.cima.posicao.y = 0;
+		fase.mapa[i].portal.cima.posicao.w = 0;
+		fase.mapa[i].portal.cima.posicao.h = 0;
+
+		// Baixo
+		fase.mapa[i].portal.baixo.posicao.x = 0;
+		fase.mapa[i].portal.baixo.posicao.y = 0;
+		fase.mapa[i].portal.baixo.posicao.w = 0;
+		fase.mapa[i].portal.baixo.posicao.h = 0;
+
+		// Esquerda
+		fase.mapa[i].portal.esquerda.posicao.x = 0;
+		fase.mapa[i].portal.esquerda.posicao.y = 0;
+		fase.mapa[i].portal.esquerda.posicao.w = 0;
+		fase.mapa[i].portal.esquerda.posicao.h = 0;
+
+		// Direita
+		fase.mapa[i].portal.direita.posicao.x = 0;
+		fase.mapa[i].portal.direita.posicao.y = 0;
+		fase.mapa[i].portal.direita.posicao.w = 0;
+		fase.mapa[i].portal.direita.posicao.h = 0;
 	}
+
+	return fase;
 }
-*/

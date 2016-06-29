@@ -39,6 +39,12 @@
 #define PORTAL_3D "arte/portal/cd.png"
 #define PORTAL_3L "arte/portal/cl.png"
 
+// Localizacao dos mapas
+#define MAPA_1 "arte/fundo/fundo01.jpg"
+#define MAPA_2 "arte/fundo/fundo02.jpg"
+#define MAPA_3 "arte/fundo/fundo03.jpg"
+#define MAPA_4 "arte/fundo/fundoB1.jpg"
+
 // Estrutura para jogador
 typedef struct 
 {
@@ -113,10 +119,7 @@ typedef struct
 
 	// Vetor de fases
 	struct
-	{
-		// Variavel que contem localizacao do sprite
-		char local[22];
-		
+	{		
 		// Sprite
 		SDL_Texture* sprite;
 
@@ -125,9 +128,6 @@ typedef struct
 		{
 			struct
 			{
-				// Variavel que contem localizacao dos portais
-				char local[18];
-
 				// Tipo de portal
 				int tipo;
 				/*
