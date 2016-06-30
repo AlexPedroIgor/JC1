@@ -31,14 +31,6 @@
 #define QUADRANTE3		7
 #define QUADRANTE4		8
 
-// Localizacao dos portais
-#define PORTAL_1D "arte/portal/vd.png"
-#define PORTAL_1L "arte/portal/vl.png"
-#define PORTAL_2D "arte/portal/ad.png"
-#define PORTAL_2L "arte/portal/al.png"
-#define PORTAL_3D "arte/portal/cd.png"
-#define PORTAL_3L "arte/portal/cl.png"
-
 // Localizacao dos mapas
 #define MAPA_1 "arte/fundo/fundo01.jpg"
 #define MAPA_2 "arte/fundo/fundo02.jpg"

@@ -107,54 +107,54 @@ Fase Inicializa_Fases()
 	// Cima
 	fase.portal.cima.frame.x = 0;
 	fase.portal.cima.frame.y = 0;
-	fase.portal.cima.frame.w = 0;
-	fase.portal.cima.frame.h = 0;
+	fase.portal.cima.frame.w = 59;
+	fase.portal.cima.frame.h = 30;
 
 	// Baixo
 	fase.portal.baixo.frame.x = 0;
 	fase.portal.baixo.frame.y = 0;
-	fase.portal.baixo.frame.w = 0;
-	fase.portal.baixo.frame.h = 0;
+	fase.portal.baixo.frame.w = 59;
+	fase.portal.baixo.frame.h = 30;
 
 	// Esquerda
 	fase.portal.esquerda.frame.x = 0;
 	fase.portal.esquerda.frame.y = 0;
-	fase.portal.esquerda.frame.w = 0;
-	fase.portal.esquerda.frame.h = 0;
+	fase.portal.esquerda.frame.w = 30;
+	fase.portal.esquerda.frame.h = 59;
 
 	// Direita
 	fase.portal.direita.frame.x = 0;
 	fase.portal.direita.frame.y = 0;
-	fase.portal.direita.frame.w = 0;
-	fase.portal.direita.frame.h = 0;
+	fase.portal.direita.frame.w = 30;
+	fase.portal.direita.frame.h = 59;
 
 	//
 	// Posicao na tela
 	//
 
 	// Cima
-	fase.portal.cima.posicao.x = 0;
+	fase.portal.cima.posicao.x = 362;
 	fase.portal.cima.posicao.y = 0;
-	fase.portal.cima.posicao.w = 0;
-	fase.portal.cima.posicao.h = 0;
+	fase.portal.cima.posicao.w = 80;
+	fase.portal.cima.posicao.h = 50;
 
 	// Baixo
-	fase.portal.baixo.posicao.x = 0;
-	fase.portal.baixo.posicao.y = 0;
-	fase.portal.baixo.posicao.w = 0;
-	fase.portal.baixo.posicao.h = 0;
+	fase.portal.baixo.posicao.x = 362;
+	fase.portal.baixo.posicao.y = 550;
+	fase.portal.baixo.posicao.w = 80;
+	fase.portal.baixo.posicao.h = 50;
 
 	// Esquerda
 	fase.portal.esquerda.posicao.x = 0;
-	fase.portal.esquerda.posicao.y = 0;
-	fase.portal.esquerda.posicao.w = 0;
-	fase.portal.esquerda.posicao.h = 0;
+	fase.portal.esquerda.posicao.y = 280;
+	fase.portal.esquerda.posicao.w = 50;
+	fase.portal.esquerda.posicao.h = 55;
 
 	// Direita
-	fase.portal.direita.posicao.x = 0;
-	fase.portal.direita.posicao.y = 0;
-	fase.portal.direita.posicao.w = 0;
-	fase.portal.direita.posicao.h = 0;
+	fase.portal.direita.posicao.x = 748;
+	fase.portal.direita.posicao.y = 265;
+	fase.portal.direita.posicao.w = 50;
+	fase.portal.direita.posicao.h = 55;
 
 	return fase;
 }
@@ -200,7 +200,7 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	fase->portal.animacao = 1;
 
 	// Cima
-	Loading_Surf = IMG_Load(PORTAL_1D);
+	Loading_Surf = IMG_Load("arte/portal/vermelho_cima.png");
 
 	// Carregando na textura
 	fase->portal.cima.sprite = SDL_CreateTextureFromSurface(renderer,
@@ -212,7 +212,7 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	// ******************************************************************
 
 	// Baixo
-	Loading_Surf = IMG_Load(PORTAL_1D);
+	Loading_Surf = IMG_Load("arte/portal/vermelho_baixo.png");
 
 	// Carrega na textura
 	fase->portal.baixo.sprite = SDL_CreateTextureFromSurface(renderer,
@@ -224,7 +224,7 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	// **************************************************************************
 
 	// Esquerda
-	Loading_Surf = IMG_Load(PORTAL_1L);
+	Loading_Surf = IMG_Load("arte/portal/vermelho_esquerda.png");
 
 	// Carregando na textura
 	fase->portal.esquerda.sprite = SDL_CreateTextureFromSurface(renderer,
@@ -233,8 +233,10 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	// Limpando memoria
 	SDL_FreeSurface(Loading_Surf);
 
+	// ********************************************************************
+
 	// Direita
-	Loading_Surf = IMG_Load(PORTAL_1L);
+	Loading_Surf = IMG_Load("arte/portal/vermelho_direita.png");
 
 	// Carrega na textura
 	fase->portal.direita.sprite = SDL_CreateTextureFromSurface(renderer,
@@ -259,20 +261,21 @@ void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 			switch (tipo)
 			{
 				case 1:
-					Loading_Surf = IMG_Load(PORTAL_1D);
+					Loading_Surf = IMG_Load("arte/portal/vermelho_cima.png");
 					break;
 
 				case 2:
-					Loading_Surf = IMG_Load(PORTAL_2D);
+					Loading_Surf = IMG_Load("arte/portal/azul_cima.png");
 					break;
 
 				case 3:
-					Loading_Surf = IMG_Load(PORTAL_3D);
+					Loading_Surf = IMG_Load("arte/portal/cinza_cima.png");
 					break;
 			}
 
 			fase->portal.cima.sprite = SDL_CreateTextureFromSurface(renderer,
 				Loading_Surf);
+			break;
 
 			// ***********************************************************************
 
@@ -282,20 +285,21 @@ void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 			switch (tipo)
 			{
 				case 1:
-					Loading_Surf = IMG_Load(PORTAL_1D);
+					Loading_Surf = IMG_Load("arte/portal/vermelho_baixo.png");
 					break;
 
 				case 2:
-					Loading_Surf = IMG_Load(PORTAL_2D);
+					Loading_Surf = IMG_Load("arte/portal/azul_baixo.png");
 					break;
 
 				case 3:
-					Loading_Surf = IMG_Load(PORTAL_3D);
+					Loading_Surf = IMG_Load("arte/portal/cinza_baixo.png");
 					break;
 			}
 
 			fase->portal.baixo.sprite = SDL_CreateTextureFromSurface(renderer,
 				Loading_Surf);
+			break;
 
 			// *****************************************************************
 
@@ -304,20 +308,21 @@ void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 			switch (tipo)
 			{
 				case 1:
-					Loading_Surf = IMG_Load(PORTAL_1L);
+					Loading_Surf = IMG_Load("arte/portal/vermelho_esquerda.png");
 					break;
 
 				case 2:
-					Loading_Surf = IMG_Load(PORTAL_2L);
+					Loading_Surf = IMG_Load("arte/portal/azul_esquerda.png");
 					break;
 
 				case 3:
-					Loading_Surf = IMG_Load(PORTAL_3L);
+					Loading_Surf = IMG_Load("arte/portal/cinza_esquerda.png");
 					break;
 			}
 
 			fase->portal.esquerda.sprite = SDL_CreateTextureFromSurface(renderer,
 				Loading_Surf);
+			break;
 
 			// ***********************************************************************
 
@@ -326,20 +331,21 @@ void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 			switch (tipo)
 			{
 				case 1:
-					Loading_Surf = IMG_Load(PORTAL_1L);
+					Loading_Surf = IMG_Load("arte/portal/vermelho_direita.png");
 					break;
 
 				case 2:
-					Loading_Surf = IMG_Load(PORTAL_2L);
+					Loading_Surf = IMG_Load("arte/portal/azul_direita.png");
 					break;
 
 				case 3:
-					Loading_Surf = IMG_Load(PORTAL_3L);
+					Loading_Surf = IMG_Load("arte/portal/cinza_direita.png");
 					break;
 			}
 
 			fase->portal.direita.sprite = SDL_CreateTextureFromSurface(renderer,
 				Loading_Surf);
+			break;
 
 			// ***********************************************************************
 	}
@@ -358,6 +364,8 @@ void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
 	// Carrega portais
 	//
 
+	Anima_Portal(fase);
+
 	// Cima
 	SDL_RenderCopy(renderer, fase->portal.cima.sprite,
 		&fase->portal.cima.frame, &fase->portal.cima.posicao);
@@ -373,4 +381,78 @@ void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
 	// Direita
 	SDL_RenderCopy(renderer, fase->portal.direita.sprite,
 		&fase->portal.direita.frame, &fase->portal.direita.posicao);
+
+	fase->portal.animacao++;
+
+	if (fase->portal.animacao > 9)
+		fase->portal.animacao = 1;
+}
+
+void Anima_Portal(Fase *fase)
+{
+	switch (fase->portal.animacao)
+	{
+		case 1:
+			fase->portal.cima.frame.x = 0;
+			fase->portal.baixo.frame.x = 0;
+			fase->portal.esquerda.frame.y = 0;
+			fase->portal.direita.frame.y = 0;
+			break;
+
+		case 2:
+			fase->portal.cima.frame.x = 59;
+			fase->portal.baixo.frame.x = 59;
+			fase->portal.esquerda.frame.y = 59;
+			fase->portal.direita.frame.y = 59;
+			break;
+
+		case 3:
+			fase->portal.cima.frame.x = 118;
+			fase->portal.baixo.frame.x = 118;
+			fase->portal.esquerda.frame.y = 118;
+			fase->portal.direita.frame.y = 118;
+			break;
+
+		case 4:
+			fase->portal.cima.frame.x = 177;
+			fase->portal.baixo.frame.x = 177;
+			fase->portal.esquerda.frame.y = 177;
+			fase->portal.direita.frame.y = 177;
+			break;
+
+		case 5:
+			fase->portal.cima.frame.x = 236;
+			fase->portal.baixo.frame.x = 236;
+			fase->portal.esquerda.frame.y = 236;
+			fase->portal.direita.frame.y = 236;
+			break;
+
+		case 6:
+			fase->portal.cima.frame.x = 295;
+			fase->portal.baixo.frame.x = 295;
+			fase->portal.esquerda.frame.y = 295;
+			fase->portal.direita.frame.y = 295;
+			break;
+
+		case 7:
+			fase->portal.cima.frame.x = 354;
+			fase->portal.baixo.frame.x = 354;
+			fase->portal.esquerda.frame.y = 354;
+			fase->portal.direita.frame.y = 354;
+			break;
+
+		case 8:
+			fase->portal.cima.frame.x = 413;
+			fase->portal.baixo.frame.x = 413;
+			fase->portal.esquerda.frame.y = 413;
+			fase->portal.direita.frame.y = 413;
+			break;
+
+		case 9:
+			fase->portal.cima.frame.x = 472;
+			fase->portal.baixo.frame.x = 472;
+			fase->portal.esquerda.frame.y = 472;
+			fase->portal.direita.frame.y = 472;
+			break;
+	}
 }
