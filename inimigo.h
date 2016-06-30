@@ -31,6 +31,8 @@ typedef struct
 	// Dimensoes dos sprites da imagem
 	int fullW, fullH;
 
+	int animacao;
+
 	// Rect para frame e posicao em tela
 	SDL_Rect frame, posicao;
 
@@ -39,6 +41,12 @@ typedef struct
 }Inimigo;
 
 // Funcoes
+Inimigo Carrega_Inimigo(int numero, SDL_Renderer* renderer);
+
+
+void Movimenta_Inimigo(Inimigo* inimigo, Jogador* jogador);
+
+
 
 #endif
 
