@@ -18,8 +18,8 @@
 void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
 void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 
 // ********************************************************************
 
@@ -125,7 +125,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, &fase, jogador1, NULL);
+					Roda_Pause(renderer, event, &fase, jogador1, NULL, &vetor_de_inimigos);
 			}
 		}
 
@@ -286,7 +286,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 			{
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, &fase, jogador1, jogador2);
+					Roda_Pause(renderer, event, &fase, jogador1, jogador2, &vetor_de_inimigos);
 
 				// Movimentacao do Jogador 1
 				Movimenta_Jogador(jogador1, jogador2);
@@ -539,7 +539,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 
 // Estado de pause
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogador* jogador1, Jogador* jogador2)
+	Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
 {
 	// Variavel para manter o loop do pause
 	int pauseRodando = VERDADEIRO;
@@ -853,7 +853,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 							case BOTAO_SAIR:
 								Efeito_Sonoro(VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
-								Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2);
+								Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2, vetor_de_inimigos);
 								break;
 						}
 						break;
@@ -896,7 +896,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 				{
 					Efeito_Sonoro(VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
-					Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2);
+					Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2, vetor_de_inimigos);
 				}
 			}
 		}
@@ -917,6 +917,9 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 		// Renderiza Jogador 2 caso exista
 		if (jogador2 != NULL)
 			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
+
+		// Renderiza inimigos em tela
+		Atualiza_Inimigos_em_Tela(renderer, vetor_de_inimigos);
 
 		// **********************************************************************************
 
@@ -1007,7 +1010,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 // Estado de pause - certeza de sair
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogador* jogador1, Jogador* jogador2)
+	Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
 {
 	// Variavel para manter o loop do pause
 	int pauseRodandoSair = VERDADEIRO;
@@ -1358,6 +1361,9 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 		// Renderiza Jogador 2 caso exista
 		if (jogador2 != NULL)
 			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
+
+		// Renderiza inimigos em tela
+		Atualiza_Inimigos_em_Tela(renderer, vetor_de_inimigos);
 
 		// **********************************************************************************
 
