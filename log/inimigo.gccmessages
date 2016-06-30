@@ -1,0 +1,15 @@
+inimigo.c: In function ‘Remove_Inimigos_Mortos’:
+inimigo.c:140:11: warning: unused variable ‘auxiliar’ [-Wunused-variable]
+   Inimigo auxiliar;
+           ^
+inimigo.c: In function ‘Movimentacao_dos_Inimigos’:
+inimigo.c:599:2: warning: implicit declaration of function ‘Teste_de_Colisao_Inimigos’ [-Wimplicit-function-declaration]
+  Teste_de_Colisao_Inimigos(vetor_de_inimigos, jogador1, jogador2);
+  ^
+inimigo.c: At top level:
+inimigo.c:615:6: warning: conflicting types for ‘Teste_de_Colisao_Inimigos’ [enabled by default]
+ void Teste_de_Colisao_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2)
+      ^
+inimigo.c:599:2: note: previous implicit declaration of ‘Teste_de_Colisao_Inimigos’ was here
+  Teste_de_Colisao_Inimigos(vetor_de_inimigos, jogador1, jogador2);
+  ^

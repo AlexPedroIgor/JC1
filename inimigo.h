@@ -18,8 +18,11 @@ typedef struct
 	// Numero do inimigo
 	int tipo;
 
-	// Variavel para alternar na movimentacao
-	int alterna;
+	// Variavel para receber estado de colisao
+	int colisao;
+
+	// Variavel para guardar estado de vida do inimigo
+	int vivo;
 
 	// Movimentacao
 	struct
@@ -52,7 +55,14 @@ typedef struct
 // Estrutura para vetor de inimigos
 typedef struct
 {
+	// Quantidade de inimigos em tela
 	int quantidade;
+
+	// Quantidade de inimigos mortos
+	int mortos;
+
+	// Quanditades de inimigos mortos na rodada
+	int mortos_rodada;
 
 	Inimigo inimigo[MAX];
 }Vetor_de_Inimigos;
@@ -60,6 +70,8 @@ typedef struct
 // Funcoes
 Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);
 Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo);
+void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal);
+void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal);
 void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos, int portal);
 void Movimenta_Inimigo(Inimigo* inimigo);

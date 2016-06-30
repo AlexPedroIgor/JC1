@@ -1,19 +1,19 @@
 fisica.c: In function ‘Distancia’:
-fisica.c:517:2: warning: function returns address of local variable [-Wreturn-local-addr]
+fisica.c:550:2: warning: function returns address of local variable [-Wreturn-local-addr]
   return vetor_distancia_quadrante;
   ^
-fisica.c:454:6: warning: unused variable ‘raios’ [-Wunused-variable]
+fisica.c:487:6: warning: unused variable ‘raios’ [-Wunused-variable]
   int raios = circulo1.raio + circulo2.raio;
       ^
 fisica.c: In function ‘Colisao_Circular’:
-fisica.c:165:1: warning: control reaches end of non-void function [-Wreturn-type]
+fisica.c:167:1: warning: control reaches end of non-void function [-Wreturn-type]
  }
  ^
 fisica.c: In function ‘Colisao_Impacto_Jogador’:
-fisica.c:425:1: warning: control reaches end of non-void function [-Wreturn-type]
+fisica.c:458:1: warning: control reaches end of non-void function [-Wreturn-type]
  }
  ^
 fisica.c: In function ‘Colisao_Impacto_Inimigo’:
-fisica.c:431:1: warning: control reaches end of non-void function [-Wreturn-type]
+fisica.c:464:1: warning: control reaches end of non-void function [-Wreturn-type]
  }
  ^

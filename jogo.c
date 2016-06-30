@@ -17,7 +17,7 @@
 // Pre carregamento das funcoes
 void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
 void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2);
+void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 
@@ -90,7 +90,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	//
 
 	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
-		5, 1);
+		1, 1);
 
 	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA);
 
@@ -102,10 +102,22 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	// **************
 	//
 
+	int contador;
+
 	while (singlePlayerRodando)
 	{
 		// Movimentacao dos inimigos
 		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, NULL);
+
+		// Adiciona inimigos
+		contador++;
+		if (contador == 120)
+		{
+			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, CIMA);
+			contador = 1;
+		}
+
+		// ********************************************************************
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -121,7 +133,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 			if (event.type == SDL_KEYDOWN)
 			{
 				// Movimento do jogador
-				Movimenta_Jogador(jogador1, NULL);
+				Movimenta_Jogador(jogador1, NULL, &vetor_de_inimigos);
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
@@ -254,7 +266,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	//
 
 	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
-		5, 1);
+		1, 1);
 
 	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA);
 
@@ -266,10 +278,22 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	// **************
 	//
 
+	int contador;
+
 	while (multiPlayerRodando)
 	{
 		// Movimentacao dos inimigos
 		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, jogador2);
+
+		// Adiciona inimigos
+		contador++;
+		if (contador == 120)
+		{
+			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, CIMA);
+			contador = 1;
+		}
+
+		// ********************************************************************
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -289,10 +313,10 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 					Roda_Pause(renderer, event, &fase, jogador1, jogador2, &vetor_de_inimigos);
 
 				// Movimentacao do Jogador 1
-				Movimenta_Jogador(jogador1, jogador2);
+				Movimenta_Jogador(jogador1, jogador2, &vetor_de_inimigos);
 
 				// Movimentacao do Jogador 2
-				Movimenta_Jogador(jogador2, jogador1);
+				Movimenta_Jogador(jogador2, jogador1, &vetor_de_inimigos);
 			}
 		}
 
@@ -334,7 +358,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 }
 
 // Movimentacao do jogador
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
+void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
 {
 	// Verifica colisao de jogadores caso esteja no multiplayer
 	int movimento_permitido_jogador;
@@ -349,13 +373,16 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 			movimento_permitido_jogador = VERDADEIRO;
 	}
 
+	// Atualiza colisoes
+	Teste_de_Colisao_Jogador(jogador, vetor_de_inimigos);
 
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
 
 	// Verifica colisao de tela
 	int movimento_permitido;
-	if (Colisao_Jogador_LimiteDeTela(jogador))
+	if (Colisao_Jogador_LimiteDeTela(jogador)
+		|| jogador->colisao)
 		movimento_permitido = FALSO;
 	else
 		movimento_permitido = VERDADEIRO;

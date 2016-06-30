@@ -24,11 +24,13 @@ int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2);
 int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo);
 int Colisao_Impacto_Jogador(Jogador* jogador, Objeto* objeto);
 int Colisao_Entre_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
+int Colisao_Entre_Inimigos(Inimigo* inimigo1, Inimigo* inimigo2);
 int Colisao_Impacto_Inimigo(Inimigo* inimigo, Objeto* objeto);
 int* Distancia(Objeto* objeto1, Objeto* objeto2);
 int* Distancia_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
 Objeto Converte_Jogador_Objeto(Jogador* Jogador);
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
+void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inimigos);
 
 
 // Sistema de colisao em circulos (verifica tangentes dos circulos)
@@ -418,6 +420,37 @@ int Colisao_Entre_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador)
 		return FALSO;
 }
 
+// Verificacao de colisao entre inimigos
+int Colisao_Entre_Inimigos(Inimigo* inimigo1, Inimigo* inimigo2)
+{
+	// Conversao de jogadores em objetos
+	Objeto objeto1, objeto2;
+
+	// Inimigo 1
+	objeto1.posicao.x = inimigo1->posicao.x;
+	objeto1.posicao.y = inimigo1->posicao.y;
+	objeto1.frame.w = inimigo1->frame.w;
+	objeto1.frame.h = inimigo1->frame.h;
+	objeto1.movimento.cima = inimigo1->movimento.cima;
+	objeto1.movimento.baixo = inimigo1->movimento.baixo;
+	objeto1.movimento.esquerda = inimigo1->movimento.esquerda;
+	objeto1.movimento.direita = inimigo1->movimento.direita;
+
+	// Inimigo 2
+	objeto2.posicao.x = inimigo2->posicao.x;
+	objeto2.posicao.y = inimigo2->posicao.y;
+	objeto2.frame.w = inimigo2->frame.w;
+	objeto2.frame.h = inimigo2->frame.h;
+
+	// Verificacao por meio da funcao de colisao de objetos
+	if (Colisao_Perimetro(&objeto1, &objeto2))
+	{
+		return VERDADEIRO;
+	}
+	else
+		return FALSO;
+}
+
 // Verificacao de impacto entre arma do inimigo e jogador
 int Colisao_Impacto_Jogador(Jogador* jogador, Objeto* objeto)
 {
@@ -586,4 +619,25 @@ Objeto Converte_Inimigo_Objeto(Inimigo* inimigo)
 	objeto.movimento.direita = inimigo->movimento.direita;
 
 	return objeto;
+}
+
+// Realiza teste de colisao geral entre jogador e inimigos
+void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inimigos)
+{
+	int i;
+
+	int teve_colisao = FALSO;
+
+	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+	{
+		if (Colisao_Entre_Jogador_Inimigo(jogador, &vetor_de_inimigos->inimigo[i]))
+		{
+			jogador->colisao = VERDADEIRO;
+			teve_colisao = VERDADEIRO;
+			break;
+		}
+	}
+
+	if (!teve_colisao)
+		jogador->colisao = FALSO;
 }

@@ -25,6 +25,9 @@ Jogador Carrega_Jogador(int numero)
 	// Estrutura com informacoes do jogador
 	Jogador jogador;
 
+	// Colisao
+	jogador.colisao = FALSO;
+
 	// Numero do jogador
 	jogador.numero = numero;
 

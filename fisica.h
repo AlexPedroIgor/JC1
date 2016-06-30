@@ -18,11 +18,13 @@ int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2);
 int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo);
 int Colisao_Impacto_Jogador(Jogador* jogador, Objeto* objeto);
 int Colisao_Entre_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
+int Colisao_Entre_Inimigos(Inimigo* inimigo1, Inimigo* inimigo2);
 int Colisao_Impacto_Inimigo(Inimigo* inimigo, Objeto* objeto);
 int* Distancia(Objeto* objeto1, Objeto* objeto2);
 int* Distancia_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
 Objeto Converte_Jogador_Objeto(Jogador* Jogador);
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
+void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inimigos);
 
 #endif
 

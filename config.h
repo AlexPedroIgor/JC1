@@ -43,6 +43,9 @@ typedef struct
 	// Jogador 1 ou Jogador 2
 	int numero;
 
+	// Variavel para guardar estado de colisao
+	int colisao;
+
 	// Movimentacao
 	struct
 	{

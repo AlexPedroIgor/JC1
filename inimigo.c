@@ -15,6 +15,8 @@
 // Pre carregamento das funcoes
 Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);
 Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo);
+void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal);
+void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal);
 void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos, int portal);
 void Movimenta_Inimigo(Inimigo* inimigo);
@@ -32,8 +34,11 @@ Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int tipo)
 	// Estrutura com informacoes do inimigo
 	Inimigo inimigo;
 
-	// Alternancia de movimentacao
-	inimigo.alterna = 1;
+	// Estado de colisao
+	inimigo.colisao = FALSO;
+
+	// Inimigo vivo
+	inimigo.vivo = VERDADEIRO;
 
 	// Numero do inimigo
 	inimigo.tipo = tipo;
@@ -88,9 +93,15 @@ Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int tipo)
 // Funcao para criar vetor de inimigos
 Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo)
 {
+	// Inicializa variavel
 	Vetor_de_Inimigos vetor_de_inimigos;
 
+	// Salva quantidade inivial de inimigos gerados
 	vetor_de_inimigos.quantidade = quantidade;
+
+	// Zera o numero de inimigos mortos
+	vetor_de_inimigos.mortos = 0;
+	vetor_de_inimigos.mortos_rodada = 0;
 
 	int i;
 
@@ -100,6 +111,60 @@ Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade,
 	}
 
 	return vetor_de_inimigos;
+}
+
+// Adiciona inimigos
+void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos,
+	int quantidade, int tipo, int portal)
+{
+	int i;
+
+	if (vetor_de_inimigos->quantidade + quantidade <= 64)
+	{
+		for (i = vetor_de_inimigos->quantidade; i != vetor_de_inimigos->quantidade + quantidade; i++)
+		{
+			vetor_de_inimigos->inimigo[i] = Carrega_Inimigo(renderer, tipo);
+			Posiciona_Inimigo(renderer, &vetor_de_inimigos->inimigo[i], portal);
+		}
+	}
+
+	vetor_de_inimigos->quantidade += quantidade;
+}
+
+// Remove inimigos mortos
+void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos)
+{
+	// Verifica se existem inimigos mortos na ultima rodada
+	if (vetor_de_inimigos->mortos_rodada > 0)
+	{
+		Inimigo auxiliar;
+
+		int cortes = 0;
+
+		int i, j;
+
+		for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+		{
+			for (j = i; j != vetor_de_inimigos->quantidade; j++)
+			{
+				if (!vetor_de_inimigos->inimigo[i].vivo)
+				{
+					// Limpa memoria
+					free(&vetor_de_inimigos->inimigo[i]);
+
+					vetor_de_inimigos->inimigo[i] = vetor_de_inimigos->inimigo[j];
+
+					cortes++;
+				}
+			}
+		}
+
+		vetor_de_inimigos->quantidade -= cortes;
+	}
+
+	// Atualiza lista de mortos
+	vetor_de_inimigos->mortos += vetor_de_inimigos->mortos_rodada;
+	vetor_de_inimigos->mortos_rodada = 0;
 }
 
 // **********************************************************************************
@@ -130,7 +195,7 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal)
 			break;
 
 		case DIREITA:
-			inimigo->posicao.x = 729;
+			inimigo->posicao.x = 710;
 			inimigo->posicao.y = SCREEN_HEIGHT/2;
 			break;
 	}
@@ -152,7 +217,7 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 {
 	// Verifica colisao de tela
 	int movimento_permitido;
-	if (Colisao_Inimigo_LimiteDeTela(inimigo))
+	if (Colisao_Inimigo_LimiteDeTela(inimigo) || inimigo->colisao)
 		movimento_permitido = FALSO;
 	else
 		movimento_permitido = VERDADEIRO;
@@ -274,7 +339,8 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 		inimigo->animacao = CIMA;
 
 		// Movimento
-		if (movimento_permitido)
+		if (movimento_permitido
+			&& !inimigo->colisao)
 			inimigo->posicao.y -= inimigo->velocidade.y;
 	}
 
@@ -513,12 +579,7 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 					break;
 			}
 			break;
-	}
-
-	inimigo->alterna++;
-	if (inimigo->alterna > 160)
-		inimigo->alterna = 1;
-	
+	}	
 
 	// *************************************************************************************
 
@@ -534,11 +595,63 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 // Movimentando vetor de inimigos
 void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2)
 {
+	// Teste de colisao
+	Teste_de_Colisao_Inimigos(vetor_de_inimigos, jogador1, jogador2);
+
 	int i;
 
 	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
 	{
 		IA_de_Movimentacao(&vetor_de_inimigos->inimigo[i], jogador1, jogador2);
+	}
+}
+
+// ***********************************************************************************
+
+//
+// Testes de colisao
+//
+
+void Teste_de_Colisao_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2)
+{
+	int i, j;
+
+	int teve_colisao = FALSO;
+
+	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+	{
+		// Testa colisao entre inimigos
+		for (j = 0; j != vetor_de_inimigos->quantidade; j++)
+		{
+			if (j != i)
+			{
+				if (Colisao_Entre_Inimigos(&vetor_de_inimigos->inimigo[i], &vetor_de_inimigos->inimigo[j]))
+				{
+					vetor_de_inimigos->inimigo[i].colisao = VERDADEIRO;
+					teve_colisao = VERDADEIRO;
+					break;
+				}
+			}
+		}
+
+		// Testa colisao entre jogadores
+		if (Colisao_Entre_Inimigo_Jogador(&vetor_de_inimigos->inimigo[i], jogador1))
+		{
+			vetor_de_inimigos->inimigo[i].colisao = VERDADEIRO;
+			teve_colisao = VERDADEIRO;
+		}
+		// Caso tenha um segundo jogador
+		if (jogador2 != NULL)
+		{
+			if (Colisao_Entre_Inimigo_Jogador(&vetor_de_inimigos->inimigo[i], jogador2))
+			{
+				vetor_de_inimigos->inimigo[i].colisao = VERDADEIRO;
+				teve_colisao = VERDADEIRO;
+			}
+		}
+
+		if (!teve_colisao)
+			vetor_de_inimigos->inimigo[i].colisao = FALSO;
 	}
 }
 
