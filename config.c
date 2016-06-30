@@ -377,6 +377,23 @@ void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
 			break;
 	}
 
+	//
 	// Carrega portais
+	//
 
+	// Cima
+	SDL_RenderCopy(renderer, fase->portal.cima.sprite,
+		&fase->portal.cima.frame, &fase->portal.cima.posicao);
+
+	// Baixo
+	SDL_RenderCopy(renderer, fase->portal.baixo.sprite,
+		&fase->portal.baixo.frame, &fase->portal.baixo.posicao);
+
+	// Esquerda
+	SDL_RenderCopy(renderer, fase->portal.esquerda.sprite,
+		&fase->portal.esquerda.frame, &fase->portal.esquerda.posicao);
+
+	// Direita
+	SDL_RenderCopy(renderer, fase->portal.direita.sprite,
+		&fase->portal.direita.frame, &fase->portal.direita.posicao);
 }
