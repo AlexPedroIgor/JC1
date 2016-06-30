@@ -15,6 +15,7 @@ Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
 Fase Inicializa_Fases();
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
+void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
 
 
 // Carrega parametros iniciais do jogador
@@ -76,6 +77,12 @@ void Carrega_Teclas_de_Acao(Jogador* jogador)
 			break;
 	}
 }
+
+// ******************************************************************************
+
+//
+// Funcoes relacionadas as fases
+//
 
 // Carrega fases do jogo
 Fase Inicializa_Fases()
@@ -191,6 +198,8 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	//
 	// Carrega portais tipo 1
 	//
+
+	fase->portal.animacao = 1;
 
 	// Cima
 	Loading_Surf = IMG_Load(PORTAL_1D);
@@ -339,4 +348,35 @@ void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 
 	// Limpa memoria
 	SDL_FreeSurface(Loading_Surf);
+}
+
+// Carrega fundo da fase em tela
+void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
+{
+	// Carrega fundo da fase
+	switch (fase->numero)
+	{
+		case 0:
+			SDL_RenderCopy(renderer, fase->mapa[0].sprite, NULL, NULL);
+			break;
+
+		case 1:
+			SDL_RenderCopy(renderer, fase->mapa[1].sprite, NULL, NULL);
+			break;
+
+		case 2:
+			SDL_RenderCopy(renderer, fase->mapa[2].sprite, NULL, NULL);
+			break;
+
+		case 3:
+			SDL_RenderCopy(renderer, fase->mapa[3].sprite, NULL, NULL);
+			break;
+
+		case 4:
+			SDL_RenderCopy(renderer, fase->mapa[4].sprite, NULL, NULL);
+			break;
+	}
+
+	// Carrega portais
+
 }

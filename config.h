@@ -120,8 +120,11 @@ typedef struct
 	// Portais
 	struct
 	{
+		// Animacao do portal
+		int animacao;
+
 		struct
-		{
+		{		
 			// Tipo de portal
 			int tipo;
 			/*
@@ -152,6 +155,7 @@ Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
 Fase Inicializa_Fases();
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
+void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
 
 #endif
 
