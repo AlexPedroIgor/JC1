@@ -176,27 +176,26 @@ void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_
 // Funcao para posicionar inimigo em tela
 void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal)
 {
-	// Define posicao do inimigo em tela em funcao do portal
 	switch (portal)
 	{
 		case CIMA:
-			inimigo->posicao.x = SCREEN_WIDTH/2;
+			inimigo->posicao.x = SCREEN_WIDTH/2 - 30;
 			inimigo->posicao.y = 51;
 			break;
 
 		case BAIXO:
-			inimigo->posicao.x = SCREEN_WIDTH/2;
-			inimigo->posicao.y = 549;
+			inimigo->posicao.x = SCREEN_WIDTH/2 - 30;
+			inimigo->posicao.y = 500;
 			break;
 
 		case ESQUERDA:
 			inimigo->posicao.x = 51;
-			inimigo->posicao.y = SCREEN_HEIGHT/2;
+			inimigo->posicao.y = SCREEN_HEIGHT/2-30;
 			break;
 
 		case DIREITA:
-			inimigo->posicao.x = 710;
-			inimigo->posicao.y = SCREEN_HEIGHT/2;
+			inimigo->posicao.x = 700;
+			inimigo->posicao.y = SCREEN_HEIGHT/2-30;
 			break;
 	}
 }
@@ -208,7 +207,7 @@ void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* veto
 
 	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
 	{
-		Posiciona_Inimigo(renderer, &vetor_de_inimigos->inimigo[i], portal);
+		Posiciona_Inimigo(renderer, &vetor_de_inimigos->inimigo[i], rand() %4 +1);
 	}
 }
 
@@ -444,7 +443,7 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 
 	int randomico = rand() % 8;
 
-	int loucura = rand() % 200;
+	int loucura = rand() % 100;
 
 	switch (loucura)
 	{
@@ -453,7 +452,7 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 		case 30:
 		case 40:
 		case 50:
-			if (distancia >= 100)
+			if (distancia >= 50)
 			{
 				switch (quadrante)
 				{
