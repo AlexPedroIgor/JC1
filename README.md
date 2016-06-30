@@ -1,4 +1,4 @@
-# SUPER SMASH ARANHA
+# SUPER SMASH ARANHA-MORCEGO
 
 ###Jogo desenvolvido para o trabalho final da matéria de computação 1.
 

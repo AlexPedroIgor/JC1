@@ -29,7 +29,7 @@
 int jogoRodando, estadoDeJogo;
 
 // Nome do Jogo
-#define NOME_DO_JOGO "SUPER SMASH ARANHA"
+#define NOME_DO_JOGO "SUPER SMASH ARANHA-MORCEGO"
 
 // Tamanho de Tela
 #define SCREEN_WIDTH			800
