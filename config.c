@@ -189,24 +189,11 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	// *****************************************************************************
 
 	//
-	// Carrega portais
+	// Carrega portais tipo 1
 	//
 
 	// Cima
-	switch (fase->portal.cima.tipo)
-	{
-		case 1:
-			Loading_Surf = IMG_Load(PORTAL_1D);
-			break;
-
-		case 2:
-			Loading_Surf = IMG_Load(PORTAL_2D);
-			break;
-
-		case 3:
-			Loading_Surf = IMG_Load(PORTAL_3D);
-			break;
-	}
+	Loading_Surf = IMG_Load(PORTAL_1D);
 
 	// Carregando na textura
 	fase->portal.cima.sprite = SDL_CreateTextureFromSurface(renderer,
@@ -218,20 +205,7 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	// ******************************************************************
 
 	// Baixo
-	switch (fase->portal.baixo.tipo)
-	{
-		case 1:
-			Loading_Surf = IMG_Load(PORTAL_1D);
-			break;
-
-		case 2:
-			Loading_Surf = IMG_Load(PORTAL_2D);
-			break;
-
-		case 3:
-			Loading_Surf = IMG_Load(PORTAL_3D);
-			break;
-	}
+	Loading_Surf = IMG_Load(PORTAL_1D);
 
 	// Carrega na textura
 	fase->portal.baixo.sprite = SDL_CreateTextureFromSurface(renderer,
@@ -243,20 +217,7 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	// **************************************************************************
 
 	// Esquerda
-	switch (fase->portal.esquerda.tipo)
-	{
-		case 1:
-			Loading_Surf = IMG_Load(PORTAL_1L);
-			break;
-
-		case 2:
-			Loading_Surf = IMG_Load(PORTAL_2L);
-			break;
-
-		case 3:
-			Loading_Surf = IMG_Load(PORTAL_3L);
-			break;
-	}
+	Loading_Surf = IMG_Load(PORTAL_1L);
 
 	// Carregando na textura
 	fase->portal.esquerda.sprite = SDL_CreateTextureFromSurface(renderer,
@@ -265,26 +226,117 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	// Limpando memoria
 	SDL_FreeSurface(Loading_Surf);
 
-	// Esquerda e direita
-	switch (fase->portal.direita.tipo)
-	{
-		case 1:
-			Loading_Surf = IMG_Load(PORTAL_1L);
-			break;
-
-		case 2:
-			Loading_Surf = IMG_Load(PORTAL_2L);
-			break;
-
-		case 3:
-			Loading_Surf = IMG_Load(PORTAL_3L);
-			break;
-	}
+	// Direita
+	Loading_Surf = IMG_Load(PORTAL_1L);
 
 	// Carrega na textura
 	fase->portal.direita.sprite = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	//*********************************************************************
+}
+
+// Altera tipo de portal
+void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
+{
+	// Variavel para carregar imagens
+	SDL_Surface* Loading_Surf = NULL;
+
+	switch (portal)
+	{
+		case CIMA:
+			// Seleciona o tipo de portal
+			switch (tipo)
+			{
+				case 1:
+					Loading_Surf = IMG_Load(PORTAL_1D);
+					break;
+
+				case 2:
+					Loading_Surf = IMG_Load(PORTAL_2D);
+					break;
+
+				case 3:
+					Loading_Surf = IMG_Load(PORTAL_3D);
+					break;
+			}
+
+			fase->portal.cima.sprite = SDL_CreateTextureFromSurface(renderer,
+				Loading_Surf);
+
+			// ***********************************************************************
+
+
+		case BAIXO:
+			// Seleciona o tipo de portal
+			switch (tipo)
+			{
+				case 1:
+					Loading_Surf = IMG_Load(PORTAL_1D);
+					break;
+
+				case 2:
+					Loading_Surf = IMG_Load(PORTAL_2D);
+					break;
+
+				case 3:
+					Loading_Surf = IMG_Load(PORTAL_3D);
+					break;
+			}
+
+			fase->portal.baixo.sprite = SDL_CreateTextureFromSurface(renderer,
+				Loading_Surf);
+
+			// *****************************************************************
+
+		case ESQUERDA:
+			// Seleciona o tipo de portal
+			switch (tipo)
+			{
+				case 1:
+					Loading_Surf = IMG_Load(PORTAL_1L);
+					break;
+
+				case 2:
+					Loading_Surf = IMG_Load(PORTAL_2L);
+					break;
+
+				case 3:
+					Loading_Surf = IMG_Load(PORTAL_3L);
+					break;
+			}
+
+			fase->portal.esquerda.sprite = SDL_CreateTextureFromSurface(renderer,
+				Loading_Surf);
+
+			// ***********************************************************************
+
+		case DIREITA:
+			// Seleciona o tipo de portal
+			switch (tipo)
+			{
+				case 1:
+					Loading_Surf = IMG_Load(PORTAL_1L);
+					break;
+
+				case 2:
+					Loading_Surf = IMG_Load(PORTAL_2L);
+					break;
+
+				case 3:
+					Loading_Surf = IMG_Load(PORTAL_3L);
+					break;
+			}
+
+			fase->portal.direita.sprite = SDL_CreateTextureFromSurface(renderer,
+				Loading_Surf);
+
+			// ***********************************************************************
+	}
+
+	// Limpa memoria
 	SDL_FreeSurface(Loading_Surf);
 }
