@@ -1,5 +1,5 @@
 inimigo.c: In function ‘Remove_Inimigos_Mortos’:
-inimigo.c:140:11: warning: unused variable ‘auxiliar’ [-Wunused-variable]
+inimigo.c:141:11: warning: unused variable ‘auxiliar’ [-Wunused-variable]
    Inimigo auxiliar;
            ^
 inimigo.c: In function ‘Movimentacao_dos_Inimigos’:

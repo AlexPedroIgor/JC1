@@ -20,6 +20,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
+void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
 
 // ********************************************************************
 
@@ -97,13 +98,20 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	// *********************************************************************
 
 	//
+	// Carrega vetor de tiros
+	//
+
+	Vetor_de_Tiros vetor_de_tiros = Cria_Vetor_de_Tiros();
+
+	// *********************************************************************
+
+	//
 	// **************
 	// LOOP DO JOGO | inicio
 	// **************
 	//
 
-	int contador, i, j;
-	int tiro[50];
+	int contador;
 	while (singlePlayerRodando)
 	{
 		// Movimentacao dos inimigos
@@ -136,9 +144,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 				Movimenta_Jogador(jogador1, NULL, &vetor_de_inimigos);
 
 				//Atirar
-				/*Atirar(tiro[i]);
-					if (tiro[i]!=0)
-						i++;*/
+				Atirar(renderer, jogador1, &vetor_de_tiros);
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
@@ -152,11 +158,12 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 		// Renderiza plano de fundo
 		Atualiza_Plano_de_Fundo(renderer, &fase);
 
+		// Renderiza os Tiros
+		Renderiza_Tiros(renderer, &vetor_de_tiros);
+
 		// Renderiza jogador
 		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-		// Renderiza os Tiros
-		/*for (j = 0; j < 50; j++)
-			 CarregaTiro(&renderer, tiro[j], jogador1);*/
+
 		// Renderiza inimigos em tela
 		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
 
@@ -1470,4 +1477,16 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 	SDL_DestroyTexture(gSim_pressionado);
 	SDL_DestroyTexture(gNao);
 	SDL_DestroyTexture(gNao_pressionado);
+}
+
+// Atirar
+void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros)
+{
+	// Carrega teclas de acao
+	Carrega_Teclas_de_Acao(jogador);
+
+	if (jogador->movimento.ataque)
+	{
+		Adiciona_Tiro_ao_Vetor(renderer, jogador, vetor_de_tiros);
+	}
 }

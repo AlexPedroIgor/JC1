@@ -25,8 +25,11 @@ int* Distancia_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
 Objeto Converte_Jogador_Objeto(Jogador* Jogador);
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
 void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inimigos);
-Objeto Atirar(Objeto* tiro, Jogador* jogador);
-//void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador);
+Objeto Cria_Tiro(Jogador* jogador);
+void CarregaTiro(SDL_Renderer* renderer, Objeto* tiro, Jogador* jogador);
+Vetor_de_Tiros Cria_Vetor_de_Tiros();
+void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros, Jogador* jogador);
+void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros);
 
 #endif
 

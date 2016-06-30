@@ -19,7 +19,7 @@ typedef struct
 	int tipo;
 
 	// Variavel para receber estado de colisao
-	int colisao;
+	int colisao, toma_tiro;
 
 	// Variavel para guardar estado de vida do inimigo
 	int vivo;

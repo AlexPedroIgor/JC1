@@ -44,7 +44,7 @@ typedef struct
 	int numero;
 
 	// Variavel para guardar estado de colisao
-	int colisao;
+	int colisao, toma_tiro;
 
 	// Movimentacao
 	struct
@@ -90,8 +90,7 @@ typedef struct
 		int direita;
 	} movimento;
 
-	//animação do movimento
-
+	// Animação do movimento
 	int animacao;
 
 	// Velocidade de movimento
@@ -109,6 +108,19 @@ typedef struct
 	// Imagem do sprite do objeto
 	SDL_Texture* sprite;
 }Objeto;
+
+// Vetor de tiros
+typedef struct
+{
+	// Quantidade de tiros em tela
+	int quantidade;
+
+	// Tiros que devem sair de tela
+	int corta_tiro;
+
+	// Vetor de tiros
+	Objeto tiro[64];
+}Vetor_de_Tiros;
 
 // Struct para mapas
 typedef struct

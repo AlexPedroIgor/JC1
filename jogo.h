@@ -13,6 +13,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
+void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
 
 #endif
 

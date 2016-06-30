@@ -27,6 +27,7 @@ Jogador Carrega_Jogador(int numero)
 
 	// Colisao
 	jogador.colisao = FALSO;
+	jogador.toma_tiro = FALSO;
 
 	// Numero do jogador
 	jogador.numero = numero;

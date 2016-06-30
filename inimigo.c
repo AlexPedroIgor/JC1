@@ -36,6 +36,7 @@ Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int tipo)
 
 	// Estado de colisao
 	inimigo.colisao = FALSO;
+	inimigo.toma_tiro = FALSO;
 
 	// Inimigo vivo
 	inimigo.vivo = VERDADEIRO;
