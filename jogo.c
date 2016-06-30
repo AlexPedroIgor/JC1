@@ -45,6 +45,10 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	// ****************
 	//
 
+	Fase fase = Inicializa_Fases();
+	Carrega_Fase_Memoria(renderer, &fase);
+
+	/*
 	// Variavel para conter plano de fundo
 	SDL_Texture* gFundo = NULL;
 
@@ -57,6 +61,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 	// Limpa variavel Loading_Surf
 	SDL_FreeSurface(Loading_Surf);
+	*/
 
 	//
 	// ****************
@@ -120,15 +125,19 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, gFundo, jogador1, NULL);
+					Roda_Pause(renderer, event, fase.sprite, jogador1, NULL);
 			}
 		}
 
 		// Limpa tela anterior
 		SDL_RenderClear(renderer);
 
+		Atualiza_Plano_de_Fundo(renderer, &fase);
+
+		/*
 		// Renderiza plano de fundo
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+		*/
 
 		// Renderiza jogador
 		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
@@ -142,7 +151,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	}
 
 	// Limpando memoria - imagens
-	SDL_DestroyTexture(gFundo);
+	SDL_DestroyTexture(fase.sprite);
 	SDL_DestroyTexture(jogador1->sprite);
 
 	//

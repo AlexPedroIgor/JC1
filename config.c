@@ -16,6 +16,7 @@ void Carrega_Teclas_de_Acao(Jogador* jogador);
 Fase Inicializa_Fases();
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
+void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase);
 
 
 // Carrega parametros iniciais do jogador
@@ -172,22 +173,19 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 
 		case 1:
 			Loading_Surf = IMG_Load(MAPA_2);
-			SDL_DestroyTexture(fase->mapa[0].sprite);
 			break;
 
 		case 2:
 			Loading_Surf = IMG_Load(MAPA_3);
-			SDL_DestroyTexture(fase->mapa[1].sprite);
 			break;
 
 		case 3:
 			Loading_Surf = IMG_Load(MAPA_4);
-			SDL_DestroyTexture(fase->mapa[2].sprite);
 			break;
 	}
 
 	// Carrega sprite na textura
-	fase->mapa[fase->numero].sprite = SDL_CreateTextureFromSurface(renderer,
+	fase->sprite = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	// Limpa memoria
@@ -354,28 +352,7 @@ void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
 {
 	// Carrega fundo da fase
-	switch (fase->numero)
-	{
-		case 0:
-			SDL_RenderCopy(renderer, fase->mapa[0].sprite, NULL, NULL);
-			break;
-
-		case 1:
-			SDL_RenderCopy(renderer, fase->mapa[1].sprite, NULL, NULL);
-			break;
-
-		case 2:
-			SDL_RenderCopy(renderer, fase->mapa[2].sprite, NULL, NULL);
-			break;
-
-		case 3:
-			SDL_RenderCopy(renderer, fase->mapa[3].sprite, NULL, NULL);
-			break;
-
-		case 4:
-			SDL_RenderCopy(renderer, fase->mapa[4].sprite, NULL, NULL);
-			break;
-	}
+	SDL_RenderCopy(renderer, fase->sprite, NULL, NULL);
 
 	//
 	// Carrega portais

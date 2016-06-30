@@ -117,6 +117,9 @@ typedef struct
 	// Numero da fase
 	int numero;
 
+	// Sprite
+	SDL_Texture* sprite;
+
 	// Portais
 	struct
 	{
@@ -141,13 +144,6 @@ typedef struct
 
 		}cima, baixo, esquerda, direita;
 	}portal;
-
-	// Vetor de fases
-	struct
-	{	
-		// Sprite
-		SDL_Texture* sprite;
-	}*mapa;
 }Fase;
 
 // Funcoes
@@ -156,6 +152,7 @@ void Carrega_Teclas_de_Acao(Jogador* jogador);
 Fase Inicializa_Fases();
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
+void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase);
 
 #endif
 
