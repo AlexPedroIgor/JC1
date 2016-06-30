@@ -117,39 +117,41 @@ typedef struct
 	// Numero da fase
 	int numero;
 
-	// Vetor de fases
+	// Portais
 	struct
-	{		
-		// Sprite
-		SDL_Texture* sprite;
-
-		// Portais
+	{
 		struct
 		{
-			struct
-			{
-				// Tipo de portal
-				int tipo;
-				/*
-				Portal 1 - Portal Vermelho		- Inimigos saindo do portal
-				Portal 2 - Portal Azul			- Jogadores podem passar
-				Portal 3 - Portal Cinza			- Portal desativado
-				*/
+			// Tipo de portal
+			int tipo;
+			/*
+			Portal 1 - Portal Vermelho		- Inimigos saindo do portal
+			Portal 2 - Portal Azul			- Jogadores podem passar
+			Portal 3 - Portal Cinza			- Portal desativado
+			*/
 
-				// Sprite dos portais
-				SDL_Texture* sprite;
+			// Sprite dos portais
+			SDL_Texture* sprite;
 
-				// Rect para portais
-				SDL_Rect frame, posicao;
+			// Rect para portais
+			SDL_Rect frame, posicao;
 
-			}cima, baixo, esquerda, direita;
-		}portal;
+		}cima, baixo, esquerda, direita;
+	}portal;
+
+	// Vetor de fases
+	struct
+	{	
+		// Sprite
+		SDL_Texture* sprite;
 	}*mapa;
 }Fase;
 
 // Funcoes
 Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
+Fase Inicializa_Fases();
+void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 
 #endif
 

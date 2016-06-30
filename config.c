@@ -13,6 +13,8 @@
 // Pre carregamento das funcoes
 Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
+Fase Inicializa_Fases();
+void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 
 
 // Carrega parametros iniciais do jogador
@@ -76,77 +78,213 @@ void Carrega_Teclas_de_Acao(Jogador* jogador)
 }
 
 // Carrega fases do jogo
-Fase Inicializa_Fases(SDL_Renderer* renderer)
+Fase Inicializa_Fases()
 {
 	// Inicializa variavel
 	Fase fase;
 
-	// Variaveis dos portais
-	int i;
-	for (i = 0; i != 4; i++)
-	{
-		// Define portal tipo 1 para todos os lados
-		fase.mapa[i].portal.cima.tipo = 1;
-		fase.mapa[i].portal.baixo.tipo = 1;
-		fase.mapa[i].portal.esquerda.tipo = 1;
-		fase.mapa[i].portal.direita.tipo = 1;
+	// Inicia na fase 1
+	fase.numero = 0;
 
-		//
-		// Posicao nos frames
-		//
+	// Define portal tipo 1 para todos os lados
+	fase.portal.cima.tipo = 1;
+	fase.portal.baixo.tipo = 1;
+	fase.portal.esquerda.tipo = 1;
+	fase.portal.direita.tipo = 1;
 
-		// Cima
-		fase.mapa[i].portal.cima.frame.x = 0;
-		fase.mapa[i].portal.cima.frame.y = 0;
-		fase.mapa[i].portal.cima.frame.w = 0;
-		fase.mapa[i].portal.cima.frame.h = 0;
+	//
+	// Posicao nos frames
+	//
 
-		// Baixo
-		fase.mapa[i].portal.baixo.frame.x = 0;
-		fase.mapa[i].portal.baixo.frame.y = 0;
-		fase.mapa[i].portal.baixo.frame.w = 0;
-		fase.mapa[i].portal.baixo.frame.h = 0;
+	// Cima
+	fase.portal.cima.frame.x = 0;
+	fase.portal.cima.frame.y = 0;
+	fase.portal.cima.frame.w = 0;
+	fase.portal.cima.frame.h = 0;
 
-		// Esquerda
-		fase.mapa[i].portal.esquerda.frame.x = 0;
-		fase.mapa[i].portal.esquerda.frame.y = 0;
-		fase.mapa[i].portal.esquerda.frame.w = 0;
-		fase.mapa[i].portal.esquerda.frame.h = 0;
+	// Baixo
+	fase.portal.baixo.frame.x = 0;
+	fase.portal.baixo.frame.y = 0;
+	fase.portal.baixo.frame.w = 0;
+	fase.portal.baixo.frame.h = 0;
 
-		// Direita
-		fase.mapa[i].portal.direita.frame.x = 0;
-		fase.mapa[i].portal.direita.frame.y = 0;
-		fase.mapa[i].portal.direita.frame.w = 0;
-		fase.mapa[i].portal.direita.frame.h = 0;
+	// Esquerda
+	fase.portal.esquerda.frame.x = 0;
+	fase.portal.esquerda.frame.y = 0;
+	fase.portal.esquerda.frame.w = 0;
+	fase.portal.esquerda.frame.h = 0;
 
-		//
-		// Posicao na tela
-		//
+	// Direita
+	fase.portal.direita.frame.x = 0;
+	fase.portal.direita.frame.y = 0;
+	fase.portal.direita.frame.w = 0;
+	fase.portal.direita.frame.h = 0;
 
-		// Cima
-		fase.mapa[i].portal.cima.posicao.x = 0;
-		fase.mapa[i].portal.cima.posicao.y = 0;
-		fase.mapa[i].portal.cima.posicao.w = 0;
-		fase.mapa[i].portal.cima.posicao.h = 0;
+	//
+	// Posicao na tela
+	//
 
-		// Baixo
-		fase.mapa[i].portal.baixo.posicao.x = 0;
-		fase.mapa[i].portal.baixo.posicao.y = 0;
-		fase.mapa[i].portal.baixo.posicao.w = 0;
-		fase.mapa[i].portal.baixo.posicao.h = 0;
+	// Cima
+	fase.portal.cima.posicao.x = 0;
+	fase.portal.cima.posicao.y = 0;
+	fase.portal.cima.posicao.w = 0;
+	fase.portal.cima.posicao.h = 0;
 
-		// Esquerda
-		fase.mapa[i].portal.esquerda.posicao.x = 0;
-		fase.mapa[i].portal.esquerda.posicao.y = 0;
-		fase.mapa[i].portal.esquerda.posicao.w = 0;
-		fase.mapa[i].portal.esquerda.posicao.h = 0;
+	// Baixo
+	fase.portal.baixo.posicao.x = 0;
+	fase.portal.baixo.posicao.y = 0;
+	fase.portal.baixo.posicao.w = 0;
+	fase.portal.baixo.posicao.h = 0;
 
-		// Direita
-		fase.mapa[i].portal.direita.posicao.x = 0;
-		fase.mapa[i].portal.direita.posicao.y = 0;
-		fase.mapa[i].portal.direita.posicao.w = 0;
-		fase.mapa[i].portal.direita.posicao.h = 0;
-	}
+	// Esquerda
+	fase.portal.esquerda.posicao.x = 0;
+	fase.portal.esquerda.posicao.y = 0;
+	fase.portal.esquerda.posicao.w = 0;
+	fase.portal.esquerda.posicao.h = 0;
+
+	// Direita
+	fase.portal.direita.posicao.x = 0;
+	fase.portal.direita.posicao.y = 0;
+	fase.portal.direita.posicao.w = 0;
+	fase.portal.direita.posicao.h = 0;
 
 	return fase;
+}
+
+// Carrega sprites das fases no jogo
+void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
+{
+	// Variavel para carregar imagens
+	SDL_Surface* Loading_Surf = NULL;
+
+	switch (fase->numero)
+	{
+		case 0:
+			Loading_Surf = IMG_Load(MAPA_1);
+			break;
+
+		case 1:
+			Loading_Surf = IMG_Load(MAPA_2);
+			SDL_DestroyTexture(fase->mapa[0].sprite);
+			break;
+
+		case 2:
+			Loading_Surf = IMG_Load(MAPA_3);
+			SDL_DestroyTexture(fase->mapa[1].sprite);
+			break;
+
+		case 3:
+			Loading_Surf = IMG_Load(MAPA_4);
+			SDL_DestroyTexture(fase->mapa[2].sprite);
+			break;
+	}
+
+	// Carrega sprite na textura
+	fase->mapa[fase->numero].sprite = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpa memoria
+	SDL_FreeSurface (Loading_Surf);
+
+	// *****************************************************************************
+
+	//
+	// Carrega portais
+	//
+
+	// Cima
+	switch (fase->portal.cima.tipo)
+	{
+		case 1:
+			Loading_Surf = IMG_Load(PORTAL_1D);
+			break;
+
+		case 2:
+			Loading_Surf = IMG_Load(PORTAL_2D);
+			break;
+
+		case 3:
+			Loading_Surf = IMG_Load(PORTAL_3D);
+			break;
+	}
+
+	// Carregando na textura
+	fase->portal.cima.sprite = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// ******************************************************************
+
+	// Baixo
+	switch (fase->portal.baixo.tipo)
+	{
+		case 1:
+			Loading_Surf = IMG_Load(PORTAL_1D);
+			break;
+
+		case 2:
+			Loading_Surf = IMG_Load(PORTAL_2D);
+			break;
+
+		case 3:
+			Loading_Surf = IMG_Load(PORTAL_3D);
+			break;
+	}
+
+	// Carrega na textura
+	fase->portal.baixo.sprite = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// **************************************************************************
+
+	// Esquerda
+	switch (fase->portal.esquerda.tipo)
+	{
+		case 1:
+			Loading_Surf = IMG_Load(PORTAL_1L);
+			break;
+
+		case 2:
+			Loading_Surf = IMG_Load(PORTAL_2L);
+			break;
+
+		case 3:
+			Loading_Surf = IMG_Load(PORTAL_3L);
+			break;
+	}
+
+	// Carregando na textura
+	fase->portal.esquerda.sprite = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Esquerda e direita
+	switch (fase->portal.direita.tipo)
+	{
+		case 1:
+			Loading_Surf = IMG_Load(PORTAL_1L);
+			break;
+
+		case 2:
+			Loading_Surf = IMG_Load(PORTAL_2L);
+			break;
+
+		case 3:
+			Loading_Surf = IMG_Load(PORTAL_3L);
+			break;
+	}
+
+	// Carrega na textura
+	fase->portal.direita.sprite = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
 }
