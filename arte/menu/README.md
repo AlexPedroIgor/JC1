@@ -1,0 +1,1 @@
+Imagens de avisos escritos em tela

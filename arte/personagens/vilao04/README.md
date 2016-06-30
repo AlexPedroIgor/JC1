@@ -1,0 +1,1 @@
+Sprites utilizados para o vilao do tipo 4

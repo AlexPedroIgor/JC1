@@ -1,0 +1,1 @@
+Sprites armas e efeitos de ataques

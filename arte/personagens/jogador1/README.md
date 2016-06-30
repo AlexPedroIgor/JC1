@@ -1,0 +1,1 @@
+Sprites utilizados para o jogador 1

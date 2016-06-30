@@ -1,0 +1,1 @@
+Sprites utilizados para os portais das fases do jogo

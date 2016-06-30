@@ -1,0 +1,1 @@
+Sprite dos personagens do jogo

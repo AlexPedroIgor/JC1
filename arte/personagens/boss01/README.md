@@ -1,0 +1,1 @@
+Sprite do primeiro boss
