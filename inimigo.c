@@ -238,8 +238,9 @@ void Movimenta_Inimigo(Inimigo* inimigo, Jogador* jogador)
 			}
 
 			// Salva movimento de animacao
-			inimigo->animacao = CIMA;*/
+			inimigo->animacao = CIMA;
 		}
+		*/
 	}
 }
 
