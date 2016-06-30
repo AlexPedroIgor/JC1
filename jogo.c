@@ -86,6 +86,17 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	// *********************************************************************
 
 	//
+	// Carrega inimigos
+	//
+
+	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
+		5, 1);
+
+	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA);
+
+	// *********************************************************************
+
+	//
 	// **************
 	// LOOP DO JOGO | inicio
 	// **************
@@ -93,6 +104,9 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 	while (singlePlayerRodando)
 	{
+		// Movimentacao dos inimigos
+		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, NULL);
+
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
 		{
@@ -123,6 +137,9 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 		// Renderiza jogador
 		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
+
+		// Renderiza inimigos em tela
+		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
@@ -233,6 +250,17 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	// *********************************************************************
 
 	//
+	// Carrega inimigos
+	//
+
+	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
+		5, 1);
+
+	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA);
+
+	// *********************************************************************
+
+	//
 	// **************
 	// LOOP DO JOGO | inicio
 	// **************
@@ -240,6 +268,9 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 
 	while (multiPlayerRodando)
 	{
+		// Movimentacao dos inimigos
+		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, jogador2);
+
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
 		{
@@ -276,6 +307,9 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 
 		// Renderiza jogador 2
 		SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
+
+		// Renderiza inimigos em tela
+		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);

@@ -6,11 +6,20 @@
 
 #include "main.h"
 
+// Velocidade de movimentacao dos inimigos
+#define VEL_INIMIGO 1.5
+
+// Maximo de inimigos em tela
+#define MAX 64
+
 // Estrutura para inimigos
 typedef struct 
 {
 	// Numero do inimigo
 	int tipo;
+
+	// Variavel para alternar na movimentacao
+	int alterna;
 
 	// Movimentacao
 	struct
@@ -45,14 +54,17 @@ typedef struct
 {
 	int quantidade;
 
-	Inimigo* inimigo;
+	Inimigo inimigo[MAX];
 }Vetor_de_Inimigos;
 
 // Funcoes
 Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);
 Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo);
+void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal);
+void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos, int portal);
 void Movimenta_Inimigo(Inimigo* inimigo);
 void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2);
+void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2);
 void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
 
 #endif

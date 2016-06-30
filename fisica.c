@@ -479,7 +479,7 @@ int* Distancia(Objeto* objeto1, Objeto* objeto2)
 
 	// Quadrante 1
 	else if (circulo1.centro.x > circulo2.centro.x
-		&& circulo2.centro.y > circulo2.centro.y)
+		&& circulo1.centro.y > circulo2.centro.y)
 	{
 		quadrante = QUADRANTE1;
 		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
