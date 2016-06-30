@@ -231,7 +231,13 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
 		&& objeto1->posicao.x <= objeto2->posicao.x + 30
 		&& objeto1->movimento.cima)
+	{
+		objeto1->quad_colide.cima = VERDADEIRO;
+		objeto1->quad_colide.baixo = FALSO;
+		objeto1->quad_colide.esquerda = FALSO;
+		objeto1->quad_colide.direita = FALSO;
 		return VERDADEIRO;
+	}
 
 	// Inferior
 	else if ( (objeto1->posicao.y <= objeto2->posicao.y)
@@ -239,7 +245,13 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
 		&& objeto1->posicao.x <= objeto2->posicao.x + 30
 		&& objeto1->movimento.baixo)
+	{
+		objeto1->quad_colide.cima = FALSO;
+		objeto1->quad_colide.baixo = BAIXO;
+		objeto1->quad_colide.esquerda = FALSO;
+		objeto1->quad_colide.direita = FALSO;
 		return VERDADEIRO;
+	}
 
 	// Lateral esquerda
 	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 35)
@@ -247,7 +259,13 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
 		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.esquerda)
+	{
+		objeto1->quad_colide.cima = FALSO;
+		objeto1->quad_colide.baixo = FALSO;
+		objeto1->quad_colide.esquerda = VERDADEIRO;
+		objeto1->quad_colide.direita = FALSO;
 		return VERDADEIRO;
+	}
 
 	// Lateral direita
 	else if ( (objeto1->posicao.x + 35 >= objeto2->posicao.x )
@@ -255,10 +273,22 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
 		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.direita)
+	{
+		objeto1->quad_colide.cima = FALSO;
+		objeto1->quad_colide.baixo = FALSO;
+		objeto1->quad_colide.esquerda = FALSO;
+		objeto1->quad_colide.direita = VERDADEIRO;
 		return VERDADEIRO;
+	}
 
 	else
+	{
+		objeto1->quad_colide.cima = FALSO;
+		objeto1->quad_colide.baixo = FALSO;
+		objeto1->quad_colide.esquerda = FALSO;
+		objeto1->quad_colide.direita = FALSO;
 		return FALSO;
+	}
 }
 
 // Verificacao de colisao de limite de tela
@@ -380,6 +410,13 @@ int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo)
 	objeto1.movimento.esquerda = jogador->movimento.esquerda;
 	objeto1.movimento.direita = jogador->movimento.direita;
 
+	// Colisoes
+	objeto1.colisao = jogador->colisao;
+	objeto1.quad_colide.cima = jogador->quad_colide.cima;
+	objeto1.quad_colide.baixo = jogador->quad_colide.baixo;
+	objeto1.quad_colide.esquerda = jogador->quad_colide.esquerda;
+	objeto1.quad_colide.direita = jogador->quad_colide.direita;
+
 	// Jogador 2
 	objeto2.posicao.x = inimigo->posicao.x;
 	objeto2.posicao.y = inimigo->posicao.y;
@@ -389,10 +426,23 @@ int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo)
 	// Verificacao por meio da funcao de colisao de objetos
 	if (Colisao_Perimetro(&objeto1, &objeto2))
 	{
+		jogador->colisao = objeto1.colisao;
+		jogador->quad_colide.cima = objeto1.quad_colide.cima;
+		jogador->quad_colide.baixo = objeto1.quad_colide.baixo;
+		jogador->quad_colide.esquerda = objeto1.quad_colide.esquerda;
+		jogador->quad_colide.direita = objeto1.quad_colide.direita;
 		return VERDADEIRO;
 	}
 	else
+	{
+		jogador->colisao = objeto1.colisao;
+		jogador->quad_colide.cima = objeto1.quad_colide.cima;
+		jogador->quad_colide.baixo = objeto1.quad_colide.baixo;
+		jogador->quad_colide.esquerda = objeto1.quad_colide.esquerda;
+		jogador->quad_colide.direita = objeto1.quad_colide.direita;
 		return FALSO;
+	}
+
 }
 
 // Verificacao de colisao entre inimigo e jogador
@@ -411,6 +461,13 @@ int Colisao_Entre_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador)
 	objeto1.movimento.esquerda = inimigo->movimento.esquerda;
 	objeto1.movimento.direita = inimigo->movimento.direita;
 
+	// Colisoes
+	objeto1.colisao = inimigo->colisao;
+	objeto1.quad_colide.cima = inimigo->quad_colide.cima;
+	objeto1.quad_colide.baixo = inimigo->quad_colide.baixo;
+	objeto1.quad_colide.esquerda = inimigo->quad_colide.esquerda;
+	objeto1.quad_colide.direita = inimigo->quad_colide.direita;
+
 	// Jogador
 	objeto2.posicao.x = jogador->posicao.x;
 	objeto2.posicao.y = jogador->posicao.y;
@@ -422,8 +479,11 @@ int Colisao_Entre_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador)
 	{
 		return VERDADEIRO;
 	}
+
 	else
+	{
 		return FALSO;
+	}
 }
 
 // Verificacao de colisao entre inimigos
@@ -442,6 +502,13 @@ int Colisao_Entre_Inimigos(Inimigo* inimigo1, Inimigo* inimigo2)
 	objeto1.movimento.esquerda = inimigo1->movimento.esquerda;
 	objeto1.movimento.direita = inimigo1->movimento.direita;
 
+	// Colisoes
+	objeto1.colisao = inimigo1->colisao;
+	objeto1.quad_colide.cima = inimigo1->quad_colide.cima;
+	objeto1.quad_colide.baixo = inimigo1->quad_colide.baixo;
+	objeto1.quad_colide.esquerda = inimigo1->quad_colide.esquerda;
+	objeto1.quad_colide.direita = inimigo1->quad_colide.direita;
+
 	// Inimigo 2
 	objeto2.posicao.x = inimigo2->posicao.x;
 	objeto2.posicao.y = inimigo2->posicao.y;
@@ -451,10 +518,23 @@ int Colisao_Entre_Inimigos(Inimigo* inimigo1, Inimigo* inimigo2)
 	// Verificacao por meio da funcao de colisao de objetos
 	if (Colisao_Perimetro(&objeto1, &objeto2))
 	{
+		inimigo1->colisao = objeto1.colisao;
+		inimigo1->quad_colide.cima = objeto1.quad_colide.cima;
+		inimigo1->quad_colide.baixo = objeto1.quad_colide.baixo;
+		inimigo1->quad_colide.esquerda = objeto1.quad_colide.esquerda;
+		inimigo1->quad_colide.direita = objeto1.quad_colide.direita;
 		return VERDADEIRO;
 	}
+
 	else
+	{
+		inimigo1->colisao = objeto1.colisao;
+		inimigo1->quad_colide.cima = objeto1.quad_colide.cima;
+		inimigo1->quad_colide.baixo = objeto1.quad_colide.baixo;
+		inimigo1->quad_colide.esquerda = objeto1.quad_colide.esquerda;
+		inimigo1->quad_colide.direita = objeto1.quad_colide.direita;
 		return FALSO;
+	}
 }
 
 // Verificacao de impacto entre arma do inimigo e jogador

@@ -15,7 +15,7 @@ Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
 Fase Inicializa_Fases();
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
-void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
+void Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
 void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase);
 
 
@@ -97,6 +97,12 @@ Fase Inicializa_Fases()
 
 	// Inicia na fase 1
 	fase.numero = 0;
+
+	// Seta 16 inimigos para cada portal
+	fase.portal.cima.inimigos = 16;
+	fase.portal.baixo.inimigos = 16;
+	fase.portal.esquerda.inimigos = 16;
+	fase.portal.direita.inimigos = 16;
 
 	// Define portal tipo 1 para todos os lados
 	fase.portal.cima.tipo = 1;
@@ -253,7 +259,7 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 }
 
 // Altera tipo de portal
-void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
+void Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 {
 	// Variavel para carregar imagens
 	SDL_Surface* Loading_Surf = NULL;
@@ -369,6 +375,16 @@ void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
 	//
 
 	Anima_Portal(fase);
+
+	// Troca portais
+	if (fase->portal.cima.inimigos == 0)
+		Troca_Portal(renderer, fase, CIMA, 3);
+	if (fase->portal.baixo.inimigos == 0)
+		Troca_Portal(renderer, fase, BAIXO, 3);
+	if (fase->portal.esquerda.inimigos == 0)
+		Troca_Portal(renderer, fase, ESQUERDA, 3);
+	if (fase->portal.direita.inimigos == 0)
+		Troca_Portal(renderer, fase, DIREITA, 3);
 
 	// Cima
 	SDL_RenderCopy(renderer, fase->portal.cima.sprite,

@@ -19,7 +19,13 @@ typedef struct
 	int tipo;
 
 	// Variavel para receber estado de colisao
-	int colisao;
+	int colisao, toma_tiro;
+
+	// Quadrante da colisao
+	struct
+	{
+		int cima, baixo, esquerda, direita;
+	}quad_colide;
 
 	// Variavel para guardar estado de vida do inimigo
 	int vivo;
@@ -70,10 +76,10 @@ typedef struct
 // Funcoes
 Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);
 Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo);
-void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal);
+void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
 void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
-void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal);
-void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos, int portal);
+void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal, Fase* fase);
+void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos, int portal, Fase* fase);
 void Movimenta_Inimigo(Inimigo* inimigo);
 void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2);
 void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2);

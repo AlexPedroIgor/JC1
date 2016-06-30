@@ -46,6 +46,12 @@ typedef struct
 	// Variavel para guardar estado de colisao
 	int colisao, toma_tiro;
 
+	// Quadrante da colisao
+	struct
+	{
+		int cima, baixo, esquerda, direita;
+	}quad_colide;
+
 	// Movimentacao
 	struct
 	{
@@ -80,6 +86,15 @@ typedef struct
 {
 	// Numero do objeto
 	int numero;
+
+	// Tem colisao
+	int colisao;
+
+	// Quadrante da colisao
+	struct
+	{
+		int cima, baixo, esquerda, direita;
+	}quad_colide;
 
 	// Movimentacao
 	struct
@@ -147,6 +162,9 @@ typedef struct
 			Portal 3 - Portal Cinza			- Portal desativado
 			*/
 
+			// Quantidade de inimigos saindo do portal
+			int inimigos;
+
 			// Sprite dos portais
 			SDL_Texture* sprite;
 
@@ -162,7 +180,7 @@ Jogador Carrega_Jogador(int numero);
 void Carrega_Teclas_de_Acao(Jogador* jogador);
 Fase Inicializa_Fases();
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
-void Troca_portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
+void Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
 void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase);
 
 #endif

@@ -93,7 +93,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
 		1, 1);
 
-	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA);
+	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA, &fase);
 
 	// *********************************************************************
 
@@ -121,7 +121,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 		contador++;
 		if (contador == 120)
 		{
-			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1);
+			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1, &fase);
 			contador = 1;
 		}
 
@@ -282,7 +282,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
 		1, 1);
 
-	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA);
+	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA, &fase);
 
 	// *********************************************************************
 
@@ -303,7 +303,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 		contador++;
 		if (contador == 120)
 		{
-			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, CIMA);
+			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1, &fase);
 			contador = 1;
 		}
 
@@ -1487,6 +1487,6 @@ void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_t
 
 	if (jogador->movimento.ataque)
 	{
-		Adiciona_Tiro_ao_Vetor(renderer, jogador, vetor_de_tiros);
+		Adiciona_Tiro_ao_Vetor(renderer, vetor_de_tiros, jogador);
 	}
 }

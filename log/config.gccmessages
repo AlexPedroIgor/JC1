@@ -1,11 +1,11 @@
 config.c: In function ‘Atualiza_Plano_de_Fundo’:
-config.c:371:2: warning: implicit declaration of function ‘Anima_Portal’ [-Wimplicit-function-declaration]
+config.c:377:2: warning: implicit declaration of function ‘Anima_Portal’ [-Wimplicit-function-declaration]
   Anima_Portal(fase);
   ^
 config.c: At top level:
-config.c:395:6: warning: conflicting types for ‘Anima_Portal’ [enabled by default]
+config.c:411:6: warning: conflicting types for ‘Anima_Portal’ [enabled by default]
  void Anima_Portal(Fase *fase)
       ^
-config.c:371:2: note: previous implicit declaration of ‘Anima_Portal’ was here
+config.c:377:2: note: previous implicit declaration of ‘Anima_Portal’ was here
   Anima_Portal(fase);
   ^
