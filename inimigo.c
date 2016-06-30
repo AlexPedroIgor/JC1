@@ -806,6 +806,9 @@ void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_
 		SDL_RenderCopy(renderer, vetor_de_inimigos->inimigo[i].sprite,
 			&vetor_de_inimigos->inimigo[i].frame,
 			&vetor_de_inimigos->inimigo[i].posicao);
+
+		if (i == 64)
+			break;
 	}
 }
 

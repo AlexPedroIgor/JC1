@@ -862,14 +862,17 @@ Vetor_de_Tiros Cria_Vetor_de_Tiros()
 // Adiciona um novo tiro ao vetor de tiros
 void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros, Jogador* jogador)
 {
-	// Cria um novo tiro
-	vetor_de_tiros->tiro[vetor_de_tiros->quantidade] = Cria_Tiro(jogador);
+	if (vetor_de_tiros->quantidade < 64)
+	{
+		// Cria um novo tiro
+		vetor_de_tiros->tiro[vetor_de_tiros->quantidade] = Cria_Tiro(jogador);
 
-	// Adiciona tiro na memoria
-	CarregaTiro(renderer, &vetor_de_tiros->tiro[vetor_de_tiros->quantidade], jogador);
+		// Adiciona tiro na memoria
+		CarregaTiro(renderer, &vetor_de_tiros->tiro[vetor_de_tiros->quantidade], jogador);
 
-	// Soma o contador de tiros em tela
-	vetor_de_tiros->quantidade++;
+		// Soma o contador de tiros em tela
+		vetor_de_tiros->quantidade++;
+	}
 }
 
 // Renderiza tiros em tela
@@ -885,6 +888,9 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 				vetor_de_tiros->tiro[i].sprite,
 				&vetor_de_tiros->tiro[i].frame,
 				&vetor_de_tiros->tiro[i].posicao);
+
+			if (i == 64)
+				break;
 		}
 	}
 }
