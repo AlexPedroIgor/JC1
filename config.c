@@ -384,7 +384,7 @@ void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
 
 	fase->portal.animacao++;
 
-	if (fase->portal.animacao > 9)
+	if (fase->portal.animacao > 17)
 		fase->portal.animacao = 1;
 }
 
@@ -399,56 +399,56 @@ void Anima_Portal(Fase *fase)
 			fase->portal.direita.frame.y = 0;
 			break;
 
-		case 2:
+		case 3:
 			fase->portal.cima.frame.x = 59;
 			fase->portal.baixo.frame.x = 59;
 			fase->portal.esquerda.frame.y = 59;
 			fase->portal.direita.frame.y = 59;
 			break;
 
-		case 3:
+		case 5:
 			fase->portal.cima.frame.x = 118;
 			fase->portal.baixo.frame.x = 118;
 			fase->portal.esquerda.frame.y = 118;
 			fase->portal.direita.frame.y = 118;
 			break;
 
-		case 4:
+		case 7:
 			fase->portal.cima.frame.x = 177;
 			fase->portal.baixo.frame.x = 177;
 			fase->portal.esquerda.frame.y = 177;
 			fase->portal.direita.frame.y = 177;
 			break;
 
-		case 5:
+		case 9:
 			fase->portal.cima.frame.x = 236;
 			fase->portal.baixo.frame.x = 236;
 			fase->portal.esquerda.frame.y = 236;
 			fase->portal.direita.frame.y = 236;
 			break;
 
-		case 6:
+		case 11:
 			fase->portal.cima.frame.x = 295;
 			fase->portal.baixo.frame.x = 295;
 			fase->portal.esquerda.frame.y = 295;
 			fase->portal.direita.frame.y = 295;
 			break;
 
-		case 7:
+		case 13:
 			fase->portal.cima.frame.x = 354;
 			fase->portal.baixo.frame.x = 354;
 			fase->portal.esquerda.frame.y = 354;
 			fase->portal.direita.frame.y = 354;
 			break;
 
-		case 8:
+		case 15:
 			fase->portal.cima.frame.x = 413;
 			fase->portal.baixo.frame.x = 413;
 			fase->portal.esquerda.frame.y = 413;
 			fase->portal.direita.frame.y = 413;
 			break;
 
-		case 9:
+		case 17:
 			fase->portal.cima.frame.x = 472;
 			fase->portal.baixo.frame.x = 472;
 			fase->portal.esquerda.frame.y = 472;
