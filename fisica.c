@@ -32,7 +32,7 @@ Objeto Converte_Jogador_Objeto(Jogador* Jogador);
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
 void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inimigos);
 Objeto Atirar(Objeto* tiro, Jogador* jogador);
-void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador);
+//void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador);
 
 
 // Sistema de colisao em circulos (verifica tangentes dos circulos)
@@ -644,7 +644,7 @@ void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inim
 		jogador->colisao = FALSO;
 }
 
-Objeto Atirar(Objeto* tiro, Jogador* jogador)
+/*Objeto Atirar(Objeto* tiro, Jogador* jogador)
 {
 
 	// Carrega teclas de acao
@@ -652,41 +652,35 @@ Objeto Atirar(Objeto* tiro, Jogador* jogador)
 
 	if(jogador->movimento.ataque)
 	{
-	tiro->movimento.cima 		= 	jogador->movimento.cima;
-	tiro->movimento.Esquerda 	= 	jogador->movimento.esquerda;
-	tiro->movimento.direita 	= 	jogador->movimento.direita;
-	tiro->movimento.baixo 		=	 jogador->movimento.baixo;
-	}
-
-	tiro.posicao.x = (jogador.posicao.x+jogador.frame.w)/2;
-	tiro.posicao.y = (jogador.posicao.y+jogador.frame.h)/2;
+		tiro.posicao.x = (jogador.posicao.x+jogador.frame.w)/2;
+		tiro.posicao.y = (jogador.posicao.y+jogador.frame.h)/2;
 	
-		if(tiro->movimento.cima )
+		if(->movimento.cima )
 			tiro.animacao = CIMA;
 		
-		if(tiro->movimento.baixo )
-			tiro.animacao = BAIXO;
+		if(jogador->movimento.baixo )
+			jogador.animacao = BAIXO;
 		
-		if(tiro->movimento.esquerda )
+		if(jogador->movimento.esquerda )
 			tiro.animacao = ESQUERDA;
 		
-		if(tiro->movimento.direita )
+		if(jogador->movimento.direita )
 			tiro.animacao = DIREITA;
 		
-		if(tiro->movimento.cima && tiro->movimento.esquerda )
+		if(jogador->movimento.cima && jogador->movimento.esquerda )
 			tiro.animacao = QUADRANTE2;
-		if(tiro->movimento.cima && tiro->movimento.direita  )
+		if(jogador->movimento.cima && jogador->movimento.direita  )
 			tiro.animacao = QUADRANTE1;
 
-		if(tiro->movimento.baixo && tiro->movimento.esquerda )
+		if(jogador->movimento.baixo && jogador->movimento.esquerda )
 			tiro.animacao = QUADRANTE3;
-		if(tiro->movimento.baixo && tiro->movimento.direita  )
+		if(jogador->movimento.baixo && jogador->movimento.direita  )
 			tiro.animacao = QUADRANTE4;
-
+		}
 		return tiro;
-	}
+	}*/
 
-	void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador)
+	/*void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador)
 	{
 		SDL_Surface* Loading_Surf;
 		SDL_Texture* gAtirar;
@@ -731,4 +725,4 @@ Objeto Atirar(Objeto* tiro, Jogador* jogador)
 
 
 
-	}
+	}*/

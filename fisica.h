@@ -26,7 +26,7 @@ Objeto Converte_Jogador_Objeto(Jogador* Jogador);
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
 void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inimigos);
 Objeto Atirar(Objeto* tiro, Jogador* jogador);
-void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador);
+//void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador);
 
 #endif
 

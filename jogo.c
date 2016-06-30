@@ -113,7 +113,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 		contador++;
 		if (contador == 120)
 		{
-			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, CIMA);
+			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1);
 			contador = 1;
 		}
 
@@ -136,9 +136,9 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 				Movimenta_Jogador(jogador1, NULL, &vetor_de_inimigos);
 
 				//Atirar
-				Atirar(tiro[i]);
+				/*Atirar(tiro[i]);
 					if (tiro[i]!=0)
-						i++;
+						i++;*/
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
@@ -155,8 +155,8 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 		// Renderiza jogador
 		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
 		// Renderiza os Tiros
-		for (j = 0; j < 50; j++)
-			 CarregaTiro(renderer, tiro[j], jogador1);
+		/*for (j = 0; j < 50; j++)
+			 CarregaTiro(&renderer, tiro[j], jogador1);*/
 		// Renderiza inimigos em tela
 		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
 
