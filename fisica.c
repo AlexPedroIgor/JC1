@@ -31,6 +31,8 @@ int* Distancia_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
 Objeto Converte_Jogador_Objeto(Jogador* Jogador);
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
 void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inimigos);
+Objeto Atirar(Objeto* tiro, Jogador* jogador);
+void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador);
 
 
 // Sistema de colisao em circulos (verifica tangentes dos circulos)
@@ -641,3 +643,92 @@ void Teste_de_Colisao_Jogador(Jogador* jogador, Vetor_de_Inimigos* vetor_de_inim
 	if (!teve_colisao)
 		jogador->colisao = FALSO;
 }
+
+Objeto Atirar(Objeto* tiro, Jogador* jogador)
+{
+
+	// Carrega teclas de acao
+	Carrega_Teclas_de_Acao(jogador);
+
+	if(jogador->movimento.ataque)
+	{
+	tiro->movimento.cima 		= 	jogador->movimento.cima;
+	tiro->movimento.Esquerda 	= 	jogador->movimento.esquerda;
+	tiro->movimento.direita 	= 	jogador->movimento.direita;
+	tiro->movimento.baixo 		=	 jogador->movimento.baixo;
+	}
+
+	tiro.posicao.x = (jogador.posicao.x+jogador.frame.w)/2;
+	tiro.posicao.y = (jogador.posicao.y+jogador.frame.h)/2;
+	
+		if(tiro->movimento.cima )
+			tiro.animacao = CIMA;
+		
+		if(tiro->movimento.baixo )
+			tiro.animacao = BAIXO;
+		
+		if(tiro->movimento.esquerda )
+			tiro.animacao = ESQUERDA;
+		
+		if(tiro->movimento.direita )
+			tiro.animacao = DIREITA;
+		
+		if(tiro->movimento.cima && tiro->movimento.esquerda )
+			tiro.animacao = QUADRANTE2;
+		if(tiro->movimento.cima && tiro->movimento.direita  )
+			tiro.animacao = QUADRANTE1;
+
+		if(tiro->movimento.baixo && tiro->movimento.esquerda )
+			tiro.animacao = QUADRANTE3;
+		if(tiro->movimento.baixo && tiro->movimento.direita  )
+			tiro.animacao = QUADRANTE4;
+
+		return tiro;
+	}
+
+	void CarregaTiro(SDL_Renderer* renderer; Objeto* tiro, Jogador* jogador)
+	{
+		SDL_Surface* Loading_Surf;
+		SDL_Texture* gAtirar;
+		Loading_Surf = IMG_Load("arte/ataques/fireball.png"); 
+		SDL_FreeSurface(Loading_Surf);
+		SDL_Rect tiro;
+
+		switch(tiro.animacao)
+		{
+			case CIMA:
+				tiro.posicao.y -= 20;
+				break;
+			case BAIXO:
+				tiro.posicao.y += 20;
+				break;
+			case DIREITA:
+				tiro.posicao.x += 20;
+				break;
+			case ESQUERDA:
+				tiro.posicao.x -= 20;
+				break;
+			case QUADRANTE1:
+				tiro.posicao.x += 20;
+				tiro.posicao.y -= 20;
+				break;
+			case QUADRANTE2:
+				tiro.posicao.x -= 20;	
+				tiro.posicao.y -= 20;
+				break;
+			case QUADRANTE3:
+				tiro.posicao.x -= 20;
+				tiro.posicao.y += 20;
+				break;
+			case QUADRANTE4:
+				tiro.posicao.x += 20;
+				tiro.posicao.y += 20;
+				break;
+		}
+			SDL_RenderPresent(renderer);
+			SDL_RenderCopy(renderer, gAtirar, &tiro->frame, &tiro->posicao);
+			SDL_DestroyTexture(gAtirar);
+
+
+
+	}

@@ -90,6 +90,10 @@ typedef struct
 		int direita;
 	} movimento;
 
+	//animação do movimento
+
+	int animacao;
+
 	// Velocidade de movimento
 	struct
 	{

@@ -444,7 +444,7 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 
 	int randomico = rand() % 8;
 
-	int loucura = rand() % 500;
+	int loucura = rand() % 200;
 
 	switch (loucura)
 	{
