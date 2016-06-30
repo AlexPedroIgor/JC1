@@ -10,7 +10,7 @@
 typedef struct 
 {
 	// Numero do inimigo
-	int numero;
+	int tipo;
 
 	// Movimentacao
 	struct
@@ -40,13 +40,20 @@ typedef struct
 	SDL_Texture* sprite;
 }Inimigo;
 
+// Estrutura para vetor de inimigos
+typedef struct
+{
+	int quantidade;
+
+	Inimigo* inimigo;
+}Vetor_de_Inimigos;
+
 // Funcoes
-Inimigo Carrega_Inimigo(int numero, SDL_Renderer* renderer);
-
-
-void Movimenta_Inimigo(Inimigo* inimigo, Jogador* jogador);
-
-
+Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);
+Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo);
+void Movimenta_Inimigo(Inimigo* inimigo);
+void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2);
+void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
 
 #endif
 

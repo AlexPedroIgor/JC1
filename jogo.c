@@ -215,7 +215,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	jogador2->posicao.y = SCREEN_HEIGHT/2;
 
 	// Carrega imagem na memoria
-	Loading_Surf = IMG_Load(ARCHER_W);
+	Loading_Surf = IMG_Load(MAGE_M);
 
 	// Carrega imagem na tela
 	jogador2->sprite = SDL_CreateTextureFromSurface(renderer,

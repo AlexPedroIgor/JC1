@@ -1,0 +1,4 @@
+inimigo.c: In function ‘IA_de_Movimentacao’:
+inimigo.c:304:6: warning: variable ‘distancia’ set but not used [-Wunused-but-set-variable]
+  int distancia, quadrante;
+      ^

@@ -19,11 +19,14 @@ int Colisao_Retangular(Objeto* Objeto1, Objeto* Objeto2);
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
 int Colisao_LimiteDeTela(Objeto* objeto);
 int Colisao_Jogador_LimiteDeTela(Jogador* jogador);
+int Colisao_Inimigo_LimiteDeTela(Inimigo* inimigo);
 int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2);
 int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo);
 int Colisao_Impacto_Jogador(Jogador* jogador, Objeto* objeto);
+int Colisao_Entre_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
 int Colisao_Impacto_Inimigo(Inimigo* inimigo, Objeto* objeto);
-int Distancia(Objeto* objeto1, Objeto* objeto2);
+int* Distancia(Objeto* objeto1, Objeto* objeto2);
+int* Distancia_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador);
 Objeto Converte_Jogador_Objeto(Jogador* Jogador);
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo);
 
@@ -298,6 +301,27 @@ int Colisao_Jogador_LimiteDeTela(Jogador* jogador)
 		return FALSO;
 }
 
+// Verificacao de colisao entre inimigo e limite de tela
+int Colisao_Inimigo_LimiteDeTela(Inimigo* inimigo)
+{
+	Objeto objeto;
+	
+	objeto.posicao.x = inimigo->posicao.x;
+	objeto.posicao.y = inimigo->posicao.y;
+	objeto.frame.w = inimigo->frame.w;
+	objeto.frame.h = inimigo->frame.h;
+	objeto.movimento.cima = inimigo->movimento.cima;
+	objeto.movimento.baixo = inimigo->movimento.baixo;
+	objeto.movimento.esquerda = inimigo->movimento.esquerda;
+	objeto.movimento.direita = inimigo->movimento.direita;
+
+	if (Colisao_LimiteDeTela(&objeto))
+		return VERDADEIRO;
+	
+	else
+		return FALSO;
+}
+
 // Verificacao de colisao entre jogadores
 int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2)
 {
@@ -335,7 +359,63 @@ int Colisao_Entre_Jogadores(Jogador* jogador1, Jogador* jogador2)
 // Verificacao de colisao entre jogador e inimigo
 int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo)
 {
+	// Conversao de jogadores em objetos
+	Objeto objeto1, objeto2;
 
+	// Jogador 1
+	objeto1.posicao.x = jogador->posicao.x;
+	objeto1.posicao.y = jogador->posicao.y;
+	objeto1.frame.w = jogador->frame.w;
+	objeto1.frame.h = jogador->frame.h;
+	objeto1.movimento.cima = jogador->movimento.cima;
+	objeto1.movimento.baixo = jogador->movimento.baixo;
+	objeto1.movimento.esquerda = jogador->movimento.esquerda;
+	objeto1.movimento.direita = jogador->movimento.direita;
+
+	// Jogador 2
+	objeto2.posicao.x = inimigo->posicao.x;
+	objeto2.posicao.y = inimigo->posicao.y;
+	objeto2.frame.w = inimigo->frame.w;
+	objeto2.frame.h = inimigo->frame.h;
+
+	// Verificacao por meio da funcao de colisao de objetos
+	if (Colisao_Perimetro(&objeto1, &objeto2))
+	{
+		return VERDADEIRO;
+	}
+	else
+		return FALSO;
+}
+
+// Verificacao de colisao entre inimigo e jogador
+int Colisao_Entre_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador)
+{
+	// Conversao de jogadores em objetos
+	Objeto objeto1, objeto2;
+
+	// Inimigo
+	objeto1.posicao.x = inimigo->posicao.x;
+	objeto1.posicao.y = inimigo->posicao.y;
+	objeto1.frame.w = inimigo->frame.w;
+	objeto1.frame.h = inimigo->frame.h;
+	objeto1.movimento.cima = inimigo->movimento.cima;
+	objeto1.movimento.baixo = inimigo->movimento.baixo;
+	objeto1.movimento.esquerda = inimigo->movimento.esquerda;
+	objeto1.movimento.direita = inimigo->movimento.direita;
+
+	// Jogador
+	objeto2.posicao.x = jogador->posicao.x;
+	objeto2.posicao.y = jogador->posicao.y;
+	objeto2.frame.w = jogador->frame.w;
+	objeto2.frame.h = jogador->frame.h;
+
+	// Verificacao por meio da funcao de colisao de objetos
+	if (Colisao_Perimetro(&objeto1, &objeto2))
+	{
+		return VERDADEIRO;
+	}
+	else
+		return FALSO;
 }
 
 // Verificacao de impacto entre arma do inimigo e jogador
@@ -351,7 +431,8 @@ int Colisao_Impacto_Inimigo(Inimigo* inimigo, Objeto* objeto)
 }
 
 // Verifica distancia entre dois objetos
-int Distancia(Objeto* objeto1, Objeto* objeto2)
+// Retorna um vetor com a distancia e o quadrante
+int* Distancia(Objeto* objeto1, Objeto* objeto2)
 {
 	struct
 	{
@@ -380,17 +461,27 @@ int Distancia(Objeto* objeto1, Objeto* objeto2)
 	if (circulo1.centro.x == circulo2.centro.x)
 	{
 		distancia = abs(circulo1.centro.y - circulo2.centro.y);
+		if (circulo1.centro.y < circulo2.centro.y)
+			quadrante = BAIXO;
+		else
+			quadrante = CIMA;
 	}
+
 	// Eixo Y
 	else if (circulo1.centro.y == circulo2.centro.y)
 		{
 			distancia = abs(circulo1.centro.x - circulo2.centro.x);
+			if (circulo1.centro.x < circulo2.centro.x)
+				quadrante = DIREITA;
+			else
+				quadrante = ESQUERDA;
 		}
+
 	// Quadrante 1
 	else if (circulo1.centro.x > circulo2.centro.x
 		&& circulo2.centro.y > circulo2.centro.y)
 	{
-		quadrante = 1;
+		quadrante = QUADRANTE1;
 		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
 			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
 	}
@@ -398,7 +489,7 @@ int Distancia(Objeto* objeto1, Objeto* objeto2)
 	else if (circulo1.centro.x < circulo2.centro.x
 		&& circulo1.centro.y > circulo2.centro.y)
 	{
-		quadrante = 2;
+		quadrante = QUADRANTE2;
 		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
 			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
 	}
@@ -406,7 +497,7 @@ int Distancia(Objeto* objeto1, Objeto* objeto2)
 	else if (circulo1.centro.x < circulo2.centro.x
 		&& circulo1.centro.y < circulo2.centro.y)
 	{
-		quadrante = 3;
+		quadrante = QUADRANTE3;
 		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
 			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
 	}
@@ -414,12 +505,49 @@ int Distancia(Objeto* objeto1, Objeto* objeto2)
 	else if (circulo1.centro.x > circulo2.centro.x
 		&& circulo1.centro.y < circulo2.centro.y)
 	{
-		quadrante = 4;
+		quadrante = QUADRANTE4;
 		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
 			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
 	}
 
-	return distancia;
+	int vetor_distancia_quadrante[2];
+	vetor_distancia_quadrante[0] = distancia;
+	vetor_distancia_quadrante[1] = quadrante;
+
+	return vetor_distancia_quadrante;
+}
+
+// Verifica distancia entre inimigo e jogador
+// Retorna um vetor com a distancia e o quadrante
+int* Distancia_Inimigo_Jogador(Inimigo* inimigo, Jogador* jogador)
+{
+	// Conversao de jogador em objeto
+	Objeto objeto1;
+
+	// Jogador 1
+	objeto1.posicao.x = jogador->posicao.x;
+	objeto1.posicao.y = jogador->posicao.y;
+	objeto1.frame.w = jogador->frame.w;
+	objeto1.frame.h = jogador->frame.h;
+	objeto1.movimento.cima = jogador->movimento.cima;
+	objeto1.movimento.baixo = jogador->movimento.baixo;
+	objeto1.movimento.esquerda = jogador->movimento.esquerda;
+	objeto1.movimento.direita = jogador->movimento.direita;
+
+	// Conversao de iniigo em objetos
+	Objeto objeto2;
+
+	// Jogador 1
+	objeto2.posicao.x = inimigo->posicao.x;
+	objeto2.posicao.y = inimigo->posicao.y;
+	objeto2.frame.w = inimigo->frame.w;
+	objeto2.frame.h = inimigo->frame.h;
+	objeto2.movimento.cima = inimigo->movimento.cima;
+	objeto2.movimento.baixo = inimigo->movimento.baixo;
+	objeto2.movimento.esquerda = inimigo->movimento.esquerda;
+	objeto2.movimento.direita = inimigo->movimento.direita;
+
+	return Distancia(&objeto1, &objeto2);
 }
 
 // Converte jogador em objeto
@@ -444,10 +572,10 @@ Objeto Converte_Jogador_Objeto(Jogador* jogador)
 // Converte inimigo em objeto
 Objeto Converte_Inimigo_Objeto(Inimigo* inimigo)
 {
-	// Conversao de jogadores em objetos
+	// Conversao de inimigo em objeto
 	Objeto objeto;
 
-	// Jogador 1
+	// Inimigo
 	objeto.posicao.x = inimigo->posicao.x;
 	objeto.posicao.y = inimigo->posicao.y;
 	objeto.frame.w = inimigo->frame.w;
