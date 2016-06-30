@@ -36,6 +36,7 @@ void CarregaTiro(SDL_Renderer* renderer, Objeto* tiro, Jogador* jogador);
 Vetor_de_Tiros Cria_Vetor_de_Tiros();
 void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros, Jogador* jogador);
 void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros);
+void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro);
 
 // ********************************************************************************************
 
@@ -743,6 +744,9 @@ Objeto Cria_Tiro(Jogador* jogador)
 	// Inicializa tiro
 	Objeto tiro;
 
+	// Animacao
+	tiro.animacao = 1;
+
 	// Verifica ataque
 	if(jogador->movimento.ataque)
 	{
@@ -753,11 +757,11 @@ Objeto Cria_Tiro(Jogador* jogador)
 	}
 
 	// Recebe posicao do jogador
-	tiro.posicao.x = (jogador->posicao.x+jogador->frame.w)/2;
-	tiro.posicao.y = (jogador->posicao.y+jogador->frame.h)/2;
+	tiro.posicao.x = jogador->posicao.x;
+	tiro.posicao.y = jogador->posicao.y;
 
-	// Posicao y sera a mesma
-	tiro.frame.y = 0;
+	// Posicao X sera a mesma
+	tiro.frame.x = 0;
 
 	// Tamanho dos frames do tiro
 	tiro.frame.w = 64;
@@ -768,28 +772,28 @@ Objeto Cria_Tiro(Jogador* jogador)
 	tiro.posicao.h = 64;
 
 	if(jogador->movimento.cima && jogador->movimento.esquerda)
-		tiro.frame.x = 64; // Frame
+		tiro.frame.y = 64; // Frame
 
 	else if(jogador->movimento.cima && jogador->movimento.direita)
-		tiro.frame.x = 192; // Frame
+		tiro.frame.y = 192; // Frame
 
 	else if(jogador->movimento.baixo && jogador->movimento.esquerda)
-		tiro.frame.x = 448; // Frame
+		tiro.frame.y = 448; // Frame
 	
 	else if(jogador->movimento.baixo && jogador->movimento.direita)
-		tiro.frame.x = 320; // Frame
+		tiro.frame.y = 320; // Frame
 	
 	else if(jogador->movimento.cima)
-		tiro.frame.x = 128; // Frame
+		tiro.frame.y = 128; // Frame
 		
 	else if(jogador->movimento.baixo)
-		tiro.frame.x = 384; // Frame
+		tiro.frame.y = 384; // Frame
 		
 	else if(jogador->movimento.esquerda)
-		tiro.frame.x = 0; // Frame
+		tiro.frame.y = 0; // Frame
 		
 	else if(jogador->movimento.direita)
-		tiro.frame.x = 256; // Frame
+		tiro.frame.y = 256; // Frame
 
 	return tiro;
 }
@@ -882,6 +886,9 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 
 	if (vetor_de_tiros->quantidade > 0)
 	{
+
+		Anima_Tiro(renderer, &vetor_de_tiros->tiro[i]);
+
 		for (i = 0; i != vetor_de_tiros->quantidade; i++)
 		{
 			SDL_RenderCopy(renderer,
@@ -892,5 +899,49 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 			if (i == 64)
 				break;
 		}
+
+		vetor_de_tiros->tiro[i].animacao++;
+
+		if (vetor_de_tiros->tiro[i].animacao > 8)
+			vetor_de_tiros->tiro[i].animacao = 1;
+	}
+}
+
+// Animacao dos tiros
+void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro)
+{
+	switch (tiro->animacao)
+	{
+		case 1:
+			tiro->frame.x = 0; // Frame
+			break;
+
+		case 2:
+			tiro->frame.x = 64; // Frame
+			break;
+
+		case 3:
+			tiro->frame.x = 128; // Frame
+			break;
+
+		case 4:
+			tiro->frame.x = 192; // Frame
+			break;
+
+		case 5:
+			tiro->frame.x = 256; // Frame
+			break;
+
+		case 6:
+			tiro->frame.x = 320; // Frame
+			break;
+
+		case 7:
+			tiro->frame.x = 384; // Frame
+			break;
+
+		case 8:
+			tiro->frame.x = 448; // Frame
+			break;
 	}
 }

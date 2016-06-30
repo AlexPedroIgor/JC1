@@ -30,6 +30,7 @@ void CarregaTiro(SDL_Renderer* renderer, Objeto* tiro, Jogador* jogador);
 Vetor_de_Tiros Cria_Vetor_de_Tiros();
 void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros, Jogador* jogador);
 void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros);
+void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro);
 
 #endif
 
