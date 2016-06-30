@@ -19,7 +19,7 @@ typedef struct
 	int tipo;
 
 	// Variavel para receber estado de colisao
-	int colisao, toma_tiro;
+	int colisao;
 
 	// Variavel para guardar estado de vida do inimigo
 	int vivo;
@@ -78,6 +78,7 @@ void Movimenta_Inimigo(Inimigo* inimigo);
 void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2);
 void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2);
 void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
+void Atacar_inimigo(Inimigo* inimigo);
 
 #endif
 

@@ -23,6 +23,7 @@ void Movimenta_Inimigo(Inimigo* inimigo);
 void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2);
 void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2);
 void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
+void Atacar_inimigo(Inimigo* inimigo);
 
 //
 // Funcoes de carregamento
@@ -36,7 +37,6 @@ Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int tipo)
 
 	// Estado de colisao
 	inimigo.colisao = FALSO;
-	inimigo.toma_tiro = FALSO;
 
 	// Inimigo vivo
 	inimigo.vivo = VERDADEIRO;
@@ -218,8 +218,13 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 	// Verifica colisao de tela
 	int movimento_permitido;
 	if (Colisao_Inimigo_LimiteDeTela(inimigo) || inimigo->colisao)
+	{
 		movimento_permitido = FALSO;
+
+	}
+
 	else
+	{
 		movimento_permitido = VERDADEIRO;
 
 	// ******************************************************************************
@@ -273,6 +278,7 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 			inimigo->posicao.x += inimigo->velocidade.x;
 		}
 	}
+
 
 	// Suldeste
 	else if (inimigo->movimento.baixo && inimigo->movimento.esquerda)
@@ -401,6 +407,7 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 			inimigo->posicao.x += inimigo->velocidade.x;
 	}
 }
+}
 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
 void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
@@ -445,6 +452,13 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 	int randomico = rand() % 8;
 
 	int loucura = rand() % 100;
+
+	
+	
+	if(distancia<65)
+		Atacar_inimigo(inimigo);
+	if(distancia<150)
+		loucura=10;
 
 	switch (loucura)
 	{
@@ -509,77 +523,78 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 					case QUADRANTE4:
 						inimigo->movimento.cima = VERDADEIRO;
 						inimigo->movimento.baixo = FALSO;
+							inimigo->movimento.esquerda = FALSO;
+							inimigo->movimento.direita = VERDADEIRO;
+							break;
+					}
+				}
+				break;
+
+			case 60: // Movimento randomico
+			case 70:
+			case 80:
+			case 90:
+				switch (randomico)
+				{
+					case 1:
+						inimigo->movimento.cima = FALSO;
+						inimigo->movimento.baixo = VERDADEIRO;
+						inimigo->movimento.esquerda = FALSO;
+						inimigo->movimento.direita = FALSO;
+						break;
+
+					case 2:
+						inimigo->movimento.cima = VERDADEIRO;
+						inimigo->movimento.baixo = FALSO;
+						inimigo->movimento.esquerda = FALSO;
+						inimigo->movimento.direita = FALSO;
+						break;
+
+					case 3:
+						inimigo->movimento.cima = FALSO;
+						inimigo->movimento.baixo = FALSO;
+						inimigo->movimento.esquerda = FALSO;
+						inimigo->movimento.direita = VERDADEIRO;
+						break;	
+
+					case 4:
+						inimigo->movimento.cima = FALSO;
+						inimigo->movimento.baixo = FALSO;
+						inimigo->movimento.esquerda = VERDADEIRO;
+						inimigo->movimento.direita = FALSO;
+						break;
+
+					case 5:
+						inimigo->movimento.cima = FALSO;
+						inimigo->movimento.baixo = VERDADEIRO;
+						inimigo->movimento.esquerda = FALSO;
+						inimigo->movimento.direita = VERDADEIRO;
+						break;
+
+					case 6:
+						inimigo->movimento.cima = FALSO;
+						inimigo->movimento.baixo = VERDADEIRO;
+						inimigo->movimento.esquerda = VERDADEIRO;
+						inimigo->movimento.direita = FALSO;
+						break;
+
+					case 7:
+						inimigo->movimento.cima = VERDADEIRO;
+						inimigo->movimento.baixo = FALSO;
+						inimigo->movimento.esquerda = VERDADEIRO;
+						inimigo->movimento.direita = FALSO;
+						break;
+
+					case 8:
+						inimigo->movimento.cima = VERDADEIRO;
+						inimigo->movimento.baixo = FALSO;
 						inimigo->movimento.esquerda = FALSO;
 						inimigo->movimento.direita = VERDADEIRO;
 						break;
 				}
-			}
-			break;
-
-		case 60: // Movimento randomico
-		case 70:
-		case 80:
-		case 90:
-			switch (randomico)
-			{
-				case 1:
-					inimigo->movimento.cima = FALSO;
-					inimigo->movimento.baixo = VERDADEIRO;
-					inimigo->movimento.esquerda = FALSO;
-					inimigo->movimento.direita = FALSO;
-					break;
-
-				case 2:
-					inimigo->movimento.cima = VERDADEIRO;
-					inimigo->movimento.baixo = FALSO;
-					inimigo->movimento.esquerda = FALSO;
-					inimigo->movimento.direita = FALSO;
-					break;
-
-				case 3:
-					inimigo->movimento.cima = FALSO;
-					inimigo->movimento.baixo = FALSO;
-					inimigo->movimento.esquerda = FALSO;
-					inimigo->movimento.direita = VERDADEIRO;
-					break;
-
-				case 4:
-					inimigo->movimento.cima = FALSO;
-					inimigo->movimento.baixo = FALSO;
-					inimigo->movimento.esquerda = VERDADEIRO;
-					inimigo->movimento.direita = FALSO;
-					break;
-
-				case 5:
-					inimigo->movimento.cima = FALSO;
-					inimigo->movimento.baixo = VERDADEIRO;
-					inimigo->movimento.esquerda = FALSO;
-					inimigo->movimento.direita = VERDADEIRO;
-					break;
-
-				case 6:
-					inimigo->movimento.cima = FALSO;
-					inimigo->movimento.baixo = VERDADEIRO;
-					inimigo->movimento.esquerda = VERDADEIRO;
-					inimigo->movimento.direita = FALSO;
-					break;
-
-				case 7:
-					inimigo->movimento.cima = VERDADEIRO;
-					inimigo->movimento.baixo = FALSO;
-					inimigo->movimento.esquerda = VERDADEIRO;
-					inimigo->movimento.direita = FALSO;
-					break;
-
-				case 8:
-					inimigo->movimento.cima = VERDADEIRO;
-					inimigo->movimento.baixo = FALSO;
-					inimigo->movimento.esquerda = FALSO;
-					inimigo->movimento.direita = VERDADEIRO;
-					break;
-			}
-			break;
-	}	
+				break;
+		}	
+	
 
 	// *************************************************************************************
 
@@ -671,6 +686,69 @@ void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_
 		SDL_RenderCopy(renderer, vetor_de_inimigos->inimigo[i].sprite,
 			&vetor_de_inimigos->inimigo[i].frame,
 			&vetor_de_inimigos->inimigo[i].posicao);
+	}
+}
+void Atacar_inimigo(Inimigo* inimigo)
+{
+	
+		switch (inimigo->frame.y)
+		{
+			//cima
+			case 512:
+				inimigo->frame.y = 768;
+				inimigo->frame.x = 0;				
+				break;
+
+			//baixo
+			case 640:
+				inimigo->frame.y = 896;
+				inimigo->frame.x = 0;
+				break;
+
+			//esquerda
+			case 576:
+				inimigo->frame.y = 832;
+				inimigo->frame.x = 0;
+				break;
+
+			//direita
+			case 704:
+				inimigo->frame.y = 960;
+				inimigo->frame.x = 0;
+				break;
+
+			//cima
+			case 768:
+				if (inimigo->frame.x < 320)
+					inimigo->frame.x += 64;
+				else
+					inimigo->frame.x = 0;					
+				break;
+
+			//baixo
+			case 896:
+				if (inimigo->frame.x < 320)
+					inimigo->frame.x += 64;
+				else
+					inimigo->frame.x = 0;
+				break;
+
+			//esquerda
+			case 832:
+				if (inimigo->frame.x < 320)
+					inimigo->frame.x += 64;
+				else
+					inimigo->frame.x = 0;
+				break;
+
+			//direita
+			case 960:
+				if (inimigo->frame.x < 320)
+					inimigo->frame.x += 64;
+				else
+					inimigo->frame.x = 0;
+				break;
+		
 	}
 }
 
