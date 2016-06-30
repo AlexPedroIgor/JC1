@@ -18,8 +18,8 @@
 void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
 void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo, Jogador* jogador1, Jogador* jogador2);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo, Jogador* jogador1, Jogador* jogador2);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2);
 
 // ********************************************************************
 
@@ -93,16 +93,6 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 	while (singlePlayerRodando)
 	{
-		// Salva posicao do mouse
-		struct POSICAO_DO_MOUSE
-		{
-			int x, y;
-		}posicao_do_mouse;
-
-		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
-
-		printf("X: %d\nY: %d\n", posicao_do_mouse.x, posicao_do_mouse.y);
-
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
 		{
@@ -121,7 +111,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, fase.sprite, jogador1, NULL);
+					Roda_Pause(renderer, event, &fase, jogador1, NULL);
 			}
 		}
 
@@ -265,7 +255,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 			{
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, fase.sprite, jogador1, jogador2);
+					Roda_Pause(renderer, event, &fase, jogador1, jogador2);
 
 				// Movimentacao do Jogador 1
 				Movimenta_Jogador(jogador1, jogador2);
@@ -514,7 +504,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2)
 }
 
 // Estado de pause
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 	Jogador* jogador1, Jogador* jogador2)
 {
 	// Variavel para manter o loop do pause
@@ -829,7 +819,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 							case BOTAO_SAIR:
 								Efeito_Sonoro(VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
-								Roda_SairDoPause_SN(&pauseRodando, renderer, event, gFundo, jogador1, jogador2);
+								Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2);
 								break;
 						}
 						break;
@@ -872,7 +862,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 				{
 					Efeito_Sonoro(VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
-					Roda_SairDoPause_SN(&pauseRodando, renderer, event, gFundo, jogador1, jogador2);
+					Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2);
 				}
 			}
 		}
@@ -885,7 +875,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 		//
 
 		// Renderiza plano de fundo
-		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+		Atualiza_Plano_de_Fundo(renderer, fase);
 
 		// Renderiza jogador 1
 		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
@@ -982,7 +972,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
 }
 
 // Estado de pause - certeza de sair
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, SDL_Texture* gFundo,
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 	Jogador* jogador1, Jogador* jogador2)
 {
 	// Variavel para manter o loop do pause
@@ -1326,7 +1316,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 		//
 
 		// Renderiza plano de fundo
-		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+		Atualiza_Plano_de_Fundo(renderer, fase);
 
 		// Renderiza jogador 1
 		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
