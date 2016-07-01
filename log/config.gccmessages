@@ -3,7 +3,7 @@ config.c:377:2: warning: implicit declaration of function ‘Anima_Portal’ [-W
   Anima_Portal(fase);
   ^
 config.c: At top level:
-config.c:411:6: warning: conflicting types for ‘Anima_Portal’ [enabled by default]
+config.c:411:6: warning: conflicting types for ‘Anima_Portal’
  void Anima_Portal(Fase *fase)
       ^
 config.c:377:2: note: previous implicit declaration of ‘Anima_Portal’ was here

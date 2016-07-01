@@ -443,7 +443,6 @@ int Colisao_Entre_Jogador_Inimigo(Jogador* jogador, Inimigo* inimigo)
 		jogador->quad_colide.direita = objeto1.quad_colide.direita;
 		return FALSO;
 	}
-
 }
 
 // Verificacao de colisao entre inimigo e jogador
@@ -745,7 +744,7 @@ Objeto Cria_Tiro(Jogador* jogador)
 	Objeto tiro;
 
 	// Animacao
-	tiro.animacao = 1;
+	//tiro.animacao = 1;
 
 	// Verifica ataque
 	if(jogador->movimento.ataque)
@@ -887,7 +886,7 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 	if (vetor_de_tiros->quantidade > 0)
 	{
 
-		Anima_Tiro(renderer, &vetor_de_tiros->tiro[i]);
+		//Anima_Tiro(renderer, &vetor_de_tiros->tiro[i]);
 
 		for (i = 0; i != vetor_de_tiros->quantidade; i++)
 		{
@@ -898,12 +897,16 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 
 			if (i == 64)
 				break;
+
+			//vetor_de_tiros->tiro[i].animacao++;
+
+			//printf("Animcacao: \n", vetor_de_tiros->tiro[i].animacao);
+
+			//if (vetor_de_tiros->tiro[i].animacao > 8)
+			//	vetor_de_tiros->tiro[i].animacao = 1;
 		}
 
-		vetor_de_tiros->tiro[i].animacao++;
-
-		if (vetor_de_tiros->tiro[i].animacao > 8)
-			vetor_de_tiros->tiro[i].animacao = 1;
+		
 	}
 }
 
