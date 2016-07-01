@@ -39,13 +39,17 @@ int main (int argc, char **argv)
 	// Criando a janela
 	window = SDL_CreateWindow(NOME_DO_JOGO,
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+		SCREEN_WIDTH, SCREEN_HEIGHT,
+		SDL_WINDOW_RESIZABLE);
 
 	// Variavel que representa o render
 	SDL_Renderer* renderer = NULL;
 
 	// Inicia o render
 	renderer = SDL_CreateRenderer(window, -1, 0);
+
+	// Resolucao virtual
+	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// Inicial o mixer de som
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
