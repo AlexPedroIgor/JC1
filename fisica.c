@@ -771,28 +771,28 @@ Objeto Cria_Tiro(Jogador* jogador)
 	tiro.posicao.w = 64;
 	tiro.posicao.h = 64;
 
-	if(jogador->movimento.cima && jogador->movimento.esquerda)
+	if(jogador->animacao == QUADRANTE2)
 		tiro.frame.y = 64; // Frame
 
-	else if(jogador->movimento.cima && jogador->movimento.direita)
+	else if(jogador->animacao == QUADRANTE1)
 		tiro.frame.y = 192; // Frame
 
-	else if(jogador->movimento.baixo && jogador->movimento.esquerda)
+	else if(jogador->animacao == QUADRANTE3)
 		tiro.frame.y = 448; // Frame
 	
-	else if(jogador->movimento.baixo && jogador->movimento.direita)
+	else if(jogador->animacao == QUADRANTE4)
 		tiro.frame.y = 320; // Frame
 	
-	else if(jogador->movimento.cima)
+	else if(jogador->animacao == CIMA)
 		tiro.frame.y = 128; // Frame
 		
-	else if(jogador->movimento.baixo)
+	else if(jogador->animacao == BAIXO)
 		tiro.frame.y = 384; // Frame
 		
-	else if(jogador->movimento.esquerda)
+	else if(jogador->animacao == ESQUERDA)
 		tiro.frame.y = 0; // Frame
 		
-	else if(jogador->movimento.direita)
+	else if(jogador->animacao == DIREITA)
 		tiro.frame.y = 256; // Frame
 
 	return tiro;
@@ -816,38 +816,46 @@ void CarregaTiro(SDL_Renderer* renderer, Objeto* tiro, Jogador* jogador)
 	{
 		case CIMA:
 			tiro->posicao.y -= 20;
+			tiro->animacao = CIMA;
 			break;
 
 		case BAIXO:
 			tiro->posicao.y += 20;
+			tiro->animacao = BAIXO;
 			break;
 
 		case DIREITA:
 			tiro->posicao.x += 20;
+			tiro->animacao = DIREITA;
 			break;
 
 		case ESQUERDA:
 			tiro->posicao.x -= 20;
+			tiro->animacao = ESQUERDA;
 			break;
 
 		case QUADRANTE1:
 			tiro->posicao.x += 20;
 			tiro->posicao.y -= 20;
+			tiro->animacao = QUADRANTE1;
 			break;
 
 		case QUADRANTE2:
 			tiro->posicao.x -= 20;	
 			tiro->posicao.y -= 20;
+			tiro->animacao = QUADRANTE2;
 			break;
 
 		case QUADRANTE3:
 			tiro->posicao.x -= 20;
 			tiro->posicao.y += 20;
+			tiro->animacao = QUADRANTE3;
 			break;
 
 		case QUADRANTE4:
 			tiro->posicao.x += 20;
 			tiro->posicao.y += 20;
+			tiro->animacao = QUADRANTE4;
 			break;
 	}
 }
@@ -877,6 +885,9 @@ void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tir
 		// Soma o contador de tiros em tela
 		vetor_de_tiros->quantidade++;
 	}
+	else
+		vetor_de_tiros->quantidade =0;
+
 }
 
 // Renderiza tiros em tela
@@ -887,10 +898,11 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 	if (vetor_de_tiros->quantidade > 0)
 	{
 
-		Anima_Tiro(renderer, &vetor_de_tiros->tiro[i]);
-
+		
+		
 		for (i = 0; i != vetor_de_tiros->quantidade; i++)
 		{
+			Anima_Tiro(renderer, &vetor_de_tiros->tiro[i]);
 			SDL_RenderCopy(renderer,
 				vetor_de_tiros->tiro[i].sprite,
 				&vetor_de_tiros->tiro[i].frame,
@@ -899,11 +911,6 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 			if (i == 64)
 				break;
 		}
-
-		vetor_de_tiros->tiro[i].animacao++;
-
-		if (vetor_de_tiros->tiro[i].animacao > 8)
-			vetor_de_tiros->tiro[i].animacao = 1;
 	}
 }
 
@@ -912,36 +919,125 @@ void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro)
 {
 	switch (tiro->animacao)
 	{
+		//CIMA
 		case 1:
-			tiro->frame.x = 0; // Frame
+			tiro->frame.y = 128;// Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.y -= 15;
 			break;
 
+		//BAIXO
 		case 2:
-			tiro->frame.x = 64; // Frame
+			tiro->frame.y = 384; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.y += 15;
+
+
 			break;
 
+		//ESQUERDA
 		case 3:
-			tiro->frame.x = 128; // Frame
+			tiro->frame.y = 0; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+			
+			tiro->posicao.x -= 15;
+
+
 			break;
 
+		//DIREITA
 		case 4:
-			tiro->frame.x = 192; // Frame
+			tiro->frame.y = 256; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x += 15;
+
 			break;
 
+		//CIMA DIREITA
 		case 5:
-			tiro->frame.x = 256; // Frame
+			tiro->frame.y = 192; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x += 15;
+			tiro->posicao.y -= 15;
+
+
 			break;
 
+		//CIMA ESQUERDA
 		case 6:
-			tiro->frame.x = 320; // Frame
+			tiro->frame.y = 64; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x -= 15;
+			tiro->posicao.y -= 15;
+
+
 			break;
 
+		//BAIXO ESQUERDA
 		case 7:
-			tiro->frame.x = 384; // Frame
+			tiro->frame.y = 448; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x -= 15;
+			tiro->posicao.y += 15;
+
+
 			break;
 
+		//BAIXO DIREITA
 		case 8:
-			tiro->frame.x = 448; // Frame
+			tiro->frame.y = 320; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x += 15;
+			tiro->posicao.y += 15;
+
+
 			break;
 	}
 }
