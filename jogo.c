@@ -64,6 +64,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	// *********
 	//
 
+
 	// Define posicao do jogador em tela
 	jogador1->posicao.x = SCREEN_WIDTH/2;
 	jogador1->posicao.y = SCREEN_HEIGHT/2;

@@ -456,8 +456,8 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 			vetor_distancia_quadrante = d2;
 	}
 
-	distancia = vetor_distancia_quadrante[0];
-	quadrante = vetor_distancia_quadrante[1];
+	distancia = &vetor_distancia_quadrante[0];
+	quadrante = &vetor_distancia_quadrante[1];
 
 	// *************************************************************************************
 
@@ -671,10 +671,12 @@ void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jo
 	Teste_de_Colisao_Inimigos(vetor_de_inimigos, jogador1, jogador2);
 
 	int i;
-
-	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+	if (vetor_de_inimigos->quantidade < 64)
 	{
-		IA_de_Movimentacao(&vetor_de_inimigos->inimigo[i], jogador1, jogador2);
+		for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+		{
+			IA_de_Movimentacao(&vetor_de_inimigos->inimigo[i], jogador1, jogador2);
+		}
 	}
 }
 
