@@ -12,7 +12,7 @@
 
 // BIBLIOTECAS INTERNAS
 #include "base.h"
-#include "rpg.h"
+#include "config.h"
 #include "fisica.h"
 #include "colisao.h"
 

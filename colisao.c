@@ -10,6 +10,7 @@
 */ 
 
 #include "colisao.h"
+#include "inimigo.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -19,7 +20,7 @@ int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
 int Colisao_LimiteDeTela(Objeto* objeto);
 void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores);
-void Teste_de_Impacto_Inimigos(Projeteis* projeteis, Inimigos* inimigos);
+void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Inimigos* inimigos);
 
 
 // ***********************************************************************************************
@@ -41,11 +42,11 @@ int Colisao_Circular(Objeto* objeto1, Objeto* objeto2)
 	}circulo1, circulo2;
 
 	circulo1.centro.x = objeto1->posicao.x + objeto1->tamanho_real.centro.x;
-	circulo1.centro.y = objeto1->posicao.y + Objeto1->tamanho_real.centro.y;
+	circulo1.centro.y = objeto1->posicao.y + objeto1->tamanho_real.centro.y;
 	circulo1.raio = objeto1->tamanho_real.v;
 
-	circulo2.centro.x = objeto2->posicao.x + objeto2->tamanho_real.x;
-	circulo2.centro.y = objeto2->posicao.y + objeto2->tamanho_real.y;
+	circulo2.centro.x = objeto2->posicao.x + objeto2->tamanho_real.centro.x;
+	circulo2.centro.y = objeto2->posicao.y + objeto2->tamanho_real.centro.y;
 	circulo2.raio = objeto2->tamanho_real.v;
 
 	int raios = circulo1.raio + circulo2.raio;
@@ -229,6 +230,8 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 // VERIFICA LIMITES DE TELA
 int Colisao_LimiteDeTela(Objeto* objeto)
 {
+	int x1, x2, y1, y2;
+
 	// Objeto 1
 	x1 = objeto->posicao.x + objeto->tamanho_real.centro.x - objeto->tamanho_real.v;
 	x2 = objeto->posicao.x + objeto->tamanho_real.centro.x + objeto->tamanho_real.v;
@@ -319,8 +322,8 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 			{
 				if (i != j)
 				{
-					Colisao_Perimetro(&jogadores.jogador[i].inf,
-						&jogadores.jogador[j].inf);
+					Colisao_Perimetro(&jogadores->jogador[i].inf,
+						&jogadores->jogador[j].inf);
 				}
 			}
 		}
@@ -356,7 +359,7 @@ void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Ini
 {
 	if (projeteis->quantidade > 0)
 	{
-		int i;
+		int i, j;
 
 		if (inimigos->quantidade > 0)
 		{

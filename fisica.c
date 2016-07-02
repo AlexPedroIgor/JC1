@@ -219,7 +219,7 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 
 	for (i = 0; i != jogadores->quantidade; i++) // LOOP PARA OS JOGADORES
 	{
-		Carrega_Teclas_de_Acao(jogadores->jogador[i].inf); // CARREGA TECLAS DE ACAO
+		Carrega_Teclas_de_Acao(&jogadores->jogador[i].inf); // CARREGA TECLAS DE ACAO
 
 		if (jogadores->jogador[i].inf.movimento.ataque) // VERIFICA SE TEM ATAQUE
 		{

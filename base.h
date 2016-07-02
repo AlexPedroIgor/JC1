@@ -127,7 +127,7 @@ typedef struct
 
 	struct
 	{
-		int cima, baixo, esquerda, direita;
+		int cima, baixo, esquerda, direita, ataque;
 	} movimento; // Armazena estado de movimentacao no momento
 
 	int animacao; // Variavel para auxiliar na animacao do sprite
