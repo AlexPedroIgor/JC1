@@ -7,6 +7,8 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 #include "main.h"
+#include "config.h"
+#include "base.h"
 
 //
 // VARIAVEIS GLOBAIS DO MENU

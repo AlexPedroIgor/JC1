@@ -9,7 +9,7 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */ 
 
-#include "aminacao.h"
+#include "animacao.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES

@@ -20,41 +20,6 @@
 #include "menu.h"
 #include "jogo.h"
 
-// ******************************************************************
-
-//
-// CONSTANTES
-//
-
-// CONDICIONAIS
-#define VERDADEIRO		1
-#define FALSO			0
-
-// MODOS DE JOGO
-#define	MENU			1
-#define	JOGO			2
-
-// NOME DO JOGO
-#define NOME_DO_JOGO "SUPER SMASH ARANHA-MORCEGO"
-
-// TAMANHO DA TELA
-#define SCREEN_WIDTH	800
-#define SCREEN_HEIGHT	600
-
-// FRAMERATE DO JOGO
-#define FPS				30
-
-// *******************************************************************
-
-//
-// VARIAVEIS GLOBAIS
-//
-
-// VARIAVEIS DE GERENCIAMENTO DO MAIN
-int mainRodando, estadoDeJogo;
-
-// ********************************************************************
-
 //
 // FUNCOES
 //
