@@ -22,8 +22,7 @@
 // FUNCOES
 //
 
-void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
 

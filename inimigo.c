@@ -18,7 +18,7 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int quantidad
 void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
 void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, Fase* fase);
-void IA_de_Movimentacao(Inimigo* inimigo, Jogadores* jogadores);
+void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores);
 void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
 
 // ******************************************************************************************************************************
@@ -215,7 +215,7 @@ void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, 
 //
 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
-void IA_de_Movimentacao(Inimigo* inimigo, Jogadores* jogadores)
+void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 {
 	// ***************************************************************************
 

@@ -21,7 +21,7 @@
 #define INIMIGO_1		2
 #define INIMIGO_2		3
 #define INIMIGO_3		4
-#define BOSS			5
+#define BOSS_1			5
 #define FIREBALL		6
 #define FLECHA			7
 

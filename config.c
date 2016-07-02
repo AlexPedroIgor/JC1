@@ -13,7 +13,7 @@
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-void Carrega_Teclas_de_Acao(Jogador* jogador);
+void Carrega_Teclas_de_Acao(Objeto* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 
 // ***************************************************************************************************

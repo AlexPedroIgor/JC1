@@ -80,7 +80,7 @@ SDL_Color verde = {51,255,0};
 // FINCOES
 //
 
-void Carrega_Teclas_de_Acao(Jogador* jogador);
+void Carrega_Teclas_de_Acao(Objeto* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 
 // *****************************************************************************************
