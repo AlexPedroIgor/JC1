@@ -254,7 +254,7 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 	if (inimigo->movimento.cima && inimigo->movimento.esquerda)
 	{
 		// Animacao
-		inimigo->frame.y = 512;
+		inimigo->frame.y = 576;
 
 		if (inimigo->frame.x < 512)
 			inimigo->frame.x += 64;
@@ -277,7 +277,7 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 	else if (inimigo->movimento.cima && inimigo->movimento.direita)
 	{
 		// Animacao
-		inimigo->frame.y = 512;
+		inimigo->frame.y = 704;
 
 		if (inimigo->frame.x < 512)
 			inimigo->frame.x += 64;
@@ -301,7 +301,7 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 	else if (inimigo->movimento.baixo && inimigo->movimento.esquerda)
 	{
 		// Animacao
-		inimigo->frame.y = 640;
+		inimigo->frame.y = 576;
 
 		if (inimigo->frame.x < 512)
 			inimigo->frame.x += 64;
@@ -324,7 +324,7 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 	else if (inimigo->movimento.baixo && inimigo->movimento.direita)
 	{
 		// Animacao
-		inimigo->frame.y = 640;
+		inimigo->frame.y = 704;
 
 		if (inimigo->frame.x < 512)
 			inimigo->frame.x += 64;
