@@ -122,6 +122,16 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 		// Movimentacao dos inimigos
 		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, NULL);
 
+		contador_balas++;
+		if (contador_balas > 5)
+		{
+			//Atirar	
+			Atirar(renderer, jogador1, &vetor_de_tiros);
+		
+		}
+
+
+
 		// Adiciona inimigos
 		contador++;
 		if (contador == 120)
@@ -149,9 +159,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				//Atirar	
-				Atirar(renderer, jogador1, &vetor_de_tiros);
-
+				
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
@@ -1494,11 +1502,10 @@ void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_t
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
 
-	contador_balas = 1;
 
-
-	if (jogador->movimento.ataque)
-	{
-		Adiciona_Tiro_ao_Vetor(renderer, vetor_de_tiros, jogador);
+		if (jogador->movimento.ataque)
+		{
+			Adiciona_Tiro_ao_Vetor(renderer, vetor_de_tiros, jogador);
+			contador_balas = 1;
+		}
 	}
-}
