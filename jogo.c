@@ -23,7 +23,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
 
 // ********************************************************************
-
+int contador_balas;
 int singlePlayerRodando, multiPlayerRodando;
 
 // Modo de jogo em Single Player
@@ -77,6 +77,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 
 	// Limpa memoria
 	SDL_FreeSurface (Loading_Surf);
+	contador_balas = 0;
 
 	//
 	// *********
@@ -130,6 +131,8 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 		clo =1;
 
 		// ********************************************************************
+		// Movimento do jogador
+		Movimenta_Jogador(jogador1, NULL, &vetor_de_inimigos);
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -144,16 +147,16 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				// Movimento do jogador
-				Movimenta_Jogador(jogador1, NULL, &vetor_de_inimigos);
-
-				//Atirar
+				//Atirar	
 				Atirar(renderer, jogador1, &vetor_de_tiros);
+
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					Roda_Pause(renderer, event, &fase, jogador1, NULL, &vetor_de_inimigos);
 			}
+
+
 		}
 
 		// Limpa tela anterior
@@ -1488,6 +1491,9 @@ void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_t
 {
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
+
+	contador_balas = 1;
+
 
 	if (jogador->movimento.ataque)
 	{
