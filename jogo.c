@@ -422,18 +422,20 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 	// Movimentos diagonais
 	//
 
+	int atirando = 0;
+		
+	if (jogador->movimento.ataque)
+		{
+		atirando = 256;
+		
+	}
+	
+			
 	// Nordeste
 	if (jogador->movimento.cima && jogador->movimento.esquerda)
 	{
-		// Animacao
-		jogador->frame.y = 576;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-
+		
+		jogador->frame.y = 576 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = QUADRANTE2;
 
@@ -443,20 +445,19 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 			jogador->posicao.y -= jogador->velocidade.y;
 			jogador->posicao.x -= jogador->velocidade.x;
 		}
-	}
-
-	// Noroeste
-	else if (jogador->movimento.cima && jogador->movimento.direita)
-	{
-		// Animacao
-		jogador->frame.y = 704;
-
-		if (jogador->frame.x < 512)
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
-		else
+		else{
 			jogador->frame.x = 0;
-
+		}
+	}
+	
+	// Noroeste
+	if (jogador->movimento.cima && jogador->movimento.direita)
+	{
+		jogador->frame.y = 704 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = QUADRANTE1;
 
@@ -466,20 +467,20 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 			jogador->posicao.y -= jogador->velocidade.y;
 			jogador->posicao.x += jogador->velocidade.x;
 		}
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+
+		else{
+			jogador->frame.x = 0;
+		}
+	
 	}
 
 	// Suldeste
 	else if (jogador->movimento.baixo && jogador->movimento.esquerda)
 	{
-		// Animacao
-		jogador->frame.y = 576;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-
+		jogador->frame.y = 576 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = QUADRANTE3;
 
@@ -489,20 +490,20 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 			jogador->posicao.y += jogador->velocidade.y;
 			jogador->posicao.x -= jogador->velocidade.x;
 		}
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+
+		else{
+			jogador->frame.x = 0;
+		}
+	
 	}
 
 	// Suldoeste
 	else if (jogador->movimento.baixo && jogador->movimento.direita)
 	{
-		// Animacao
-		jogador->frame.y = 704;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-
+		jogador->frame.y = 704 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = QUADRANTE4;
 
@@ -512,6 +513,14 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 			jogador->posicao.y += jogador->velocidade.y;
 			jogador->posicao.x += jogador->velocidade.x;
 		}
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+
+		else{
+			jogador->frame.x = 0;
+		}
+
 	}
 
 	//
@@ -521,78 +530,93 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 	// Cima
 	else if (jogador->movimento.cima)
 	{
-		// Animacao
-		jogador->frame.y = 512;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
+		
+		jogador->frame.y = 512 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = CIMA;
 
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)
 			jogador->posicao.y -= jogador->velocidade.y;
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+
+		else{
+			jogador->frame.x = 0;
+		}
+	
 	}
 
 	// Baixo
 	else if (jogador->movimento.baixo)
 	{
-		// Animacao
-		jogador->frame.y = 640;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
+		jogador->frame.y = 640 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = BAIXO;
 
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)
 			jogador->posicao.y += jogador->velocidade.y;
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+
+		else{
+			jogador->frame.x = 0;
+		}
+	
 	}
 
 	// Esquerda
 	else if (jogador->movimento.esquerda)
 	{
-		// Animacao
-		jogador->frame.y = 576;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
+		jogador->frame.y = 576 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = ESQUERDA;
 
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)
 			jogador->posicao.x -= jogador->velocidade.x;
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+
+		else{
+			jogador->frame.x = 0;
+		}
+	
 	}
 
 	// Direita
 	else if (jogador->movimento.direita)
 	{
-		// Animacao
-		jogador->frame.y = 704;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
+		jogador->frame.y = 704 + atirando;
 		// Salva movimento de animacao
 		jogador->animacao = DIREITA;
 
 		// Movimento
 		if (movimento_permitido && movimento_permitido_jogador)
 			jogador->posicao.x += jogador->velocidade.x;
-	}
+		//animação
+			if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+		else{
+			jogador->frame.x = 0;
+		}
+
+	//Parado atirando
+	}else if(jogador->movimento.ataque)
+	{	if (
+jogador->frame.y < 768)
+		jogador->frame.y += atirando;
+			if (jogador->frame.x < 512 - atirando*3/4)
+				jogador->frame.x += 64;
+			else 
+				jogador->frame.x = 0;
+		}
+
+	
 }
 
 // Estado de pause
