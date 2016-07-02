@@ -32,8 +32,7 @@
 
 // MODOS DE JOGO
 #define	MENU			1
-#define	SINGLEPAYER		2
-#define	MULTIPLAYER		3
+#define	JOGO			2
 
 // NOME DO JOGO
 #define NOME_DO_JOGO "SUPER SMASH ARANHA-MORCEGO"
@@ -52,7 +51,7 @@
 //
 
 // VARIAVEIS DE GERENCIAMENTO DO MAIN
-int jogoRodando, estadoDeJogo;
+int mainRodando, estadoDeJogo;
 
 // ********************************************************************
 

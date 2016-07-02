@@ -25,6 +25,8 @@ void Finaliza_Boss(Boss* boss);
 void Finaliza_Fases(Fase* fase);
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
+void Posiciona_Jogadores(Jogadores* jogadores);
+void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores);
 void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase);
 void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores);
 void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos);
@@ -591,6 +593,70 @@ void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase)
 
 	if (fase->portal.animacao > 17)
 		fase->portal.animacao = 1;
+}
+
+// *****************************************************************************
+
+//
+// POSICIONAMENTO DOS OBJETOS
+//
+
+void Posiciona_Jogadores(Jogadores* jogadores)
+{
+	switch (jogadores->quantidade)
+	{
+		case 1: // SINGLEPLAYER
+			jogadores->jogador[0].inf.posicao.x = SCREEN_WIDTH/2;
+			jogadores->jogador[0].inf.posicao.y = SCREEN_HEIGHT/2;
+			break;
+
+		case 2: // MULTIPLAYER
+			jogadores->jogador[0].inf.posicao.x = SCREEN_WIDTH/2 + 40;
+			jogadores->jogador[0].inf.posicao.y = SCREEN_HEIGHT/2;
+			jogadores->jogador[1].inf.posicao.x = SCREEN_WIDTH/2 - 85;
+			jogadores->jogador[1].inf.posicao.y = SCREEN_HEIGHT/2;
+
+	}
+}
+
+void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
+{
+	SDL_Surface* Loading_Surf = NULL;
+
+	int i;
+
+	for (i = 0; i != jogadores->quantidade; i++)
+	{
+		switch (jogadores->jogador[i].classe)
+		{
+			case MAGO:
+				switch (i)
+				{
+					case 0:
+						Loading_Surf = IMG_Load(MAGE_W);
+
+					case 1:
+						Loading_Surf = IMG_Load(MAGE_M);
+				}
+				break;
+
+			case ARQUEIRO:
+				switch (i)
+				{
+					case 0:
+						Loading_Surf = IMG_Load(ARCHER_W);
+
+					case 1:
+						Loading_Surf = IMG_Load(ARCHER_M);
+				}
+				break;
+		}
+
+		jogadores->jogador[i].inf.sprite = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+		SDL_FreeSurface (Loading_Surf);
+	}
 }
 
 // *****************************************************************************

@@ -22,11 +22,10 @@
 // FUNCOES
 //
 
-void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
-void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
+void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
 
 // **********************************************************************************************************************************
 

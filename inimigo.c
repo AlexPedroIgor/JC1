@@ -106,7 +106,7 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 {
 	int i;
 
-	if (inimigos->quantidade + quantidade <= 64)
+	if (inimigos->quantidade + quantidade < 64)
 	{
 		for (i = inimigos->quantidade; i != inimigos->quantidade + quantidade; i++)
 		{

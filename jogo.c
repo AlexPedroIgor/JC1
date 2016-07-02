@@ -13,29 +13,28 @@
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Inimigos* inimigos);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* Inimigos);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
-void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
+
 
 // ***************************************************************************************************
 
-int singleplayerRodando, multiplayerRodando;
+int jogoRodando;
 
 //
-// SINGLEPLAYER
+// JOGO
 //
 
-// Modo de jogo em Single Player
-void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
+// Modo de jogo
+void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 	// Toca musica de fundo
 	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
 
 	// Variavel para manter loop do jogo
-	singleplayerRodando = VERDADEIRO;
+	jogoRodando = VERDADEIRO;
 
 	// Variavel para carregar imagens
 	SDL_Surface* Loading_Surf = NULL;
@@ -48,7 +47,7 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 	// ****************
 	//
 
-	Fase fase = Inicializa_Fases();
+	Fase* fase = Inicializa_Fases();
 
 	Carrega_Fase_Memoria(renderer, &fase);
 
@@ -66,20 +65,9 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 	// *********
 	//
 
+	Posiciona_Jogadores(jogadores);
 
-	// Define posicao do jogador em tela
-	jogador1->posicao.x = SCREEN_WIDTH/2;
-	jogador1->posicao.y = SCREEN_HEIGHT/2;
-
-	// Carrega imagem na memoria
-	Loading_Surf = IMG_Load(MAGE_W);
-
-	// Carrega imagem na tela
-	jogador1->sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpa memoria
-	SDL_FreeSurface (Loading_Surf);
+	Carrega_Jogadores_Memoria(renderer, jogadores);
 
 	//
 	// *********
@@ -93,10 +81,8 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 	// Carrega inimigos
 	//
 
-	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
-		1, 1);
+	Inimigos* inimigos = Inicializa_Inimigos();
 
-	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA, &fase);
 
 	// *********************************************************************
 
@@ -104,7 +90,7 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 	// Carrega vetor de tiros
 	//
 
-	Vetor_de_Tiros vetor_de_tiros = Cria_Vetor_de_Tiros();
+	Projeteis* projeteis = Inicializa_Projeteis();
 
 	// *********************************************************************
 
@@ -115,16 +101,16 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 	//
 
 	int contador;
-	while (singleplayerRodando)
+	while (jogoRodando)
 	{
 		// Movimentacao dos inimigos
-		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, NULL);
+		Movimentacao_dos_Inimigos(inimigos, jogadores);
 
 		// Adiciona inimigos
 		contador++;
 		if (contador == 120)
 		{
-			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1, &fase);
+			Adiciona_Inimigos(renderer, inimigos, 1, 1, rand()%4+1, &fase);
 			contador = 1;
 		}
 
@@ -136,39 +122,29 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 			// Finaliza o jogo
 			if (event.type == SDL_QUIT)
 			{
-				singleplayerRodando = FALSO;
 				jogoRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				// Movimento do jogador
-				Movimenta_Jogador(jogador1, NULL, &vetor_de_inimigos);
-
-				//Atirar
-				Atirar(renderer, jogador1, &vetor_de_tiros);
+				Ataque_dos_Jogadores(renderer, jogadores, projeteis);
+				Movimentacao_dos_Jogadores(jogadores, inimigos);
 
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, &fase, jogador1, NULL, &vetor_de_inimigos);
+					Roda_Pause(renderer, event, fase, jogadores, inimigos, projeteis);
 			}
 		}
 
 		// Limpa tela anterior
 		SDL_RenderClear(renderer);
 
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, &fase);
-
-		// Renderiza os Tiros
-		Renderiza_Tiros(renderer, &vetor_de_tiros);
-
-		// Renderiza jogador
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
+		Renderiza_Plano_de_Fundo(renderer, fase);
+		Renderiza_Jogadores(renderer, jogadores);
+		Renderiza_Inimigos(renderer, inimigos);
+		Renderiza_Projeteis(renderer, projeteis);										
 
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
@@ -177,199 +153,10 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 		SDL_Delay( 1000/FPS );
 	}
 
-	// Limpando memoria - imagens
-	SDL_DestroyTexture(fase.sprite);
-	SDL_DestroyTexture(jogador1->sprite);
-
-	//
-	// **************
-	// LOOP DO JOGO | fim
-	// **************
-	//
-
-	// *********************************************************************
-}
-
-// ****************************************************************************************************
-
-//
-// MULTIPLAYER
-//
-
-// Modo de Jogo em MultiPlayer
-void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
-{
-	// Toca musica de fundo
-	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
-
-	// Variavel para manter loop do jogo
-	multiplayerRodando = VERDADEIRO;
-
-	// Variavel para carregar imagens
-	SDL_Surface* Loading_Surf = NULL;
-
-	// *********************************************************************
-
-	//
-	// ****************
-	// PLANO DE FUNDO | inicio
-	// ****************
-	//
-
-	Fase fase = Inicializa_Fases();
-	
-	Carrega_Fase_Memoria(renderer, &fase);
-
-	//
-	// ****************
-	// PLANO DE FUNDO | inicio
-	// ****************
-	//
-
-	// *********************************************************************
-
-	//
-	// ***********
-	// JOGADOR 1 | inicio
-	// ***********
-	//
-
-	// Define posicao do jogador em tela
-	jogador1->posicao.x = SCREEN_WIDTH/2 + 40;
-	jogador1->posicao.y = SCREEN_HEIGHT/2;
-
-	// Carrega imagem na memoria
-	Loading_Surf = IMG_Load(MAGE_W);
-
-	// Carrega imagem na tela
-	jogador1->sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpa memoria
-	SDL_FreeSurface (Loading_Surf);
-
-	//
-	// ***********
-	// JOGADOR 1 | fim
-	// ***********
-	//
-
-	// *********************************************************************
-
-	//
-	// ***********
-	// JOGADOR 2 | inicio
-	// ***********
-	//
-
-	// Define posicao do jogador em tela
-	jogador2->posicao.x = SCREEN_WIDTH/2 - 85;
-	jogador2->posicao.y = SCREEN_HEIGHT/2;
-
-	// Carrega imagem na memoria
-	Loading_Surf = IMG_Load(MAGE_M);
-
-	// Carrega imagem na tela
-	jogador2->sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpa memoria
-	SDL_FreeSurface (Loading_Surf);
-
-	//
-	// ***********
-	// JOGADOR 2 | fim
-	// ***********
-	//
-
-	// *********************************************************************
-
-	//
-	// Carrega inimigos
-	//
-
-	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
-		1, 1);
-
-	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA, &fase);
-
-	// *********************************************************************
-
-	//
-	// **************
-	// LOOP DO JOGO | inicio
-	// **************
-	//
-
-	int contador;
-
-	while (multiplayerRodando)
-	{
-		// Movimentacao dos inimigos
-		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, jogador2);
-
-		// Adiciona inimigos
-		contador++;
-		if (contador == 120)
-		{
-			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1, &fase);
-			contador = 1;
-		}
-
-		// ********************************************************************
-
-		// Verifica eventos
-		if (SDL_PollEvent (&event))
-		{
-			// Finaliza o jogo
-			if (event.type == SDL_QUIT)
-			{
-				multiplayerRodando = FALSO;
-				jogoRodando = FALSO;
-			}
-
-			// Eventos de tecla pressionada
-			if (event.type == SDL_KEYDOWN)
-			{
-				// Pause
-				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, &fase, jogador1, jogador2, &vetor_de_inimigos);
-
-				// Movimentacao do Jogador 1
-				Movimenta_Jogador(jogador1, jogador2, &vetor_de_inimigos);
-
-				// Movimentacao do Jogador 2
-				Movimenta_Jogador(jogador2, jogador1, &vetor_de_inimigos);
-			}
-		}
-
-		// Limpa tela anterior
-		SDL_RenderClear(renderer);
-
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, &fase);
-
-		// Renderiza jogador 1
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-
-		// Renderiza jogador 2
-		SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
-
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
-
-		// Atualiza tela
-		SDL_RenderPresent(renderer);
-
-		// FPS
-		SDL_Delay( 1000/FPS );
-
-	}
-
-	// Limpando memoria - imagens
-	SDL_DestroyTexture(fase.sprite);
-	SDL_DestroyTexture(jogador1->sprite);
-	SDL_DestroyTexture(jogador2->sprite);
+	// Limpando memoria
+	Finaliza_Inimigos(inimigos);
+	Finaliza_Projeteis(projeteis);
+	Finaliza_Fases(fase);
 
 	//
 	// **************
@@ -388,7 +175,7 @@ void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogado
 
 // Estado de pause
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
+	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
 {
 	// Variavel para manter o loop do pause
 	int pauseRodando = VERDADEIRO;
@@ -633,9 +420,9 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 			if (event.type == SDL_QUIT)
 			{
 				pauseRodando = FALSO;
-				singleplayerRodando = FALSO;
-				multiplayerRodando = FALSO;
 				jogoRodando = FALSO;
+				multiplayerRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			// Eventos de tecla pressionada
@@ -757,18 +544,10 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 		// Rendezira jogo pausado
 		//
 
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, fase);
-
-		// Renderiza jogador 1
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-
-		// Renderiza Jogador 2 caso exista
-		if (jogador2 != NULL)
-			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
-
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, vetor_de_inimigos);
+		Renderiza_Plano_de_Fundo(renderer, fase);
+		Renderiza_Jogadores(renderer, jogadores);
+		Renderiza_Inimigos(renderer, inimigos);
+		Renderiza_Projeteis(renderer, projeteis);
 
 		// **********************************************************************************
 
@@ -859,7 +638,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 // Estado de pause - certeza de sair
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
+	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
 {
 	// Variavel para manter o loop do pause
 	int pauseRodandoSair = VERDADEIRO;
@@ -1091,9 +870,9 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 			{
 				pauseRodando = FALSO;
 				pauseRodandoSair = FALSO;
-				singleplayerRodando = FALSO;
-				multiplayerRodando = FALSO;
 				jogoRodando = FALSO;
+				multiplayerRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			// Eventos de tecla pressionada
@@ -1148,7 +927,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 								SDL_Delay(500); // Delay de 0.5 segundos
 								pauseRodandoSair = FALSO;
 								*pauseRodando = FALSO;
-								singleplayerRodando = FALSO;
+								jogoRodando = FALSO;
 								multiplayerRodando = FALSO;
 								estadoDeJogo = MENU;
 								break;
@@ -1186,7 +965,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 					SDL_Delay(500); // Delay de 0.5 segundos
 					pauseRodandoSair = FALSO;
 					*pauseRodando = FALSO;
-					singleplayerRodando = FALSO;
+					jogoRodando = FALSO;
 					multiplayerRodando = FALSO;
 					estadoDeJogo = MENU;
 
@@ -1201,18 +980,10 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 		// Rendezira jogo pausado
 		//
 
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, fase);
-
-		// Renderiza jogador 1
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-
-		// Renderiza Jogador 2 caso exista
-		if (jogador2 != NULL)
-			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
-
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, vetor_de_inimigos);
+		Renderiza_Plano_de_Fundo(renderer, fase);
+		Renderiza_Jogadores(renderer, jogadores);
+		Renderiza_Inimigos(renderer, inimigos);
+		Renderiza_Projeteis(renderer, projeteis);
 
 		// **********************************************************************************
 

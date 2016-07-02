@@ -22,12 +22,12 @@ int menuRodando;
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event);
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores);
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores);
+void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 
 // *********************************************************************************************************************
 
@@ -360,7 +360,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 			{
 				menuRodando = FALSO;
 				telaInicialRodando = FALSO;
-				jogoRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			//
@@ -425,7 +425,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 								SDL_Delay(500); // Delay de 0.5 segundos
 								menuRodando = FALSO;
 								telaInicialRodando = FALSO;
-								jogoRodando = FALSO;
+								mainRodando = FALSO;
 								break;
 						}
 						break;
@@ -477,7 +477,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					SDL_Delay(400); // Delay de 0.5 segundos
 					menuRodando = FALSO;
 					telaInicialRodando = FALSO;
-					jogoRodando = FALSO;
+					mainRodando = FALSO;
 				}
 			}
 		}
@@ -730,7 +730,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 			{
 				menuRodando = FALSO;
 				escolhaDeJogadoresRodando = FALSO;
-				jogoRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			//
@@ -783,7 +783,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 								jogadores->quantidade = 1;
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
-								estadoDeJogo = SINGLEPAYER;
+								estadoDeJogo = JOGO;
 								break;
 
 							case BOTAO_2JOGADORES:
@@ -821,7 +821,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 					jogadores->quantidade = 1;
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
-					estadoDeJogo = SINGLEPAYER;
+					estadoDeJogo = JOGO;
 				}
 
 				// 2 Jogadores

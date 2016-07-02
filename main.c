@@ -23,7 +23,7 @@ void ERRO (int codigo);
 int estadoDeJogo = MENU;
 
 // VARIAVEL PARA LOOP DO JOGO
-int jogoRodando = VERDADEIRO;
+int mainRodando = VERDADEIRO;
 
 // FUNCAO PRINCIPAL
 int main (int argc, char **argv)
@@ -86,7 +86,7 @@ int main (int argc, char **argv)
 	// Inicializa teste de eventos
 	SDL_Event event;
 
-	while (jogoRodando)
+	while (mainRodando)
 	{
 		switch (estadoDeJogo)
 		{
@@ -94,12 +94,8 @@ int main (int argc, char **argv)
 				Roda_MenuPrincipal(renderer, event, jogadores);
 				break;
 
-			case SINGLEPAYER:
-				Roda_Singleplayer(renderer, event, jogadores);
-				break;
-			
-			case MULTIPLAYER:
-				Roda_Multiplayer(renderer, event, jogadores);
+			case JOGO:
+				Roda_Jogo(renderer, event, jogadores);
 				break;
 		}
 	}

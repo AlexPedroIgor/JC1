@@ -17,7 +17,7 @@
 
 void Jogador_Movimentar(Objeto* jogador);
 void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projeteis* projeteis);
-void Movimentacao_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Inimigos* inimigos);
+void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos);
 void Inimigo_Movimentar(Objeto* inimigo);
 void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores);
 
@@ -263,7 +263,7 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 }
 
 // MOVIMENTACAO GERAL DOS JOGADORES
-void Movimentacao_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Inimigos* inimigos)
+void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos)
 {
 	Teste_de_Colisao(Jogadores* jogadores, Inimigos* inimigos);
 
