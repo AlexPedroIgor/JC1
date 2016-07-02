@@ -203,13 +203,24 @@ void Movimentacao_Jogador(Objeto* jogador)
 		// Movimento
 		if (!jogador->colisao.direita)
 			jogador->posicao.x += jogador->velocidade.x;
-	}
 }
 
 // Movimentacao dos jogadores
 void Jogadores_Movimentar(Jogadores* jogadores, Inimigos* inimigos)
 {
 
+}
+
+// Atirar
+void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros)
+{
+	// Carrega teclas de acao
+	Carrega_Teclas_de_Acao(jogador);
+
+	if (jogador->movimento.ataque)
+	{
+		Adiciona_Tiro_ao_Vetor(renderer, vetor_de_tiros, jogador);
+	}
 }
 
 // ********************************************************************************************

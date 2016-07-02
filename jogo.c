@@ -1268,14 +1268,3 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 	SDL_DestroyTexture(gNao_pressionado);
 }
 
-// Atirar
-void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros)
-{
-	// Carrega teclas de acao
-	Carrega_Teclas_de_Acao(jogador);
-
-	if (jogador->movimento.ataque)
-	{
-		Adiciona_Tiro_ao_Vetor(renderer, vetor_de_tiros, jogador);
-	}
-}

@@ -7,6 +7,7 @@
 // Bibliotecas internas
 #include "main.h"
 #include "rpg.h"
+#include "config.h"
 
 // ***************************************************************************
 
