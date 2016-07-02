@@ -7,7 +7,6 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */ 
 
-#include "main.h"
 #include "som.h"
 
 // Pre carregamento das funcoes

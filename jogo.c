@@ -7,33 +7,28 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
-#include "main.h"
 #include "jogo.h"
-#include "som.h"
-#include "config.h"
-#include "fisica.h"
-#include "inimigo.h"
 
 // Pre carregamento das funcoes
-void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
-void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
+void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Inimigos* inimigos);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* Inimigos);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
 void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
 
 // ********************************************************************
 
-int singlePlayerRodando, multiPlayerRodando;
+int singleplayerRodando, multiplayerRodando;
 
 // Modo de jogo em Single Player
-void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1)
+void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 	// Toca musica de fundo
 	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
 
 	// Variavel para manter loop do jogo
-	singlePlayerRodando = VERDADEIRO;
+	singleplayerRodando = VERDADEIRO;
 
 	// Variavel para carregar imagens
 	SDL_Surface* Loading_Surf = NULL;
@@ -113,7 +108,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	//
 
 	int contador;
-	while (singlePlayerRodando)
+	while (singleplayerRodando)
 	{
 		// Movimentacao dos inimigos
 		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, NULL);
@@ -134,7 +129,7 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 			// Finaliza o jogo
 			if (event.type == SDL_QUIT)
 			{
-				singlePlayerRodando = FALSO;
+				singleplayerRodando = FALSO;
 				jogoRodando = FALSO;
 			}
 
@@ -189,13 +184,13 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 }
 
 // Modo de Jogo em MultiPlayer
-void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
+void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 	// Toca musica de fundo
 	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
 
 	// Variavel para manter loop do jogo
-	multiPlayerRodando = VERDADEIRO;
+	multiplayerRodando = VERDADEIRO;
 
 	// Variavel para carregar imagens
 	SDL_Surface* Loading_Surf = NULL;
@@ -295,7 +290,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 
 	int contador;
 
-	while (multiPlayerRodando)
+	while (multiplayerRodando)
 	{
 		// Movimentacao dos inimigos
 		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, jogador2);
@@ -316,7 +311,7 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 			// Finaliza o jogo
 			if (event.type == SDL_QUIT)
 			{
-				multiPlayerRodando = FALSO;
+				multiplayerRodando = FALSO;
 				jogoRodando = FALSO;
 			}
 
@@ -370,213 +365,6 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 	//
 
 	// *********************************************************************
-}
-
-// Movimentacao do jogador
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
-{
-	// Verifica colisao de jogadores caso esteja no multiplayer
-	int movimento_permitido_jogador;
-	if (jogador2 == NULL)
-		movimento_permitido_jogador = VERDADEIRO;
-
-	else
-	{
-		if (Colisao_Entre_Jogadores(jogador, jogador2))
-			movimento_permitido_jogador = FALSO;
-		else
-			movimento_permitido_jogador = VERDADEIRO;
-	}
-
-	// Atualiza colisoes
-	Teste_de_Colisao_Jogador(jogador, vetor_de_inimigos);
-
-	// Carrega teclas de acao
-	Carrega_Teclas_de_Acao(jogador);
-
-	// Verifica colisao de tela
-	int movimento_permitido;
-	if (Colisao_Jogador_LimiteDeTela(jogador)
-		|| jogador->colisao)
-		movimento_permitido = FALSO;
-	else
-		movimento_permitido = VERDADEIRO;
-
-	//
-	// Movimentos diagonais
-	//
-
-	// Nordeste
-	if (jogador->movimento.cima && jogador->movimento.esquerda)
-	{
-		// Animacao
-		jogador->frame.y = 512;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE2;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y -= jogador->velocidade.y;
-			jogador->posicao.x -= jogador->velocidade.x;
-		}
-	}
-
-	// Noroeste
-	else if (jogador->movimento.cima && jogador->movimento.direita)
-	{
-		// Animacao
-		jogador->frame.y = 512;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE1;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y -= jogador->velocidade.y;
-			jogador->posicao.x += jogador->velocidade.x;
-		}
-	}
-
-	// Suldeste
-	else if (jogador->movimento.baixo && jogador->movimento.esquerda)
-	{
-		// Animacao
-		jogador->frame.y = 640;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE3;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y += jogador->velocidade.y;
-			jogador->posicao.x -= jogador->velocidade.x;
-		}
-	}
-
-	// Suldoeste
-	else if (jogador->movimento.baixo && jogador->movimento.direita)
-	{
-		// Animacao
-		jogador->frame.y = 640;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE4;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y += jogador->velocidade.y;
-			jogador->posicao.x += jogador->velocidade.x;
-		}
-	}
-
-	//
-	// Movimentos principais
-	//
-
-	// Cima
-	else if (jogador->movimento.cima)
-	{
-		// Animacao
-		jogador->frame.y = 512;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = CIMA;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.y -= jogador->velocidade.y;
-	}
-
-	// Baixo
-	else if (jogador->movimento.baixo)
-	{
-		// Animacao
-		jogador->frame.y = 640;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = BAIXO;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.y += jogador->velocidade.y;
-	}
-
-	// Esquerda
-	else if (jogador->movimento.esquerda)
-	{
-		// Animacao
-		jogador->frame.y = 576;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = ESQUERDA;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.x -= jogador->velocidade.x;
-	}
-
-	// Direita
-	else if (jogador->movimento.direita)
-	{
-		// Animacao
-		jogador->frame.y = 704;
-
-		if (jogador->frame.x < 512)
-			jogador->frame.x += 64;
-		else
-			jogador->frame.x = 0;
-
-		// Salva movimento de animacao
-		jogador->animacao = DIREITA;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.x += jogador->velocidade.x;
-	}
 }
 
 // Estado de pause
@@ -826,8 +614,8 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 			if (event.type == SDL_QUIT)
 			{
 				pauseRodando = FALSO;
-				singlePlayerRodando = FALSO;
-				multiPlayerRodando = FALSO;
+				singleplayerRodando = FALSO;
+				multiplayerRodando = FALSO;
 				jogoRodando = FALSO;
 			}
 
@@ -1284,8 +1072,8 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 			{
 				pauseRodando = FALSO;
 				pauseRodandoSair = FALSO;
-				singlePlayerRodando = FALSO;
-				multiPlayerRodando = FALSO;
+				singleplayerRodando = FALSO;
+				multiplayerRodando = FALSO;
 				jogoRodando = FALSO;
 			}
 
@@ -1341,9 +1129,9 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 								SDL_Delay(500); // Delay de 0.5 segundos
 								pauseRodandoSair = FALSO;
 								*pauseRodando = FALSO;
-								singlePlayerRodando = FALSO;
-								multiPlayerRodando = FALSO;
-								estadoDeJogo = MENU_PRINCIPAL;
+								singleplayerRodando = FALSO;
+								multiplayerRodando = FALSO;
+								estadoDeJogo = MENU;
 								break;
 						}
 						break;
@@ -1379,9 +1167,9 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 					SDL_Delay(500); // Delay de 0.5 segundos
 					pauseRodandoSair = FALSO;
 					*pauseRodando = FALSO;
-					singlePlayerRodando = FALSO;
-					multiPlayerRodando = FALSO;
-					estadoDeJogo = MENU_PRINCIPAL;
+					singleplayerRodando = FALSO;
+					multiplayerRodando = FALSO;
+					estadoDeJogo = MENU;
 
 				}
 			}

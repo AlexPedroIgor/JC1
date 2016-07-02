@@ -7,10 +7,7 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
-#include "main.h"
 #include "inimigo.h"
-#include "config.h"
-#include "fisica.h"
 
 // Pre carregamento das funcoes
 Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);

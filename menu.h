@@ -1,10 +1,12 @@
 // Copyright © 2016 Alex, Pedro e Igor
 // Licensed under the MIT/Expat license.
 
-#ifndef MENU_PRINCIPAL_H
-#define MENU_PRINCIPAL_H
+#ifndef MENU_H
+#define MENU_H
 
 #include "main.h"
+#include "base.h"
+#include "som.h"
 
 // Funcoes do menu principal
 void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);

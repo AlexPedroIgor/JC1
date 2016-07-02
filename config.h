@@ -5,9 +5,24 @@
 #define CONFIG_H
 
 #include "main.h"
+#include "base.h"
 
-// Velocidade de movimento dos jogadores
-#define VEL		5.0
+// ****************************************************************************************
+
+//
+// Constantes de configuracao
+//
+
+// Velocidade de movimento dos objetos
+#define VEL_MAGO		4.0 // Jogador - Mago
+#define VEL_ARQUEIRO	5.0 // Jogador - Arqueiro
+#define VEL_INIMIGO_1	2.5 // Inimigo - Esqueleto
+#define VEL_INIMIGO_2	3.0	// Inimigo - Orc
+#define VEL_INIMIGO_3	4.5	// Inimigo - Blackelf
+#define VEL_BOSS		6.0 // Boss - Aranha-Morcego
+#define VEL_FIREBALL	3.0 // Projetil - Fireball
+#define VEL_FLECHA		3.0 // Projetil - Flecha
+#define VEL_TEIA		4.0 // Projetil - Teia da Aranha-Morcego
 
 // Localizacao dos sprites de jogador
 #define MAGE_W "arte/personagens/jogador1/Mage w.png"
@@ -15,7 +30,7 @@
 #define ARCHER_W "arte/personagens/jogador1/Archer w.png"
 #define ARTHER_M "arte/personagens/jogador2/Archer m.png"
 
-// Caracteristicas dos sprites de jogador
+// Caracteristicas dos sprites de jogadores e inimigos
 #define SPRITE_FULL_W		832
 #define SPRITE_FULL_H		1344
 #define SPRITE_FRAME_W		64
@@ -37,151 +52,27 @@
 #define MAPA_3 "arte/fundo/fundo03.jpg"
 #define MAPA_4 "arte/fundo/fundoB1.jpg"
 
-// Estrutura para jogador
-typedef struct 
-{
-	// Jogador 1 ou Jogador 2
-	int numero;
+// ****************************************************************************************
 
-	// Variavel para guardar estado de colisao
-	int colisao, toma_tiro;
+// Estrutura para guardar informacoes sobre a fonte
+TTF_Font* Fonte;
 
-	// Quadrante da colisao
-	struct
-	{
-		int cima, baixo, esquerda, direita;
-	}quad_colide;
+SDL_Color branco = {255,255,255};
+SDL_Color preto = {0,0,0};
+SDL_Color amarelo = {255,255,0};
+SDL_Color vermelho = {255,0,0};
+SDL_Color verde = {51,255,0};
 
-	// Movimentacao
-	struct
-	{
-		int cima;
-		int baixo;
-		int esquerda;
-		int direita;
-		int ataque;
-	} movimento;
+// ****************************************************************************************
 
-	// Animacao de movimentacao
-	int animacao;
-
-	// Velocidade de movimento
-	struct
-	{
-		float x, y;
-	}velocidade;
-
-	// Dimensoes dos sprites da imagem
-	int fullW, fullH;
-
-	// Rect para o jogador
-	SDL_Rect frame, posicao;
-
-	// Imagem do jogador
-	SDL_Texture* sprite;
-}Jogador;
-
-// Estrutura para objetos
-typedef struct 
-{
-	// Numero do objeto
-	int numero;
-
-	// Tem colisao
-	int colisao;
-
-	// Quadrante da colisao
-	struct
-	{
-		int cima, baixo, esquerda, direita;
-	}quad_colide;
-
-	// Movimentacao
-	struct
-	{
-		int cima;
-		int baixo;
-		int esquerda;
-		int direita;
-	} movimento;
-
-	// Animação do movimento
-	int animacao;
-
-	// Velocidade de movimento
-	struct
-	{
-		float x, y;
-	}velocidade;
-
-	// Dimensoes dos sprites da imagem
-	int fullW, fullH;
-
-	// Rect para frame e posicao em tela
-	SDL_Rect frame, posicao;
-
-	// Imagem do sprite do objeto
-	SDL_Texture* sprite;
-}Objeto;
-
-// Vetor de tiros
-typedef struct
-{
-	// Quantidade de tiros em tela
-	int quantidade;
-
-	// Tiros que devem sair de tela
-	int corta_tiro;
-
-	// Vetor de tiros
-	Objeto tiro[64];
-}Vetor_de_Tiros;
-
-// Struct para mapas
-typedef struct
-{
-	// Numero da fase
-	int numero;
-
-	// Sprite
-	SDL_Texture* sprite;
-
-	// Portais
-	struct
-	{
-		// Animacao do portal
-		int animacao;
-
-		struct
-		{		
-			// Tipo de portal
-			int tipo;
-			/*
-			Portal 1 - Portal Vermelho		- Inimigos saindo do portal
-			Portal 2 - Portal Azul			- Jogadores podem passar
-			Portal 3 - Portal Cinza			- Portal desativado
-			*/
-
-			// Quantidade de inimigos saindo do portal
-			int inimigos;
-
-			// Sprite dos portais
-			SDL_Texture* sprite;
-
-			// Rect para portais
-			SDL_Rect frame, posicao;
-
-		}cima, baixo, esquerda, direita;
-	}portal;
-}Fase;
-
+//
 // Funcoes
-Jogador Carrega_Jogador(int numero);
+//
+
 void Carrega_Teclas_de_Acao(Jogador* jogador);
-Fase Inicializa_Fases();
-void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
-void Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
-void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase);
+SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
+
+// *****************************************************************************************
 
 #endif
 

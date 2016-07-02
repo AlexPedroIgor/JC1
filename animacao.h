@@ -1,17 +1,17 @@
 // Copyright © 2016 Alex, Pedro e Igor
 // Licensed under the MIT/Expat license.
 
-#ifndef FISICA_H
-#define FISICA_H
+#ifndef ANIMACAO_H
+#define ANIMACAO_H
 
 #include "main.h"
-
+#include "base.h"
 
 //
 // Funcoes
 //
 
-// ************************************************************************************
+// *********************************************************************
 
 #endif
 

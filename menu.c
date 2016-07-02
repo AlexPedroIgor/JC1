@@ -7,7 +7,6 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 #include "main.h"
-#include "som.h"
 
 // Definicao de menus
 #define TELA_INICIAL					1
@@ -770,7 +769,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 								SDL_Delay(400); // Delay de 0.4 segundos
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
-								estadoDeJogo = JOGO_SINGLEPAYER;
+								estadoDeJogo = SINGLEPAYER;
 								break;
 
 							case BOTAO_2JOGADORES:
@@ -778,7 +777,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 								SDL_Delay(400); // Delay de 0.4 segundos
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
-								estadoDeJogo = JOGO_MULTIPLAYER;
+								estadoDeJogo = MULTIPLAYER;
 								break;
 						}
 						break;
@@ -806,7 +805,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 					SDL_Delay(400); // Delay de 0.4 segundos
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
-					estadoDeJogo = JOGO_SINGLEPAYER;
+					estadoDeJogo = SINGLEPAYER;
 				}
 
 				// 2 Jogadores
@@ -819,7 +818,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 					SDL_Delay(400); // Delay de 0.4 segundos
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
-					estadoDeJogo = JOGO_MULTIPLAYER;
+					estadoDeJogo = MULTIPLAYER;
 				}
 			}
 		}

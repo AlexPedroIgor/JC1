@@ -6,16 +6,12 @@
 */
 
 #include "main.h"
-#include "menu.h"
-#include "jogo.h"
-#include "config.h"
-#include "fisica.h"
 
 // Pre carregamento das funcoes
 void ERRO (int codigo);
 
 // Inicia programa no Menu Principal
-int estadoDeJogo = MENU_PRINCIPAL;
+int estadoDeJogo = MENU;
 
 // Evento de jogo rodando para loop
 int jogoRodando = VERDADEIRO;
@@ -32,6 +28,10 @@ int main (int argc, char **argv)
 	// Inicializa SDL completo
 	if (SDL_Init (SDL_INIT_EVERYTHING) != 0)
 		ERRO(1);
+
+	// Inicializa leitor de fontes
+	if (TTF_Init() != 0)
+		ERRO(2);
 
 	// Variavel que representa a janela
 	SDL_Window* window = NULL;
@@ -54,6 +54,9 @@ int main (int argc, char **argv)
 	// Inicial o mixer de som
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
+	// Carrega informacoes dde fontes
+	Fonte = TTF_OpenFont("data/fontes/OpenSans-Regular.ttf", 28);
+
 	//
 	// **********************
 	// INICIALIZACAO DO SDL | fim
@@ -69,8 +72,7 @@ int main (int argc, char **argv)
 	//
 
 	// Carrega jogadores
-	Jogador jogador1 = Carrega_Jogador(1);
-	Jogador jogador2 = Carrega_Jogador(2);
+	Jogadores* jogadores = Inicializa_Jogadores();
 
 	// Inicializa teste de eventos
 	SDL_Event event;
@@ -79,16 +81,16 @@ int main (int argc, char **argv)
 	{
 		switch (estadoDeJogo)
 		{
-			case MENU_PRINCIPAL:
-				Roda_MenuPrincipal(renderer, event, &jogador1, &jogador2);
+			case MENU:
+				Roda_MenuPrincipal(renderer, event, jogadores);
 				break;
 
-			case JOGO_SINGLEPAYER:
-				Roda_Jogo_Singleplayer(renderer, event, &jogador1);
+			case SINGLEPAYER:
+				Roda_Singleplayer(renderer, event, jogadores);
 				break;
 			
-			case JOGO_MULTIPLAYER:
-				Roda_Jogo_Multiplayer(renderer, event, &jogador1, &jogador2);
+			case MULTIPLAYER:
+				Roda_Multiplayer(renderer, event, jogadores);
 				break;
 		}
 	}
@@ -107,8 +109,11 @@ int main (int argc, char **argv)
 	// *****************
 	//
 
-	SDL_DestroyRenderer(renderer); // Finaliza o renderer
+	Finaliza_Jogadores(jogadores); // Libera jogadores da memoria
+	TTF_CloseFont(); // Fecha a fonte
+	TTF_Quit(); // Finaliza o leitor de fontes
 	Mix_CloseAudio(); // Finaliza o mixer de som
+	SDL_DestroyRenderer(renderer); // Finaliza o renderer
 	SDL_DestroyWindow(window); // Fecha a janela
 
 	//
@@ -127,9 +132,13 @@ void ERRO (int codigo)
 {
 	switch (codigo)
 	{
-		case 1: // Falha na inicializacao do SDL_INIT_VIDEO
+		case 1: // Falha na inicializacao do SDL
 			printf("Nao foi possivel inicializar o SDL.\n");
 			printf("Falha no SDL_INIT_EVERYTHING: %s\n", SDL_GetError() );
+			break;
+
+		case 2: // Falha na inicializacao do TTF
+			printf("Nao foi possivel inicializar o TTF.\n");
 			break;
 	}
 }
