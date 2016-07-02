@@ -115,7 +115,7 @@ int main (int argc, char **argv)
 	//
 
 	Finaliza_Jogadores(jogadores); // Libera jogadores da memoria
-	TTF_CloseFont(); // Fecha a fonte
+	TTF_CloseFont(Fonte); // Fecha a fonte
 	TTF_Quit(); // Finaliza o leitor de fontes
 	Mix_CloseAudio(); // Finaliza o mixer de som
 	SDL_DestroyRenderer(renderer); // Finaliza o renderer

@@ -21,4 +21,4 @@ void Fase_Animacao_Portal(Fase* fase);
 
 #endif
 
-// fim
+// FIM
