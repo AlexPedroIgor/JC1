@@ -9,6 +9,7 @@
 #include "base.h"
 #include "fisica.h"
 #include "armas.h"
+#include "inimigo.h"
 
 // ******************************************************************************************************************************
 
@@ -16,12 +17,11 @@
 // FUNCOES
 //
 
-void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event);
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
+int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
+int Colisao_LimiteDeTela(Objeto* objeto);
+void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores);
+void Teste_de_Impacto_Inimigos(Projeteis* projeteis, Inimigos* inimigos);
 
 // ******************************************************************************************************************************
 

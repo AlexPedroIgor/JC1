@@ -26,6 +26,10 @@ void Finaliza_Fases(Fase* fase);
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
 void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase);
+void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores);
+void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos);
+void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis);
+void Renderiza_Boss(SDL_Renderer* renderer, Boss* boss);
 
 // ***************************************************************************
 
@@ -596,10 +600,38 @@ void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase)
 //
 
 // JOGADORES
+void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores)
+{
+	int i;
 
+	for (i = 0; i != jogadores->quantidade; i++)
+	{
+		SDL_RenderCopy(renderer,
+			jogadores->jogador[i].inf.sprite,
+			&jogadores->jogador[i].inf.frame,
+			&jogadores->jogador[i].inf.posicao);
+	}
+}
 
 // INIMIGOS
+void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos)
+{
+	int i;
 
+	if (inimigos->quantidade > 0)
+	{
+		for (i = 0; i != inimigos->quantidade; i++)
+		{
+			SDL_RenderCopy(renderer,
+				inimigos->inimigo[i].inf.sprite,
+				&inimigos->inimigo[i].inf.frame,
+				&inimigos->inimigo[i].inf.posicao);
+
+			if (i == 64)
+				break;
+		}
+	}
+}
 
 // PROJETEIS
 void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
@@ -634,7 +666,18 @@ void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
 }
 
 // BOSS
+void Renderiza_Boss(SDL_Renderer* renderer, Boss* boss)
+{
+	int i;
 
+	for (i = 0; i != boss->quantidade; i++)
+	{
+		SDL_RenderCopy(renderer,
+			boss->chefe[i].inf.sprite,
+			&boss->chefe[i].inf.frame,
+			&boss->chefe[i].inf.posicao);
+	}
+}
 
 // *****************************************************************************
 

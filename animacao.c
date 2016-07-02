@@ -96,6 +96,12 @@ void Inimigo_Animacao_Ataque(Objeto* inimigo)
 		}
 }
 
+// ANIMACAO DE INIMIGO TOMANDO DANO
+void Inimigo_Animacao_Toma_Dano(renderer, Objeto* inimigo)
+{
+	
+}
+
 // **************************************************************************************
 
 //

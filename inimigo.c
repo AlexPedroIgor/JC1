@@ -28,11 +28,11 @@ void Atacar_inimigo(Inimigo* inimigo);
 // ******************************************************************************************************************************
 
 //
-// Funcoes de carregamento
+// CARREGAMENTO DE INIMIGOS
 //
 
 // Funcao para carregar inimigo
-Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int tipo)
+Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 {
 	// Estrutura com informacoes do inimigo
 	Inimigo inimigo;
@@ -100,41 +100,18 @@ Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int tipo)
 	return inimigo;
 }
 
-// Funcao para criar vetor de inimigos
-Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo)
-{
-	// Inicializa variavel
-	Vetor_de_Inimigos vetor_de_inimigos;
-
-	// Salva quantidade inivial de inimigos gerados
-	vetor_de_inimigos.quantidade = quantidade;
-
-	// Zera o numero de inimigos mortos
-	vetor_de_inimigos.mortos = 0;
-	vetor_de_inimigos.mortos_rodada = 0;
-
-	int i;
-
-	for (i = 0; i != quantidade; i++)
-	{
-		vetor_de_inimigos.inimigo[i] = Carrega_Inimigo(renderer, tipo);
-	}
-
-	return vetor_de_inimigos;
-}
-
 // Adiciona inimigos
-void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos,
+void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 	int quantidade, int tipo, int portal, Fase* fase)
 {
 	int i;
 
-	if (vetor_de_inimigos->quantidade + quantidade <= 64)
+	if (inimigos->quantidade + quantidade <= 64)
 	{
-		for (i = vetor_de_inimigos->quantidade; i != vetor_de_inimigos->quantidade + quantidade; i++)
+		for (i = inimigos->quantidade; i != inimigos->quantidade + quantidade; i++)
 		{
-			vetor_de_inimigos->inimigo[i] = Carrega_Inimigo(renderer, tipo);
-			Posiciona_Inimigo(renderer, &vetor_de_inimigos->inimigo[i], portal, fase);
+			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo);
+			Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, portal, fase);
 		}
 	}
 
@@ -180,11 +157,11 @@ void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_
 // **********************************************************************************
 
 //
-// FUNCOES DE LOGICA DE MOVIMENTACAO E ATAQUE
+// POSICIONAMENTO EM TELA
 //
 
-// Funcao para posicionar inimigo em tela
-void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal, Fase* fase)
+// INIMIGO UNICO
+void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase)
 {
 	// Troca portal
 	if (fase->portal.cima.inimigos == 0)
@@ -224,16 +201,22 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal, Fas
 	}
 }
 
-// Funcao para posicionar vetor de inimigos em tela
-void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos, int portal, Fase* fase)
+// SERIE DE INIMIGOS
+void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, Fase* fase)
 {
 	int i;
 
 	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
 	{
-		Posiciona_Inimigo(renderer, &vetor_de_inimigos->inimigo[i], rand() %4 +1, fase);
+		Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, rand() %4+1, fase);
 	}
 }
+
+// **********************************************************************************
+
+//
+// LOGICA DE MOVIMENTACAO E ATAQUE
+//
 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
 void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
@@ -478,72 +461,26 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 // ***********************************************************************************
 
 //
-// Testes de colisao
+// EFEITOS DE DANO
 //
 
-void Teste_de_Colisao_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2)
+void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo)
 {
-	int i, j;
-
-	int teve_colisao = FALSO;
-
-	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+	switch (tipo)
 	{
-		// Testa colisao entre inimigos
-		for (j = 0; j != vetor_de_inimigos->quantidade; j++)
-		{
-			if (j != i)
-			{
-				if (Colisao_Entre_Inimigos(&vetor_de_inimigos->inimigo[i], &vetor_de_inimigos->inimigo[j]))
-				{
-					vetor_de_inimigos->inimigo[i].colisao = VERDADEIRO;
-					teve_colisao = VERDADEIRO;
-					break;
-				}
-			}
-		}
+		case 1:
+			status.HP -= 20;
+			break;
 
-		// Testa colisao entre jogadores
-		if (Colisao_Entre_Inimigo_Jogador(&vetor_de_inimigos->inimigo[i], jogador1))
-		{
-			vetor_de_inimigos->inimigo[i].colisao = VERDADEIRO;
-			teve_colisao = VERDADEIRO;
-		}
-		// Caso tenha um segundo jogador
-		if (jogador2 != NULL)
-		{
-			if (Colisao_Entre_Inimigo_Jogador(&vetor_de_inimigos->inimigo[i], jogador2))
-			{
-				vetor_de_inimigos->inimigo[i].colisao = VERDADEIRO;
-				teve_colisao = VERDADEIRO;
-			}
-		}
-
-		if (!teve_colisao)
-			vetor_de_inimigos->inimigo[i].colisao = FALSO;
-	}
-}
-
-// ***********************************************************************************
-
-//
-// Funcoes de renderizacao em tela
-//
-
-// Funcao para renderizar um vetor de inimigos em tela
-void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos)
-{
-	int i;
-
-	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
-	{
-		SDL_RenderCopy(renderer, vetor_de_inimigos->inimigo[i].sprite,
-			&vetor_de_inimigos->inimigo[i].frame,
-			&vetor_de_inimigos->inimigo[i].posicao);
-
-		if (i == 64)
+		case 2:
+			status.HP -= 50;
 			break;
 	}
+
+	Inimigo_Animacao_Toma_Dano(renderer, inimigo);
 }
+
+
+// ***********************************************************************************
 
 // FIM

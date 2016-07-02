@@ -202,6 +202,10 @@ void Finaliza_Fases(Fase* fase);
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
 void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase);
+void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores);
+void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos);
+void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis);
+void Renderiza_Boss(SDL_Renderer* renderer, Boss* boss);
 
 // **************************************************************************
 

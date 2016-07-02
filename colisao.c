@@ -18,6 +18,8 @@
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
 int Colisao_LimiteDeTela(Objeto* objeto);
+void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores);
+void Teste_de_Impacto_Inimigos(Projeteis* projeteis, Inimigos* inimigos);
 
 
 // ***********************************************************************************************
@@ -290,7 +292,91 @@ int Colisao_LimiteDeTela(Objeto* objeto)
 // TESTES DE COLISAO
 //
 
+// COLISAO ENTRE PERSONAGENS
+void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
+{
+	int i, j;
 
+	// COLISAO ENTRE JOGADORES E INIMIGOS
+	for (i = 0; i != jogadores->quantidade; i++)
+	{
+		if (inimigos->quantidade > 0)
+		{
+			for (i = 0; i != inimigos->quantidade; i++)
+			{
+				Colisao_Perimetro(&jogadores->jogador[i].inf,
+					&inimigos->inimigo[i].inf);
+			}
+		}
+	}
+
+	// COLISAO ENTRE JOGADORES NO MODO MULTIPLAYER
+	if (jogadores->quantidade >= 2)
+	{
+		for (i = 0; i != jogadores->quantidade; i++)
+		{
+			for (j = 0; j != jogadores->quantidade; i++)
+			{
+				if (i != j)
+				{
+					Colisao_Perimetro(&jogadores.jogador[i].inf,
+						&jogadores.jogador[j].inf);
+				}
+			}
+		}
+	}
+
+	// COLISAO ENTRE INIMIGOS E JOGADORES
+	if (inimigos->quantidade > 0)
+	{
+		for (i = 0; i != inimigos->quantidade; i++)
+		{
+			// ENTRE OS JOGADORES
+			for (j = 0; j != jogadores->quantidade; j++)
+			{
+				Colisao_Perimetro(&inimigos->inimigo[i].inf,
+					&jogadores->jogador[j].inf);
+			}
+
+			// ENTRE OS INIMIGOS
+			for (j = 0; j != inimigos->quantidade; j++)
+			{
+				if (i != j)
+				{
+					Colisao_Perimetro(&inimigos->inimigo[i].inf,
+						&inimigos->inimigo[j].inf);
+				}
+			}
+		}
+	}
+}
+
+// COLISAO ENTRE PROJETEIS E INIMIGOS
+void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Inimigos* inimigos)
+{
+	if (projeteis->quantidade > 0)
+	{
+		int i;
+
+		if (inimigos->quantidade > 0)
+		{
+			for (i = 0; i != inimigos->quantidade; i++)
+			{
+				for (j = 0; j != inimigos->quantidade; j++)
+				{
+					if (Colisao_Circular(&projeteis->tiro[i].inf,
+						&inimigos->inimigo[j].inf));
+					{
+						Inimgo_Toma_Dano(renderer,
+							&inimigos->inimigo[j].inf,
+							&inimigos->inimigo[j].status,
+							projeteis->tiro[i].tipo);
+					}
+				}
+			}
+		}
+	}
+}
 
 // *********************************************************************************************************************
 
