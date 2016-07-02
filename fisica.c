@@ -10,6 +10,7 @@
 */ 
 
 #include "fisica.h"
+#include "inimigo.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -226,7 +227,7 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 			switch (jogadores->jogador[i].classe) // VERIFICA A CLASSE DO PERSONAGEM
 			{
 				case MAGO:
-					switch (jogadores->jogador[i].ataque_tipo) // VERIFICA O TIPO DE ATAQUE SELECIONADO
+					switch (jogadores->jogador[i].tipo_de_ataque) // VERIFICA O TIPO DE ATAQUE SELECIONADO
 					{
 						case 1: // FIREBALL
 							Inicializa_Fireball(renderer,
@@ -235,12 +236,12 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 							break;
 
 						case 2:
-							break
+							break;
 					}
 					break;
 
 				case ARQUEIRO:
-					switch (jogadores->jogador[i].ataque_tipo)
+					switch (jogadores->jogador[i].tipo_de_ataque)
 					{
 						case 1: // FLECHA
 
@@ -251,21 +252,12 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 			}
 		}
 	}
-
-	
-	
-
-	if (jogador->movimento.ataque)
-	{
-		if (jogador->)
-		Adiciona_Tiro_ao_Vetor(renderer, projeteis, jogador);
-	}
 }
 
 // MOVIMENTACAO GERAL DOS JOGADORES
 void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos)
 {
-	Teste_de_Colisao(Jogadores* jogadores, Inimigos* inimigos);
+	Teste_de_Colisao(inimigos, jogadores);
 
 	int i;
 
@@ -466,14 +458,14 @@ void Inimigo_Movimentar(Objeto* inimigo)
 void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 {
 	// Teste de colisao
-	Teste_de_Colisao(jogadores, inimigos);
+	Teste_de_Colisao(inimigos, jogadores);
 
 	int i;
 	if (inimigos->quantidade > 0)
 	{
 		for (i = 0; i != inimigos->quantidade; i++)
 		{
-			IA_de_Movimentacao(&inimigos->inimigo[i].inf, Jogadores* jogadores);
+			IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores);
 		}
 	}
 }

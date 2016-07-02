@@ -8,6 +8,8 @@
 */
 
 #include "inimigo.h"
+#include "base.h"
+#include "config.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -31,17 +33,13 @@ void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, 
 Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 {
 	// Estrutura com informacoes do inimigo
-	Inimigo inimigo;
-
-	// Estado de colisao
-	inimigo.colisao = FALSO;
-	inimigo.toma_tiro = FALSO;
+	Objeto inimigo;
 
 	// Posicao de colisoes
-	inimigo.quad_colide.cima = FALSO;
-	inimigo.quad_colide.baixo = FALSO;
-	inimigo.quad_colide.esquerda = FALSO;
-	inimigo.quad_colide.direita = FALSO;
+	inimigo.colisao.cima = FALSO;
+	inimigo.colisao.baixo = FALSO;
+	inimigo.colisao.esquerda = FALSO;
+	inimigo.colisao.direita = FALSO;
 
 	// Inimigo vivo
 	inimigo.vivo = VERDADEIRO;
