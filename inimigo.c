@@ -428,20 +428,24 @@ void Movimenta_Inimigo(Inimigo* inimigo)
 // Funcao para determinar qual vai ser a movimentacao do inimigo
 void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 {
-	// ***************************************************************************
+	/*// ***************************************************************************
 
 	//
 	// Distancia entre jogadores e inimigo
 	//
 
 	// Variavel que carrega a distancia
+	printf(" inicio da função de movimentação\n");
 	int distancia, quadrante;
 	int* vetor_distancia_quadrante;
 
 	// Caso so tenha um jogador
 	if (jogador2 == NULL)
+		{
 		vetor_distancia_quadrante = Distancia_Inimigo_Jogador(inimigo, jogador1);
-
+		printf(" distancia calculada\n");
+		printf("%d\n",Distancia_Inimigo_Jogador(inimigo, jogador1)); 
+}
 	// Caso tenham dois jogadores
 	else
 	{
@@ -610,9 +614,71 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 					inimigo->movimento.direita = VERDADEIRO;
 					break;
 			}
-			break;
-	}
-
+			break;*/
+		if (jogador1->posicao.x < inimigo->posicao.x &&
+			jogador1->posicao.y < inimigo->posicao.y)
+				{
+					inimigo->movimento.cima = VERDADEIRO;
+					inimigo->movimento.baixo = FALSO;
+					inimigo->movimento.esquerda = VERDADEIRO;
+					inimigo->movimento.direita = FALSO;
+					
+				}
+		else if	(jogador1->posicao.x > inimigo->posicao.x &&
+			jogador1->posicao.y < inimigo->posicao.y)
+				{
+					inimigo->movimento.cima = VERDADEIRO;
+					inimigo->movimento.baixo = FALSO;
+					inimigo->movimento.esquerda = FALSO;
+					inimigo->movimento.direita = VERDADEIRO;
+					
+				}	
+		else if	(jogador1->posicao.x > inimigo->posicao.x &&
+			jogador1->posicao.y > inimigo->posicao.y)
+				{
+					inimigo->movimento.cima = FALSO;
+					inimigo->movimento.baixo = VERDADEIRO;
+					inimigo->movimento.esquerda = FALSO;
+					inimigo->movimento.direita = VERDADEIRO;
+					
+				}	
+		else if	(jogador1->posicao.x < inimigo->posicao.x &&
+			jogador1->posicao.y > inimigo->posicao.y)
+				{
+					inimigo->movimento.cima = FALSO;
+					inimigo->movimento.baixo = VERDADEIRO;
+					inimigo->movimento.esquerda = VERDADEIRO;
+					inimigo->movimento.direita = FALSO;
+				}
+		else if	(jogador1->posicao.x < inimigo->posicao.x )
+				{
+					inimigo->movimento.cima = FALSO;
+					inimigo->movimento.baixo = FALSO;
+					inimigo->movimento.esquerda = VERDADEIRO;
+					inimigo->movimento.direita = FALSO;
+				}
+		else if	(jogador1->posicao.x > inimigo->posicao.x )
+				{
+					inimigo->movimento.cima = FALSO;
+					inimigo->movimento.baixo = FALSO;
+					inimigo->movimento.esquerda = FALSO;
+					inimigo->movimento.direita = VERDADEIRO;
+				}
+		else if	(jogador1->posicao.y > inimigo->posicao.y )
+				{
+					inimigo->movimento.cima = FALSO;
+					inimigo->movimento.baixo = VERDADEIRO;
+					inimigo->movimento.esquerda = FALSO;
+					inimigo->movimento.direita = FALSO;
+				}
+		else if	(jogador1->posicao.y < inimigo->posicao.y )
+				{
+					inimigo->movimento.cima = VERDADEIRO;
+					inimigo->movimento.baixo = FALSO;
+					inimigo->movimento.esquerda = FALSO;
+					inimigo->movimento.direita = FALSO;
+				}
+		
 	// ***************************************************************************
 
 	// Caso tenha colisao vai afastar
