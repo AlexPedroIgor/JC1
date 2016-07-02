@@ -428,6 +428,8 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 			// Eventos de clique do mouse
 			//
 
+			SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+
 			if (event.type == SDL_MOUSEBUTTONDOWN)
 			{
 
@@ -442,7 +444,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y < 300)
 				{
 					Efeito_Sonoro(SELECT);
-					SDL_Delay(400); // Delay de 0.4 segundos
+					SDL_Delay(300); // Delay de 0.4 segundos
 					telaInicialRodando = FALSO;
 					modoDeMenu = QND_DE_JOGADORES;
 				}
@@ -464,7 +466,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y < 400)
 				{
 					Efeito_Sonoro(VOLTAR);
-					SDL_Delay(500); // Delay de 0.5 segundos
+					SDL_Delay(400); // Delay de 0.5 segundos
 					menuRodando = FALSO;
 					telaInicialRodando = FALSO;
 					jogoRodando = FALSO;
