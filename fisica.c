@@ -37,6 +37,12 @@ Vetor_de_Tiros Cria_Vetor_de_Tiros();
 void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros, Jogador* jogador);
 void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros);
 void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro);
+void Clock(int clo);
+
+time_t start, delta;
+int h, m, s;
+
+
 
 // ********************************************************************************************
 
@@ -874,7 +880,7 @@ Vetor_de_Tiros Cria_Vetor_de_Tiros()
 // Adiciona um novo tiro ao vetor de tiros
 void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros, Jogador* jogador)
 {
-	if (vetor_de_tiros->quantidade < 64)
+	if (vetor_de_tiros->quantidade < 20)
 	{
 		// Cria um novo tiro
 		vetor_de_tiros->tiro[vetor_de_tiros->quantidade] = Cria_Tiro(jogador);
@@ -908,7 +914,7 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 				&vetor_de_tiros->tiro[i].frame,
 				&vetor_de_tiros->tiro[i].posicao);
 
-			if (i == 64)
+			if (i == 20)
 				break;
 		}
 	}
@@ -1041,3 +1047,19 @@ void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro)
 			break;
 	}
 }
+
+void Clock(int clo)
+{
+	if(clo != 1)
+	{
+	start=time(NULL);
+	}
+	
+		delta=time(NULL)-start;
+    	h=(delta/3600)%24;
+    	m=(delta/60)%60;
+    	s=delta%60;
+    	printf("%d:%d:%d\n", h, m, s);
+  	
+}
+

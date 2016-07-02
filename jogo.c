@@ -110,6 +110,8 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	// LOOP DO JOGO | inicio
 	// **************
 	//
+	int clo;
+	clo=0;
 
 	int contador;
 	while (singlePlayerRodando)
@@ -124,6 +126,8 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1, &fase);
 			contador = 1;
 		}
+		Clock(clo);
+		clo =1;
 
 		// ********************************************************************
 
