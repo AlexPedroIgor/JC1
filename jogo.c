@@ -425,10 +425,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 	int atirando = 0;
 		
 	if (jogador->movimento.ataque)
-		{
 		atirando = 256;
-		
-	}
 	
 			
 	// Nordeste
@@ -446,16 +443,15 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 			jogador->posicao.x -= jogador->velocidade.x;
 		}
 		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
-		else{
+		else
 			jogador->frame.x = 0;
-		}
 	}
 	
 	// Noroeste
-	if (jogador->movimento.cima && jogador->movimento.direita)
+	else if(jogador->movimento.cima && jogador->movimento.direita)
 	{
 		jogador->frame.y = 704 + atirando;
 		// Salva movimento de animacao
@@ -468,12 +464,11 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 			jogador->posicao.x += jogador->velocidade.x;
 		}
 		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
-		else{
+		else
 			jogador->frame.x = 0;
-		}
 	
 	}
 
