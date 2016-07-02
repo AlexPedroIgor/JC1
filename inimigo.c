@@ -456,8 +456,8 @@ void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2)
 			vetor_distancia_quadrante = d2;
 	}
 
-	distancia = vetor_distancia_quadrante[0];
-	quadrante = vetor_distancia_quadrante[1];
+	distancia = &vetor_distancia_quadrante[0];
+	quadrante = &vetor_distancia_quadrante[1];
 
 	// *************************************************************************************
 
