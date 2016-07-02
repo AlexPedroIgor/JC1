@@ -35,7 +35,7 @@ void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jog
 // MENU
 //
 
-void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
+void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 	// Inicia na tela inicial
 	modoDeMenu = TELA_INICIAL;
@@ -53,20 +53,20 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogado
 				break;
 
 			case OPCOES:
-				Roda_Opcoes(renderer, event, jogador1, jogador2);
+				Roda_Opcoes(renderer, event, jogadores);
 				break;
 
 			case QND_DE_JOGADORES:
 				Toca_Musica(MUSICA_DE_SELECAO);
-				Roda_Escolha_de_jogadores(renderer, event);
+				Roda_Escolha_de_jogadores(renderer, event, jogadores);
 				break;
 
 			case SELECAO_DE_PERSONAGEM1:
-				Roda_SelecaoDePersonagem_Singleplayer(renderer, event, jogador1);
+				Roda_SelecaoDePersonagem_Singleplayer(renderer, event, jogadores);
 				break;
 
 			case SELECAO_DE_PERSONAGEM2:
-				Roda_SelecaoDePersonagem_Multiplayer(renderer, event, jogador1, jogador2);
+				Roda_SelecaoDePersonagem_Multiplayer(renderer, event, jogadores);
 				break;
 		}
 	}
@@ -514,7 +514,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 // QUANTIDADE DE JOGADORES
 //
 
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
+void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores)
 {
 	// Variavel para manter menu
 	int escolhaDeJogadoresRodando = VERDADEIRO;
@@ -780,6 +780,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 							case BOTAO_1JOGADOR:
 								Efeito_Sonoro(SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
+								jogadores->quantidade = 1;
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
 								estadoDeJogo = SINGLEPAYER;
@@ -788,6 +789,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 							case BOTAO_2JOGADORES:
 								Efeito_Sonoro(SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
+								jogadores->quantidade = 2;
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
 								estadoDeJogo = MULTIPLAYER;
@@ -816,6 +818,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 				{
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
+					jogadores->quantidade = 1;
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
 					estadoDeJogo = SINGLEPAYER;
@@ -829,6 +832,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 				{
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
+					jogadores->quantidade = 2;
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
 					estadoDeJogo = MULTIPLAYER;
@@ -868,13 +872,13 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 //
 
 // SINGLEPLAYER
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1)
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores)
 {
 
 }
 
 // MULTIPLAYER
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
+void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 
 }
@@ -885,7 +889,7 @@ void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event even
 // OPCOES
 //
 
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
+void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 
 }

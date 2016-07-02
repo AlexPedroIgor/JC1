@@ -7,7 +7,7 @@
 // BIBLIOTECAS INTERNAS
 #include "main.h"
 #include "base.h"
-#include "status.h"
+#include "rpg.h"
 
 // ****************************************************************************************
 

@@ -27,8 +27,8 @@
 //
 
 // CONDICIONAIS
-#define VERDADEIRO				1
-#define FALSO					0
+#define VERDADEIRO		1
+#define FALSO			0
 
 // MODOS DE JOGO
 #define	MENU			1
@@ -39,11 +39,11 @@
 #define NOME_DO_JOGO "SUPER SMASH ARANHA-MORCEGO"
 
 // TAMANHO DA TELA
-#define SCREEN_WIDTH			800
-#define SCREEN_HEIGHT			600
+#define SCREEN_WIDTH	800
+#define SCREEN_HEIGHT	600
 
 // FRAMERATE DO JOGO
-#define FPS						30
+#define FPS				30
 
 // *******************************************************************
 
