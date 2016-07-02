@@ -9,7 +9,10 @@
 
 #include "jogo.h"
 
-// Pre carregamento das funcoes
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
+
 void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Inimigos* inimigos);
@@ -17,9 +20,13 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* 
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
 void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
 
-// ********************************************************************
+// ***************************************************************************************************
 
 int singleplayerRodando, multiplayerRodando;
+
+//
+// SINGLEPLAYER
+//
 
 // Modo de jogo em Single Player
 void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
@@ -182,6 +189,12 @@ void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogad
 
 	// *********************************************************************
 }
+
+// ****************************************************************************************************
+
+//
+// MULTIPLAYER
+//
 
 // Modo de Jogo em MultiPlayer
 void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
@@ -366,6 +379,12 @@ void Roda_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogado
 
 	// *********************************************************************
 }
+
+// ****************************************************************************************************
+
+//
+// PAUSE
+//
 
 // Estado de pause
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
@@ -1268,3 +1287,6 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 	SDL_DestroyTexture(gNao_pressionado);
 }
 
+// *****************************************************************************************************
+
+// FIM

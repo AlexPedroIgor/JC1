@@ -9,13 +9,20 @@
 
 #include "som.h"
 
-// Pre carregamento das funcoes
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
+
 void Efeito_Sonoro(int nome_do_efeito);
 Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
 void Toca_Musica(int nome_da_musica);
 Mix_Music* Carrega_Musica(int nome_da_musica);
 
-// ****************************************************
+// ****************************************************************
+
+//
+// EFEITOS SONOROS
+//
 
 // Roda efeitos sonoros
 void Efeito_Sonoro(int nome_do_efeito)
@@ -54,6 +61,12 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 	return som;
 }
 
+// ****************************************************************
+
+//
+// MUSICAS
+//
+
 void Toca_Musica(int nome_da_musica)
 {
 	// Carrega e recebe a musica da funcao de carregamento
@@ -88,3 +101,7 @@ Mix_Music* Carrega_Musica(int nome_da_musica)
 	// Retorna musica para ser tocada
 	return musica;
 }
+
+// *****************************************************************
+
+// FIM

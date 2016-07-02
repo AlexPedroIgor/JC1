@@ -4,15 +4,17 @@
 #ifndef BASE_H
 #define BASE_H
 
-// Bibliotecas internas
+// BIBLIOTECAS INTERNAS
 #include "main.h"
 #include "rpg.h"
 #include "config.h"
+#include "animacao.h"
+#include "armas.h"
 
 // ***************************************************************************
 
 //
-// Tipos de objetos
+// TIPOS DE OBJETOS
 //
 
 #define JOGADOR			1
@@ -25,11 +27,27 @@
 
 // ***************************************************************************
 
+/*
+
+TIPOS DE ATAQUE
+
+MAGO:
+
+1 - FIREBALL
+
+ARQUEIRO:
+
+1 - FLECHA
+
+*/
+
+// ***************************************************************************
+
 //
-// Estruturas comuns
+// ESTRUTURAS BASICAS
 //
 
-// Estrutura basica para objetos em tela
+// OBJETOS EM TELA
 typedef struct 
 {
 	int tipo; // Armazena tipo de objeto
@@ -71,19 +89,20 @@ typedef struct
 	SDL_Texture* sprite; // Imagem do sprite do objeto
 }Objeto;
 
-// Vetor de jogadores em tela
+// VETOR DE JOGADORES
 typedef struct
 {
 	int quantidade; // Armazena se esta no modo multi ou singleplayer
 	struct
 	{
 		int classe; // Armazena se e mago ou arqueiro
+		int ataque_tipo; // Armazena o tipo de ataque
 		Objeto inf; // Informacoes basicas do objeto
 		Status status; // Status do jogador
 	}jogador[2]; // Maximo de dois jogadores
 }Jogadores;
 
-// Vetor de inimigos em tela
+// VETOR DE INIMIGOS
 typedef struct
 {
 	int quantidade; // Guarda quantos inimigos estao em tela
@@ -98,7 +117,7 @@ typedef struct
 	}inimigo[64]; // Máximo de 64 inimigos em tela
 }Inimigos;
 
-// Vetor para o boss
+// VETOR PARA O BOSS
 typedef struct
 {
 	int quantidade; // Guarda quantos inimigos estao em tela
@@ -112,7 +131,7 @@ typedef struct
 	}chefe[1]; // Quantidade de chefes em tela
 }Boss;
 
-// Vetor de projecteis em tela
+// VETOR DE PROJETEIS
 typedef struct
 {
 	int quantidade; // Guarda quantos projeteis estao em tela
@@ -125,7 +144,7 @@ typedef struct
 	}tiro[64]; // Maximo de 64 projetis em tela
 }Projeteis;
 
-// Vetor para armazenar fase
+// ARMAZENAMENTO DAS INFORMACOES DA FASE
 typedef struct
 {
 	// Numero da fase
@@ -167,7 +186,7 @@ typedef struct
 // **************************************************************************
 
 //
-// Funcoes
+// FUNCOES
 //
 
 Jogadores* Inicializa_Jogadores();
@@ -182,11 +201,10 @@ void Finaliza_Boss(Boss* boss);
 void Finaliza_Fases(Fase* fase);
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
-void Fase_Anima_Portal(Fase* fase);
 void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase);
 
 // **************************************************************************
 
 #endif
 
-// fim
+// FIM

@@ -12,7 +12,7 @@
 #include "colisao.h"
 
 //
-// Pre carregamento das funcoes
+// PRE CARREGAMENTO DAS FUNCOES
 //
 
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
@@ -23,10 +23,10 @@ int Colisao_LimiteDeTela(Objeto* objeto);
 // ***********************************************************************************************
 
 //
-// Sistemas basicos de colisao entre objetos
+// SISTEMAS BASICOS DE COLISAO
 //
 
-// Sistema de colisao em circulos
+// VERIFICA RAIOS E DISTANCIA
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2)
 {
 	struct
@@ -152,7 +152,7 @@ int Colisao_Circular(Objeto* objeto1, Objeto* objeto2)
 		return FALSO;
 }
 
-// Sistema de colisao por perimetro (verifica os perimetros)
+// VERIFICA PONTOS DO RETANGULO
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 {
 	int x1, x2, x3, x4;
@@ -224,7 +224,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 	}
 }
 
-// Verificacao de colisao de limite de tela
+// VERIFICA LIMITES DE TELA
 int Colisao_LimiteDeTela(Objeto* objeto)
 {
 	// Objeto 1
@@ -286,4 +286,12 @@ int Colisao_LimiteDeTela(Objeto* objeto)
 
 // **************************************************************************************************
 
-// fim
+//
+// TESTES DE COLISAO
+//
+
+
+
+// *********************************************************************************************************************
+
+// FIM

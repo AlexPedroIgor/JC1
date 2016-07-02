@@ -12,10 +12,20 @@
 #include "armas.h"
 
 //
-// Funcoes da firebal
+// PRE CARREGAMENTO DAS FUNCOES
 //
 
-// Cria um tiro em tela
+Objeto Cria_Fireball(Objeto* jogador);
+void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador);
+void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador);
+
+// **************************************************************************************************************
+
+//
+// FIREBALL
+//
+
+// CRIA FIREBALL NA MEMORIA
 Objeto Cria_Fireball(Objeto* jogador)
 {
 	// Carrega teclas de acao
@@ -76,7 +86,7 @@ Objeto Cria_Fireball(Objeto* jogador)
 	return fireball;
 }
 
-// Carrega o tiro na memoria
+// CARREGA SPRITE
 void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 {
 	SDL_Surface* Loading_Surf;
@@ -132,7 +142,7 @@ void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 	}
 }
 
-// Adiciona um novo tiro ao vetor de tiros
+// ADICIONA AO VETOR DE PROJETEIS
 void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador)
 {
 	if (vetor_de_tiros->quantidade < 64)
@@ -148,85 +158,14 @@ void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* j
 	}
 }
 
-// **************************************************************************************************************
+// ***************************************************************************************************************
 
 //
-// Funcoes de renderizacao
+// FLECHA
 //
 
-
-// Renderiza projeteis em tela
-void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
-{
-	int i;
-
-	if (projeteis->quantidade > 0)
-	{
-
-		//Anima_Tiro(renderer, &projeteis->tiro[i].inf);
-
-		for (i = 0; i != vetor_de_tiros->quantidade; i++)
-		{
-			SDL_RenderCopy(renderer,
-				projeteis->tiro[i]inf.sprite,
-				&projeteis->tiro[i]inf.frame,
-				&projeteis->tiro[i]inf.posicao);
-
-			if (i == 64)
-				break;
-
-			//vetor_de_tiros->tiro[i].animacao++;
-
-			//printf("Animcacao: \n", vetor_de_tiros->tiro[i].animacao);
-
-			//if (vetor_de_tiros->tiro[i].animacao > 8)
-			//	vetor_de_tiros->tiro[i].animacao = 1;
-		}
-
-		
-	}
-}
-
-// Animacao dos tiros
-void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro)
-{
-	switch (tiro->animacao)
-	{
-		case 1:
-			tiro->frame.x = 0; // Frame
-			break;
-
-		case 2:
-			tiro->frame.x = 64; // Frame
-			break;
-
-		case 3:
-			tiro->frame.x = 128; // Frame
-			break;
-
-		case 4:
-			tiro->frame.x = 192; // Frame
-			break;
-
-		case 5:
-			tiro->frame.x = 256; // Frame
-			break;
-
-		case 6:
-			tiro->frame.x = 320; // Frame
-			break;
-
-		case 7:
-			tiro->frame.x = 384; // Frame
-			break;
-
-		case 8:
-			tiro->frame.x = 448; // Frame
-			break;
-	}
-}
 
 
 // ***************************************************************************************************************
 
-// fim
+// FIM

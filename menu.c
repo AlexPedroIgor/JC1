@@ -8,18 +8,20 @@
 */
 #include "main.h"
 
-// Definicao de menus
-#define TELA_INICIAL					1
-#define OPCOES							2
-#define QND_DE_JOGADORES				3
-#define SELECAO_DE_PERSONAGEM1			4
-#define SELECAO_DE_PERSONAGEM2			5
+//
+// VARIAVEIS GLOBAIS DO MENU
+//
 
 // Inicia na tela inicial
 int modoDeMenu;
 int menuRodando;
 
-// Funcoes utilizadas
+// *****************************************************************************************************************
+
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
+
 void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
 void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event);
@@ -27,9 +29,12 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
 
-// ******************
+// *********************************************************************************************************************
 
-// Inicia menu principal
+//
+// MENU
+//
+
 void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
 	// Inicia na tela inicial
@@ -67,8 +72,12 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogado
 	}
 }
 
+// *********************************************************************************************************************
 
-// Estado de jogo em Menu Principal
+//
+// TELA INICIAL
+//
+
 void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 {
 	// Variavel para manter menu
@@ -499,8 +508,12 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 	// *********************************************************************
 }
 
-// Escolha modo singleplayer ou modo multiplayer
-// Estado de jogo em Menu Principal
+// *********************************************************************************************************************
+
+//
+// QUANTIDADE DE JOGADORES
+//
+
 void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 {
 	// Variavel para manter menu
@@ -848,19 +861,35 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event)
 	// *********************************************************************
 }
 
-// Selecao de personagens - singleplayer
+// *********************************************************************************************************************
+
+//
+// SELECAO DE PERSONAGENS
+//
+
+// SINGLEPLAYER
 void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1)
 {
 
 }
 
-// Selecao de personagens - multiplayer
+// MULTIPLAYER
 void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
 
 }
 
+// *********************************************************************************************************************
+
+//
+// OPCOES
+//
+
 void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
 {
 
 }
+
+// *********************************************************************************************************************
+
+// FIM

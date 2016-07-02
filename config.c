@@ -10,15 +10,19 @@
 #include "config.h"
 
 //
-// Pre carregamento das funcoes
+// PRE CARREGAMENTO DAS FUNCOES
 //
 
 void Carrega_Teclas_de_Acao(Jogador* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 
-// *********************************************************************************
+// ***************************************************************************************************
 
-// Carrega teclas de acao do jogador
+//
+// TECLAS DE MOVIMENTACAO
+//
+
+// TECLAS DE ACAO DE UM JOGADOR
 void Carrega_Teclas_de_Acao(Objeto* jogador)
 {
 	// Pega estado atual das teclas pressionadas
@@ -45,12 +49,10 @@ void Carrega_Teclas_de_Acao(Objeto* jogador)
 	}
 }
 
-// *********************************************************************************
-
-// ******************************************************************************
+// ***************************************************************************************************
 
 //
-// Funcoes de texto
+// TEXTO
 //
 
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto)
@@ -71,4 +73,6 @@ SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SD
 	return texto_em_tela;
 }
 
-// ******************************************************************************
+// ********************************************************************(******************************
+
+// FIM

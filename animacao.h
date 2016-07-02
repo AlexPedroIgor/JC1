@@ -4,12 +4,18 @@
 #ifndef ANIMACAO_H
 #define ANIMACAO_H
 
+// BIBLIOTECAS INTERNAS
 #include "main.h"
 #include "base.h"
+#include "config.h"
 
 //
-// Funcoes
+// FUNCOES
 //
+
+void Inimigo_Animacao_Ataque(Objeto* inimigo);
+void Projetil_Fireball_Animacao(SDL_Renderer* renderer, Objeto* tiro);
+void Fase_Animacao_Portal(Fase* fase);
 
 // *********************************************************************
 

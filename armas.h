@@ -4,16 +4,21 @@
 #ifndef ARMAS_H
 #define ARMAS_H
 
+// BIBLIOTECAS INTERNAS
 #include "main.h"
 #include "base.h"
 #include "animacao.h"
 
 //
-// Funcoes
+// FUNCOES
 //
+
+Objeto Cria_Fireball(Objeto* jogador);
+void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador);
+void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador);
 
 // *********************************************************************
 
 #endif
 
-// fim
+// FIM

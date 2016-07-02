@@ -4,16 +4,18 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+// BIBLIOTECAS INTERNAS
 #include "main.h"
 #include "base.h"
+#include "status.h"
 
 // ****************************************************************************************
 
 //
-// Constantes de configuracao
+// CONSTANTES DE CONFIGURACAO
 //
 
-// Velocidade de movimento dos objetos
+// VELOCIDADE DE MOVIMENTACAO DOS OBJETOS
 #define VEL_MAGO		4.0 // Jogador - Mago
 #define VEL_ARQUEIRO	5.0 // Jogador - Arqueiro
 #define VEL_INIMIGO_1	2.5 // Inimigo - Esqueleto
@@ -24,19 +26,23 @@
 #define VEL_FLECHA		3.0 // Projetil - Flecha
 #define VEL_TEIA		4.0 // Projetil - Teia da Aranha-Morcego
 
-// Localizacao dos sprites de jogador
-#define MAGE_W "arte/personagens/jogador1/Mage w.png"
-#define MAGE_M "arte/personagens/jogador2/Mage m.png"
-#define ARCHER_W "arte/personagens/jogador1/Archer w.png"
-#define ARTHER_M "arte/personagens/jogador2/Archer m.png"
+// LOCALIZACAO DOS SPRITES DOS PERSONAGENS
+#define MAGE_W		"arte/personagens/jogador1/Mage w.png"
+#define MAGE_M		"arte/personagens/jogador2/Mage m.png"
+#define ARCHER_W	"arte/personagens/jogador1/Archer w.png"
+#define ARTHER_M	"arte/personagens/jogador2/Archer m.png"
+#define ESQUELETO	"arte/personagens/vilao01/esqueleto.png"
+#define ORC			"arte/personagens/vilao02/orc.png"
+#define BLACKELF	"arte/personagens/vilao03/blackelf.png"
+#define BOSS		"arte/personagens/boss01/boss.png"
 
-// Caracteristicas dos sprites de jogadores e inimigos
+// DIMENSOES DOS SPRITES DE PERSONAGENS
 #define SPRITE_FULL_W		832
 #define SPRITE_FULL_H		1344
 #define SPRITE_FRAME_W		64
 #define SPRITE_FRAME_H		64
 
-// Movimentos de animacao
+// MOVIMENTOS DE ANIMACAO
 #define CIMA			1
 #define BAIXO			2
 #define ESQUERDA		3
@@ -46,7 +52,7 @@
 #define QUADRANTE3		7
 #define QUADRANTE4		8
 
-// Localizacao dos mapas
+// LOCALIZACAO DOS MAPAS
 #define MAPA_1 "arte/fundo/fundo01.jpg"
 #define MAPA_2 "arte/fundo/fundo02.jpg"
 #define MAPA_3 "arte/fundo/fundo03.jpg"
@@ -54,9 +60,14 @@
 
 // ****************************************************************************************
 
-// Estrutura para guardar informacoes sobre a fonte
+//
+// TEXTO
+//
+
+// PONTEIRO PARA GUARDAR FONTE
 TTF_Font* Fonte;
 
+// CORES DE TEXTO
 SDL_Color branco = {255,255,255};
 SDL_Color preto = {0,0,0};
 SDL_Color amarelo = {255,255,0};
@@ -66,7 +77,7 @@ SDL_Color verde = {51,255,0};
 // ****************************************************************************************
 
 //
-// Funcoes
+// FINCOES
 //
 
 void Carrega_Teclas_de_Acao(Jogador* jogador);
@@ -76,4 +87,4 @@ SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SD
 
 #endif
 
-// fim
+// FIM

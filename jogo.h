@@ -4,7 +4,7 @@
 #ifndef JOGO_H
 #define JOGO_H
 
-// Bicliotecas internas
+// BIBLIOTECAS INTERNAS
 #include "main.h"
 #include "base.h"
 #include "config.h"
@@ -16,9 +16,10 @@
 #include "colisao.h"
 #include "som.h"
 
+// ***********************************************************************************************
 
 //
-// Funcoes do jogo
+// FUNCOES
 //
 
 void Roda_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
@@ -31,4 +32,4 @@ void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_t
 
 #endif
 
-// fim
+// FIM

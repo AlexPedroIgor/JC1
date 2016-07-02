@@ -10,7 +10,7 @@
 #include "base.h"
 
 //
-// Pre carregamento das funcoes
+// PRE CARREGAMENTO DAS FUCOES
 //
 
 Jogadores* Inicializa_Jogadores();
@@ -25,13 +25,12 @@ void Finaliza_Boss(Boss* boss);
 void Finaliza_Fases(Fase* fase);
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
 void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
-void Fase_Anima_Portal(Fase* fase);
 void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase);
 
 // ***************************************************************************
 
 //
-// Funcoes basicas de carregamento de objetos
+// CARREGAMENTO DE OBJETOS
 //
 
 Jogadores* Inicializa_Jogadores()
@@ -48,6 +47,8 @@ Jogadores* Inicializa_Jogadores()
 		jogadores->jogador[i].inf.numero = i + 1;
 
 		jogadores->jogador[i].inf.animacao = NULL;
+
+		jogadores->jogador[i].tipo_de_ataque = 1;
 
 		// Marca estado de colisao inicial como sem colisao
 		jogadores->jogador[i].inf.colisao.cima = FALSO;
@@ -307,7 +308,7 @@ Fase* Inicializa_Fases()
 // *****************************************************************************
 
 //
-// Funcoes basicas de finalizacao de objetos
+// FINALIZACAO DE OBJETOS
 //
 
 void Finaliza_Jogadores(Jogadores* jogadores)
@@ -338,10 +339,10 @@ void Finaliza_Fases(Fase* fase)
 // *****************************************************************************
 
 //
-// Funcoes para carregamento das fases
+// CARREGAMENTO DAS FASES
 //
 
-// Carrega sprites das fases no jogo
+// CARREGA SPRITES DA FASE
 void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 {
 	// Variavel para carregar imagens
@@ -430,7 +431,7 @@ void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
 	//*********************************************************************
 }
 
-// Altera tipo de portal
+// ALTERNA O TIPO DE PORTAL
 void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 {
 	// Variavel para carregar imagens
@@ -536,77 +537,7 @@ void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
 	SDL_FreeSurface(Loading_Surf);
 }
 
-// Animacao do portal
-void Fase_Anima_Portal(Fase* fase)
-{
-	switch (fase->portal.animacao)
-	{
-		case 1:
-			fase->portal.cima.frame.x = 0;
-			fase->portal.baixo.frame.x = 0;
-			fase->portal.esquerda.frame.y = 0;
-			fase->portal.direita.frame.y = 0;
-			break;
-
-		case 3:
-			fase->portal.cima.frame.x = 59;
-			fase->portal.baixo.frame.x = 59;
-			fase->portal.esquerda.frame.y = 59;
-			fase->portal.direita.frame.y = 59;
-			break;
-
-		case 5:
-			fase->portal.cima.frame.x = 118;
-			fase->portal.baixo.frame.x = 118;
-			fase->portal.esquerda.frame.y = 118;
-			fase->portal.direita.frame.y = 118;
-			break;
-
-		case 7:
-			fase->portal.cima.frame.x = 177;
-			fase->portal.baixo.frame.x = 177;
-			fase->portal.esquerda.frame.y = 177;
-			fase->portal.direita.frame.y = 177;
-			break;
-
-		case 9:
-			fase->portal.cima.frame.x = 236;
-			fase->portal.baixo.frame.x = 236;
-			fase->portal.esquerda.frame.y = 236;
-			fase->portal.direita.frame.y = 236;
-			break;
-
-		case 11:
-			fase->portal.cima.frame.x = 295;
-			fase->portal.baixo.frame.x = 295;
-			fase->portal.esquerda.frame.y = 295;
-			fase->portal.direita.frame.y = 295;
-			break;
-
-		case 13:
-			fase->portal.cima.frame.x = 354;
-			fase->portal.baixo.frame.x = 354;
-			fase->portal.esquerda.frame.y = 354;
-			fase->portal.direita.frame.y = 354;
-			break;
-
-		case 15:
-			fase->portal.cima.frame.x = 413;
-			fase->portal.baixo.frame.x = 413;
-			fase->portal.esquerda.frame.y = 413;
-			fase->portal.direita.frame.y = 413;
-			break;
-
-		case 17:
-			fase->portal.cima.frame.x = 472;
-			fase->portal.baixo.frame.x = 472;
-			fase->portal.esquerda.frame.y = 472;
-			fase->portal.direita.frame.y = 472;
-			break;
-	}
-}
-
-// Carrega fundo da fase em tela
+// CARREGA IMAGEM EM TELA
 void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase)
 {
 	// Carrega fundo da fase
@@ -616,7 +547,7 @@ void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase)
 	// Carrega portais
 	//
 
-	Fase_Anima_Portal(fase);
+	Fase_Animacao_Portal(fase);
 
 	// Troca portais
 	if (fase->portal.cima.inimigos == 0)
@@ -660,4 +591,51 @@ void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase)
 
 // *****************************************************************************
 
-// fim
+//
+// RENDERIZACAO DOS OBJETOS
+//
+
+// JOGADORES
+
+
+// INIMIGOS
+
+
+// PROJETEIS
+void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
+{
+	int i;
+
+	if (projeteis->quantidade > 0)
+	{
+
+		//Anima_Tiro(renderer, &projeteis->tiro[i].inf);
+
+		for (i = 0; i != vetor_de_tiros->quantidade; i++)
+		{
+			SDL_RenderCopy(renderer,
+				projeteis->tiro[i]inf.sprite,
+				&projeteis->tiro[i]inf.frame,
+				&projeteis->tiro[i]inf.posicao);
+
+			if (i == 64)
+				break;
+
+			//vetor_de_tiros->tiro[i].animacao++;
+
+			//printf("Animcacao: \n", vetor_de_tiros->tiro[i].animacao);
+
+			//if (vetor_de_tiros->tiro[i].animacao > 8)
+			//	vetor_de_tiros->tiro[i].animacao = 1;
+		}
+
+		
+	}
+}
+
+// BOSS
+
+
+// *****************************************************************************
+
+// FIM

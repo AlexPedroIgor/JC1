@@ -1,0 +1,45 @@
+In file included from config.h:8:0,
+                 from main.h:18,
+                 from main.c:8:
+base.h:82:3: error: unknown type name ‘Status’
+   Status status; // Status do jogador
+   ^
+base.h:97:3: error: unknown type name ‘Status’
+   Status status; // Informacoes de status do inimigo
+   ^
+base.h:111:3: error: unknown type name ‘Status’
+   Status status; // Informacoes de status do boss
+   ^
+In file included from main.h:18:0,
+                 from main.c:8:
+config.h:72:29: error: unknown type name ‘Jogador’
+ void Carrega_Teclas_de_Acao(Jogador* jogador);
+                             ^
+In file included from main.h:20:0,
+                 from main.c:8:
+menu.h:12:66: error: unknown type name ‘Jogador’
+ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+                                                                  ^
+menu.h:12:85: error: unknown type name ‘Jogador’
+ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+                                                                                     ^
+menu.h:15:85: error: unknown type name ‘Jogador’
+ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
+                                                                                     ^
+menu.h:16:84: error: unknown type name ‘Jogador’
+ void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+                                                                                    ^
+menu.h:16:103: error: unknown type name ‘Jogador’
+ void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+                                                                                                       ^
+menu.h:17:59: error: unknown type name ‘Jogador’
+ void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+                                                           ^
+menu.h:17:78: error: unknown type name ‘Jogador’
+ void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+                                                                              ^
+In file included from jogo.h:11:0,
+                 from main.h:21,
+                 from main.c:8:
+inimigo.h:9:17: fatal error: bse.h: Arquivo ou diretório não encontrado
+compilation terminated.

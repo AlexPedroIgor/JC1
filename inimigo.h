@@ -4,76 +4,19 @@
 #ifndef INIMIGO_H
 #define INIMIGO_H
 
+// BIBLIOTECAS INTERNAS
 #include "main.h"
+#include "bse.h"
+#include "rpg.h"
+#include "fisica.h"
+#include "colisao.h"
 
-// Velocidade de movimentacao dos inimigos
-#define VEL_INIMIGO 1.5
+// ***************************************************************************************
 
-// Maximo de inimigos em tela
-#define MAX 64
+//
+// FUNCOES
+//
 
-// Estrutura para inimigos
-typedef struct 
-{
-	// Numero do inimigo
-	int tipo;
-
-	// Variavel para receber estado de colisao
-	int colisao, toma_tiro;
-
-	// Quadrante da colisao
-	struct
-	{
-		int cima, baixo, esquerda, direita;
-	}quad_colide;
-
-	// Variavel para guardar estado de vida do inimigo
-	int vivo;
-
-	// Movimentacao
-	struct
-	{
-		int cima;
-		int baixo;
-		int esquerda;
-		int direita;
-		int ataque;
-	} movimento;
-
-	// Velocidade de movimento
-	struct
-	{
-		float x, y;
-	}velocidade;
-
-	// Dimensoes dos sprites da imagem
-	int fullW, fullH;
-
-	int animacao;
-
-	// Rect para frame e posicao em tela
-	SDL_Rect frame, posicao;
-
-	// Imagem do sprite do inimigo
-	SDL_Texture* sprite;
-}Inimigo;
-
-// Estrutura para vetor de inimigos
-typedef struct
-{
-	// Quantidade de inimigos em tela
-	int quantidade;
-
-	// Quantidade de inimigos mortos
-	int mortos;
-
-	// Quanditades de inimigos mortos na rodada
-	int mortos_rodada;
-
-	Inimigo inimigo[MAX];
-}Vetor_de_Inimigos;
-
-// Funcoes
 Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);
 Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo);
 void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
@@ -86,6 +29,8 @@ void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jo
 void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
 void Atacar_inimigo(Inimigo* inimigo);
 
+// ********************************************************************************************
+
 #endif
 
-// fim
+// FIM

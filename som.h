@@ -7,7 +7,7 @@
 #include "main.h"
 
 //
-// Lista de efeitos sonoros
+// LISTA DE EFEITOS SONOROS
 //
 
 //			efeito		valor	
@@ -15,8 +15,10 @@
 #define		SELECT			2
 #define		VOLTAR			3
 
+// *********************************************************************
+
 //
-// Lista de musicas
+// LISTA DE MUSICAS
 //
 
 //			musica							valor
@@ -24,12 +26,19 @@
 #define		MUSICA_DE_SELECAO					2
 #define		MUSICA_DE_FUNDO_DO_JOGO				3
 
-// Funcoes
+// **********************************************************************
+
+//
+// FUNCOES
+//
+
 void Efeito_Sonoro(int nome_do_efeito);
 Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
 void Toca_Musica(int nome_da_musica);
 Mix_Music* Carrega_Musica(int nome_da_musica);
 
+// **********************************************************************
+
 #endif
 
-// fim
+// FIM

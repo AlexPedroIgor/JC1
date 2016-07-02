@@ -7,16 +7,25 @@
 
 #include "main.h"
 
-// Pre carregamento das funcoes
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
+
 void ERRO (int codigo);
 
-// Inicia programa no Menu Principal
+// *******************************************************************************************
+
+//
+// MAIN
+//
+
+// INICIALIZA JOGO NO MENU PRINCIPAL
 int estadoDeJogo = MENU;
 
-// Evento de jogo rodando para loop
+// VARIAVEL PARA LOOP DO JOGO
 int jogoRodando = VERDADEIRO;
 
-// Iniciando o programa
+// FUNCAO PRINCIPAL
 int main (int argc, char **argv)
 {
 	//
@@ -127,7 +136,12 @@ int main (int argc, char **argv)
 	return 0;
 }
 
-// Erros
+// *******************************************************************************************
+
+//
+// ERROS
+//
+
 void ERRO (int codigo)
 {
 	switch (codigo)
@@ -142,3 +156,7 @@ void ERRO (int codigo)
 			break;
 	}
 }
+
+// *******************************************************************************************
+
+// FIM
