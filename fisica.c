@@ -880,7 +880,7 @@ Vetor_de_Tiros Cria_Vetor_de_Tiros()
 // Adiciona um novo tiro ao vetor de tiros
 void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros, Jogador* jogador)
 {
-	if (vetor_de_tiros->quantidade < 20)
+	if (vetor_de_tiros->quantidade < 64)
 	{
 		// Cria um novo tiro
 		vetor_de_tiros->tiro[vetor_de_tiros->quantidade] = Cria_Tiro(jogador);
@@ -914,7 +914,7 @@ void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros)
 				&vetor_de_tiros->tiro[i].frame,
 				&vetor_de_tiros->tiro[i].posicao);
 
-			if (i == 20)
+			if (i == 64)
 				break;
 		}
 	}
@@ -1062,4 +1062,5 @@ void Clock(int clo)
     	printf("%d:%d:%d\n", h, m, s);
   	
 }
+
 

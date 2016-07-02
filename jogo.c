@@ -56,6 +56,8 @@ void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jo
 	// ****************
 	//
 
+	
+
 	// *********************************************************************
 
 	//

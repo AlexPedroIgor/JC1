@@ -6,7 +6,7 @@
 
 #include "main.h"
 #include "inimigo.h"
-#include <time.h>
+
 
 // Funcoes de colisao
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
@@ -33,6 +33,7 @@ void Adiciona_Tiro_ao_Vetor(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tir
 void Renderiza_Tiros(SDL_Renderer* renderer, Vetor_de_Tiros* vetor_de_tiros);
 void Anima_Tiro(SDL_Renderer* renderer, Objeto* tiro);
 void Clock(int clo);
+
 
 #endif
 
