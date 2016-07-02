@@ -8,6 +8,7 @@
 */
 
 #include "base.h"
+#include "animacao.h"
 
 //
 // PRE CARREGAMENTO DAS FUCOES
@@ -43,7 +44,7 @@ Jogadores* Inicializa_Jogadores()
 {
 	Jogadores* jogadores;
 
-	jogadores = (Jogadores*) malloc(sizeof(Jogadores));
+	jogadores = (Jogadores *) malloc(sizeof(Jogadores));
 
 	int i;
 
@@ -52,7 +53,7 @@ Jogadores* Inicializa_Jogadores()
 		// Armazena o numero do jogador
 		jogadores->jogador[i].inf.numero = i + 1;
 
-		jogadores->jogador[i].inf.animacao = NULL;
+		jogadores->jogador[i].inf.animacao = 1;
 
 		jogadores->jogador[i].tipo_de_ataque = 1;
 
@@ -80,10 +81,10 @@ Jogadores* Inicializa_Jogadores()
 		jogadores->jogador[i].inf.posicao.h = SPRITE_FRAME_H;
 
 		// Dimensoes reais para colisao
-		jogadores->jogador[i].tamanho_real.centro.x = 32;
-		jogadores->jogador[i].tamanho_real.centro.y = 38;
-		jogadores->jogador[i].tamanho_real.v = 24;
-		jogadores->jogador[i].tamanho_real.h = 12;
+		jogadores->jogador[i].inf.tamanho_real.centro.x = 32;
+		jogadores->jogador[i].inf.tamanho_real.centro.y = 38;
+		jogadores->jogador[i].inf.tamanho_real.v = 24;
+		jogadores->jogador[i].inf.tamanho_real.h = 12;
 
 		// Variavel para conter imagem do jogador
 		jogadores->jogador[i].inf.sprite = NULL;
@@ -105,9 +106,9 @@ Inimigos* Inicializa_Inimigos()
 
 	for (i = 0; i != 64; i++) // Loop para jogadores
 	{
-		inimigos->inimigo[i].vivo = NULL;
+		inimigos->inimigo[i].vivo = 0;
 
-		inimigos->inimigo[i].inf.animacao = NULL;
+		inimigos->inimigo[i].inf.animacao = 1;
 
 		// Marca estado de colisao inicial como sem colisao
 		inimigos->inimigo[i].inf.colisao.cima = FALSO;
@@ -137,7 +138,7 @@ Inimigos* Inicializa_Inimigos()
 
 Projeteis* Inicializa_Projeteis()
 {
-	Projeteis* inimigos;
+	Projeteis* projeteis;
 
 	projeteis = (Projeteis*) malloc(sizeof(Projeteis));
 
@@ -148,7 +149,7 @@ Projeteis* Inicializa_Projeteis()
 
 	for (i = 0; i != 64; i++) // Loop para jogadores
 	{
-		projeteis->tiro[i].em_tela = NULL;
+		projeteis->tiro[i].em_tela = 0;
 
 		projeteis->tiro[i].inf.animacao = 1;
 
@@ -192,12 +193,12 @@ Boss* Inicializa_Boss()
 
 	for (i = 0; i != 1; i++) // Loop para jogadores
 	{
-		boss->chefe[i].vivo = NULL;
+		boss->chefe[i].vivo = 1;
 
-		boss->chefe[i].inf.animacao = NULL;
+		boss->chefe[i].inf.animacao = 1;
 
 		// Tipo de objeto
-		boss->chefe[i].inf.tipo = BOSS;
+		boss->chefe[i].inf.tipo = BOSS_1;
 
 		// Marca estado de colisao inicial como sem colisao
 		boss->chefe[i].inf.colisao.cima = FALSO;
@@ -220,10 +221,10 @@ Boss* Inicializa_Boss()
 		boss->chefe[i].inf.posicao.h = 48;
 
 		// Dimensoes reais para colisao
-		boss->chefe[i].tamanho_real.centro.x = 48;
-		boss->chefe[i].tamanho_real.centro.y = 20;
-		boss->chefe[i].tamanho_real.v = 45;
-		boss->chefe[i].tamanho_real.h = 18;
+		boss->chefe[i].inf.tamanho_real.centro.x = 48;
+		boss->chefe[i].inf.tamanho_real.centro.y = 20;
+		boss->chefe[i].inf.tamanho_real.v = 45;
+		boss->chefe[i].inf.tamanho_real.h = 18;
 
 		// Variavel para conter imagem do inimigo
 		boss->chefe[i].inf.sprite = NULL;
@@ -709,12 +710,12 @@ void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
 
 		//Anima_Tiro(renderer, &projeteis->tiro[i].inf);
 
-		for (i = 0; i != vetor_de_tiros->quantidade; i++)
+		for (i = 0; i != projeteis->quantidade; i++)
 		{
 			SDL_RenderCopy(renderer,
-				projeteis->tiro[i]inf.sprite,
-				&projeteis->tiro[i]inf.frame,
-				&projeteis->tiro[i]inf.posicao);
+				projeteis->tiro[i].inf.sprite,
+				&projeteis->tiro[i].inf.frame,
+				&projeteis->tiro[i].inf.posicao);
 
 			if (i == 64)
 				break;

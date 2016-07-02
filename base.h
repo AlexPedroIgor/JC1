@@ -13,7 +13,13 @@
 // BIBLIOTECAS INTERNAS
 #include "rpg.h"
 
-// ***************************************************************************
+// ******************************************************************************************
+
+// CONDICIONAIS
+#define VERDADEIRO		1
+#define FALSO			0
+
+// ******************************************************************************************
 
 //
 // TIPOS DE OBJETOS
@@ -27,7 +33,7 @@
 #define FIREBALL		6
 #define FLECHA			7
 
-// ***************************************************************************
+// *****************************************************************************************
 
 //
 // CLASSES DE JOGADORES
@@ -57,7 +63,7 @@
 #define MAGE_W		"arte/personagens/jogador1/Mage w.png"
 #define MAGE_M		"arte/personagens/jogador2/Mage m.png"
 #define ARCHER_W	"arte/personagens/jogador1/Archer w.png"
-#define ARTHER_M	"arte/personagens/jogador2/Archer m.png"
+#define ARCHER_M	"arte/personagens/jogador2/Archer m.png"
 #define ESQUELETO	"arte/personagens/vilao01/esqueleto.png"
 #define ORC			"arte/personagens/vilao02/orc.png"
 #define BLACKELF	"arte/personagens/vilao03/blackelf.png"

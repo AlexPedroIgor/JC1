@@ -19,10 +19,6 @@
 // CONSTANTES
 //
 
-// CONDICIONAIS
-#define VERDADEIRO		1
-#define FALSO			0
-
 // MODOS DE JOGO
 #define	MENU			1
 #define	JOGO			2
