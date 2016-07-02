@@ -418,7 +418,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 	if (jogador->movimento.cima && jogador->movimento.esquerda)
 	{
 		// Animacao
-		jogador->frame.y = 512;
+		jogador->frame.y = 576;
 
 		if (jogador->frame.x < 512)
 			jogador->frame.x += 64;
@@ -441,7 +441,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 	else if (jogador->movimento.cima && jogador->movimento.direita)
 	{
 		// Animacao
-		jogador->frame.y = 512;
+		jogador->frame.y = 704;
 
 		if (jogador->frame.x < 512)
 			jogador->frame.x += 64;
@@ -464,7 +464,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 	else if (jogador->movimento.baixo && jogador->movimento.esquerda)
 	{
 		// Animacao
-		jogador->frame.y = 640;
+		jogador->frame.y = 576;
 
 		if (jogador->frame.x < 512)
 			jogador->frame.x += 64;
@@ -487,7 +487,7 @@ void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* v
 	else if (jogador->movimento.baixo && jogador->movimento.direita)
 	{
 		// Animacao
-		jogador->frame.y = 640;
+		jogador->frame.y = 704;
 
 		if (jogador->frame.x < 512)
 			jogador->frame.x += 64;

@@ -70,7 +70,7 @@ void Carrega_Teclas_de_Acao(Jogador* jogador)
 			jogador->movimento.baixo = keystates[SDL_SCANCODE_DOWN];
 			jogador->movimento.esquerda = keystates[SDL_SCANCODE_LEFT];
 			jogador->movimento.direita = keystates[SDL_SCANCODE_RIGHT];
-			jogador->movimento.ataque = keystates[SDL_SCANCODE_RETURN];
+			jogador->movimento.ataque = keystates[SDL_SCANCODE_SPACE];
 			break;
 
 		case 2: // Jogador 2
