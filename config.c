@@ -8,6 +8,7 @@
 */
 
 #include "config.h"
+#include "base.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -73,6 +74,6 @@ SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SD
 	return texto_em_tela;
 }
 
-// ********************************************************************(******************************
+// ***************************************************************************************************
 
 // FIM

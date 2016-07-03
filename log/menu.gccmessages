@@ -1,10 +1,4 @@
 menu.c: In function ‘Roda_SelecaoDePersonagem_Singleplayer’:
-menu.c:1221:6: warning: unused variable ‘n’ [-Wunused-variable]
-  int n;
-      ^
-menu.c:1219:6: warning: unused variable ‘dooo’ [-Wunused-variable]
-  int dooo = 45;
-      ^
 menu.c:1057:12: warning: unused variable ‘cor_da_sombra_do_texto’ [-Wunused-variable]
   SDL_Color cor_da_sombra_do_texto = {0,0,0};
             ^

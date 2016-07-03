@@ -11,6 +11,7 @@
 #include "base.h"
 #include "config.h"
 #include "fisica.h"
+#include "animacao.h"
 
 
 //
