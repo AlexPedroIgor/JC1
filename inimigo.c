@@ -22,7 +22,7 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int 
 void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
 void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
-void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores);
+void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido);
 void Inimigo_Ataque(Objeto* inimigo, Objeto* jogador);
 void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
 
@@ -222,8 +222,17 @@ void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, 
 //
 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
-void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
+void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido)
 {
+	//if (Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
+	//	movimento_permitido = FALSO;
+
+	//if (jogadores->quantidade == 2 && Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
+	//	movimento_permitido = FALSO;
+
+	printf(" : %d\n", movimento_permitido);
+
+
 	// ***************************************************************************
 
 	//
@@ -454,7 +463,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	// Execucao de movimentacao
 	//
 
-	Inimigo_Movimentar(inimigo);
+	Inimigo_Movimentar(inimigo, movimento_permitido);
 
 	// *************************************************************************************
 }

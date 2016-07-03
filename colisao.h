@@ -22,7 +22,9 @@
 
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
+int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2);
 int Colisao_LimiteDeTela(Objeto* objeto);
+int Colisao_LimiteDeTela2(Objeto* objeto);
 void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores);
 void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Inimigos* inimigos);
 

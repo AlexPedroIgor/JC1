@@ -18,7 +18,9 @@
 
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
+int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2);
 int Colisao_LimiteDeTela(Objeto* objeto);
+int Colisao_LimiteDeTela2(Objeto* objeto);
 void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores);
 void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Inimigos* inimigos);
 
@@ -227,6 +229,52 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 	}
 }
 
+int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
+{
+	/*
+	// Imprime posicao dos objetos
+	printf("Objeto 1\n");
+	printf("X: %d\nY: %d\n", objeto1->posicao.x, objeto1->posicao.y);
+	printf("Objeto 2\n");
+	printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
+	*/
+
+	// Superior
+	if ( (objeto1->posicao.y >= objeto2->posicao.y )
+		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
+		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + 30
+		&& objeto1->movimento.cima)
+		return VERDADEIRO;
+
+	// Inferior
+	else if ( (objeto1->posicao.y <= objeto2->posicao.y)
+		&& objeto1->posicao.y   + objeto1->frame.h  >= objeto2->posicao.y
+		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + 30
+		&& objeto1->movimento.baixo)
+		return VERDADEIRO;
+
+	// Lateral esquerda
+	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 35)
+		&& objeto1->posicao.x >= objeto2->posicao.x 
+		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
+		&& objeto1->posicao.y <= objeto2->posicao.y + 35
+		&& objeto1->movimento.esquerda)
+		return VERDADEIRO;
+
+	// Lateral direita
+	else if ( (objeto1->posicao.x + 35 >= objeto2->posicao.x )
+		&& objeto1->posicao.x <= objeto2->posicao.x
+		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
+		&& objeto1->posicao.y <= objeto2->posicao.y + 35
+		&& objeto1->movimento.direita)
+		return VERDADEIRO;
+
+	else
+		return FALSO;
+}
+
 // VERIFICA LIMITES DE TELA
 int Colisao_LimiteDeTela(Objeto* objeto)
 {
@@ -287,6 +335,32 @@ int Colisao_LimiteDeTela(Objeto* objeto)
 		objeto->colisao.direita = FALSO;
 		return FALSO;
 	}
+}
+
+int Colisao_LimiteDeTela2(Objeto* objeto)
+{
+	// Superior
+	if (objeto->posicao.y <= 10
+		&& objeto->movimento.cima)
+		return VERDADEIRO;
+
+	// Inferior
+	else if ( (objeto->posicao.y + objeto->frame.h >= 560)
+		&& objeto->movimento.baixo)
+		return VERDADEIRO;
+
+	// Lateral esquerda
+	else if (objeto->posicao.x <= 45
+		&& objeto->movimento.esquerda)
+		return VERDADEIRO;
+
+	// Lateral direita
+	else if ( (objeto->posicao.x + objeto->frame.w >= 750)
+		&& objeto->movimento.direita)
+		return VERDADEIRO;
+
+	else
+		return FALSO;
 }
 
 // **************************************************************************************************

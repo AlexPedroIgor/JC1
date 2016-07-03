@@ -16,10 +16,10 @@
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-void Jogador_Movimentar(Objeto* jogador);
+void Jogador_Movimentar(Objeto* jogador, int movimento_permitido);
 void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projeteis* projeteis);
 void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos);
-void Inimigo_Movimentar(Objeto* inimigo);
+void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido);
 void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores);
 Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
 
@@ -31,10 +31,10 @@ Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
 //
 
 // MOVIMENTACAO DE UM UNICO JOGADOR
-void Jogador_Movimentar(Objeto* jogador)
+void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 {
 	// Carrega teclas de acao
-	Carrega_Teclas_de_Acao(jogador);
+	
 
 	Colisao_LimiteDeTela(jogador);
 
@@ -59,7 +59,8 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = QUADRANTE2;
 
 		// Movimentacao
-		if (!jogador->colisao.cima && !jogador->colisao.esquerda)
+		if (!jogador->colisao.cima && !jogador->colisao.esquerda
+			&& movimento_permitido)
 		{
 			jogador->posicao.y -= jogador->velocidade.y;
 			jogador->posicao.x -= jogador->velocidade.x;
@@ -82,7 +83,8 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = QUADRANTE1;
 
 		// Movimentacao
-		if (!jogador->colisao.cima && !jogador->colisao.direita)
+		if (!jogador->colisao.cima && !jogador->colisao.direita
+			&& movimento_permitido)
 		{
 			jogador->posicao.y -= jogador->velocidade.y;
 			jogador->posicao.x += jogador->velocidade.x;
@@ -105,7 +107,8 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = QUADRANTE3;
 
 		// Movimentacao
-		if (!jogador->colisao.baixo && !jogador->colisao.esquerda)
+		if (!jogador->colisao.baixo && !jogador->colisao.esquerda
+			&& movimento_permitido)
 		{
 			jogador->posicao.y += jogador->velocidade.y;
 			jogador->posicao.x -= jogador->velocidade.x;
@@ -128,7 +131,8 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = QUADRANTE4;
 
 		// Movimentacao
-		if (!jogador->colisao.baixo && !jogador->colisao.direita)
+		if (!jogador->colisao.baixo && !jogador->colisao.direita
+			&& movimento_permitido)
 		{
 			jogador->posicao.y += jogador->velocidade.y;
 			jogador->posicao.x += jogador->velocidade.x;
@@ -154,7 +158,7 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = CIMA;
 
 		// Movimento
-		if (!jogador->colisao.cima)
+		if (!jogador->colisao.cima && movimento_permitido)
 			jogador->posicao.y -= jogador->velocidade.y;
 	}
 
@@ -173,7 +177,7 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = BAIXO;
 
 		// Movimento
-		if (!jogador->colisao.baixo)
+		if (!jogador->colisao.baixo && movimento_permitido)
 			jogador->posicao.y += jogador->velocidade.y;
 	}
 
@@ -192,7 +196,7 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = ESQUERDA;
 
 		// Movimento
-		if (!jogador->colisao.esquerda)
+		if (!jogador->colisao.esquerda && movimento_permitido)
 			jogador->posicao.x -= jogador->velocidade.x;
 	}
 
@@ -211,7 +215,7 @@ void Jogador_Movimentar(Objeto* jogador)
 		jogador->animacao = DIREITA;
 
 		// Movimento
-		if (!jogador->colisao.direita)
+		if (!jogador->colisao.direita && movimento_permitido)
 			jogador->posicao.x += jogador->velocidade.x;
 	}
 }
@@ -260,13 +264,24 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 // MOVIMENTACAO GERAL DOS JOGADORES
 void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos)
 {
-	Teste_de_Colisao(inimigos, jogadores);
+	//Teste_de_Colisao(inimigos, jogadores);
 
-	int i;
+	int i, j;
+
+	int movimento_permitido;
 
 	for (i = 0; i != jogadores->quantidade; i++)
 	{
-		Jogador_Movimentar(&jogadores->jogador[i].inf);
+		if (inimigos->quantidade > 0)
+		{
+			for (j = 0; j != inimigos->quantidade; j++)
+			{
+				if (Colisao_Perimetro2(&jogadores->jogador[i].inf, &inimigos->inimigo[j].inf))
+						movimento_permitido = FALSO;
+			}
+		}
+		Carrega_Teclas_de_Acao(&jogadores->jogador[i].inf);
+		Jogador_Movimentar(&jogadores->jogador[i].inf, movimento_permitido);
 	}
 }
 
@@ -277,9 +292,10 @@ void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos)
 //
 
 // Funcao para executar movimentacao do inimigo
-void Inimigo_Movimentar(Objeto* inimigo)
+void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 {
 	Colisao_LimiteDeTela(inimigo);
+
 	//
 	// Movimentos diagonais
 	//
@@ -300,7 +316,8 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = QUADRANTE2;
 
 		// Movimentacao
-		if (!inimigo->colisao.cima && !inimigo->colisao.esquerda)
+		if (!inimigo->colisao.cima && !inimigo->colisao.esquerda
+			&& movimento_permitido)
 		{
 			inimigo->posicao.y -= inimigo->velocidade.y;
 			inimigo->posicao.x -= inimigo->velocidade.x;
@@ -323,7 +340,8 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = QUADRANTE1;
 
 		// Movimentacao
-		if (!inimigo->colisao.cima && !inimigo->colisao.direita)
+		if (!inimigo->colisao.cima && !inimigo->colisao.direita
+			&& movimento_permitido)
 		{
 			inimigo->posicao.y -= inimigo->velocidade.y;
 			inimigo->posicao.x += inimigo->velocidade.x;
@@ -347,7 +365,8 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = QUADRANTE3;
 
 		// Movimentacao
-		if (!inimigo->colisao.baixo && !inimigo->colisao.esquerda)
+		if (!inimigo->colisao.baixo && !inimigo->colisao.esquerda
+			&& movimento_permitido)
 		{
 			inimigo->posicao.y += inimigo->velocidade.y;
 			inimigo->posicao.x -= inimigo->velocidade.x;
@@ -370,7 +389,8 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = QUADRANTE4;
 
 		// Movimentacao
-		if (!inimigo->colisao.baixo && !inimigo->colisao.direita)
+		if (!inimigo->colisao.baixo && !inimigo->colisao.direita
+			&& movimento_permitido)
 		{
 			inimigo->posicao.y += inimigo->velocidade.y;
 			inimigo->posicao.x += inimigo->velocidade.x;
@@ -396,7 +416,7 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = CIMA;
 
 		// Movimento
-		if (!inimigo->colisao.cima)
+		if (!inimigo->colisao.cima && movimento_permitido)
 			inimigo->posicao.y -= inimigo->velocidade.y;
 	}
 
@@ -415,7 +435,7 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = BAIXO;
 
 		// Movimento
-		if (!inimigo->colisao.baixo)
+		if (!inimigo->colisao.baixo && movimento_permitido)
 			inimigo->posicao.y += inimigo->velocidade.y;
 	}
 
@@ -434,7 +454,7 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = ESQUERDA;
 
 		// Movimento
-		if (!inimigo->colisao.esquerda)
+		if (!inimigo->colisao.esquerda && movimento_permitido)
 			inimigo->posicao.x -= inimigo->velocidade.x;
 	}
 
@@ -453,7 +473,7 @@ void Inimigo_Movimentar(Objeto* inimigo)
 		inimigo->animacao = DIREITA;
 
 		// Movimento
-		if (!inimigo->colisao.direita)
+		if (!inimigo->colisao.direita && movimento_permitido)
 			inimigo->posicao.x += inimigo->velocidade.x;
 	}
 }
@@ -462,14 +482,43 @@ void Inimigo_Movimentar(Objeto* inimigo)
 void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 {
 	// Teste de colisao
-	Teste_de_Colisao(inimigos, jogadores);
+	//Teste_de_Colisao(inimigos, jogadores);
 
-	int i;
+	int movimento_permitido;
+
+	int i, j;
 	if (inimigos->quantidade > 0)
 	{
 		for (i = 0; i != inimigos->quantidade; i++)
 		{
-			IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores);
+			for (j = 0; j != inimigos->quantidade; j++)
+			{
+				if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &jogadores->jogador[0].inf));
+				{
+					movimento_permitido = FALSO;
+					break;
+				}
+
+				if (jogadores->quantidade == 2)
+				{
+					if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &jogadores->jogador[1].inf));
+					{
+						movimento_permitido = FALSO;
+						break;
+					}
+				}
+				if (i != j)
+				{
+					if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &inimigos->inimigo[j].inf))
+					{
+						movimento_permitido = FALSO;
+						break;
+					}
+					else
+						movimento_permitido = VERDADEIRO;
+				}
+			}
+			IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores, movimento_permitido);
 		}
 	}
 }
