@@ -783,9 +783,8 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 								Efeito_Sonoro(SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								jogadores->quantidade = 1;
-								menuRodando = FALSO;
+								modoDeMenu = SELECAO_DE_PERSONAGEM1;
 								escolhaDeJogadoresRodando = FALSO;
-								estadoDeJogo = JOGO;
 								break;
 
 							case BOTAO_2JOGADORES:
@@ -821,9 +820,8 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					jogadores->quantidade = 1;
-					menuRodando = FALSO;
+					modoDeMenu = SELECAO_DE_PERSONAGEM1;
 					escolhaDeJogadoresRodando = FALSO;
-					estadoDeJogo = JOGO;
 				}
 
 				// 2 Jogadores
@@ -876,7 +874,397 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 // SINGLEPLAYER
 void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
+	// Variavel para manter menu
+	int selecaoSPRodando = VERDADEIRO;
 
+	// Variavel que carrega a imagens
+	SDL_Surface* Loading_Surf = NULL;
+
+	// *********************************************************************
+
+	//
+	// ****************
+	// PLANO DE FUNDO | inicio
+	// ****************
+	//
+
+	// Variavel que carrega a imagem no plano de fundo
+	SDL_Texture* gFundo = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/fundo/menu_principal.jpg");
+
+	// Carregando imagem na tela
+	gFundo = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	//
+	// ****************
+	// PLANO DE FUNDO | fim
+	// ****************
+	//
+
+	// *********************************************************************
+
+	//
+	// ******
+	// MAGE | inicio
+	// ******
+	//
+
+	// Variavel que carrega a opcao de iniciar o jogo
+	SDL_Texture* gMage = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/Mage W Selecao.png");
+
+	SDL_SetColorKey(Loading_Surf, 1, SDL_MapRGB(Loading_Surf->format, 255, 255, 255));
+
+	// Carregando imagem na tela
+	gMage = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect mage, select_mage;
+
+	mage.x = 68;
+	mage.y = 93;
+	mage.w = 100;
+	mage.h = 150;
+
+	select_mage.x = 75;
+	select_mage.y = 95;
+	select_mage.w = 90;
+	select_mage.h = 140;
+
+	//
+	// ******
+	// Mage | fim
+	// ******
+	//
+
+	// *********************************************************************
+
+	//
+	// ********
+	// ARCHER | inicio
+	// ********
+	//
+
+	// Variavel que carrega a opcao do menu de opcoes
+	SDL_Texture* gArcher = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/Archer W Selecao.png");
+
+	SDL_SetColorKey(Loading_Surf, 1, SDL_MapRGB(Loading_Surf->format, 255, 255, 255));
+
+	// Carregando imagem na tela
+	gArcher = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect archer, select_archer;
+
+	archer.x = 470;
+	archer.y = 90;
+	archer.w = 100;
+	archer.h = 150;
+
+	select_archer.x = 480;
+	select_archer.y = 95;
+	select_archer.w = 90;
+	select_archer.h = 140;
+
+	//
+	// ********
+	// ARCHER | fim
+	// ********
+	//
+
+
+	// *********************************************************************
+
+	//
+	// ********
+	// SELECAO | inicio
+	// ********
+	//
+
+	// Variavel que carrega a opcao do menu de opcoes
+	SDL_Texture* gSelecao_b = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/Selecao-branco.png");
+
+	// Carregando imagem na tela
+	gSelecao_b = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Variavel que carrega a opcao do menu de opcoes pressionado
+	SDL_Texture* gSelecao_p = NULL;
+
+	// Carregando plano de fundo na memoria
+	Loading_Surf = IMG_Load("arte/menu/Selecao-preto.png");
+
+	// Carregando imagem na tela
+	gSelecao_p = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf);
+
+	// Limpando memoria
+	SDL_FreeSurface(Loading_Surf);
+
+	// Declarando rect
+	SDL_Rect selecao1, selecao2;
+
+	selecao1.x = 55;
+	selecao1.y = 75;
+	selecao1.w = 300;
+	selecao1.h = 350;
+
+	selecao2.x = 450;
+	selecao2.y = 75;
+	selecao2.w = 300;
+	selecao2.h = 350;
+
+	//
+	// ********
+	// SELECAO | fim
+	// ********
+	//
+
+	// *********************************************************************
+
+	//
+	// **********************
+	// Loop do menu rodando | inicio
+	// **********************
+	//
+
+	// Variavel para uso do som nas selecoes
+	int SELECIONADO;
+
+	#define BOTAO_MAGE		1
+	#define BOTAO_ARCHER	2
+
+	SELECIONADO = BOTAO_MAGE;
+
+	// Loop
+
+	while(selecaoSPRodando)
+	{
+
+		// Salva posicao do mouse
+		struct POSICAO_DO_MOUSE
+		{
+			int x, y;
+		}posicao_do_mouse;
+
+		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+
+		printf("X: %d\nY: %d\n", posicao_do_mouse.x, posicao_do_mouse.y);
+
+		// ************************************************************
+
+		// Limpa tela anterior
+		SDL_RenderClear(renderer);
+
+		// Renderiza plano de fundo
+		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
+
+		//
+		// Animacao das opcoes
+		//
+
+		SDL_RenderCopy(renderer, gMage, NULL, &mage);
+
+		SDL_RenderCopy(renderer, gSelecao_p, NULL, &select_mage);
+
+		SDL_RenderCopy(renderer, gArcher, NULL, &archer);
+
+		SDL_RenderCopy(renderer, gSelecao_p, NULL, &select_archer);
+
+		// MAGE - animacao
+		if ((posicao_do_mouse.x > 65
+			&& posicao_do_mouse.x < 350
+			&& posicao_do_mouse.y > 85
+			&& posicao_do_mouse.y < 420)
+			|| SELECIONADO == BOTAO_MAGE)
+		{
+			SDL_RenderCopy(renderer, gSelecao_b, NULL, &selecao1);
+			
+			// Animacao de som
+			if (SELECIONADO != BOTAO_MAGE)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_MAGE;
+		}
+		else
+			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao1);
+
+		// ARCHER - animacao
+		if ((posicao_do_mouse.x > 460
+			&& posicao_do_mouse.x < 745
+			&& posicao_do_mouse.y > 85
+			&& posicao_do_mouse.y < 420)
+			|| SELECIONADO == BOTAO_ARCHER)
+		{
+			SDL_RenderCopy(renderer, gSelecao_b, NULL, &selecao2);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_ARCHER)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_ARCHER;
+		}
+		else
+			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao2);
+
+		// ************************************************************
+
+		// Verifica eventos
+		if (SDL_PollEvent (&event))
+		{
+			// Finaliza o jogo
+			if (event.type == SDL_QUIT)
+			{
+				menuRodando = FALSO;
+				selecaoSPRodando = FALSO;
+				mainRodando = FALSO;
+			}
+
+			//
+			// Eventos de tecla pressionada
+			//
+			if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_ESCAPE:
+						Efeito_Sonoro(VOLTAR);
+						SDL_Delay(400); // Delay de 0.4 segundos
+						modoDeMenu = QND_DE_JOGADORES;
+						selecaoSPRodando = FALSO;
+						Toca_Musica(MUSICA_INICIAL);
+						break;
+
+					case SDLK_LEFT:
+						switch (SELECIONADO)
+						{
+							case BOTAO_MAGE:
+								break;
+
+							case BOTAO_ARCHER:
+								SELECIONADO = BOTAO_MAGE;
+								Efeito_Sonoro(CLICK);
+								break;
+						}
+						break;
+
+					case SDLK_RIGHT:
+						switch (SELECIONADO)
+						{
+							case BOTAO_MAGE:
+								SELECIONADO = BOTAO_ARCHER;
+								Efeito_Sonoro(CLICK);
+								break;
+
+							case BOTAO_ARCHER:
+								break;
+						}
+						break;
+
+					case SDLK_RETURN:
+						switch (SELECIONADO)
+						{
+							case BOTAO_MAGE:
+								Efeito_Sonoro(SELECT);
+								SDL_Delay(400); // Delay de 0.4 segundos
+								jogadores->jogador[0].classe = MAGO;
+								menuRodando = FALSO;
+								selecaoSPRodando = FALSO;
+								estadoDeJogo = JOGO;
+								break;
+
+							case BOTAO_ARCHER:
+								Efeito_Sonoro(SELECT);
+								SDL_Delay(400); // Delay de 0.4 segundos
+								break;
+						}
+						break;
+				}
+			}
+
+			//
+			// Eventos de clique do mouse
+			//
+
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+
+				//
+				// Acoes
+				//
+
+				// MAGE
+				if (posicao_do_mouse.x > 65
+					&& posicao_do_mouse.x < 350
+					&& posicao_do_mouse.y > 85
+					&& posicao_do_mouse.y < 420)
+				{
+					Efeito_Sonoro(SELECT);
+					SDL_Delay(400); // Delay de 0.4 segundos
+					jogadores->jogador[0].classe = MAGO;
+					menuRodando = FALSO;
+					selecaoSPRodando = FALSO;
+					estadoDeJogo = JOGO;
+				}
+
+				// ARCHER
+				if (posicao_do_mouse.x > 460
+					&& posicao_do_mouse.x < 745
+					&& posicao_do_mouse.y > 85
+					&& posicao_do_mouse.y < 420)
+				{
+					Efeito_Sonoro(SELECT);
+					SDL_Delay(400); // Delay de 0.4 segundos
+				}
+			}
+		}
+		
+		// Atualiza tela
+		SDL_RenderPresent(renderer);
+
+		// FPS
+		SDL_Delay( 1000/FPS );
+		
+	}
+
+	// Limpando memoria - imagens
+	SDL_DestroyTexture(gFundo);
+	SDL_DestroyTexture(gMage);
+	SDL_DestroyTexture(gArcher);
+	SDL_DestroyTexture(gSelecao_b);
+	SDL_DestroyTexture(gSelecao_p);
+
+
+	//
+	// **********************
+	// Loop do menu rodando | fim
+	// **********************
+	//
+
+	// *********************************************************************
 }
 
 // MULTIPLAYER
