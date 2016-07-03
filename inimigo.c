@@ -251,8 +251,8 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 	distancia = vetor_distancia_quadrante.distancia;
 	quadrante = vetor_distancia_quadrante.quadrante;
 	jogador_proximo = 1;
-
-	if (jogadores->quantidade == 2)
+	int quantidade =2;
+	if (quantidade == 2)//mudar para quantidade dejogadores mais tarde
 	{
 		vetor_distancia_quadrante = Distancia_Quadrante(inimigo, &jogadores->jogador[1].inf);
 		if (distancia < vetor_distancia_quadrante.distancia)

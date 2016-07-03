@@ -498,7 +498,7 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 	// Teste de colisao
 	//Teste_de_Colisao(inimigos, jogadores);
 
-	int movimento_permitido = VERDADEIRO;
+	int movimento_permitido[inimigos->quantidade];
 	
 
 	int i, j;
@@ -509,7 +509,7 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 		
 			if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &jogadores->jogador[0].inf));
 				{
-					movimento_permitido = FALSO;
+					movimento_permitido[i] = FALSO;
 					break;
 				}
 
@@ -517,7 +517,7 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 				{
 					if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &jogadores->jogador[1].inf));
 					{
-						movimento_permitido = FALSO;
+						movimento_permitido[i] = FALSO;
 						break;
 					}
 				}
@@ -527,15 +527,16 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 				{
 					if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &inimigos->inimigo[j].inf))
 					{
-						movimento_permitido = FALSO;
+						movimento_permitido[i] = FALSO;
 						break;
 					}
 					else
-						movimento_permitido = VERDADEIRO;
+						movimento_permitido[i] = VERDADEIRO;
 				}
 			}
-			//IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores, movimento_permitido);
 			printf("movimento = %d", movimento_permitido);
+			IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores, movimento_permitido[i]);
+			
 		}
 	}
 }
