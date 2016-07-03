@@ -628,6 +628,7 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 
 	for (i = 0; i != jogadores->quantidade; i++)
 	{
+		printf("FOI: %d\n", i);
 		jogadores->jogador[i].classe = MAGO; // Enquanto nao houver funcao de selecao de personagens
 		switch (jogadores->jogador[i].classe)
 		{
@@ -676,13 +677,33 @@ void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores)
 {
 	int i;
 
+	if (jogadores->quantidade == 1)
+	{
+		SDL_RenderCopy(renderer,
+			jogadores->jogador[0].inf.sprite,
+			&jogadores->jogador[0].inf.frame,
+			&jogadores->jogador[0].inf.posicao);
+	}
+	else if (jogadores->quantidade == 2)
+	{
+		SDL_RenderCopy(renderer,
+			jogadores->jogador[0].inf.sprite,
+			&jogadores->jogador[0].inf.frame,
+			&jogadores->jogador[0].inf.posicao);
+
+		SDL_RenderCopy(renderer,
+			jogadores->jogador[1].inf.sprite,
+			&jogadores->jogador[1].inf.frame,
+			&jogadores->jogador[1].inf.posicao);
+	}
+	/*
 	for (i = 0; i != jogadores->quantidade; i++)
 	{
 		SDL_RenderCopy(renderer,
 			jogadores->jogador[i].inf.sprite,
 			&jogadores->jogador[i].inf.frame,
 			&jogadores->jogador[i].inf.posicao);
-	}
+	}*/
 }
 
 // INIMIGOS
