@@ -52,21 +52,21 @@ Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 			// Velocidade de movimento do inimigo
 			inimigo.velocidade.x = VEL_INIMIGO_1;
 			inimigo.velocidade.y = VEL_INIMIGO_1;
-			Loading_Surf = IMG_Load("arte/personagens/vilao01/esqueleto.png");
+			Loading_Surf = IMG_Load(ESQUELETO);
 			break;
 
 		case 2:
 			// Velocidade de movimento do inimigo
 			inimigo.velocidade.x = VEL_INIMIGO_2;
 			inimigo.velocidade.y = VEL_INIMIGO_2;
-			Loading_Surf = IMG_Load("arte/personagens/vilao02/orc.png");
+			Loading_Surf = IMG_Load(ORC);
 			break;
 
 		case 3:
 			// Velocidade de movimento do inimigo
 			inimigo.velocidade.x = VEL_INIMIGO_3;
 			inimigo.velocidade.y = VEL_INIMIGO_3;
-			Loading_Surf = IMG_Load("arte/personagens/vilao03/blackelf.png");
+			Loading_Surf = IMG_Load(BLACKELF);
 			break;
 	}
 
