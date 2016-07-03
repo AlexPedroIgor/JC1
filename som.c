@@ -55,6 +55,22 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 		case VOLTAR:
 			som = Mix_LoadWAV("sons/efeitos/voltar.wav");
 			break;
+
+		case CURA:
+			som = Mix_LoadWAV("sons/efeitos/cura.wav");
+			break;
+
+		case TAPA:
+			som = Mix_LoadWAV("sons/efeitos/tapa.wav");
+			break;
+
+		case SOCO:
+			som = Mix_LoadWAV("sons/efeitos/soco.wav");
+			break;
+
+		case HULK_ESMAGA:
+			som = Mix_LoadWAV("sons/efeitos/hulk_esmaga.wav");
+			break;
 	}
 
 	// Retorna o efeito para ser tocado

@@ -18,6 +18,10 @@
 #define		CLICK			1
 #define		SELECT			2
 #define		VOLTAR			3
+#define		CURA			4
+#define		TAPA			5
+#define		SOCO			6
+#define		HULK_ESMAGA		7
 
 // *********************************************************************
 

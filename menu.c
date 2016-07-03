@@ -1253,8 +1253,9 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	// Variavel para uso do som nas selecoes
 	int SELECIONADO;
 
-	#define BOTAO_MAGE		1
-	#define BOTAO_ARCHER	2
+	#define BOTAO_MAGE				1
+	#define BOTAO_ARCHER			2
+	#define PERSONAGE_ESCOLHIDO		3
 
 	SELECIONADO = BOTAO_MAGE;
 
