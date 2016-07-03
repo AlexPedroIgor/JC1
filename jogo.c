@@ -145,7 +145,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);										
-		carrega_HUD(renderer);
+		carrega_HUD(renderer, &jogadores);
 
 		SDL_RenderPresent(renderer); // PRINTA TELA
 
