@@ -736,13 +736,18 @@ void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
 {
 	int i;
 
+
 	if (projeteis->quantidade > 0)
 	{
+		
 
 		//Anima_Tiro(renderer, &projeteis->tiro[i].inf);
 
-		for (i = 0; i != projeteis->quantidade; i++)
+		for (i = 0; i < projeteis->quantidade; i++)
 		{
+			
+
+			Anima_Fireball(renderer, &projeteis->tiro[i].inf);
 			SDL_RenderCopy(renderer,
 				projeteis->tiro[i].inf.sprite,
 				&projeteis->tiro[i].inf.frame,
