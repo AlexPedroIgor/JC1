@@ -51,6 +51,7 @@ int mainRodando, estadoDeJogo;
 typedef struct
 {
 	char* mensagem;
+	int valor_numerico;
 	SDL_Rect posicao1, posicao2;
 	SDL_Texture* textura;
 }Texto;

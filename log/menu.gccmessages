@@ -1,0 +1,4 @@
+menu.c: In function ‘Roda_SelecaoDePersonagem_Singleplayer’:
+menu.c:1067:6: warning: variable ‘grava_texto’ set but not used [-Wunused-but-set-variable]
+  int grava_texto; // auxiliar para escrita de texto
+      ^
