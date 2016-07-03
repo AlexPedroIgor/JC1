@@ -224,15 +224,16 @@ void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
 void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido)
 {
-	if (Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
+
+	if (Colisao_Perimetro2(inimigo, &jogadores->jogador[0].inf))
 			movimento_permitido = FALSO;
 
-	if (jogadores->quantidade == 2 && Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
+	if (jogadores->quantidade == 2 && Colisao_Perimetro2(inimigo, &jogadores->jogador[0].inf))
 		movimento_permitido = FALSO;
+	
+	//movimento_permitido = VERDADEIRO;
 
-	movimento_permitido = VERDADEIRO;
-
-	printf(" : %d\n", movimento_permitido);
+	printf(" IA - movimento : %d\n", movimento_permitido);
 
 
 	// ***************************************************************************
@@ -253,8 +254,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 	distancia = vetor_distancia_quadrante.distancia;
 	quadrante = vetor_distancia_quadrante.quadrante;
 	jogador_proximo = 1;
-	int quantidade =2;
-	if (quantidade == 2)//mudar para quantidade dejogadores mais tarde
+	if (jogadores->quantidade == 2)
 	{
 		vetor_distancia_quadrante = Distancia_Quadrante(inimigo, &jogadores->jogador[1].inf);
 		if (distancia < vetor_distancia_quadrante.distancia)
@@ -275,14 +275,14 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 
 	int loucura;
 	
+	if(distancia < 300)
+		loucura = 50;
+
 	if(distancia < 65)
 		Inimigo_Ataque(inimigo, &jogadores->jogador[jogador_proximo-1].inf);
-
-	if(distancia > 80)
-		loucura = 10;
 	else
 		loucura = rand() % 100;
-
+		
 
 	switch (loucura)
 	{
@@ -323,14 +323,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 						inimigo->movimento.direita = FALSO;
 						break;
 
-					case QUADRANTE1:
-						inimigo->movimento.cima = FALSO;
-						inimigo->movimento.baixo = VERDADEIRO;
-						inimigo->movimento.esquerda = FALSO;
-						inimigo->movimento.direita = VERDADEIRO;
-						break;
-
-					case QUADRANTE2:
+					case QUADRANTE4:
 						inimigo->movimento.cima = FALSO;
 						inimigo->movimento.baixo = VERDADEIRO;
 						inimigo->movimento.esquerda = VERDADEIRO;
@@ -338,17 +331,24 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 						break;
 
 					case QUADRANTE3:
-						inimigo->movimento.cima = VERDADEIRO;
-						inimigo->movimento.baixo = FALSO;
-						inimigo->movimento.esquerda = VERDADEIRO;
-						inimigo->movimento.direita = FALSO;
+						inimigo->movimento.cima = FALSO;
+						inimigo->movimento.baixo = VERDADEIRO;
+						inimigo->movimento.esquerda = FALSO;
+						inimigo->movimento.direita = VERDADEIRO;
 						break;
 
-					case QUADRANTE4:
+					case QUADRANTE2:
 						inimigo->movimento.cima = VERDADEIRO;
 						inimigo->movimento.baixo = FALSO;
 						inimigo->movimento.esquerda = FALSO;
 						inimigo->movimento.direita = VERDADEIRO;
+						break;
+
+					case QUADRANTE1:
+						inimigo->movimento.cima = VERDADEIRO;
+						inimigo->movimento.baixo = FALSO;
+						inimigo->movimento.esquerda = VERDADEIRO;
+						inimigo->movimento.direita = FALSO;
 						break;
 				}
 			}
@@ -422,7 +422,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 	// ***************************************************************************
 
 	// Caso tenha colisao vai afastar
-		
+	/*	
 	// Cima
 	if (inimigo->colisao.cima)
 	{
@@ -458,7 +458,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 		inimigo->movimento.esquerda = VERDADEIRO;
 		inimigo->movimento.direita = FALSO;
 	}
-	
+	*/
 	// *************************************************************************************
 
 	//

@@ -241,10 +241,10 @@ int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 {
 	
 	// Imprime posicao dos objetos
-	printf("Objeto 1\n");
-	printf("X: %d\nY: %d\n", objeto1->posicao.x, objeto1->posicao.y);
-	printf("Objeto 2\n");
-	printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
+	//printf("Objeto 1\n");
+	//printf("X: %d\nY: %d\n", objeto1->posicao.x, objeto1->posicao.y);
+	//printf("Objeto 2\n");
+	//printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
 	
 
 	// Superior

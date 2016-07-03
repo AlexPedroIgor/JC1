@@ -517,7 +517,8 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 			if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &jogadores->jogador[0].inf));
 				{
 					movimento_permitido[i] = FALSO;
-					printf("1st\n");
+					//printf("1st\n");
+					//printf("movimento = %d", movimento_permitido[1]);
 					
 				}
 
@@ -526,7 +527,8 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 					if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &jogadores->jogador[1].inf));
 					{
 						movimento_permitido[i] = FALSO;
-						printf("2nd\n");
+						//printf("2nd\n");
+						//printf("movimento = %d", movimento_permitido[1]);
 						break;
 					}
 				}
@@ -537,15 +539,16 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 					if (Colisao_Perimetro2(&inimigos->inimigo[i].inf, &inimigos->inimigo[j].inf))
 					{
 						movimento_permitido[i] = FALSO;
-						printf("3rd\n");
+						//printf("3rd\n");
 						break;
 					}
 					else
-						printf("4rd\n");
+						//printf("4th\n");
 						movimento_permitido[i] = VERDADEIRO;
+						//printf("movimento = %d", movimento_permitido[1]);
 				}
 			}
-			printf("movimento = %d", movimento_permitido[1]);
+			//printf("movimento = %d", movimento_permitido[1]);
 			IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores, movimento_permitido[i]);
 			
 		}
