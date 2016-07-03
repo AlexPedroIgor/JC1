@@ -117,7 +117,8 @@ typedef struct
 {
 	float HP, MP, HP_Max, MP_Max;
 	int forca, destreza, inteligencia, sabedoria, constituicao;
-	int ataque, defesa;
+	int ataque, defesa, lvl;
+	int atk_coldonw;
 }Status;
 
 // OBJETOS EM TELA
