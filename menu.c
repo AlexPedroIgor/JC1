@@ -1261,6 +1261,37 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	tInteligencia.posicao2.w = 40;
 	tInteligencia.posicao2.h = 20;
 
+	// VALOR DA INTELIGENCIA
+
+	Texto tValorInt1, tValorInt2;
+
+	tValorInt1.valor_numerico = 17;
+	tValorInt2.valor_numerico = 10;
+
+	grava_texto = sprintf(texto_auxiliar, "%d", tValorInt1.valor_numerico);
+	Loading_Surf = TTF_RenderText_Blended (Fonte2,
+											texto_auxiliar,
+												cor_do_texto2);
+	tValorInt1.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+	grava_texto = sprintf(texto_auxiliar, "%d", tValorInt2.valor_numerico);
+	Loading_Surf = TTF_RenderText_Blended (Fonte2,
+											texto_auxiliar,
+												cor_do_texto2);
+	tValorInt2.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+	SDL_FreeSurface(Loading_Surf);
+
+	tValorInt1.posicao1.x = 252;
+	tValorInt1.posicao1.y = 180;
+	tValorInt1.posicao1.w = 17;
+	tValorInt1.posicao1.h = 20;
+
+	tValorInt2.posicao2.x = 647;
+	tValorInt2.posicao2.y = 180;
+	tValorInt2.posicao2.w = 17;
+	tValorInt2.posicao2.h = 20;
+
 	// CONSTITUICAO
 
 	Texto tConstituicao;
@@ -1284,6 +1315,37 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	tConstituicao.posicao2.y = 205;
 	tConstituicao.posicao2.w = 40;
 	tConstituicao.posicao2.h = 20;
+
+	// VALOR DA CONSTITUICAO
+
+	Texto tValorCon1, tValorCon2;
+
+	tValorCon1.valor_numerico = 15;
+	tValorCon2.valor_numerico = 12;
+
+	grava_texto = sprintf(texto_auxiliar, "%d", tValorCon1.valor_numerico);
+	Loading_Surf = TTF_RenderText_Blended (Fonte2,
+											texto_auxiliar,
+												cor_do_texto2);
+	tValorCon1.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+	grava_texto = sprintf(texto_auxiliar, "%d", tValorCon2.valor_numerico);
+	Loading_Surf = TTF_RenderText_Blended (Fonte2,
+											texto_auxiliar,
+												cor_do_texto2);
+	tValorCon2.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+	SDL_FreeSurface(Loading_Surf);
+
+	tValorCon1.posicao1.x = 252;
+	tValorCon1.posicao1.y = 205;
+	tValorCon1.posicao1.w = 17;
+	tValorCon1.posicao1.h = 20;
+
+	tValorCon2.posicao2.x = 647;
+	tValorCon2.posicao2.y = 205;
+	tValorCon2.posicao2.w = 17;
+	tValorCon2.posicao2.h = 20;
 
 	// NIVEL
 
@@ -1453,9 +1515,13 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		SDL_RenderCopy(renderer, tDestreza.textura, NULL, &tDestreza.posicao2); // destreza:
 		SDL_RenderCopy(renderer, tValorDes2.textura, NULL, &tValorDes2.posicao2); // valor destreza
 		SDL_RenderCopy(renderer, tInteligencia.textura, NULL, &tInteligencia.posicao1); // inteligencia:
+		SDL_RenderCopy(renderer, tValorInt1.textura, NULL, &tValorInt1.posicao1); // valor da int
 		SDL_RenderCopy(renderer, tInteligencia.textura, NULL, &tInteligencia.posicao2); // inteligencia:
+		SDL_RenderCopy(renderer, tValorInt2.textura, NULL, &tValorInt2.posicao2); // valor da int
 		SDL_RenderCopy(renderer, tConstituicao.textura, NULL, &tConstituicao.posicao1); // constituicao:
+		SDL_RenderCopy(renderer, tValorCon1.textura, NULL, &tValorCon1.posicao1); // valor da con
 		SDL_RenderCopy(renderer, tConstituicao.textura, NULL, &tConstituicao.posicao2); // constituicao:
+		SDL_RenderCopy(renderer, tValorCon2.textura, NULL, &tValorCon2.posicao2); // valor da con
 		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao1); // level:
 		SDL_RenderCopy(renderer, tValorLVL.textura, NULL, &tValorLVL.posicao1); // valor level
 		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao2); // level:
@@ -1596,9 +1662,13 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	SDL_DestroyTexture(tValorFor2.textura);
 	SDL_DestroyTexture(tDestreza.textura);
 	SDL_DestroyTexture(tValorDes1.textura);
-	SDL_DestroyTexture(tValorFor2.textura);
+	SDL_DestroyTexture(tValorDes2.textura);
 	SDL_DestroyTexture(tInteligencia.textura);
+	SDL_DestroyTexture(tValorInt1.textura);
+	SDL_DestroyTexture(tValorInt2.textura);
 	SDL_DestroyTexture(tConstituicao.textura);
+	SDL_DestroyTexture(tValorCon1.textura);
+	SDL_DestroyTexture(tValorCon2.textura);
 	SDL_DestroyTexture(tLVL.textura);
 	SDL_DestroyTexture(tValorLVL.textura);
 
