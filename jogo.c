@@ -93,10 +93,14 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// **************
 	//
 	//jogadores->jogador[0].status.atk_cooldown = 0;
+	
+	//auto-explicativo
+	Definir_status_iniciais(jogadores);
 
 	int contador = 1;
 	while (jogoRodando)
 	{		
+		Manter_status(jogadores);
 			
 		if(jogadores->jogador[0].status.atk_cooldown >= 5)		
 			Ataque_dos_Jogadores(renderer, jogadores, projeteis);
