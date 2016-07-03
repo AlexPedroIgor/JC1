@@ -300,6 +300,7 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 {
 	int i, j;
 
+
 	// COLISAO ENTRE JOGADORES E INIMIGOS
 	for (i = 0; i != jogadores->quantidade; i++)
 	{
@@ -314,19 +315,13 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 	}
 
 	// COLISAO ENTRE JOGADORES NO MODO MULTIPLAYER
-	if (jogadores->quantidade >= 2)
+	if (jogadores->quantidade == 2)
 	{
-		for (i = 0; i != jogadores->quantidade; i++)
-		{
-			for (j = 0; j != jogadores->quantidade; i++)
-			{
-				if (i != j)
-				{
-					Colisao_Perimetro(&jogadores->jogador[i].inf,
-						&jogadores->jogador[j].inf);
-				}
-			}
-		}
+		Colisao_Perimetro(&jogadores->jogador[0].inf,
+						&jogadores->jogador[1].inf);
+
+		Colisao_Perimetro(&jogadores->jogador[1].inf,
+						&jogadores->jogador[0].inf);
 	}
 
 	// COLISAO ENTRE INIMIGOS E JOGADORES
