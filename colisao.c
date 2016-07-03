@@ -242,32 +242,32 @@ int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 	// Superior
 	if ( (objeto1->posicao.y >= objeto2->posicao.y )
 		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
-		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
-		&& objeto1->posicao.x <= objeto2->posicao.x + 30
+		&& objeto1->posicao.x + objeto1->frame.w >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w
 		&& objeto1->movimento.cima)
 		return VERDADEIRO;
 
 	// Inferior
 	else if ( (objeto1->posicao.y <= objeto2->posicao.y)
 		&& objeto1->posicao.y   + objeto1->frame.h  >= objeto2->posicao.y
-		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
-		&& objeto1->posicao.x <= objeto2->posicao.x + 30
+		&& objeto1->posicao.x + objeto1->frame.w >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w
 		&& objeto1->movimento.baixo)
 		return VERDADEIRO;
 
 	// Lateral esquerda
-	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 35)
+	else if ( (objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w)
 		&& objeto1->posicao.x >= objeto2->posicao.x 
 		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
-		&& objeto1->posicao.y <= objeto2->posicao.y + 35
+		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
 		&& objeto1->movimento.esquerda)
 		return VERDADEIRO;
 
 	// Lateral direita
-	else if ( (objeto1->posicao.x + 35 >= objeto2->posicao.x )
+	else if ( (objeto1->posicao.x + objeto2->frame.w >= objeto2->posicao.x )
 		&& objeto1->posicao.x <= objeto2->posicao.x
-		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
-		&& objeto1->posicao.y <= objeto2->posicao.y + 35
+		&& objeto1->posicao.y + objeto1->frame.h >= objeto2->posicao.y
+		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
 		&& objeto1->movimento.direita)
 		return VERDADEIRO;
 
