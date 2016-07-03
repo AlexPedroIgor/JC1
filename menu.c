@@ -1048,6 +1048,82 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	// *********************************************************************
 
 	//
+	// *******
+	// TEXTO | inicio
+	// *******
+	//
+
+	SDL_Color cor_do_texto = {255,255,255};
+
+	// CLASSE
+
+	Texto tClasse;
+
+	tClasse.mensagem = "Classe: \0";
+
+	Loading_Surf = TTF_RenderText_Solid (Fonte,
+											tClasse.mensagem,
+											cor_do_texto);
+
+	tClasse.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	tClasse.posicao1.x = 190;
+	tClasse.posicao1.y = 105;
+	tClasse.posicao1.w = 50;
+	tClasse.posicao1.h = 20;
+
+	tClasse.posicao2.x = 585;
+	tClasse.posicao2.y = 105;
+	tClasse.posicao2.w = 50;
+	tClasse.posicao2.h = 20;
+
+	// *********************************************************************
+
+	// MAGE OU ARCHER
+
+	Texto tMage, tArcher;
+
+	tMage.mensagem = "Mago\0";
+
+	tArcher.mensagem = "Arqueiro\0";
+
+	Loading_Surf = TTF_RenderText_Solid (Fonte,
+											tMage.mensagem,
+											cor_do_texto);
+
+	tMage.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	Loading_Surf = TTF_RenderText_Solid (Fonte,
+											tArcher.mensagem,
+											cor_do_texto);
+
+	tArcher.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	tMage.posicao1.x = 245;
+	tMage.posicao1.y = 105;
+	tMage.posicao1.w = 40;
+	tMage.posicao1.h = 20;
+
+	tArcher.posicao2.x = 640;
+	tArcher.posicao2.y = 105;
+	tArcher.posicao2.w = 60;
+	tArcher.posicao2.h = 20;
+
+	//
+	// *******
+	// TEXTO | fim
+	// *******
+	//
+
+	// *********************************************************************
+
+	//
 	// **********************
 	// Loop do menu rodando | inicio
 	// **********************
@@ -1084,8 +1160,10 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		// Renderiza plano de fundo
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
 
+		// ********************************************************************************
+
 		//
-		// Animacao das opcoes
+		// PERSONAGENS
 		//
 
 		SDL_RenderCopy(renderer, gMage, NULL, &mage);
@@ -1095,6 +1173,26 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		SDL_RenderCopy(renderer, gArcher, NULL, &archer);
 
 		SDL_RenderCopy(renderer, gSelecao_p, NULL, &select_archer);
+
+		// *********************************************************************************
+
+		//
+		// TEXTOS
+		//
+
+		SDL_RenderCopy(renderer, tClasse.textura, NULL, &tClasse.posicao1); // classe:
+
+		SDL_RenderCopy(renderer, tClasse.textura, NULL, &tClasse.posicao2); // classe:
+
+		SDL_RenderCopy(renderer, tMage.textura, NULL, &tMage.posicao1); // mage
+
+		SDL_RenderCopy(renderer, tArcher.textura, NULL, &tArcher.posicao2); // archer
+
+		// **********************************************************************************
+
+		//
+		// Animacao das opcoes
+		//
 
 		// MAGE - animacao
 		if ((posicao_do_mouse.x > 65

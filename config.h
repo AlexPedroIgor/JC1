@@ -48,6 +48,13 @@ int mainRodando, estadoDeJogo;
 // TEXTO
 //
 
+typedef struct
+{
+	char* mensagem;
+	SDL_Rect posicao1, posicao2;
+	SDL_Texture* textura;
+}Texto;
+
 // PONTEIRO PARA GUARDAR FONTE
 TTF_Font* Fonte;
 
