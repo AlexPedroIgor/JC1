@@ -628,6 +628,7 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 
 	for (i = 0; i != jogadores->quantidade; i++)
 	{
+		jogadores->jogador[i].classe = MAGO; // Enquanto nao houver funcao de selecao de personagens
 		switch (jogadores->jogador[i].classe)
 		{
 			case MAGO:
@@ -635,9 +636,11 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 				{
 					case 0:
 						Loading_Surf = IMG_Load(MAGE_W);
+						break;
 
 					case 1:
 						Loading_Surf = IMG_Load(MAGE_M);
+						break;
 				}
 				break;
 
@@ -646,9 +649,11 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 				{
 					case 0:
 						Loading_Surf = IMG_Load(ARCHER_W);
+						break;
 
 					case 1:
 						Loading_Surf = IMG_Load(ARCHER_M);
+						break;
 				}
 				break;
 		}
