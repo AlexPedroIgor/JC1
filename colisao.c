@@ -297,7 +297,7 @@ int Colisao_LimiteDeTela(Objeto* objeto)
 	}
 
 	// Inferior
-	else if (objeto->movimento.baixo && y2 >= 565)
+	else if (objeto->movimento.baixo && y2 >= 545)
 	{
 		objeto->colisao.cima = FALSO;
 		objeto->colisao.baixo = VERDADEIRO;
