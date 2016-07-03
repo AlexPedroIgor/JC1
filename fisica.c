@@ -11,6 +11,7 @@
 
 #include "fisica.h"
 #include "inimigo.h"
+#include "jogo.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -41,15 +42,19 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	//
 	// Movimentos diagonais
 	//
+	int atirando = 0;
+		
+	if (jogador->movimento.ataque)
+		atirando = 256;
 
 
 	// Nordeste
 	if (jogador->movimento.cima && jogador->movimento.esquerda)
 	{
 		// Animacao
-		jogador->frame.y = 512;
+		jogador->frame.y = 576 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
 		else
@@ -71,9 +76,9 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	else if (jogador->movimento.cima && jogador->movimento.direita)
 	{
 		// Animacao
-		jogador->frame.y = 512;
+		jogador->frame.y = 704 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
 		else
@@ -95,9 +100,9 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	else if (jogador->movimento.baixo && jogador->movimento.esquerda)
 	{
 		// Animacao
-		jogador->frame.y = 640;
+		jogador->frame.y = 576 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
 		else
@@ -119,9 +124,9 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	else if (jogador->movimento.baixo && jogador->movimento.direita)
 	{
 		// Animacao
-		jogador->frame.y = 640;
+		jogador->frame.y = 704 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
 		else
@@ -147,9 +152,9 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	else if (jogador->movimento.cima)
 	{
 		// Animacao
-		jogador->frame.y = 512;
+		jogador->frame.y = 512 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 		else
 			jogador->frame.x = 0;
@@ -166,9 +171,9 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	else if (jogador->movimento.baixo)
 	{
 		// Animacao
-		jogador->frame.y = 640;
+		jogador->frame.y = 640 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 		else
 			jogador->frame.x = 0;
@@ -185,9 +190,9 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	else if (jogador->movimento.esquerda)
 	{
 		// Animacao
-		jogador->frame.y = 576;
+		jogador->frame.y = 576 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 		else
 			jogador->frame.x = 0;
@@ -204,9 +209,9 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	else if (jogador->movimento.direita)
 	{
 		// Animacao
-		jogador->frame.y = 704;
+		jogador->frame.y = 704 + atirando;
 
-		if (jogador->frame.x < 512)
+		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 		else
 			jogador->frame.x = 0;
@@ -217,6 +222,15 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 		// Movimento
 		if (!jogador->colisao.direita && movimento_permitido)
 			jogador->posicao.x += jogador->velocidade.x;
+	}
+	else if(jogador->movimento.ataque)
+	{	
+		if (jogador->frame.y < 768)
+		jogador->frame.y += atirando;
+		if (jogador->frame.x < 512 - atirando*3/4)
+			jogador->frame.x += 64;
+		else 
+			jogador->frame.x = 0;
 	}
 }
 
@@ -236,10 +250,10 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 				case MAGO:
 					switch (jogadores->jogador[i].tipo_de_ataque) // VERIFICA O TIPO DE ATAQUE SELECIONADO
 					{
-						case 1: // FIREBALL
-							Inicializa_Fireball(renderer,
-								projeteis,
-								&jogadores->jogador[i].inf);
+						case 1: // FIREBALL		
+									Inicializa_Fireball(renderer,
+									projeteis,
+									&jogadores->jogador[i].inf);
 							break;
 
 						case 2:

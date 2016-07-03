@@ -179,7 +179,7 @@ void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* j
 
 void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 {
-	printf("%d\n", tiro->animacao);
+	
 	switch (tiro->animacao)
 	{
 		//CIMA
