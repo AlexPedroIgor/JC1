@@ -76,7 +76,7 @@ SDL_Rect mp;
 
 	mp.x = hud.x+181;
 	mp.y = hud.y+58;
-	mp.w = jogadores->jogador[0].status.MP*106/jogadores->jogador[0].status.MP_Max;
+	mp.w = jogadores->jogador[0].status.atk_cooldown*106/10;
 	mp.h = 11;
 
 

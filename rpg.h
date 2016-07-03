@@ -21,7 +21,7 @@
 	float HP, MP, HP_Max, MP_Max;
 	int forca, destreza, inteligencia, sabedoria, constituicao;
 	int ataque, defesa, lvl;
-	int atk_coldonw;
+	int cooldown;
 }Status;*/
 
 

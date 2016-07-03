@@ -256,7 +256,7 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 									Inicializa_Fireball(renderer,
 									projeteis,
 									&jogadores->jogador[i].inf);
-									jogadores->jogador[i].status.atk_coldonw = 0;
+									jogadores->jogador[i].status.atk_cooldown = 0;
 						}			
 							break;
 

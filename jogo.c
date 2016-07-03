@@ -92,13 +92,13 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// LOOP DO JOGO | inicio
 	// **************
 	//
-	jogadores->jogador[0].status.atk_coldonw = 0;
+	jogadores->jogador[0].status.atk_cooldown = 0;
 
 	int contador = 1;
 	while (jogoRodando)
 	{		
 
-		if(jogadores->jogador[0].status.atk_coldonw > 5)		
+		if(jogadores->jogador[0].status.atk_cooldown > 5)		
 			Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 		Movimentacao_dos_Jogadores(jogadores, inimigos);
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
