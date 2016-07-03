@@ -11,7 +11,6 @@
 #include "base.h"
 #include "config.h"
 #include "fisica.h"
-#include "animacao.h"
 
 
 //
@@ -24,7 +23,7 @@ void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos)
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
 void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
 void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido);
-void Inimigo_Ataque(Objeto* inimigo, Objeto* jogador);
+void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
 void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
 
 // ******************************************************************************************************************************
@@ -111,7 +110,6 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 	int i;
 
 	if (inimigos->quantidade + quantidade < 64)
-	{
 		for (i = inimigos->quantidade; i != inimigos->quantidade + quantidade; i++)
 		{
 			inimigos->inimigo[i].tipo = tipo;
@@ -119,8 +117,7 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo);
 			Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, portal, fase);
 		}
-	}
-
+	
 	inimigos->quantidade += quantidade;
 }
 
@@ -188,7 +185,7 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase
 		case BAIXO:
 			fase->portal.cima.inimigos--;
 			inimigo->posicao.x = SCREEN_WIDTH/2 - 30;
-			inimigo->posicao.y = 500;
+			inimigo->posicao.y = 480;
 			break;
 
 		case ESQUERDA:
@@ -280,7 +277,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 		loucura = 50;
 
 	if(distancia < 65)
-		Inimigo_Ataque(inimigo, &jogadores->jogador[jogador_proximo-1].inf);
+		Inimigo_Ataque(inimigo,jogadores);
 	else
 		loucura = rand() % 100;
 		
@@ -473,9 +470,10 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 
 
 // ATAQUE DE UM INIMIGO
-void Inimigo_Ataque(Objeto* inimigo, Objeto* jogador)
+void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador)
 {
-
+	printf("birl");
+	Inimigo_Animacao_Ataque(inimigo);
 }
 
 // ***********************************************************************************
