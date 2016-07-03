@@ -11,18 +11,18 @@
 #include <SDL2/SDL_ttf.h>
 
 // BIBLIOTECAS INTERNAS
-
+#include "base.h"
 //
 // ESTRUTURAS
 //
 
-typedef struct
+/*typedef struct
 {
 	float HP, MP, HP_Max, MP_Max;
 	int forca, destreza, inteligencia, sabedoria, constituicao;
 	int ataque, defesa, lvl;
 	int atk_coldonw;
-}Status;
+}Status;*/
 
 
 // *****************************************************************************
@@ -30,7 +30,8 @@ typedef struct
 //
 // FUNCOES
 //
-void carrega_HUD(SDL_Renderer* renderer);
+void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
+
 
 
 // ******************************************************************************
