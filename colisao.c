@@ -370,7 +370,7 @@ void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Ini
 					if (Colisao_Circular(&projeteis->tiro[i].inf,
 						&inimigos->inimigo[j].inf));
 					{
-						Inimgo_Toma_Dano(renderer,
+						Inimigo_Toma_Dano(renderer,
 							&inimigos->inimigo[j].inf,
 							&inimigos->inimigo[j].status,
 							projeteis->tiro[i].tipo);

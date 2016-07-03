@@ -446,7 +446,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	// Execucao de movimentacao
 	//
 
-	Movimenta_Inimigo(inimigo);
+	Inimigo_Movimentar(inimigo);
 
 	// *************************************************************************************
 }
