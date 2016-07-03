@@ -52,6 +52,10 @@ Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 			// Velocidade de movimento do inimigo
 			inimigo.velocidade.x = VEL_INIMIGO_1;
 			inimigo.velocidade.y = VEL_INIMIGO_1;
+			inimigo.tamanho_real.centro.x = 32;
+			inimigo.tamanho_real.centro.y = 39;
+			inimigo.tamanho_real.v = 10;
+			inimigo.tamanho_real.h = 23;
 			Loading_Surf = IMG_Load(ESQUELETO);
 			break;
 
@@ -59,6 +63,10 @@ Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 			// Velocidade de movimento do inimigo
 			inimigo.velocidade.x = VEL_INIMIGO_2;
 			inimigo.velocidade.y = VEL_INIMIGO_2;
+			inimigo.tamanho_real.centro.x = 32;
+			inimigo.tamanho_real.centro.y = 40;
+			inimigo.tamanho_real.v = 12;
+			inimigo.tamanho_real.h = 22;
 			Loading_Surf = IMG_Load(ORC);
 			break;
 
@@ -66,6 +74,10 @@ Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 			// Velocidade de movimento do inimigo
 			inimigo.velocidade.x = VEL_INIMIGO_3;
 			inimigo.velocidade.y = VEL_INIMIGO_3;
+			inimigo.tamanho_real.centro.x = 32;
+			inimigo.tamanho_real.centro.y = 40;
+			inimigo.tamanho_real.v = 12;
+			inimigo.tamanho_real.h = 24;
 			Loading_Surf = IMG_Load(BLACKELF);
 			break;
 	}
@@ -101,7 +113,6 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 	{
 		for (i = inimigos->quantidade; i != inimigos->quantidade + quantidade; i++)
 		{
-			printf("INIMIGO: %d\n", i);
 			inimigos->inimigo[i].tipo = tipo;
 			inimigos->inimigo[i].vivo = VERDADEIRO;
 			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo);
@@ -224,28 +235,24 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 
 	int jogador_proximo;
 
-	int* vetor_distancia_quadrante;
-
-	vetor_distancia_quadrante = (int*) malloc(2*sizeof(int));
+	Vetor_Distancia_Quadrante vetor_distancia_quadrante;
 
 
-	vetor_distancia_quadrante = Vetor_Distancia_Quadrante(inimigo, &jogadores->jogador[0].inf);
-	distancia = vetor_distancia_quadrante[0];
-	quadrante = vetor_distancia_quadrante[1];
+	vetor_distancia_quadrante = Distancia_Quadrante(inimigo, &jogadores->jogador[0].inf);
+	distancia = vetor_distancia_quadrante.distancia;
+	quadrante = vetor_distancia_quadrante.quadrante;
 	jogador_proximo = 1;
 
 	if (jogadores->quantidade == 2)
 	{
-		vetor_distancia_quadrante = Vetor_Distancia_Quadrante(inimigo, &jogadores->jogador[1].inf);
-		if (distancia < vetor_distancia_quadrante[0])
+		vetor_distancia_quadrante = Distancia_Quadrante(inimigo, &jogadores->jogador[1].inf);
+		if (distancia < vetor_distancia_quadrante.distancia)
 		{
-			distancia = vetor_distancia_quadrante[0];
-			quadrante = vetor_distancia_quadrante[1];
+			distancia = vetor_distancia_quadrante.distancia;
+			quadrante = vetor_distancia_quadrante.quadrante;
 			jogador_proximo = 2;
 		}
 	}
-
-	free(vetor_distancia_quadrante);
 
 	// *************************************************************************************
 
@@ -260,7 +267,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	if(distancia < 65)
 		Inimigo_Ataque(inimigo, &jogadores->jogador[jogador_proximo-1].inf);
 
-	if(distancia > 150)
+	if(distancia > 80)
 		loucura = 10;
 	else
 		loucura = rand() % 100;

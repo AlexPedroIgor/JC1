@@ -21,7 +21,7 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos);
 void Inimigo_Movimentar(Objeto* inimigo);
 void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores);
-int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
+Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
 
 
 // ********************************************************************************************
@@ -480,11 +480,9 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 // DISTANCIA
 //
 
-int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
+Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
 {
-	int* vetor_distancia_quadrante;
-
-	vetor_distancia_quadrante = (int*) malloc(2*sizeof(int));
+	Vetor_Distancia_Quadrante vetor_distancia_quadrante;
 
 	struct
 	{
@@ -513,17 +511,25 @@ int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
 	if (circulo1.centro.x == circulo2.centro.x)
 	{
 		distancia = abs(circulo1.centro.y - circulo2.centro.y);
+		if (circulo1.centro.y < circulo2.centro.y)
+			quadrante = CIMA;
+		else
+			quadrante = BAIXO;
 	}
 	// Eixo Y
 	else if (circulo1.centro.y == circulo2.centro.y)
 		{
 			distancia = abs(circulo1.centro.x - circulo2.centro.x);
+			if (circulo1.centro.x < circulo2.centro.x)
+			quadrante = CIMA;
+		else
+			quadrante = BAIXO;
 		}
 	// Quadrante 1
 	else if (circulo1.centro.x > circulo2.centro.x
 		&& circulo1.centro.y > circulo2.centro.y)
 	{
-		quadrante = 1;
+		quadrante = QUADRANTE1;
 		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
 			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
 	}
@@ -531,7 +537,7 @@ int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
 	else if (circulo1.centro.x < circulo2.centro.x
 		&& circulo1.centro.y > circulo2.centro.y)
 	{
-		quadrante = 2;
+		quadrante = QUADRANTE2;
 		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
 			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
 	}
@@ -539,7 +545,7 @@ int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
 	else if (circulo1.centro.x < circulo2.centro.x
 		&& circulo1.centro.y < circulo2.centro.y)
 	{
-		quadrante = 3;
+		quadrante = QUADRANTE3;
 		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
 			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
 	}
@@ -547,13 +553,15 @@ int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
 	else if (circulo1.centro.x > circulo2.centro.x
 		&& circulo1.centro.y < circulo2.centro.y)
 	{
-		quadrante = 4;
+		quadrante = QUADRANTE4;
 		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
 			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
 	}
 
-	vetor_distancia_quadrante[0] = distancia;
-	vetor_distancia_quadrante[1] = quadrante;
+	vetor_distancia_quadrante.distancia = distancia;
+	vetor_distancia_quadrante.quadrante = quadrante;
+
+	printf("Distancia: %d\nQuadrante: %d", distancia, quadrante);
 
 	return vetor_distancia_quadrante;
 }

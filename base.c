@@ -106,6 +106,8 @@ Inimigos* Inicializa_Inimigos()
 
 	for (i = 0; i != 64; i++) // Loop para jogadores
 	{
+		inimigos->inimigo[i].inf.numero = i + 1;
+		
 		inimigos->inimigo[i].vivo = 0;
 
 		inimigos->inimigo[i].inf.animacao = 1;

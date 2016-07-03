@@ -1,4 +1,4 @@
 base.c: In function ‘Renderiza_Jogadores’:
-base.c:681:6: warning: unused variable ‘i’ [-Wunused-variable]
+base.c:683:6: warning: unused variable ‘i’ [-Wunused-variable]
   int i;
       ^

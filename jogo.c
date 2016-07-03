@@ -106,7 +106,6 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		{
 			Adiciona_Inimigos(renderer, inimigos, 1, 1, rand()%4+1, fase);
 			contador = 1;
-			printf("FOI\n");
 		}
 
 		// ******************************************************************************************
