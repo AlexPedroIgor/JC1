@@ -96,6 +96,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	int contador = 1;
 	while (jogoRodando)
 	{
+		
 		Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 		Movimentacao_dos_Jogadores(jogadores, inimigos);
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
@@ -141,6 +142,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);										
+		carrega_HUD(renderer);
 
 		SDL_RenderPresent(renderer); // PRINTA TELA
 
@@ -156,7 +158,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	Finaliza_Inimigos(inimigos);
 	Finaliza_Projeteis(projeteis);
 	Finaliza_Fases(fase);
-
+	
 	// ************************************************************************************************
 
 	//
