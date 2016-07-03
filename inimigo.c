@@ -224,11 +224,13 @@ void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
 void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido)
 {
-	//if (Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
-	//	movimento_permitido = FALSO;
+	if (Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
+			movimento_permitido = FALSO;
 
-	//if (jogadores->quantidade == 2 && Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
-	//	movimento_permitido = FALSO;
+	if (jogadores->quantidade == 2 && Colisao_Perimetro(inimigo, &jogadores->jogador[0].inf))
+		movimento_permitido = FALSO;
+
+	movimento_permitido = VERDADEIRO;
 
 	printf(" : %d\n", movimento_permitido);
 

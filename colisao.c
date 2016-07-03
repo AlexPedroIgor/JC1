@@ -175,6 +175,8 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 	y3 = objeto2->posicao.y + objeto2->tamanho_real.centro.y - objeto2->tamanho_real.h;
 	y4 = objeto2->posicao.y + objeto2->tamanho_real.centro.y + objeto2->tamanho_real.h;
 
+	
+	
 	// Superior
 	if (objeto1->movimento.cima
 		&& ((x3 < x2 && x2 < x4) || (x3 < x1 && x1 < x4)))
@@ -185,6 +187,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return VERDADEIRO;
 	}
+	
 
 	// Inferior
 	else if (objeto1->movimento.baixo
@@ -196,6 +199,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return VERDADEIRO;
 	}
+	
 
 	// Lateral esquerda
 	else if (objeto1->movimento.esquerda
@@ -207,6 +211,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return VERDADEIRO;
 	}
+	
 
 	// Lateral direita
 	else if (objeto1->movimento.direita
@@ -218,6 +223,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = VERDADEIRO;
 		return VERDADEIRO;
 	}
+	
 
 	else
 	{
@@ -227,47 +233,49 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return FALSO;
 	}
+	
+
 }
 
 int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 {
-	/*
+	
 	// Imprime posicao dos objetos
 	printf("Objeto 1\n");
 	printf("X: %d\nY: %d\n", objeto1->posicao.x, objeto1->posicao.y);
 	printf("Objeto 2\n");
 	printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
-	*/
+	
 
 	// Superior
 	if ( (objeto1->posicao.y >= objeto2->posicao.y )
-		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h*3/4
-		&& objeto1->posicao.x + objeto1->frame.w/2 >= objeto2->posicao.x
-		&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w/2
+		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
+		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + 30
 		&& objeto1->movimento.cima)
 		return VERDADEIRO;
 
 	// Inferior
 	else if ( (objeto1->posicao.y <= objeto2->posicao.y)
-		&& objeto1->posicao.y   + objeto1->frame.h*3/4  >= objeto2->posicao.y
-		&& objeto1->posicao.x + objeto1->frame.w/2 >= objeto2->posicao.x
-		&& objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w/2
+		&& objeto1->posicao.y   + objeto1->frame.h >= objeto2->posicao.y
+		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
+		&& objeto1->posicao.x <= objeto2->posicao.x + 30
 		&& objeto1->movimento.baixo)
 		return VERDADEIRO;
 
 	// Lateral esquerda
-	else if ( (objeto1->posicao.x <= objeto2->posicao.x + objeto2->frame.w/2)
+	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 35)
 		&& objeto1->posicao.x >= objeto2->posicao.x 
-		&& objeto1->posicao.y + objeto1->frame.h*3/4 >= objeto2->posicao.y
-		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h*3/4
+		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
+		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.esquerda)
 		return VERDADEIRO;
 
 	// Lateral direita
-	else if ( (objeto1->posicao.x + objeto2->frame.w/2 >= objeto2->posicao.x )
+	else if ( (objeto1->posicao.x + 35 >= objeto2->posicao.x )
 		&& objeto1->posicao.x <= objeto2->posicao.x
-		&& objeto1->posicao.y + objeto1->frame.h*3/4 >= objeto2->posicao.y
-		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h*3/4
+		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
+		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.direita)
 		return VERDADEIRO;
 
