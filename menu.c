@@ -1000,34 +1000,42 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	// ********
 	//
 
-	// Variavel que carrega a opcao do menu de opcoes
-	SDL_Texture* gSelecao_b = NULL;
+	// VERMELHO
 
-	// Carregando plano de fundo na memoria
-	Loading_Surf = IMG_Load("arte/menu/Selecao-branco.png");
+	SDL_Texture* gSelecao_v = NULL; // Variavel que carrega a opcao do menu de opcoes
 
-	// Carregando imagem na tela
+	Loading_Surf = IMG_Load("arte/menu/Selecao-vermelho.png"); // Carregando plano de fundo na memoria
+	
+	gSelecao_v = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf); // Carregando imagem na tela
+
+	SDL_FreeSurface(Loading_Surf); // Limpando memoria
+
+	// BRANCO
+	
+	SDL_Texture* gSelecao_b = NULL; // Variavel que carrega a opcao do menu de opcoes
+
+	
+	Loading_Surf = IMG_Load("arte/menu/Selecao-branco.png"); // Carregando plano de fundo na memoria
+
 	gSelecao_b = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
+		Loading_Surf); // Carregando imagem na tela
 
-	// Limpando memoria
-	SDL_FreeSurface(Loading_Surf);
+	SDL_FreeSurface(Loading_Surf); // Limpando memoria
 
-	// Variavel que carrega a opcao do menu de opcoes pressionado
-	SDL_Texture* gSelecao_p = NULL;
+	// PRETO
 
-	// Carregando plano de fundo na memoria
-	Loading_Surf = IMG_Load("arte/menu/Selecao-preto.png");
+	SDL_Texture* gSelecao_p = NULL; // Variavel que carrega a opcao do menu de opcoes pressionado
 
-	// Carregando imagem na tela
+	
+	Loading_Surf = IMG_Load("arte/menu/Selecao-preto.png"); // Carregando plano de fundo na memoria
+
 	gSelecao_p = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
+		Loading_Surf); // Carregando imagem na tela
 
-	// Limpando memoria
-	SDL_FreeSurface(Loading_Surf);
+	SDL_FreeSurface(Loading_Surf); // Limpando memoria
 
-	// Declarando rect
-	SDL_Rect selecao1, selecao2;
+	SDL_Rect selecao1, selecao2; // Declarando rect
 
 	selecao1.x = 55;
 	selecao1.y = 75;
@@ -1053,8 +1061,9 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	// *******
 	//
 
-	SDL_Color cor_do_texto = {255,255,255};
-	SDL_Color cor_da_sombra_do_texto = {0,0,0};
+	// COR DO TEXTO
+	SDL_Color cor_do_texto1 = {178,34,34}; // Cor: Firebrick
+	SDL_Color cor_do_texto2 = {245,245,220}; // Cor: Beige
 
 	// CLASSE
 
@@ -1064,7 +1073,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Blended (Fonte1,
 											tClasse.mensagem,
-											cor_do_texto);
+											cor_do_texto1);
 
 	tClasse.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1092,7 +1101,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Solid (Fonte1,
 											tMage.mensagem,
-											cor_do_texto);
+											cor_do_texto2);
 
 	tMage.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1100,7 +1109,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Solid (Fonte1,
 											tArcher.mensagem,
-											cor_do_texto);
+											cor_do_texto2);
 
 	tArcher.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1124,7 +1133,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Blended (Fonte1,
 											tForca.mensagem,
-											cor_do_texto);
+											cor_do_texto1);
 
 	tForca.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1148,7 +1157,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Blended (Fonte1,
 											tDestreza.mensagem,
-											cor_do_texto);
+											cor_do_texto1);
 
 	tDestreza.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1172,7 +1181,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Blended (Fonte1,
 											tInteligencia.mensagem,
-											cor_do_texto);
+											cor_do_texto1);
 
 	tInteligencia.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1196,7 +1205,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Blended (Fonte1,
 											tConstituicao.mensagem,
-											cor_do_texto);
+											cor_do_texto1);
 
 	tConstituicao.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1220,7 +1229,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Loading_Surf = TTF_RenderText_Blended (Fonte1,
 											tLVL.mensagem,
-											cor_do_texto);
+											cor_do_texto1);
 
 	tLVL.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -1282,20 +1291,59 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		// Renderiza plano de fundo
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
 
+		// **********************************************************************************
+
+		//
+		// Animacao das opcoes
+		//
+
+		// MAGE - animacao
+		if ((posicao_do_mouse.x > 65
+			&& posicao_do_mouse.x < 350
+			&& posicao_do_mouse.y > 85
+			&& posicao_do_mouse.y < 420)
+			|| SELECIONADO == BOTAO_MAGE)
+		{
+			SDL_RenderCopy(renderer, gSelecao_v, NULL, &selecao1);
+			
+			// Animacao de som
+			if (SELECIONADO != BOTAO_MAGE)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_MAGE;
+		}
+		else
+			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao1);
+
+		// ARCHER - animacao
+		if ((posicao_do_mouse.x > 460
+			&& posicao_do_mouse.x < 745
+			&& posicao_do_mouse.y > 85
+			&& posicao_do_mouse.y < 420)
+			|| SELECIONADO == BOTAO_ARCHER)
+		{
+			SDL_RenderCopy(renderer, gSelecao_v, NULL, &selecao2);
+
+			// Animacao de som
+			if (SELECIONADO != BOTAO_ARCHER)
+				Efeito_Sonoro(CLICK);
+			SELECIONADO = BOTAO_ARCHER;
+		}
+		else
+			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao2);
+
 		// ********************************************************************************
 
 		//
 		// PERSONAGENS
 		//
 
+		SDL_RenderCopy(renderer, gSelecao_b, NULL, &select_mage);
+		SDL_RenderCopy(renderer, gSelecao_b, NULL, &select_archer);
+
 		SDL_RenderCopy(renderer, gMage, NULL, &mage);
-
-		SDL_RenderCopy(renderer, gSelecao_p, NULL, &select_mage);
-
 		SDL_RenderCopy(renderer, gArcher, NULL, &archer);
 
-		SDL_RenderCopy(renderer, gSelecao_p, NULL, &select_archer);
-
+		
 		// *********************************************************************************
 
 		//
@@ -1317,47 +1365,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao1); // level:
 		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao2); // level:
 
-		// **********************************************************************************
-
-		//
-		// Animacao das opcoes
-		//
-
-		// MAGE - animacao
-		if ((posicao_do_mouse.x > 65
-			&& posicao_do_mouse.x < 350
-			&& posicao_do_mouse.y > 85
-			&& posicao_do_mouse.y < 420)
-			|| SELECIONADO == BOTAO_MAGE)
-		{
-			SDL_RenderCopy(renderer, gSelecao_b, NULL, &selecao1);
-			
-			// Animacao de som
-			if (SELECIONADO != BOTAO_MAGE)
-				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_MAGE;
-		}
-		else
-			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao1);
-
-		// ARCHER - animacao
-		if ((posicao_do_mouse.x > 460
-			&& posicao_do_mouse.x < 745
-			&& posicao_do_mouse.y > 85
-			&& posicao_do_mouse.y < 420)
-			|| SELECIONADO == BOTAO_ARCHER)
-		{
-			SDL_RenderCopy(renderer, gSelecao_b, NULL, &selecao2);
-
-			// Animacao de som
-			if (SELECIONADO != BOTAO_ARCHER)
-				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_ARCHER;
-		}
-		else
-			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao2);
-
-		// ************************************************************
+		// *************************************************************************************
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -1481,6 +1489,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	SDL_DestroyTexture(gFundo);
 	SDL_DestroyTexture(gMage);
 	SDL_DestroyTexture(gArcher);
+	SDL_DestroyTexture(gSelecao_v);
 	SDL_DestroyTexture(gSelecao_b);
 	SDL_DestroyTexture(gSelecao_p);
 	SDL_DestroyTexture(tClasse.textura);
