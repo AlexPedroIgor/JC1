@@ -104,7 +104,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
 		// ADICIONA INIMIGOS
-		jogadores->jogador[0].status.atk_coldonw++;
+		jogadores->jogador[0].status.atk_cooldown++;
 		contador++;
 		if (contador == 120) // A CADA 4 SEGUNDOS
 		{
