@@ -27,9 +27,10 @@ void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores)
 //hp e mp pra teste
 
 jogadores->jogador[0].status.HP_Max = 1000;
-jogadores->jogador[0].status.MP_Max = 500;
+//jogadores->jogador[0].status.MP_Max = 10;
 jogadores->jogador[0].status.HP = 500;
-jogadores->jogador[0].status.MP = 380;
+//jogadores->jogador[0].status.MP = 7;
+
 
 //Base da HUD
 SDL_Surface* Loading_Surf = NULL;
@@ -61,7 +62,7 @@ SDL_Rect hp;
 
 	hp.x = hud.x+51;
 	hp.y = hud.y+34;
-	hp.w = jogadores->jogador[0].status.HP = 500*226/jogadores->jogador[0].status.MP_Max;
+	hp.w = jogadores->jogador[0].status.HP*226/jogadores->jogador[0].status.HP_Max;
 	hp.h = 11;
 
 //MP
@@ -73,18 +74,18 @@ gMP = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
 SDL_FreeSurface(Loading_Surf);
 SDL_Rect mp;
-
+	
 	mp.x = hud.x+181;
 	mp.y = hud.y+58;
-	mp.w = jogadores->jogador[0].status.atk_cooldown*106/10;
+	mp.w = jogadores->jogador[0].status.MP*106/jogadores->jogador[0].status.MP_Max;
 	mp.h = 11;
 
 
 SDL_RenderCopy(renderer, gHUD, NULL, &hud);
 SDL_RenderCopy(renderer, gHP, NULL, &hp);
 SDL_RenderCopy(renderer, gMP, NULL, &mp);
-//int quantidade = 2;
-if (jogadores->quantidade == 2)	//mudar para quantidade dejogadores mais tarde
+//hud multiplayer
+if (jogadores->quantidade == 2)	
 {
 //hp e mp pra teste
 
@@ -135,11 +136,13 @@ gMP2 = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
 SDL_FreeSurface(Loading_Surf);
 SDL_Rect mp2;
-
+	
 	mp2.x = hud2.x+181;
-	mp2.y = hud2	.y+58;
+	mp2.y = hud2.y+58;
 	mp2.w = jogadores->jogador[1].status.MP*106/jogadores->jogador[1].status.MP_Max;
 	mp2.h = 11;
+
+	
 
 
 SDL_RenderCopy(renderer, gHUD2, NULL, &hud2);

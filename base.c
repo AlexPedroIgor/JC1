@@ -88,6 +88,12 @@ Jogadores* Inicializa_Jogadores()
 
 		// Variavel para conter imagem do jogador
 		jogadores->jogador[i].inf.sprite = NULL;
+
+		//status
+		jogadores->jogador[i].status.atk_cooldown = 10;
+		jogadores->jogador[i].status.MP_Max = 100;
+		jogadores->jogador[i].status.MP= 100;
+		
 	}
 	return jogadores;
 }

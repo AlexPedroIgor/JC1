@@ -12,6 +12,7 @@
 
 // BIBLIOTECAS INTERNAS
 #include "base.h"
+
 //
 // ESTRUTURAS
 //

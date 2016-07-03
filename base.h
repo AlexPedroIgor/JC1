@@ -119,6 +119,7 @@ typedef struct
 	int forca, destreza, inteligencia, sabedoria, constituicao;
 	int ataque, defesa, lvl;
 	int atk_cooldown;
+	int delay_ataque;
 }Status;
 
 // OBJETOS EM TELA

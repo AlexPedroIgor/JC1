@@ -92,19 +92,22 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// LOOP DO JOGO | inicio
 	// **************
 	//
-	jogadores->jogador[0].status.atk_cooldown = 0;
+	//jogadores->jogador[0].status.atk_cooldown = 0;
 
 	int contador = 1;
 	while (jogoRodando)
 	{		
-
-		if(jogadores->jogador[0].status.atk_cooldown > 5)		
+			
+		if(jogadores->jogador[0].status.atk_cooldown >= 5)		
 			Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 		Movimentacao_dos_Jogadores(jogadores, inimigos);
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
 		// ADICIONA INIMIGOS
+		if(jogadores->jogador[0].status.MP < jogadores->jogador[0].status.MP_Max)
+			jogadores->jogador[0].status.MP++;		
 		jogadores->jogador[0].status.atk_cooldown++;
+		
 		contador++;
 		if (contador == 120) // A CADA 4 SEGUNDOS
 		{
@@ -145,7 +148,8 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);										
-		carrega_HUD(renderer, &jogadores);
+		carrega_HUD(renderer, jogadores);
+		
 
 		SDL_RenderPresent(renderer); // PRINTA TELA
 
