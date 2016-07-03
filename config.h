@@ -56,7 +56,8 @@ typedef struct
 }Texto;
 
 // PONTEIRO PARA GUARDAR FONTE
-TTF_Font* Fonte;
+TTF_Font* Fonte1;
+TTF_Font* Fonte2;
 
 /*
 // CORES DE TEXTO

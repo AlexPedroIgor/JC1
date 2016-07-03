@@ -1061,7 +1061,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tClasse.mensagem = "Classe: \0";
 
-	Loading_Surf = TTF_RenderText_Solid (Fonte,
+	Loading_Surf = TTF_RenderText_Solid (Fonte1,
 											tClasse.mensagem,
 											cor_do_texto);
 
@@ -1089,7 +1089,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tArcher.mensagem = "Arqueiro\0";
 
-	Loading_Surf = TTF_RenderText_Solid (Fonte,
+	Loading_Surf = TTF_RenderText_Solid (Fonte1,
 											tMage.mensagem,
 											cor_do_texto);
 
@@ -1097,7 +1097,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	SDL_FreeSurface(Loading_Surf);
 
-	Loading_Surf = TTF_RenderText_Solid (Fonte,
+	Loading_Surf = TTF_RenderText_Solid (Fonte1,
 											tArcher.mensagem,
 											cor_do_texto);
 

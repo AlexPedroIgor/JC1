@@ -64,7 +64,8 @@ int main (int argc, char **argv)
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
 	// Carrega informacoes dde fontes
-	Fonte = TTF_OpenFont("data/fontes/OpenSans-Regular.ttf", 28);
+	Fonte1 = TTF_OpenFont("data/fontes/RingBearer.TTF", 28);
+	Fonte2 = TTF_OpenFont("data/fontes/OpenSans-Regular.ttf", 28);
 
 	//
 	// **********************
@@ -115,7 +116,8 @@ int main (int argc, char **argv)
 	//
 
 	Finaliza_Jogadores(jogadores); // Libera jogadores da memoria
-	TTF_CloseFont(Fonte); // Fecha a fonte
+	TTF_CloseFont(Fonte1); // Fecha a fonte 1
+	TTF_CloseFont(Fonte2); // Fecha a fonte 2
 	TTF_Quit(); // Finaliza o leitor de fontes
 	Mix_CloseAudio(); // Finaliza o mixer de som
 	SDL_DestroyRenderer(renderer); // Finaliza o renderer
