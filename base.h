@@ -116,8 +116,8 @@ ARQUEIRO:
 typedef struct
 {
 	float HP, MP, HP_Max, MP_Max;
-	int forca, destreza, inteligencia, sabedoria, constituicao;
-	int ataque, defesa, lvl;
+	int forca, destreza, inteligencia, constituicao;
+	int ataque, defesa, lvl, dano, exp, next_lvl;
 	int atk_cooldown;
 	int delay_ataque;
 }Status;
