@@ -11,7 +11,7 @@
 #include <SDL2/SDL_ttf.h>
 
 // BIBLIOTECAS INTERNAS
-#include "rpg.h"
+
 
 // ******************************************************************************************
 
@@ -112,6 +112,13 @@ ARQUEIRO:
 //
 // ESTRUTURAS BASICAS
 //
+//Status RPG
+typedef struct
+{
+	float HP, MP, HP_Max, MP_Max;
+	int forca, destreza, inteligencia, sabedoria, constituicao;
+	int ataque, defesa;
+}Status;
 
 // OBJETOS EM TELA
 typedef struct 
