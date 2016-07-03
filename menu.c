@@ -1106,15 +1106,135 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	SDL_FreeSurface(Loading_Surf);
 
-	tMage.posicao1.x = 255;
+	tMage.posicao1.x = 252;
 	tMage.posicao1.y = 105;
-	tMage.posicao1.w = 40;
+	tMage.posicao1.w = 45;
 	tMage.posicao1.h = 20;
 
-	tArcher.posicao2.x = 650;
+	tArcher.posicao2.x = 647;
 	tArcher.posicao2.y = 105;
-	tArcher.posicao2.w = 60;
+	tArcher.posicao2.w = 65;
 	tArcher.posicao2.h = 20;
+
+	// FORCA
+
+	Texto tForca;
+
+	tForca.mensagem = "For: \0";
+
+	Loading_Surf = TTF_RenderText_Blended (Fonte1,
+											tForca.mensagem,
+											cor_do_texto);
+
+	tForca.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	tForca.posicao1.x = 210;
+	tForca.posicao1.y = 130;
+	tForca.posicao1.w = 40;
+	tForca.posicao1.h = 20;
+
+	tForca.posicao2.x = 605;
+	tForca.posicao2.y = 130;
+	tForca.posicao2.w = 40;
+	tForca.posicao2.h = 20;
+
+	// DESTREZA
+
+	Texto tDestreza;
+
+	tDestreza.mensagem = "Des: \0";
+
+	Loading_Surf = TTF_RenderText_Blended (Fonte1,
+											tDestreza.mensagem,
+											cor_do_texto);
+
+	tDestreza.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	tDestreza.posicao1.x = 210;
+	tDestreza.posicao1.y = 155;
+	tDestreza.posicao1.w = 40;
+	tDestreza.posicao1.h = 20;
+
+	tDestreza.posicao2.x = 605;
+	tDestreza.posicao2.y = 155;
+	tDestreza.posicao2.w = 40;
+	tDestreza.posicao2.h = 20;
+
+	// INTELIGENCIA
+
+	Texto tInteligencia;
+
+	tInteligencia.mensagem = "Int: \0";
+
+	Loading_Surf = TTF_RenderText_Blended (Fonte1,
+											tInteligencia.mensagem,
+											cor_do_texto);
+
+	tInteligencia.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	tInteligencia.posicao1.x = 210;
+	tInteligencia.posicao1.y = 180;
+	tInteligencia.posicao1.w = 40;
+	tInteligencia.posicao1.h = 20;
+
+	tInteligencia.posicao2.x = 605;
+	tInteligencia.posicao2.y = 180;
+	tInteligencia.posicao2.w = 40;
+	tInteligencia.posicao2.h = 20;
+
+	// CONSTITUICAO
+
+	Texto tConstituicao;
+
+	tConstituicao.mensagem = "Con: \0";
+
+	Loading_Surf = TTF_RenderText_Blended (Fonte1,
+											tConstituicao.mensagem,
+											cor_do_texto);
+
+	tConstituicao.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	tConstituicao.posicao1.x = 210;
+	tConstituicao.posicao1.y = 205;
+	tConstituicao.posicao1.w = 40;
+	tConstituicao.posicao1.h = 20;
+
+	tConstituicao.posicao2.x = 605;
+	tConstituicao.posicao2.y = 205;
+	tConstituicao.posicao2.w = 40;
+	tConstituicao.posicao2.h = 20;
+
+	// NIVEL
+
+	Texto tLVL;
+
+	tLVL.mensagem = "Level: \0";
+
+	Loading_Surf = TTF_RenderText_Blended (Fonte1,
+											tLVL.mensagem,
+											cor_do_texto);
+
+	tLVL.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	tLVL.posicao1.x = 85;
+	tLVL.posicao1.y = 240;
+	tLVL.posicao1.w = 50;
+	tLVL.posicao1.h = 20;
+
+	tLVL.posicao2.x = 495;
+	tLVL.posicao2.y = 240;
+	tLVL.posicao2.w = 50;
+	tLVL.posicao2.h = 20;
 
 	//
 	// *******
@@ -1182,12 +1302,19 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		//
 
 		SDL_RenderCopy(renderer, tClasse.textura, NULL, &tClasse.posicao1); // classe:
-
 		SDL_RenderCopy(renderer, tClasse.textura, NULL, &tClasse.posicao2); // classe:
-
 		SDL_RenderCopy(renderer, tMage.textura, NULL, &tMage.posicao1); // mage
-
 		SDL_RenderCopy(renderer, tArcher.textura, NULL, &tArcher.posicao2); // archer
+		SDL_RenderCopy(renderer, tForca.textura, NULL, &tForca.posicao1); // forca:
+		SDL_RenderCopy(renderer, tForca.textura, NULL, &tForca.posicao2); // forca:
+		SDL_RenderCopy(renderer, tDestreza.textura, NULL, &tDestreza.posicao1); // destreza:
+		SDL_RenderCopy(renderer, tDestreza.textura, NULL, &tDestreza.posicao2); // destreza:
+		SDL_RenderCopy(renderer, tInteligencia.textura, NULL, &tInteligencia.posicao1); // inteligencia:
+		SDL_RenderCopy(renderer, tInteligencia.textura, NULL, &tInteligencia.posicao2); // inteligencia:
+		SDL_RenderCopy(renderer, tConstituicao.textura, NULL, &tConstituicao.posicao1); // constituicao:
+		SDL_RenderCopy(renderer, tConstituicao.textura, NULL, &tConstituicao.posicao2); // constituicao:
+		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao1); // level:
+		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao2); // level:
 
 		// **********************************************************************************
 
@@ -1355,6 +1482,14 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	SDL_DestroyTexture(gArcher);
 	SDL_DestroyTexture(gSelecao_b);
 	SDL_DestroyTexture(gSelecao_p);
+	SDL_DestroyTexture(tClasse.textura);
+	SDL_DestroyTexture(tMage.textura);
+	SDL_DestroyTexture(tArcher.textura);
+	SDL_DestroyTexture(tForca.textura);
+	SDL_DestroyTexture(tDestreza.textura);
+	SDL_DestroyTexture(tInteligencia.textura);
+	SDL_DestroyTexture(tConstituicao.textura);
+	SDL_DestroyTexture(tLVL.textura);
 
 
 	//

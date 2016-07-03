@@ -170,6 +170,7 @@ typedef struct
 	int quantidade; // Armazena se esta no modo multi ou singleplayer
 	struct
 	{
+		char* nome; // Armazena nome do jogador
 		int classe; // Armazena se e mago ou arqueiro
 		int tipo_de_ataque; // Armazena o tipo de ataque
 		Objeto inf; // Informacoes basicas do objeto
