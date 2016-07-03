@@ -16,21 +16,17 @@
 //
 // PRE CARREGAMENTO DAS FUNCOES
 //
+int carregado = 0;
 
 void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
+void Definir_status_iniciais(Jogadores* jogadores);
+void Manter_status(Jogadores* jogadores);
 
 // ****************************************************************************
 
 //HUD
 void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores)
 {
-//hp e mp pra teste
-
-jogadores->jogador[0].status.HP_Max = 1000;
-//jogadores->jogador[0].status.MP_Max = 10;
-jogadores->jogador[0].status.HP = 500;
-//jogadores->jogador[0].status.MP = 7;
-
 
 //Base da HUD
 SDL_Surface* Loading_Surf = NULL;
@@ -87,12 +83,6 @@ SDL_RenderCopy(renderer, gMP, NULL, &mp);
 //hud multiplayer
 if (jogadores->quantidade == 2)	
 {
-//hp e mp pra teste
-
-jogadores->jogador[1].status.HP_Max = 800;
-jogadores->jogador[1].status.MP_Max = 700;
-jogadores->jogador[1].status.HP = 600;
-jogadores->jogador[1].status.MP = 120;
 
 //Base da HUD
 SDL_Surface* Loading_Surf = NULL;
@@ -151,4 +141,95 @@ SDL_RenderCopy(renderer, gMP2, NULL, &mp2);
 }
 
 }
+
+//Status
+void Definir_status_iniciais(Jogadores* jogadores)
+{
+
+	switch(jogadores->jogador[0].inf.tipo)
+	{
+		case 1:
+		jogadores->jogador[0].status.destreza = 0;
+		jogadores->jogador[0].status.inteligencia = 15;
+		jogadores->jogador[0].status.constituicao = 7;
+		jogadores->jogador[0].status.lvl = 1;
+		jogadores->jogador[0].status.dano = 0;
+
+		break;
+
+		case 2:
+		jogadores->jogador[0].status.destreza = 15;
+		jogadores->jogador[0].status.inteligencia = 0;
+		jogadores->jogador[0].status.constituicao = 10;
+		jogadores->jogador[0].status.lvl = 1;
+		jogadores->jogador[0].status.dano = 0;
+
+		break;		
+	}
+	if(jogadores->quantidade == 2)
+	{
+	switch(jogadores->jogador[1].inf.tipo)
+	{
+		case 1:
+		jogadores->jogador[1].status.destreza = 0;
+		jogadores->jogador[1].status.inteligencia = 15;
+		jogadores->jogador[1].status.constituicao = 7;
+		jogadores->jogador[1].status.lvl = 1;
+		jogadores->jogador[1].status.dano = 0;
+
+		break;
+
+		case 2:
+		jogadores->jogador[1].status.destreza = 15;
+		jogadores->jogador[1].status.inteligencia = 0;
+		jogadores->jogador[1].status.constituicao = 10;
+		jogadores->jogador[1].status.lvl = 1;
+		jogadores->jogador[1].status.dano = 0;
+
+		break;
+	}
+	}
+}
+ void Manter_status(Jogadores* jogadores)
+{
+
+	switch(jogadores->jogador[0].inf.tipo)
+	{
+		case 1:
+		jogadores->jogador[0].status.HP_Max = 500 + jogadores->jogador[0].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
+		jogadores->jogador[0].status.MP_Max = 100 + jogadores->jogador[0].status.inteligencia*5 + jogadores->jogador[0].status.lvl*2;
+		jogadores->jogador[0].status.HP = jogadores->jogador[0].status.HP_Max-jogadores->jogador[0].status.dano;
+		jogadores->jogador[0].status.ataque = 50 + jogadores->jogador[0].status.inteligencia*5;
+		jogadores->jogador[0].status.defesa = jogadores->jogador[0].status.constituicao;
+		break;
+		case 2:
+		jogadores->jogador[0].status.HP_Max = 600 + jogadores->jogador[0].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
+		jogadores->jogador[0].status.MP_Max = 5 + jogadores->jogador[0].status.destreza/2;
+		jogadores->jogador[0].status.HP = jogadores->jogador[0].status.HP_Max-jogadores->jogador[0].status.dano;
+		jogadores->jogador[0].status.ataque = 50 + jogadores->jogador[0].status.destreza*3;
+		jogadores->jogador[0].status.defesa = jogadores->jogador[0].status.constituicao;
+		break;		
+	}
+	if(jogadores->quantidade == 2)
+	{
+	switch(jogadores->jogador[1].inf.tipo)
+	{
+		case 1:
+		jogadores->jogador[1].status.HP_Max = 500 + jogadores->jogador[1].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
+		jogadores->jogador[1].status.MP_Max = 100 + jogadores->jogador[1].status.inteligencia*5 + jogadores->jogador[0].status.lvl*2;
+		jogadores->jogador[1].status.HP = jogadores->jogador[1].status.HP_Max-jogadores->jogador[1].status.dano;
+		jogadores->jogador[1].status.ataque = 50 + jogadores->jogador[1].status.inteligencia*5;
+		jogadores->jogador[1].status.defesa = jogadores->jogador[1].status.constituicao;
+		break;
+		case 2:
+		jogadores->jogador[1].status.HP_Max = 600 + jogadores->jogador[1].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
+		jogadores->jogador[1].status.MP_Max = 5 + jogadores->jogador[1].status.destreza/2;
+		jogadores->jogador[1].status.HP = jogadores->jogador[1].status.HP_Max-jogadores->jogador[1].status.dano;
+		jogadores->jogador[1].status.ataque = 50 + jogadores->jogador[1].status.destreza*3;
+		jogadores->jogador[1].status.defesa = jogadores->jogador[1].status.constituicao;
+		break;		
+	}
+	}
+}
+
 // FIM

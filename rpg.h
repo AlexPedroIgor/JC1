@@ -20,7 +20,7 @@
 /*typedef struct
 {
 	float HP, MP, HP_Max, MP_Max;
-	int forca, destreza, inteligencia, sabedoria, constituicao;
+	int forca, destreza, inteligencia, constituicao;
 	int ataque, defesa, lvl;
 	int cooldown;
 }Status;*/
@@ -32,6 +32,8 @@
 // FUNCOES
 //
 void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
+void Definir_status_iniciais(Jogadores* jogadores);
+void Manter_status(Jogadores* jogadores);
 
 
 
