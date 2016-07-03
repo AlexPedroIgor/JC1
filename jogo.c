@@ -96,6 +96,8 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	int contador;
 	while (jogoRodando)
 	{
+		Ataque_dos_Jogadores(renderer, jogadores, projeteis);
+		Movimentacao_dos_Jogadores(jogadores, inimigos);
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
 		// ADICIONA INIMIGOS
@@ -121,9 +123,6 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				Ataque_dos_Jogadores(renderer, jogadores, projeteis);
-				Movimentacao_dos_Jogadores(jogadores, inimigos);
-
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					Roda_Pause(renderer, event, fase, jogadores, inimigos, projeteis);
