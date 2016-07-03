@@ -35,7 +35,7 @@ SDL_Surface* Loading_Surf = NULL;
 
 SDL_Texture* gHUD = NULL	;
 
-Loading_Surf = IMG_Load("arte/HUD/HUD.png"); 
+Loading_Surf = IMG_Load("arte/menu/HUD.png"); 
 
 gHUD = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -51,7 +51,7 @@ SDL_Rect hud;
 //HP
 SDL_Texture* gHP = NULL	;
 
-Loading_Surf = IMG_Load("arte/HUD/HP.png"); 
+Loading_Surf = IMG_Load("arte/menu/HP.png"); 
 
 gHP = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -66,7 +66,7 @@ SDL_Rect hp;
 //MP
 SDL_Texture* gMP = NULL	;
 
-Loading_Surf = IMG_Load("arte/HUD/MP.png"); 
+Loading_Surf = IMG_Load("arte/menu/MP.png"); 
 
 gMP = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
