@@ -1054,6 +1054,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	//
 
 	SDL_Color cor_do_texto = {255,255,255};
+	SDL_Color cor_da_sombra_do_texto = {0,0,0};
 
 	// CLASSE
 
@@ -1061,7 +1062,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tClasse.mensagem = "Classe: \0";
 
-	Loading_Surf = TTF_RenderText_Solid (Fonte1,
+	Loading_Surf = TTF_RenderText_Blended (Fonte1,
 											tClasse.mensagem,
 											cor_do_texto);
 
@@ -1071,13 +1072,13 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tClasse.posicao1.x = 190;
 	tClasse.posicao1.y = 105;
-	tClasse.posicao1.w = 50;
-	tClasse.posicao1.h = 20;
+	tClasse.posicao1.w = 60;
+	tClasse.posicao1.h = 16;
 
 	tClasse.posicao2.x = 585;
 	tClasse.posicao2.y = 105;
-	tClasse.posicao2.w = 50;
-	tClasse.posicao2.h = 20;
+	tClasse.posicao2.w = 60;
+	tClasse.posicao2.h = 16;
 
 	// *********************************************************************
 
@@ -1089,7 +1090,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tArcher.mensagem = "Arqueiro\0";
 
-	Loading_Surf = TTF_RenderText_Solid (Fonte1,
+	Loading_Surf = TTF_RenderText_Solid (Fonte2,
 											tMage.mensagem,
 											cor_do_texto);
 
@@ -1097,7 +1098,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	SDL_FreeSurface(Loading_Surf);
 
-	Loading_Surf = TTF_RenderText_Solid (Fonte1,
+	Loading_Surf = TTF_RenderText_Solid (Fonte2,
 											tArcher.mensagem,
 											cor_do_texto);
 
@@ -1105,15 +1106,15 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	SDL_FreeSurface(Loading_Surf);
 
-	tMage.posicao1.x = 245;
+	tMage.posicao1.x = 255;
 	tMage.posicao1.y = 105;
 	tMage.posicao1.w = 40;
-	tMage.posicao1.h = 20;
+	tMage.posicao1.h = 16;
 
-	tArcher.posicao2.x = 640;
+	tArcher.posicao2.x = 650;
 	tArcher.posicao2.y = 105;
 	tArcher.posicao2.w = 60;
-	tArcher.posicao2.h = 20;
+	tArcher.posicao2.h = 16;
 
 	//
 	// *******
