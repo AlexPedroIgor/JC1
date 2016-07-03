@@ -628,11 +628,12 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 
 	for (i = 0; i != jogadores->quantidade; i++)
 	{
-		printf("FOI: %d\n", i);
 		jogadores->jogador[i].classe = MAGO; // Enquanto nao houver funcao de selecao de personagens
 		switch (jogadores->jogador[i].classe)
 		{
 			case MAGO:
+				jogadores->jogador[i].inf.velocidade.x = VEL_MAGO;
+				jogadores->jogador[i].inf.velocidade.y = VEL_MAGO;
 				switch (i)
 				{
 					case 0:
@@ -646,6 +647,8 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 				break;
 
 			case ARQUEIRO:
+				jogadores->jogador[i].inf.velocidade.x = VEL_ARQUEIRO;
+				jogadores->jogador[i].inf.velocidade.y = VEL_ARQUEIRO;
 				switch (i)
 				{
 					case 0:

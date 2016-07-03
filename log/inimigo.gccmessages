@@ -1,4 +1,4 @@
 inimigo.c: In function ‘Inimigo_Toma_Dano’:
-inimigo.c:480:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
+inimigo.c:481:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Toma_Dano(renderer, inimigo);
   ^

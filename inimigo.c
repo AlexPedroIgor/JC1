@@ -101,6 +101,7 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 	{
 		for (i = inimigos->quantidade; i != inimigos->quantidade + quantidade; i++)
 		{
+			printf("INIMIGO: %d\n", i);
 			inimigos->inimigo[i].tipo = tipo;
 			inimigos->inimigo[i].vivo = VERDADEIRO;
 			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo);

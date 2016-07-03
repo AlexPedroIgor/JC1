@@ -310,6 +310,7 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 			{
 				Colisao_Perimetro(&jogadores->jogador[i].inf,
 					&inimigos->inimigo[i].inf);
+				Colisao_LimiteDeTela(&jogadores->jogador[i].inf);
 			}
 		}
 	}

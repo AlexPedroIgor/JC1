@@ -36,6 +36,8 @@ void Jogador_Movimentar(Objeto* jogador)
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
 
+	Colisao_LimiteDeTela(jogador);
+
 	//
 	// Movimentos diagonais
 	//
@@ -277,6 +279,7 @@ void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos)
 // Funcao para executar movimentacao do inimigo
 void Inimigo_Movimentar(Objeto* inimigo)
 {
+	Colisao_LimiteDeTela(inimigo);
 	//
 	// Movimentos diagonais
 	//
