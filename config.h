@@ -51,12 +51,14 @@ int mainRodando, estadoDeJogo;
 // PONTEIRO PARA GUARDAR FONTE
 TTF_Font* Fonte;
 
+/*
 // CORES DE TEXTO
 SDL_Color branco = {255,255,255};
 SDL_Color preto = {0,0,0};
 SDL_Color amarelo = {255,255,0};
 SDL_Color vermelho = {255,0,0};
 SDL_Color verde = {51,255,0};
+*/
 
 // ****************************************************************************************
 

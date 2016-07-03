@@ -21,6 +21,7 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos);
 void Inimigo_Movimentar(Objeto* inimigo);
 void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores);
+int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
 
 
 // ********************************************************************************************
@@ -468,6 +469,90 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 			IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores);
 		}
 	}
+}
+
+// ********************************************************************************************
+
+//
+// DISTANCIA
+//
+
+int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
+{
+	int* vetor_distancia_quadrante;
+
+	vetor_distancia_quadrante = (int*) malloc(2*sizeof(int));
+
+	struct
+	{
+		int raio;
+		struct
+		{
+			int x, y;
+		}centro;
+	}circulo1, circulo2;
+
+	circulo1.centro.x = objeto1->posicao.x + objeto1->tamanho_real.centro.x;
+	circulo1.centro.y = objeto1->posicao.y + objeto1->tamanho_real.centro.y;
+	circulo1.raio = objeto1->tamanho_real.v;
+
+	circulo2.centro.x = objeto2->posicao.x + objeto2->tamanho_real.centro.x;
+	circulo2.centro.y = objeto2->posicao.y + objeto2->tamanho_real.centro.y;
+	circulo2.raio = objeto2->tamanho_real.v;
+
+	int raios = circulo1.raio + circulo2.raio;
+
+	int distancia, quadrante;
+
+	// Calculo da distancia
+
+	// Eixo X
+	if (circulo1.centro.x == circulo2.centro.x)
+	{
+		distancia = abs(circulo1.centro.y - circulo2.centro.y);
+	}
+	// Eixo Y
+	else if (circulo1.centro.y == circulo2.centro.y)
+		{
+			distancia = abs(circulo1.centro.x - circulo2.centro.x);
+		}
+	// Quadrante 1
+	else if (circulo1.centro.x > circulo2.centro.x
+		&& circulo1.centro.y > circulo2.centro.y)
+	{
+		quadrante = 1;
+		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
+			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
+	}
+	// Quadrante 2
+	else if (circulo1.centro.x < circulo2.centro.x
+		&& circulo1.centro.y > circulo2.centro.y)
+	{
+		quadrante = 2;
+		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
+			+ pow(circulo1.centro.y - circulo2.centro.y, 2) );
+	}
+	// Quatrande 3
+	else if (circulo1.centro.x < circulo2.centro.x
+		&& circulo1.centro.y < circulo2.centro.y)
+	{
+		quadrante = 3;
+		distancia = sqrt( pow(circulo2.centro.x - circulo1.centro.x, 2)
+			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
+	}
+	// Quadrante 4
+	else if (circulo1.centro.x > circulo2.centro.x
+		&& circulo1.centro.y < circulo2.centro.y)
+	{
+		quadrante = 4;
+		distancia = sqrt( pow(circulo1.centro.x - circulo2.centro.x, 2)
+			+ pow(circulo2.centro.y - circulo1.centro.y, 2) );
+	}
+
+	vetor_distancia_quadrante[0] = distancia;
+	vetor_distancia_quadrante[1] = quadrante;
+
+	return vetor_distancia_quadrante;
 }
 
 // ********************************************************************************************

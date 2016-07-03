@@ -1,0 +1,8 @@
+inimigo.c: In function ‘IA_de_Movimentacao’:
+inimigo.c:449:2: warning: implicit declaration of function ‘Movimenta_Inimigo’ [-Wimplicit-function-declaration]
+  Movimenta_Inimigo(inimigo);
+  ^
+inimigo.c: In function ‘Inimigo_Toma_Dano’:
+inimigo.c:480:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
+  Inimigo_Animacao_Toma_Dano(renderer, inimigo);
+  ^

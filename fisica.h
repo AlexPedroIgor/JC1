@@ -27,6 +27,7 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos);
 void Inimigo_Movimentar(Objeto* inimigo);
 void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores);
+int* Vetor_Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
 
 // *************************************************************************************************
 

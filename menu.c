@@ -26,8 +26,8 @@ int menuRodando;
 
 void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores);
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores);
+void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 
@@ -516,7 +516,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 // QUANTIDADE DE JOGADORES
 //
 
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores)
+void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 	// Variavel para manter menu
 	int escolhaDeJogadoresRodando = VERDADEIRO;
@@ -794,7 +794,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 								jogadores->quantidade = 2;
 								menuRodando = FALSO;
 								escolhaDeJogadoresRodando = FALSO;
-								estadoDeJogo = MULTIPLAYER;
+								estadoDeJogo = JOGO;
 								break;
 						}
 						break;
@@ -837,7 +837,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 					jogadores->quantidade = 2;
 					menuRodando = FALSO;
 					escolhaDeJogadoresRodando = FALSO;
-					estadoDeJogo = MULTIPLAYER;
+					estadoDeJogo = JOGO;
 				}
 			}
 		}
@@ -874,7 +874,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 //
 
 // SINGLEPLAYER
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* Jogadores)
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 
 }

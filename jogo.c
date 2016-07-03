@@ -8,14 +8,21 @@
 */
 
 #include "jogo.h"
+#include "animacao.h"
+#include "menu.h"
+#include "fisica.h"
+#include "som.h"
+#include "armas.h"
+#include "rpg.h"
+#include "inimigo.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
 void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
 
 
 // ***************************************************************************************************
@@ -29,69 +36,56 @@ int jogoRodando;
 // Modo de jogo
 void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
-	// Toca musica de fundo
-	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
+	jogoRodando = VERDADEIRO; // Variavel para manter loop do jogo
 
-	// Variavel para manter loop do jogo
-	jogoRodando = VERDADEIRO;
-
-	// Variavel para carregar imagens
-	SDL_Surface* Loading_Surf = NULL;
-
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
-	// ****************
-	// PLANO DE FUNDO | inicio
-	// ****************
+	// MUSICA DE FUNDO
+	//
+
+	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
+
+	// *********************************************************************************************
+
+	//
+	// PLANO DE FUNDO DA FASE
 	//
 
 	Fase* fase = Inicializa_Fases();
 
-	Carrega_Fase_Memoria(renderer, &fase);
+	Carrega_Fase_Memoria(renderer, fase);
+
+
+	// *********************************************************************************************
 
 	//
-	// ****************
-	// PLANO DE FUNDO | fim
-	// ****************
-	//
-
-	// *********************************************************************
-
-	//
-	// *********
-	// JOGADOR | inicio
-	// *********
+	// JOGADORES
 	//
 
 	Posiciona_Jogadores(jogadores);
 
 	Carrega_Jogadores_Memoria(renderer, jogadores);
 
-	//
-	// *********
-	// JOGADOR | fim
-	// *********
-	//
 
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
-	// Carrega inimigos
+	// INIMIGOS
 	//
 
 	Inimigos* inimigos = Inicializa_Inimigos();
 
 
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
-	// Carrega vetor de tiros
+	// PROJETEIS
 	//
 
 	Projeteis* projeteis = Inicializa_Projeteis();
 
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
 	// **************
@@ -102,18 +96,17 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	int contador;
 	while (jogoRodando)
 	{
-		// Movimentacao dos inimigos
-		Movimentacao_dos_Inimigos(inimigos, jogadores);
+		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
-		// Adiciona inimigos
+		// ADICIONA INIMIGOS
 		contador++;
-		if (contador == 120)
+		if (contador == 120) // A CADA 4 SEGUNDOS
 		{
-			Adiciona_Inimigos(renderer, inimigos, 1, 1, rand()%4+1, &fase);
+			Adiciona_Inimigos(renderer, inimigos, 1, 1, rand()%4+1, fase);
 			contador = 1;
 		}
 
-		// ********************************************************************
+		// ******************************************************************************************
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -137,33 +130,43 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 			}
 		}
 
-		// Limpa tela anterior
-		SDL_RenderClear(renderer);
+		// *******************************************************************************************
+
+		//
+		// ATUALIZACAO DE TELA
+		//
+
+		SDL_RenderClear(renderer); // LIMPA TELA ANTERIOR
 
 		Renderiza_Plano_de_Fundo(renderer, fase);
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);										
 
-		// Atualiza tela
-		SDL_RenderPresent(renderer);
+		SDL_RenderPresent(renderer); // PRINTA TELA
 
-		// FPS
-		SDL_Delay( 1000/FPS );
+		SDL_Delay( 1000/FPS ); // FRAMERATE
+
+		// *******************************************************************************************
 	}
 
-	// Limpando memoria
+	//
+	// LIMPEZA DE MEMORIA
+	//
+
 	Finaliza_Inimigos(inimigos);
 	Finaliza_Projeteis(projeteis);
 	Finaliza_Fases(fase);
 
+	// ************************************************************************************************
+
 	//
-	// **************
-	// LOOP DO JOGO | fim
-	// **************
+	// *************
+	// FIM DO JOGO |
+	// *************
 	//
 
-	// *********************************************************************
+	// ************************************************************************************************
 }
 
 // ****************************************************************************************************
@@ -420,7 +423,6 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 			{
 				pauseRodando = FALSO;
 				jogoRodando = FALSO;
-				multiplayerRodando = FALSO;
 				mainRodando = FALSO;
 			}
 
@@ -488,7 +490,13 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 							case BOTAO_SAIR:
 								Efeito_Sonoro(VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
-								Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2, vetor_de_inimigos);
+								Roda_SairDoPause_SN(&pauseRodando,
+									renderer,
+									event,
+									fase,
+									jogadores,
+									inimigos,
+									projeteis);
 								break;
 						}
 						break;
@@ -531,7 +539,13 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 				{
 					Efeito_Sonoro(VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
-					Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2, vetor_de_inimigos);
+					Roda_SairDoPause_SN(&pauseRodando,
+						renderer,
+						event,
+						fase,
+						jogadores,
+						inimigos,
+						projeteis);
 				}
 			}
 		}
@@ -870,7 +884,6 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 				pauseRodando = FALSO;
 				pauseRodandoSair = FALSO;
 				jogoRodando = FALSO;
-				multiplayerRodando = FALSO;
 				mainRodando = FALSO;
 			}
 
@@ -927,7 +940,6 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 								pauseRodandoSair = FALSO;
 								*pauseRodando = FALSO;
 								jogoRodando = FALSO;
-								multiplayerRodando = FALSO;
 								estadoDeJogo = MENU;
 								break;
 						}
@@ -965,7 +977,6 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 					pauseRodandoSair = FALSO;
 					*pauseRodando = FALSO;
 					jogoRodando = FALSO;
-					multiplayerRodando = FALSO;
 					estadoDeJogo = MENU;
 
 				}

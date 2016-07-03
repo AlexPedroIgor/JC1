@@ -10,6 +10,7 @@
 #include "inimigo.h"
 #include "base.h"
 #include "config.h"
+#include "fisica.h"
 
 
 //
@@ -22,6 +23,7 @@ void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos)
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
 void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
 void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores);
+void Inimigo_Ataque(Objeto* inimigo, Objeto* jogador);
 void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
 
 // ******************************************************************************************************************************
@@ -41,13 +43,6 @@ Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 	inimigo.colisao.baixo = FALSO;
 	inimigo.colisao.esquerda = FALSO;
 	inimigo.colisao.direita = FALSO;
-
-	// Inimigo vivo
-	
-.inimigo.vivo = VERDADEIRO;
-
-	// Numero do inimigo
-	inimigo.tipo = tipo;
 
 	SDL_Surface* Loading_Surf = NULL;
 
@@ -97,57 +92,57 @@ Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
 }
 
 // Adiciona inimigos
-void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos,
+void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 	int quantidade, int tipo, int portal, Fase* fase)
 {
 	int i;
 
-	if (vetor_de_inimigos->quantidade + quantidade < 64)
+	if (inimigos->quantidade + quantidade < 64)
 	{
-		for (i = vetor_de_inimigos->quantidade; i != vetor_de_inimigos->quantidade + quantidade; i++)
+		for (i = inimigos->quantidade; i != inimigos->quantidade + quantidade; i++)
 		{
-			vetor_de_inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo);
-			Posiciona_Inimigo(renderer, &vetor_de_inimigos	->inimigo[i].inf, portal, fase);
+			inimigos->inimigo[i].tipo = tipo;
+			inimigos->inimigo[i].vivo = VERDADEIRO;
+			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo);
+			Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, portal, fase);
 		}
 	}
 
-	vetor_de_inimigos->quantidade += quantidade;
+	inimigos->quantidade += quantidade;
 }
 
 // Remove inimigos mortos
-void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos)
+void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* inimigos)
 {
 	// Verifica se existem inimigos mortos na ultima rodada
-	if (vetor_de_inimigos->mortos > 0)
+	if (inimigos->mortos > 0)
 	{
-		
-
 		int cortes = 0;
 
 		int i, j;
 
-		for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+		for (i = 0; i != inimigos->quantidade; i++)
 		{
-			for (j = i; j != vetor_de_inimigos->quantidade; j++)
+			for (j = i; j != inimigos->quantidade; j++)
 			{
-				if (!vetor_de_inimigos->inimigo[i].vivo)
+				if (!inimigos->inimigo[i].vivo)
 				{
 					// Limpa memoria
-					free(&vetor_de_inimigos->inimigo[i]);
+					free(&inimigos->inimigo[i]);
 
-					vetor_de_inimigos->inimigo[i] = vetor_de_inimigos->inimigo[j];
+					inimigos->inimigo[i] = inimigos->inimigo[j];
 
 					cortes++;
 				}
 			}
 		}
 
-		vetor_de_inimigos->quantidade -= cortes;
+		inimigos->quantidade -= cortes;
 	}
 
 	// Atualiza lista de mortos
-	vetor_de_inimigos->mortos += vetor_de_inimigos->mortos;
-	vetor_de_inimigos->mortos = 0;
+	inimigos->mortos += inimigos->mortos;
+	inimigos->mortos = 0;
 }
 
 // **********************************************************************************
@@ -198,11 +193,11 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase
 }
 
 // SERIE DE INIMIGOS
-void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase)
+void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, Fase* fase)
 {
 	int i;
 
-	for (i = 0; i != vetor_de_inimigos->quantidade; i++)
+	for (i = 0; i != inimigos->quantidade; i++)
 	{
 		Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, rand() %4+1, fase);
 	}
@@ -225,28 +220,31 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 
 	// Variavel que carrega a distancia
 	int distancia, quadrante;
+
+	int jogador_proximo;
+
 	int* vetor_distancia_quadrante;
 
-	// Caso so tenha um jogador
-	if (jogador2 == NULL)
-		vetor_distancia_quadrante = Distancia_Inimigo_Jogador(inimigo, jogador1);
+	vetor_distancia_quadrante = (int*) malloc(2*sizeof(int));
 
-	// Caso tenham dois jogadores
-	else
+
+	vetor_distancia_quadrante = Vetor_Distancia_Quadrante(inimigo, &jogadores->jogador[0].inf);
+	distancia = vetor_distancia_quadrante[0];
+	quadrante = vetor_distancia_quadrante[1];
+	jogador_proximo = 1;
+
+	if (jogadores->quantidade == 2)
 	{
-		int* d1 = Distancia_Inimigo_Jogador(inimigo, jogador1);
-
-		int* d2 = Distancia_Inimigo_Jogador(inimigo, jogador2);
-
-		// A distancia escolhida sera a do jogador mais proximo
-		if (d1[0] < d2[0])
-			vetor_distancia_quadrante = d1;
-		else
-			vetor_distancia_quadrante = d2;
+		vetor_distancia_quadrante = Vetor_Distancia_Quadrante(inimigo, &jogadores->jogador[1].inf);
+		if (distancia < vetor_distancia_quadrante[0])
+		{
+			distancia = vetor_distancia_quadrante[0];
+			quadrante = vetor_distancia_quadrante[1];
+			jogador_proximo = 2;
+		}
 	}
 
-	distancia = &vetor_distancia_quadrante[0];
-	quadrante = &vetor_distancia_quadrante[1];
+	free(vetor_distancia_quadrante);
 
 	// *************************************************************************************
 
@@ -259,12 +257,12 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	int loucura;
 	
 	if(distancia < 65)
-		Atacar_inimigo(inimigo);
+		Inimigo_Ataque(inimigo, &jogadores->jogador[jogador_proximo-1].inf);
 
 	if(distancia > 150)
 		loucura = 10;
 	else
-		rand() % 100;
+		loucura = rand() % 100;
 
 
 	switch (loucura)
@@ -407,7 +405,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	// Caso tenha colisao vai afastar
 		
 	// Cima
-	if (inimigo->quad_colide.cima)
+	if (inimigo->colisao.cima)
 	{
 		inimigo->movimento.cima = FALSO;
 		inimigo->movimento.baixo = VERDADEIRO;
@@ -416,7 +414,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	}
 
 	// Baixo
-	else if (inimigo->quad_colide.baixo)
+	else if (inimigo->colisao.baixo)
 	{
 		inimigo->movimento.cima = VERDADEIRO;
 		inimigo->movimento.baixo = FALSO;
@@ -425,7 +423,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	}
 
 	// Esquerda
-	else if (inimigo->quad_colide.esquerda)
+	else if (inimigo->colisao.esquerda)
 	{
 		inimigo->movimento.cima = FALSO;
 		inimigo->movimento.baixo = FALSO;
@@ -434,7 +432,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 	}	
 
 	// Direita
-	else if (inimigo->quad_colide.direita)
+	else if (inimigo->colisao.direita)
 	{
 		inimigo->movimento.cima = FALSO;
 		inimigo->movimento.baixo = FALSO;
@@ -454,6 +452,12 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores)
 }
 
 
+// ATAQUE DE UM INIMIGO
+void Inimigo_Ataque(Objeto* inimigo, Objeto* jogador)
+{
+
+}
+
 // ***********************************************************************************
 
 //
@@ -465,11 +469,11 @@ void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, 
 	switch (tipo)
 	{
 		case 1:
-			status.HP -= 20;
+			status->HP -= 20;
 			break;
 
 		case 2:
-			status.HP -= 50;
+			status->HP -= 50;
 			break;
 	}
 
