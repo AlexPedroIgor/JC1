@@ -1,9 +1,0 @@
-jogo.c: In function ‘Roda_Jogo’:
-jogo.c:148:3: warning: passing argument 2 of ‘carrega_HUD’ from incompatible pointer type [enabled by default]
-   carrega_HUD(renderer, &jogadores);
-   ^
-In file included from jogo.h:16:0,
-                 from jogo.c:10:
-rpg.h:33:6: note: expected ‘struct Jogadores *’ but argument is of type ‘struct Jogadores **’
- void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
-      ^

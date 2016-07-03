@@ -64,7 +64,7 @@ int main (int argc, char **argv)
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
 	// Carrega informacoes dde fontes
-	Fonte1 = TTF_OpenFont("data/fontes/VIKING-N.TTF", 28);
+	Fonte1 = TTF_OpenFont("data/fontes/SHERWOOD.TTF", 28);
 	Fonte2 = TTF_OpenFont("data/fontes/OpenSans-Regular.ttf", 28);
 
 	TTF_GetFontStyle(Fonte1);
