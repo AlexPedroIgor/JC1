@@ -32,6 +32,7 @@ Objeto Cria_Fireball(Objeto* jogador)
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
 
+
 	// Inicializa tiro
 	Objeto fireball;
 
@@ -46,8 +47,8 @@ Objeto Cria_Fireball(Objeto* jogador)
 	fireball.tamanho_real.h = 7;
 
 	// Recebe posicao do jogador
-	fireball.posicao.x = fireball.tamanho_real.centro.x - jogador->posicao.x + jogador->tamanho_real.centro.x;
-	fireball.posicao.y = fireball.tamanho_real.centro.y - jogador->posicao.y + jogador->tamanho_real.centro.y;
+	fireball.posicao.x = jogador->posicao.x;
+	fireball.posicao.y = jogador->posicao.y;
 
 	// Posicao X sera a mesma
 	fireball.frame.x = 0;
@@ -60,29 +61,39 @@ Objeto Cria_Fireball(Objeto* jogador)
 	fireball.posicao.w = 64;
 	fireball.posicao.h = 64;
 
-	if(jogador->movimento.cima && jogador->movimento.esquerda)
-		fireball.frame.y = 64; // Frame
+	switch(jogador->animacao)
+	{
+		case CIMA:
+			fireball.frame.y = 128; // Frame
 
-	else if(jogador->movimento.cima && jogador->movimento.direita)
-		fireball.frame.y = 192; // Frame
+		case BAIXO:
+			fireball.frame.y = 384; // Frame
+			break;
 
-	else if(jogador->movimento.baixo && jogador->movimento.esquerda)
-		fireball.frame.y = 448; // Frame
-	
-	else if(jogador->movimento.baixo && jogador->movimento.direita)
-		fireball.frame.y = 320; // Frame
-	
-	else if(jogador->movimento.cima)
-		fireball.frame.y = 128; // Frame
-		
-	else if(jogador->movimento.baixo)
-		fireball.frame.y = 384; // Frame
-		
-	else if(jogador->movimento.esquerda)
-		fireball.frame.y = 0; // Frame
-		
-	else if(jogador->movimento.direita)
-		fireball.frame.y = 256; // Frame
+		case DIREITA:
+			fireball.frame.y = 256; // Frame
+			break;
+
+		case ESQUERDA:
+			fireball.frame.y = 0; // Frame
+			break;
+
+		case QUADRANTE1:
+			fireball.frame.y = 192; // Frame
+			break;
+
+		case QUADRANTE2:
+			fireball.frame.y = 64; // Frame
+			break;
+
+		case QUADRANTE3:
+			fireball.frame.y = 448; // Frame
+			break;
+
+		case QUADRANTE4:
+			fireball.frame.y = 320; // Frame;
+			break;
+	}
 
 	return fireball;
 }
@@ -91,6 +102,7 @@ Objeto Cria_Fireball(Objeto* jogador)
 void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 {
 	SDL_Surface* Loading_Surf;
+	
 
 	Loading_Surf = IMG_Load("arte/ataques/fireball.png"); 
 
@@ -102,11 +114,13 @@ void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 	fireball->animacao = jogador->animacao;
 
 
+
 	// Posicao do fireball em tela
 	switch(jogador->animacao)
 	{
 		case CIMA:
 			fireball->posicao.y -= 20;
+
 			break;
 
 		case BAIXO:
@@ -146,6 +160,7 @@ void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 // ADICIONA AO VETOR DE PROJETEIS
 void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador)
 {
+
 	if (projeteis->quantidade < 64)
 	{
 		// Cria um novo tiro
@@ -156,9 +171,142 @@ void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* j
 
 		// Soma o contador de tiros em tela
 		projeteis->quantidade++;
+
 	}
+	else
+		projeteis->quantidade = 0;
 }
 
+void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
+{
+	printf("%d\n", tiro->animacao);
+	switch (tiro->animacao)
+	{
+		//CIMA
+		case 1:
+
+			tiro->frame.y = 128;// Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.y -= 15;
+
+			break;
+
+		//BAIXO
+		case 2:
+			tiro->frame.y = 384; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.y += 15;
+			
+
+
+			break;
+
+		//ESQUERDA
+		case 3:
+			tiro->frame.y = 0; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+			
+			tiro->posicao.x -= 15;
+
+
+			break;
+
+		//DIREITA
+		case 4:
+			tiro->frame.y = 256; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x += 15;
+
+			break;
+
+		//CIMA DIREITA
+		case 5:
+			tiro->frame.y = 192; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x += 15;
+			tiro->posicao.y -= 15;
+
+
+			break;
+
+		//CIMA ESQUERDA
+		case 6:
+			tiro->frame.y = 64; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x -= 15;
+			tiro->posicao.y -= 15;
+
+
+			break;
+
+		//BAIXO ESQUERDA
+		case 7:
+			tiro->frame.y = 448; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x -= 15;
+			tiro->posicao.y += 15;
+
+
+			break;
+
+		//BAIXO DIREITA
+		case 8:
+			tiro->frame.y = 320; // Frame
+			if(tiro->frame.x < 448)
+			{
+				tiro->frame.x += 64;
+			}
+			else
+				tiro->frame.x = 0;
+
+			tiro->posicao.x += 15;
+			tiro->posicao.y += 15;
+
+
+			break;
+	}
+}
 // ***************************************************************************************************************
 
 //
