@@ -561,8 +561,6 @@ Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
 	vetor_distancia_quadrante.distancia = distancia;
 	vetor_distancia_quadrante.quadrante = quadrante;
 
-	printf("Distancia: %d\nQuadrante: %d", distancia, quadrante);
-
 	return vetor_distancia_quadrante;
 }
 
