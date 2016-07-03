@@ -1,2 +1,5 @@
-armas.o: file not recognized: Formato de arquivo não reconhecido
+inimigo.o: na função `IA_de_Movimentacao':
+inimigo.c:(.text+0xc76): referência indefinida para `Movimenta_Inimigo'
+colisao.o: na função `Teste_de_Impacto_Inimigos':
+colisao.c:(.text+0xb70): referência indefinida para `Inimgo_Toma_Dano'
 collect2: error: ld returned 1 exit status

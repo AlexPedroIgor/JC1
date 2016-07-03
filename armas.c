@@ -10,6 +10,7 @@
 */ 
 
 #include "armas.h"
+#include "base.h"
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -45,8 +46,8 @@ Objeto Cria_Fireball(Objeto* jogador)
 	fireball.tamanho_real.h = 7;
 
 	// Recebe posicao do jogador
-	fireball.posicao.x = fireball.tamanho_real.x - jogador->posicao.x + jogador->tamanho_real.x;
-	fireball.posicao.y = fireball.tamanho_real.y - jogador->posicao.y + jogador->tamanho_real.y;
+	fireball.posicao.x = fireball.tamanho_real.centro.x - jogador->posicao.x + jogador->tamanho_real.centro.x;
+	fireball.posicao.y = fireball.tamanho_real.centro.y - jogador->posicao.y + jogador->tamanho_real.centro.y;
 
 	// Posicao X sera a mesma
 	fireball.frame.x = 0;
@@ -93,7 +94,7 @@ void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 
 	Loading_Surf = IMG_Load("arte/ataques/fireball.png"); 
 
-	tiro->sprite = SDL_CreateTextureFromSurface(renderer,
+	fireball->sprite = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
 
 	SDL_FreeSurface(Loading_Surf);
@@ -101,43 +102,43 @@ void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 	fireball->animacao = jogador->animacao;
 
 
-	// Posicao do tiro em tela
+	// Posicao do fireball em tela
 	switch(jogador->animacao)
 	{
 		case CIMA:
-			tiro->posicao.y -= 20;
+			fireball->posicao.y -= 20;
 			break;
 
 		case BAIXO:
-			tiro->posicao.y += 20;
+			fireball->posicao.y += 20;
 			break;
 
 		case DIREITA:
-			tiro->posicao.x += 20;
+			fireball->posicao.x += 20;
 			break;
 
 		case ESQUERDA:
-			tiro->posicao.x -= 20;
+			fireball->posicao.x -= 20;
 			break;
 
 		case QUADRANTE1:
-			tiro->posicao.x += 20;
-			tiro->posicao.y -= 20;
+			fireball->posicao.x += 20;
+			fireball->posicao.y -= 20;
 			break;
 
 		case QUADRANTE2:
-			tiro->posicao.x -= 20;	
-			tiro->posicao.y -= 20;
+			fireball->posicao.x -= 20;	
+			fireball->posicao.y -= 20;
 			break;
 
 		case QUADRANTE3:
-			tiro->posicao.x -= 20;
-			tiro->posicao.y += 20;
+			fireball->posicao.x -= 20;
+			fireball->posicao.y += 20;
 			break;
 
 		case QUADRANTE4:
-			tiro->posicao.x += 20;
-			tiro->posicao.y += 20;
+			fireball->posicao.x += 20;
+			fireball->posicao.y += 20;
 			break;
 	}
 }
@@ -145,16 +146,16 @@ void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 // ADICIONA AO VETOR DE PROJETEIS
 void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador)
 {
-	if (vetor_de_tiros->quantidade < 64)
+	if (projeteis->quantidade < 64)
 	{
 		// Cria um novo tiro
-		projeteis->tiro[vetor_de_tiros->quantidade].inf = Cria_Fireball(jogador);
+		projeteis->tiro[projeteis->quantidade].inf = Cria_Fireball(jogador);
 
 		// Adiciona tiro na memoria
-		Carrega_Fireball(renderer, &projeteis->tiro[vetor_de_tiros->quantidade]inf, jogador);
+		Carrega_Fireball(renderer, &projeteis->tiro[projeteis->quantidade].inf, jogador);
 
 		// Soma o contador de tiros em tela
-		vetor_de_tiros->quantidade++;
+		projeteis->quantidade++;
 	}
 }
 

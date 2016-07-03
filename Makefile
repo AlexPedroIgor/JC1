@@ -37,11 +37,11 @@ fisica.o: fisica.c fisica.h main.h config.h inimigo.h base.h
 inimigo.o: inimigo.c main.h config.h base.h
 		gcc -o inimigo.o -c inimigo.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/inimigo.gccmessages
 #
-animacao.o: animacao.c animacao.h main.h base.h config.h
+animacao.o: animacao.c animacao.h base.h config.h
 		gcc -o animacao.o -c animacao.c -Wall -lm -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/animacao.gccmessages
 #
-armas.o: armas.c armas.h main.h base.h config.h
-		gcc -o armas.o -c armas.h -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/armas.gccmessages
+armas.o: armas.c armas.h base.h config.h
+		gcc -o armas.o -c armas.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/armas.gccmessages
 #
 menu.o: menu.c som.h main.h config.h base.h
 		gcc -o menu.o -c menu.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/menu.gccmessages
