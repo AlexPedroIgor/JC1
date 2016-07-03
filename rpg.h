@@ -18,17 +18,18 @@
 
 typedef struct
 {
-	float HP, MP;
+	float HP, MP, HP_Max, MP_Max;
 	int forca, destreza, inteligencia, sabedoria, constituicao;
 	int ataque, defesa;
 }Status;
+
 
 // *****************************************************************************
 
 //
 // FUNCOES
 //
-
+void carrega_HUD(SDL_Renderer* renderer);
 
 
 // ******************************************************************************
