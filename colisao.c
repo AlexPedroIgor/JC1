@@ -302,11 +302,11 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 
 
 	// COLISAO ENTRE JOGADORES E INIMIGOS
-	for (i = 0; i != jogadores->quantidade; i++)
+	for (i = 1; i != jogadores->quantidade; i++)
 	{
 		if (inimigos->quantidade > 0)
 		{
-			for (i = 0; i != inimigos->quantidade; i++)
+			for (i = 1; i != inimigos->quantidade; i++)
 			{
 				Colisao_Perimetro(&jogadores->jogador[i].inf,
 					&inimigos->inimigo[i].inf);
@@ -327,17 +327,17 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 	// COLISAO ENTRE INIMIGOS E JOGADORES
 	if (inimigos->quantidade > 0)
 	{
-		for (i = 0; i != inimigos->quantidade; i++)
+		for (i = 1; i != inimigos->quantidade; i++)
 		{
 			// ENTRE OS JOGADORES
-			for (j = 0; j != jogadores->quantidade; j++)
+			for (j = 1; j != jogadores->quantidade; j++)
 			{
 				Colisao_Perimetro(&inimigos->inimigo[i].inf,
 					&jogadores->jogador[j].inf);
 			}
 
 			// ENTRE OS INIMIGOS
-			for (j = 0; j != inimigos->quantidade; j++)
+			for (j = 1; j != inimigos->quantidade; j++)
 			{
 				if (i != j)
 				{
@@ -358,9 +358,9 @@ void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Ini
 
 		if (inimigos->quantidade > 0)
 		{
-			for (i = 0; i != inimigos->quantidade; i++)
+			for (i = 1; i != inimigos->quantidade; i++)
 			{
-				for (j = 0; j != inimigos->quantidade; j++)
+				for (j = 1; j != inimigos->quantidade; j++)
 				{
 					if (Colisao_Circular(&projeteis->tiro[i].inf,
 						&inimigos->inimigo[j].inf));
