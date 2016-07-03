@@ -242,18 +242,22 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 	for (i = 0; i != jogadores->quantidade; i++) // LOOP PARA OS JOGADORES
 	{
 		Carrega_Teclas_de_Acao(&jogadores->jogador[i].inf); // CARREGA TECLAS DE ACAO
-
 		if (jogadores->jogador[i].inf.movimento.ataque) // VERIFICA SE TEM ATAQUE
 		{
+
 			switch (jogadores->jogador[i].classe) // VERIFICA A CLASSE DO PERSONAGEM
 			{
 				case MAGO:
 					switch (jogadores->jogador[i].tipo_de_ataque) // VERIFICA O TIPO DE ATAQUE SELECIONADO
 					{
-						case 1: // FIREBALL		
+						case 1: // FIREBALL	
+						if(jogadores->jogador[0].inf.movimento.ataque)
+						{	
 									Inicializa_Fireball(renderer,
 									projeteis,
 									&jogadores->jogador[i].inf);
+									jogadores->jogador[i].status.atk_coldonw = 0;
+						}			
 							break;
 
 						case 2:
