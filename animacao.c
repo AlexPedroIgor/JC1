@@ -37,64 +37,15 @@ void Fase_Animacao_Portal(Fase* fase);
 // ANIMACAO DE ATAQUE DO INIMIGO
 void Inimigo_Animacao_Ataque(Objeto* inimigo)
 {
-	switch (inimigo->frame.y)
-	{
-		//cima
-		case 512:
-			inimigo->frame.y = 768;
-			inimigo->frame.x = 0;				
-			break;
-
-		//baixo
-		case 640:
-			inimigo->frame.y = 896;
+		inimigo->frame.y +256; //diferença entre animação normal e ataque
 			inimigo->frame.x = 0;
-			break;
+			
 
-		//esquerda
-		case 576:
-			inimigo->frame.y = 832;
-			inimigo->frame.x = 0;
-			break;
-
-		//direita
-		case 704:
-			inimigo->frame.y = 960;
-			inimigo->frame.x = 0;
-			break;
-
-		//cima
-		case 768:
-			if (inimigo->frame.x < 320)
-				inimigo->frame.x += 64;
-			else
-				inimigo->frame.x = 0;					
-			break;
-
-		//baixo
-		case 896:
 			if (inimigo->frame.x < 320)
 				inimigo->frame.x += 64;
 			else
 				inimigo->frame.x = 0;
-			break;
-
-		//esquerda
-		case 832:
-			if (inimigo->frame.x < 320)
-				inimigo->frame.x += 64;
-			else
-				inimigo->frame.x = 0;
-			break;
-
-		//direita
-		case 960:
-			if (inimigo->frame.x < 320)
-				inimigo->frame.x += 64;
-			else
-				inimigo->frame.x = 0;
-			break;
-		}
+			
 }
 
 // ANIMACAO DE INIMIGO TOMANDO DANO
