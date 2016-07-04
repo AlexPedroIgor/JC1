@@ -8,7 +8,7 @@
 ############################### Makefile ###############################
 
 all: meujogo
-meujogo: main.o base.o config.o rpg.o som.o colisao.o fisica.o inimigo.o animacao.o armas.o menu.o jogo.o
+meujogo: main.o base.o config.o rpg.o som.o colisao.o fisica.o inimigo.o animacao.o armas.o creditos.o menu.o jogo.o
 		# Compilando o jogo
 		gcc -o meujogo base.o som.o jogo.o menu.o config.o main.o fisica.o inimigo.o rpg.o animacao.o colisao.o armas.o -lm -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/meujogo.gccmessages
 #------> Execucao dos arquivos
@@ -42,6 +42,9 @@ animacao.o: animacao.c animacao.h base.h config.h
 #
 armas.o: armas.c armas.h base.h config.h
 		gcc -o armas.o -c armas.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/armas.gccmessages
+#
+creditos.o: creditos.c creditos.h base.h config.h
+		gcc -o creditos.o -c creditos.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/creditos.gccmessages
 #
 menu.o: menu.c som.h main.h config.h base.h
 		gcc -o menu.o -c menu.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/menu.gccmessages

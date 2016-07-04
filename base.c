@@ -7,9 +7,12 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
+// BIBLIOTECAS INTERNAS
 #include "base.h"
 #include "animacao.h"
 #include "armas.h"
+
+// ***********************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUCOES
