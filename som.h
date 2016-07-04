@@ -14,15 +14,15 @@
 // LISTA DE EFEITOS SONOROS
 //
 
-//			efeito		valor	
-#define		CLICK			1
-#define		SELECT			2
-#define		VOLTAR			3
-#define		CURA			4
-#define		TAPA			5
-#define		SOCO			6
-#define		HULK_ESMAGA		7
-#define		FIREBALL_FX		8
+//			efeito			valor	
+#define		FX_CLICK			1
+#define		FX_SELECT			2
+#define		FX_VOLTAR			3
+#define		FX_CURA				4
+#define		FX_TAPA				5
+#define		FX_SOCO				6
+#define		FX_HULK_ESMAGA		7
+#define		FX_FIREBALL			8
 
 // *********************************************************************
 
@@ -33,7 +33,8 @@
 //			musica							valor
 #define		MUSICA_INICIAL						1
 #define		MUSICA_DE_SELECAO					2
-#define		MUSICA_DE_FUNDO_DO_JOGO					3
+#define		MUSICA_DE_FUNDO_DO_JOGO				3
+#define		MUSICA_BOSS							4
 
 // **********************************************************************
 

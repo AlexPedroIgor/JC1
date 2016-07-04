@@ -44,35 +44,35 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 	// Selecao de efeitos
 	switch (nome_do_efeito)
 	{
-		case CLICK:
-			som = Mix_LoadWAV("sons/efeitos/click.wav");
+		case FX_CLICK:
+			som = Mix_LoadWAV("sons/efeitos/menu/click.wav");
 			break;
 
-		case SELECT:
-			som = Mix_LoadWAV("sons/efeitos/select.wav");
+		case FX_SELECT:
+			som = Mix_LoadWAV("sons/efeitos/menu/select.wav");
 			break;
 
-		case VOLTAR:
-			som = Mix_LoadWAV("sons/efeitos/voltar.wav");
+		case FX_VOLTAR:
+			som = Mix_LoadWAV("sons/efeitos/menu/voltar.wav");
 			break;
 
-		case CURA:
-			som = Mix_LoadWAV("sons/efeitos/cura.wav");
+		case FX_CURA:
+			som = Mix_LoadWAV("sons/efeitos/magia/cura.wav");
 			break;
 
-		case TAPA:
-			som = Mix_LoadWAV("sons/efeitos/tapa.wav");
+		case FX_TAPA:
+			som = Mix_LoadWAV("sons/efeitos/dano/tapa.wav");
 			break;
 
-		case SOCO:
-			som = Mix_LoadWAV("sons/efeitos/soco.wav");
+		case FX_SOCO:
+			som = Mix_LoadWAV("sons/efeitos/dano/soco.wav");
 			break;
 
-		case HULK_ESMAGA:
-			som = Mix_LoadWAV("sons/efeitos/hulk_esmaga.wav");
+		case FX_HULK_ESMAGA:
+			som = Mix_LoadWAV("sons/efeitos/dano/hulk_esmaga.wav");
 			break;
-		case FIREBALL_FX:
-			som = Mix_LoadWAV("sons/efeitos/fireball.ogg");
+		case FX_FIREBALL:
+			som = Mix_LoadWAV("sons/efeitos/dano/fireball.ogg");
 	}
 
 	// Retorna o efeito para ser tocado
@@ -113,6 +113,10 @@ Mix_Music* Carrega_Musica(int nome_da_musica)
 
 		case MUSICA_DE_FUNDO_DO_JOGO:
 			musica = Mix_LoadMUS("sons/musicas/jogo.mid");
+			break;
+
+		case MUSICA_BOSS:
+			musica = Mix_LoadMUS("sons/musicas/boss.mid");
 			break;
 	}
 

@@ -488,7 +488,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE: // Encerra o pause
-						Efeito_Sonoro(SELECT);
+						Efeito_Sonoro(FX_SELECT);
 						SDL_Delay(400); // Delay de 0.4 segundos
 						pauseRodando = FALSO;
 						break;
@@ -501,12 +501,12 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 							case BOTAO_OPCOES:
 								SELECIONADO = BOTAO_CONTINUAR;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_SAIR:
 								SELECIONADO = BOTAO_OPCOES;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 						}
 						break;
@@ -516,12 +516,12 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 						{
 							case BOTAO_CONTINUAR:
 								SELECIONADO = BOTAO_OPCOES;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_OPCOES:
 								SELECIONADO = BOTAO_SAIR;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_SAIR:
@@ -533,17 +533,17 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 						switch (SELECIONADO)
 						{
 							case BOTAO_CONTINUAR:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								pauseRodando = FALSO;
 								break;
 
 							case BOTAO_OPCOES:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								break;
 
 							case BOTAO_SAIR:
-								Efeito_Sonoro(VOLTAR);
+								Efeito_Sonoro(FX_VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
 								Roda_SairDoPause_SN(&pauseRodando,
 									renderer,
@@ -571,7 +571,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 					&& posicao_do_mouse.y > 250
 					&& posicao_do_mouse.y < 300)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					pauseRodando = FALSO;
 				}
@@ -582,7 +582,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 
@@ -592,7 +592,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 					&& posicao_do_mouse.y > 350
 					&& posicao_do_mouse.y < 400)
 				{
-					Efeito_Sonoro(VOLTAR);
+					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
 					Roda_SairDoPause_SN(&pauseRodando,
 						renderer,
@@ -644,7 +644,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_CONTINUAR)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_CONTINUAR;
 		}
 		else
@@ -661,7 +661,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_OPCOES)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_OPCOES;
 		}
 		else
@@ -678,7 +678,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_SAIR)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_SAIR;
 		}
 		else
@@ -949,7 +949,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE: // Encerra o pause
-						Efeito_Sonoro(SELECT);
+						Efeito_Sonoro(FX_SELECT);
 						SDL_Delay(400); // Delay de 0.4 segundos
 						pauseRodandoSair = FALSO;
 						break;
@@ -962,7 +962,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 							case BOTAO_NAO:
 								SELECIONADO = BOTAO_SIM;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 						}
 						break;
@@ -972,7 +972,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 						{
 							case BOTAO_SIM:
 								SELECIONADO = BOTAO_NAO;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_NAO:
@@ -984,13 +984,13 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 						switch (SELECIONADO)
 						{
 							case BOTAO_NAO:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								pauseRodandoSair = FALSO;
 								break;
 
 							case BOTAO_SIM:
-								Efeito_Sonoro(VOLTAR);
+								Efeito_Sonoro(FX_VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
 								pauseRodandoSair = FALSO;
 								*pauseRodando = FALSO;
@@ -1015,7 +1015,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					pauseRodandoSair = FALSO;
 				}
@@ -1026,7 +1026,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(VOLTAR);
+					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
 					SDL_Delay(500); // Delay de 0.5 segundos
 					pauseRodandoSair = FALSO;
@@ -1080,7 +1080,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_SIM)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_SIM;
 		}
 		else
@@ -1097,7 +1097,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_NAO)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_NAO;
 		}
 		else

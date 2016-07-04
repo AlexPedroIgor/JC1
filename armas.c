@@ -32,7 +32,7 @@ void Cria_Fireball(Objeto* jogador, Objeto* fireball)
 {
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
-	Efeito_Sonoro(FIREBALL_FX);
+	Efeito_Sonoro(FX_FIREBALL);
 
 	fireball->tipo = FIREBALL; // Tipo de objeto
 

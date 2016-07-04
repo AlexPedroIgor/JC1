@@ -318,7 +318,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_INICIAR_JOGO)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_INICIAR_JOGO;
 		}
 		else
@@ -335,7 +335,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_OPCOES)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_OPCOES;
 		}
 		else
@@ -352,7 +352,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_SAIR)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_SAIR;
 		}
 		else
@@ -386,12 +386,12 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 
 							case BOTAO_OPCOES:
 								SELECIONADO = BOTAO_INICIAR_JOGO;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_SAIR:
 								SELECIONADO = BOTAO_OPCOES;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 						}
 						break;
@@ -401,12 +401,12 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 						{
 							case BOTAO_INICIAR_JOGO:
 								SELECIONADO = BOTAO_OPCOES;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_OPCOES:
 								SELECIONADO = BOTAO_SAIR;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_SAIR:
@@ -418,18 +418,18 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 						switch (SELECIONADO)
 						{
 							case BOTAO_INICIAR_JOGO:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								telaInicialRodando = FALSO;
 								modoDeMenu = QND_DE_JOGADORES;
 								break;
 
 							case BOTAO_OPCOES:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								break;
 
 							case BOTAO_SAIR:
-								Efeito_Sonoro(VOLTAR);
+								Efeito_Sonoro(FX_VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
 								menuRodando = FALSO;
 								telaInicialRodando = FALSO;
@@ -459,7 +459,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 250
 					&& posicao_do_mouse.y < 300)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(300); // Delay de 0.4 segundos
 					telaInicialRodando = FALSO;
 					modoDeMenu = QND_DE_JOGADORES;
@@ -471,7 +471,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 
@@ -481,7 +481,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 					&& posicao_do_mouse.y > 350
 					&& posicao_do_mouse.y < 400)
 				{
-					Efeito_Sonoro(VOLTAR);
+					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(400); // Delay de 0.5 segundos
 					menuRodando = FALSO;
 					telaInicialRodando = FALSO;
@@ -705,7 +705,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 			
 			// Animacao de som
 			if (SELECIONADO != BOTAO_1JOGADOR)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_1JOGADOR;
 		}
 		else
@@ -722,7 +722,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_2JOGADORES)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_2JOGADORES;
 		}
 		else
@@ -749,7 +749,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
-						Efeito_Sonoro(VOLTAR);
+						Efeito_Sonoro(FX_VOLTAR);
 						SDL_Delay(400); // Delay de 0.4 segundos
 						modoDeMenu = TELA_INICIAL;
 						escolhaDeJogadoresRodando = FALSO;
@@ -764,7 +764,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 
 							case BOTAO_2JOGADORES:
 								SELECIONADO = BOTAO_1JOGADOR;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 						}
 						break;
@@ -774,7 +774,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 						{
 							case BOTAO_1JOGADOR:
 								SELECIONADO = BOTAO_2JOGADORES;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_2JOGADORES:
@@ -786,7 +786,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 						switch (SELECIONADO)
 						{
 							case BOTAO_1JOGADOR:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								jogadores->quantidade = 1;
 								modoDeMenu = SELECAO_DE_PERSONAGEM1;
@@ -794,7 +794,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 								break;
 
 							case BOTAO_2JOGADORES:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								jogadores->quantidade = 2;
 								menuRodando = FALSO;
@@ -823,7 +823,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 					&& posicao_do_mouse.y > 250
 					&& posicao_do_mouse.y < 300)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					jogadores->quantidade = 1;
 					modoDeMenu = SELECAO_DE_PERSONAGEM1;
@@ -836,7 +836,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					jogadores->quantidade = 2;
 					menuRodando = FALSO;
@@ -1534,7 +1534,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 			
 			// Animacao de som
 			if (SELECIONADO != BOTAO_MAGE)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 					SELECIONADO = BOTAO_MAGE;
 		}
 		else
@@ -1557,7 +1557,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_ARCHER)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_ARCHER;
 		}
 		else
@@ -1641,13 +1641,13 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 					case SDLK_ESCAPE:
 						if (SELECIONADO == PERSONAGEM_ESCOLHIDO)
 						{
-							Efeito_Sonoro(VOLTAR);
+							Efeito_Sonoro(FX_VOLTAR);
 							SELECAO2 = FALSO;
 							SELECIONADO = BOTAO_MAGE;
 						}
 						else
 						{
-							Efeito_Sonoro(VOLTAR);
+							Efeito_Sonoro(FX_VOLTAR);
 							SDL_Delay(400); // Delay de 0.4 segundos
 							modoDeMenu = QND_DE_JOGADORES;
 							selecaoSPRodando = FALSO;
@@ -1663,7 +1663,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 							case BOTAO_ARCHER:
 								SELECIONADO = BOTAO_MAGE;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 						}
 						break;
@@ -1673,7 +1673,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 						{
 							case BOTAO_MAGE:
 								SELECIONADO = BOTAO_ARCHER;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_ARCHER:
@@ -1685,7 +1685,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 						switch (SELECIONADO)
 						{
 							case BOTAO_MAGE:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								SELECIONADO = PERSONAGEM_ESCOLHIDO;
 								SELECAO2 = BOTAO_MAGE;
@@ -1696,7 +1696,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 								break;
 
 							case BOTAO_ARCHER:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								SELECIONADO = PERSONAGEM_ESCOLHIDO;
 								SELECAO2 = BOTAO_ARCHER;
@@ -1704,7 +1704,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 								break;
 
 							case PERSONAGEM_ESCOLHIDO:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								menuRodando = FALSO;
 								selecaoSPRodando = FALSO;
@@ -1735,7 +1735,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 						&& posicao_do_mouse.y < 420)
 							&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					SELECIONADO = PERSONAGEM_ESCOLHIDO;
 					SELECAO2 = BOTAO_MAGE;
@@ -1755,7 +1755,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 					SELECIONADO = PERSONAGEM_ESCOLHIDO;
 					SELECAO2 = BOTAO_ARCHER;
 					jogadores->jogador[0].classe = ARQUEIRO;
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 			}

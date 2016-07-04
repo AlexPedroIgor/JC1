@@ -1,4 +1,4 @@
 armas.c: In function ‘Cria_Fireball’:
-armas.c:96:2: warning: ‘return’ with a value, in function returning void [enabled by default]
+armas.c:96:9: warning: ‘return’ with a value, in function returning void
   return fireball;
-  ^
+         ^
