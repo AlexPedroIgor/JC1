@@ -56,9 +56,9 @@
 // VELOCIDADE DE MOVIMENTACAO DOS OBJETOS
 #define VEL_MAGO		4.0 // Jogador - Mago
 #define VEL_ARQUEIRO	5.0 // Jogador - Arqueiro
-#define VEL_INIMIGO_1	2.5 // Inimigo - Esqueleto
-#define VEL_INIMIGO_2	3.0	// Inimigo - Orc
-#define VEL_INIMIGO_3	4.5	// Inimigo - Blackelf
+#define VEL_INIMIGO_1	1.5 // Inimigo - Esqueleto
+#define VEL_INIMIGO_2	2.5	// Inimigo - Orc
+#define VEL_INIMIGO_3	3.0	// Inimigo - Blackelf
 #define VEL_BOSS		6.0 // Boss - Aranha-Morcego
 #define VEL_FIREBALL	3.0 // Projetil - Fireball
 #define VEL_FLECHA		3.0 // Projetil - Flecha
