@@ -1,0 +1,9 @@
+In file included from armas.c:14:0:
+som.h:25:0: warning: "FIREBALL" redefined [enabled by default]
+ #define  FIREBALL  8
+ ^
+In file included from armas.h:14:0,
+                 from armas.c:12:
+base.h:38:0: note: this is the location of the previous definition
+ #define FIREBALL  6
+ ^

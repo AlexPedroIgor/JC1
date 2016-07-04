@@ -17,6 +17,10 @@
 void Carrega_Teclas_de_Acao(Objeto* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
+FILE* DATA_Carrega_Save_Game();
+void DATA_Salva_Informacoes_Basicas(FILE* save_game);
+void DATA_Carrega_Informacoes(FILE* save_game, Status* mago, Status* arqueiro, Ranking* ranking);
+
 
 // ***************************************************************************************************
 
@@ -68,7 +72,7 @@ SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SD
 	SDL_Texture* texto_em_tela = NULL;
 
 	texto_em_tela = SDL_CreateTextureFromSurface (renderer,
-		texto_em_tela);
+		Loadind_Surf);
 
 	SDL_FreeSurface (Loadind_Surf);
 
@@ -79,6 +83,122 @@ SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SD
 void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event)
 {
 
+}
+
+// ***************************************************************************************************
+
+//
+// SAVE GAME
+//
+
+// CARREGA SAVE GAME
+FILE* DATA_Carrega_Save_Game()
+{
+	FILE* save_game;
+	char* nome_do_arquivo = "data/data.dat";
+
+	if ((save_game = fopen(nome_do_arquivo, "r+b")) == NULL)
+	{
+		printf("Criando um novo arquivo\n");
+		if ((save_game = fopen(nome_do_arquivo, "w+b")) == NULL)
+			printf("Arquivo nao pode ser criado\n");
+		else
+		{
+			printf("Arquivo criado com sucesso\n");
+			DATA_Salva_Informacoes_Basicas(save_game);
+		}
+		
+	}
+	else
+		printf("Arquivo carregado com sucesso\n");
+	return save_game;
+}
+
+// SALVA INFORMACOES BASICAS DO SAVE GAME
+void DATA_Salva_Informacoes_Basicas(FILE* save_game)
+{
+	Status mago, arqueiro;
+
+	// STATUS BASICOS DO MAGO
+	mago.destreza = 0;
+	mago.inteligencia = 15;
+	mago.constituicao = 7;
+	mago.lvl = 1;
+	mago.dano = 0;
+	mago.HP_Max = 500 + mago.constituicao*10 + mago.lvl*5;
+	mago.HP = mago.HP_Max;
+	mago.MP_Max = 100 + mago.inteligencia*5 + mago.lvl*2;
+	mago.MP = mago.MP_Max;
+	mago.ataque = 50 + mago.inteligencia*5;
+	mago.defesa = mago.constituicao;
+
+	// STATUS BASICOS DO ARQUEIRO
+	arqueiro.destreza = 15;
+	arqueiro.inteligencia = 0;
+	arqueiro.constituicao = 10;
+	arqueiro.lvl = 1;
+	arqueiro.exp = 0;
+	arqueiro.next_lvl = 1000;
+	arqueiro.dano = 0;
+	arqueiro.HP_Max = 600 + arqueiro.constituicao*10 + arqueiro.lvl*5;
+	arqueiro.HP = arqueiro.HP_Max;
+	arqueiro.MP_Max = 5 + arqueiro.destreza/2;
+	arqueiro.MP = arqueiro.MP_Max;
+	arqueiro.ataque = 50 + arqueiro.destreza*3;
+	arqueiro.defesa = arqueiro.constituicao;
+
+	// ********************************************************************
+
+	// RANKING
+
+	Ranking ranking;
+
+	ranking.rkn[0].nome = "Joaozinho\0";
+	ranking.rkn[0].pontuacao = 100.000;
+	ranking.rkn[1].nome = "Joaozinho\0";
+	ranking.rkn[1].pontuacao = 90.000;
+	ranking.rkn[2].nome = "Joaozinho\0";
+	ranking.rkn[2].pontuacao = 80.000;
+	ranking.rkn[3].nome = "Joaozinho\0";
+	ranking.rkn[3].pontuacao = 70.000;
+	ranking.rkn[4].nome = "Joaozinho\0";
+	ranking.rkn[4].pontuacao = 60.000;
+	ranking.rkn[5].nome = "Joaozinho\0";
+	ranking.rkn[5].pontuacao = 50.000;
+	ranking.rkn[6].nome = "Joaozinho\0";
+	ranking.rkn[6].pontuacao = 40.000;
+	ranking.rkn[7].nome = "Joaozinho\0";
+	ranking.rkn[7].pontuacao = 30.000;
+	ranking.rkn[8].nome = "Joaozinho\0";
+	ranking.rkn[8].pontuacao = 20.000;
+	ranking.rkn[9].nome = "Joaozinho\0";
+	ranking.rkn[9].pontuacao = 10.000;
+
+	// TECLAS DE MOVIMENTACAO DOS JOGADORES
+	/*
+		EM BREVE
+	*/
+
+	// GRAVANDO INFORMACOES NO ARQUIVO
+	rewind(save_game);
+
+	fwrite(&mago, sizeof(Status), 1, save_game);
+	fwrite(&arqueiro, sizeof(Status), 1, save_game);
+	fwrite(&ranking, sizeof(Ranking), 1, save_game);
+	//fwrite(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, save_game);
+	//fwrite(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, save_game);
+}
+
+// CARREGA DADOS DO SAVE GAME
+void DATA_Carrega_Informacoes(FILE* save_game, Status* mago, Status* arqueiro, Ranking* ranking)
+{
+	rewind(save_game);
+
+	fread(mago, sizeof(Status), 1, save_game);
+	fread(arqueiro, sizeof(Status), 1, save_game);
+	fread(ranking, sizeof(Ranking), 1, save_game);
+	//fread(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, save_game);
+	//fread(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, save_game);
 }
 
 // ***************************************************************************************************

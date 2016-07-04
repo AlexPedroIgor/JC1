@@ -1,3 +1,15 @@
+In file included from menu.h:16:0,
+                 from main.h:20,
+                 from menu.c:9:
+som.h:25:0: warning: "FIREBALL" redefined [enabled by default]
+ #define  FIREBALL  8
+ ^
+In file included from config.h:19:0,
+                 from main.h:18,
+                 from menu.c:9:
+base.h:38:0: note: this is the location of the previous definition
+ #define FIREBALL  6
+ ^
 menu.c: In function ‘Roda_SelecaoDePersonagem_Singleplayer’:
 menu.c:1419:11: warning: variable ‘posicao_do_nome’ set but not used [-Wunused-but-set-variable]
   SDL_Rect posicao_do_nome;

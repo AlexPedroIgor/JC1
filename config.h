@@ -10,6 +10,11 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 
+// BIBLIOTECAS DO C
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 // BIBLIOTECAS INTERNAS
 #include "base.h"
 
@@ -72,12 +77,28 @@ SDL_Color verde = {51,255,0};
 // ****************************************************************************************
 
 //
-// FINCOES
+// FUNCOES
 //
 
 void Carrega_Teclas_de_Acao(Objeto* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
+FILE* DATA_Carrega_Save_Game();
+void DATA_Salva_Informacoes_Basicas(FILE* save_game);
+void DATA_Carrega_Informacoes(FILE* save_game, Status* mago, Status* arqueiro, Ranking* ranking);
+
+// *****************************************************************************************
+
+/*
+	ORDEM DOS ARQUIVOS GRAVADOS NA MEMORIA
+
+	1		STRUCT DE STATUS DO MAGO
+	2		STRUCT DE STATUS DO ARQUEIRO
+	3		RANKING DE PONTUACAO DOS JOGADORES
+	4		STRUCT DE TECLAS DE ACAO DO JOGADOR 1
+	5		STRUCT DE TECLAS DE ACAO DO JOGADOR 2
+
+*/
 
 // *****************************************************************************************
 

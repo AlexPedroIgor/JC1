@@ -10,6 +10,11 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 
+// BIBLIOTECAS DO C
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 // BIBLIOTECAS INTERNAS
 
 
@@ -112,7 +117,8 @@ ARQUEIRO:
 //
 // ESTRUTURAS BASICAS
 //
-//Status RPG
+
+// STATUS - RPG
 typedef struct
 {
 	int HP, MP, HP_Max, MP_Max, dano;
@@ -258,6 +264,21 @@ typedef struct
 	}portal;
 }Fase;
 
+// RANKING
+typedef struct
+{
+	struct
+	{
+		char* nome;
+		float pontuacao;
+	}rkn[10];
+}Ranking;
+
+// TECLAS DE ACAO
+typedef struct
+{
+	int cima, baixo, esquerda, direita, ataque;
+}Teclas_de_Acao;
 
 // **************************************************************************
 
