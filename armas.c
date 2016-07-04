@@ -16,7 +16,7 @@
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-Objeto Cria_Fireball(Objeto* jogador);
+void Cria_Fireball(Objeto* jogador, Objeto* fireball);
 void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador);
 void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador);
 void Apaga_Fireball(SDL_Renderer* renderer, Objeto* fireball);
@@ -28,71 +28,68 @@ void Apaga_Fireball(SDL_Renderer* renderer, Objeto* fireball);
 //
 
 // CRIA FIREBALL NA MEMORIA
-Objeto Cria_Fireball(Objeto* jogador)
+void Cria_Fireball(Objeto* jogador, Objeto* fireball)
 {
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
 	Efeito_Sonoro(FIREBALL_FX);
 
-	// Inicializa tiro
-	Objeto fireball;
+	fireball->tipo = FIREBALL; // Tipo de objeto
 
-	fireball.tipo = FIREBALL; // Tipo de objeto
-
-	fireball.animacao = 1; // Animacao
+	fireball->animacao = 1; // Animacao
 
 	// Tamanho real de referencia para colisao e posicionamento em tela
-	fireball.tamanho_real.centro.x = 10;
-	fireball.tamanho_real.centro.y = 32;
-	fireball.tamanho_real.v = 6;
-	fireball.tamanho_real.h = 7;
+	fireball->tamanho_real.centro.x = 10;
+	fireball->tamanho_real.centro.y = 32;
+	fireball->tamanho_real.v = 6;
+	fireball->tamanho_real.h = 7;
 
 	// Recebe posicao do jogador
-	fireball.posicao.x = jogador->posicao.x;
-	fireball.posicao.y = jogador->posicao.y;
+	fireball->posicao.x = jogador->posicao.x;
+	fireball->posicao.y = jogador->posicao.y;
 
 	// Posicao X sera a mesma
-	fireball.frame.x = 0;
+	fireball->frame.x = 0;
 
 	// Tamanho dos frames do fireball
-	fireball.frame.w = 64;
-	fireball.frame.h = 64;
+	fireball->frame.w = 64;
+	fireball->frame.h = 64;
 
 	// Tamanho do fireball em tela
-	fireball.posicao.w = 64;
-	fireball.posicao.h = 64;
+	fireball->posicao.w = 64;
+	fireball->posicao.h = 64;
 
 	switch(jogador->animacao)
 	{
 		case CIMA:
-			fireball.frame.y = 128; // Frame
+			fireball->frame.y = 128; // Frame
 
 		case BAIXO:
-			fireball.frame.y = 384; // Frame
+			fireball->frame.y = 384; // Frame
 			break;
 
 		case DIREITA:
-			fireball.frame.y = 256; // Frame
+			fireball->frame.y = 256; // Frame
 			break;
 
 		case ESQUERDA:
-			fireball.frame.y = 0; // Frame
+			fireball->frame.y = 0; // Frame
 			break;
 
 		case QUADRANTE1:
-			fireball.frame.y = 192; // Frame
+			fireball->frame.y = 192; // Frame
 			break;
 
 		case QUADRANTE2:
-			fireball.frame.y = 64; // Frame
+			fireball->frame.y = 64; // Frame
 			break;
 
 		case QUADRANTE3:
-			fireball.frame.y = 448; // Frame
+			fireball->frame.y = 448; // Frame
 			break;
 
 		case QUADRANTE4:
-			fireball.frame.y = 320; // Frame;
+			fireball->frame.y = 320; // Frame;
 			break;
 	}
 
@@ -165,7 +162,7 @@ void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* j
 	if (projeteis->quantidade < 64)
 	{
 		// Cria um novo tiro
-		projeteis->tiro[projeteis->quantidade].inf = Cria_Fireball(jogador);
+		Cria_Fireball(jogador, &projeteis->tiro[projeteis->quantidade].inf);
 
 		// Adiciona tiro na memoria
 		Carrega_Fireball(renderer, &projeteis->tiro[projeteis->quantidade].inf, jogador);
