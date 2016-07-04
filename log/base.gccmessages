@@ -1,8 +1,0 @@
-base.c: In function ‘Renderiza_Jogadores’:
-base.c:689:6: warning: unused variable ‘i’ [-Wunused-variable]
-  int i;
-      ^
-base.c: In function ‘Renderiza_Projeteis’:
-base.c:756:4: warning: implicit declaration of function ‘Anima_Fireball’ [-Wimplicit-function-declaration]
-    Anima_Fireball(renderer, &projeteis->tiro[i].inf);
-    ^

@@ -9,6 +9,7 @@
 
 #include "base.h"
 #include "animacao.h"
+#include "armas.h"
 
 //
 // PRE CARREGAMENTO DAS FUCOES
@@ -686,7 +687,7 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 // JOGADORES
 void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores)
 {
-	int i;
+	//int i;
 
 	if (jogadores->quantidade == 1)
 	{
