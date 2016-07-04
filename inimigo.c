@@ -101,8 +101,6 @@ void Cria_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int tipo)
 	inimigo->posicao.h = SPRITE_FRAME_H;
 
 	SDL_FreeSurface(Loading_Surf);
-
-	return inimigo;
 }
 
 // Adiciona inimigos

@@ -124,6 +124,8 @@ Inimigos* Inicializa_Inimigos()
 
 		inimigos->inimigo[i].inf.animacao = 1;
 
+		inimigos->inimigo[i].inf.cooldown = 1;
+
 		// Marca estado de colisao inicial como sem colisao
 		inimigos->inimigo[i].inf.colisao.cima = FALSO;
 		inimigos->inimigo[i].inf.colisao.baixo = FALSO;

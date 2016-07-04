@@ -422,6 +422,12 @@ void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 		if (movimento_permitido
 			&& !Colisao_LimiteDeTela2(inimigo))
 		{
+			if (inimigo->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				inimigo->cooldown = 1;
+			}
+			inimigo->cooldown++;
 			inimigo->posicao.y -= inimigo->velocidade.y;
 			inimigo->posicao.x -= inimigo->velocidade.x;
 		}
@@ -446,6 +452,12 @@ void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 		if (movimento_permitido
 			&& !Colisao_LimiteDeTela2(inimigo))
 		{
+			if (inimigo->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				inimigo->cooldown = 1;
+			}
+			inimigo->cooldown++;
 			inimigo->posicao.y -= inimigo->velocidade.y;
 			inimigo->posicao.x += inimigo->velocidade.x;
 		}
@@ -471,6 +483,12 @@ void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 		if (movimento_permitido
 			&& !Colisao_LimiteDeTela2(inimigo))
 		{
+			if (inimigo->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				inimigo->cooldown = 1;
+			}
+			inimigo->cooldown++;
 			inimigo->posicao.y += inimigo->velocidade.y;
 			inimigo->posicao.x -= inimigo->velocidade.x;
 		}
@@ -495,6 +513,12 @@ void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 		if (movimento_permitido
 			&& !Colisao_LimiteDeTela2(inimigo))
 		{
+			if (inimigo->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				inimigo->cooldown = 1;
+			}
+			inimigo->cooldown++;
 			inimigo->posicao.y += inimigo->velocidade.y;
 			inimigo->posicao.x += inimigo->velocidade.x;
 		}
@@ -521,7 +545,15 @@ void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 		// Movimento
 		if (movimento_permitido
 			&& !Colisao_LimiteDeTela2(inimigo))
+		{
+			if (inimigo->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				inimigo->cooldown = 1;
+			}
+			inimigo->cooldown++;
 			inimigo->posicao.y -= inimigo->velocidade.y;
+		}
 	}
 
 	// Baixo
@@ -541,7 +573,16 @@ void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 		// Movimento
 		if (movimento_permitido
 			&& !Colisao_LimiteDeTela2(inimigo))
+		{
+			if (inimigo->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				inimigo->cooldown = 1;
+			}
+			inimigo->cooldown++;
 			inimigo->posicao.y += inimigo->velocidade.y;
+		}
+
 	}
 
 	// Esquerda
@@ -561,7 +602,16 @@ void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 		// Movimento
 		if (movimento_permitido
 			&& !Colisao_LimiteDeTela2(inimigo))
+		{
+			if (inimigo->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				inimigo->cooldown = 1;
+			}
+			inimigo->cooldown++;
 			inimigo->posicao.x -= inimigo->velocidade.x;
+		}
+
 	}
 
 	// Direita

@@ -1,9 +1,5 @@
-inimigo.c: In function ‘Cria_Inimigo’:
-inimigo.c:105:9: warning: ‘return’ with a value, in function returning void
-  return inimigo;
-         ^
 inimigo.c: In function ‘IA_de_Movimentacao’:
-inimigo.c:297:14: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [-Wincompatible-pointer-types]
+inimigo.c:295:14: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [-Wincompatible-pointer-types]
    Tomar_dano(inimigo, jogadores);
               ^
 In file included from fisica.h:15:0,
@@ -12,13 +8,13 @@ In file included from fisica.h:15:0,
 rpg.h:37:6: note: expected ‘Inimigos * {aka struct <anonymous> *}’ but argument is of type ‘Objeto * {aka struct <anonymous> *}’
  void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
       ^
-inimigo.c:298:18: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [-Wincompatible-pointer-types]
+inimigo.c:296:18: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [-Wincompatible-pointer-types]
    Inimigo_Ataque(inimigo,jogadores);
                   ^
 inimigo.c:29:6: note: expected ‘Inimigos * {aka struct <anonymous> *}’ but argument is of type ‘Objeto * {aka struct <anonymous> *}’
  void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
       ^
-inimigo.c:302:14: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [-Wincompatible-pointer-types]
+inimigo.c:300:14: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [-Wincompatible-pointer-types]
    Tomar_dano(inimigo, jogadores);
               ^
 In file included from fisica.h:15:0,
@@ -27,20 +23,20 @@ In file included from fisica.h:15:0,
 rpg.h:37:6: note: expected ‘Inimigos * {aka struct <anonymous> *}’ but argument is of type ‘Objeto * {aka struct <anonymous> *}’
  void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
       ^
-inimigo.c:303:18: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [-Wincompatible-pointer-types]
+inimigo.c:301:18: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [-Wincompatible-pointer-types]
    Inimigo_Ataque(inimigo,jogadores);
                   ^
 inimigo.c:29:6: note: expected ‘Inimigos * {aka struct <anonymous> *}’ but argument is of type ‘Objeto * {aka struct <anonymous> *}’
  void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
       ^
-inimigo.c:259:6: warning: variable ‘jogador_proximo’ set but not used [-Wunused-but-set-variable]
+inimigo.c:257:6: warning: variable ‘jogador_proximo’ set but not used [-Wunused-but-set-variable]
   int jogador_proximo;
       ^
 inimigo.c: In function ‘Inimigo_Ataque’:
-inimigo.c:498:2: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
+inimigo.c:496:2: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Ataque(inimigo);
   ^
 inimigo.c: In function ‘Inimigo_Toma_Dano’:
-inimigo.c:520:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
+inimigo.c:518:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Toma_Dano(renderer, inimigo);
   ^
