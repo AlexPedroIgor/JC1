@@ -1,5 +1,9 @@
+inimigo.c: In function ‘Cria_Inimigo’:
+inimigo.c:102:2: warning: ‘return’ with a value, in function returning void [enabled by default]
+  return inimigo;
+  ^
 inimigo.c: In function ‘IA_de_Movimentacao’:
-inimigo.c:288:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
+inimigo.c:292:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
    Tomar_dano(inimigo, jogadores);
    ^
 In file included from fisica.h:15:0,
@@ -8,20 +12,35 @@ In file included from fisica.h:15:0,
 rpg.h:37:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
  void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
       ^
-inimigo.c:289:3: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [enabled by default]
+inimigo.c:293:3: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [enabled by default]
    Inimigo_Ataque(inimigo,jogadores);
    ^
 inimigo.c:26:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
  void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
       ^
-inimigo.c:253:6: warning: variable ‘jogador_proximo’ set but not used [-Wunused-but-set-variable]
+inimigo.c:297:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
+   Tomar_dano(inimigo, jogadores);
+   ^
+In file included from fisica.h:15:0,
+                 from inimigo.h:16,
+                 from inimigo.c:10:
+rpg.h:37:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
+ void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
+      ^
+inimigo.c:298:3: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [enabled by default]
+   Inimigo_Ataque(inimigo,jogadores);
+   ^
+inimigo.c:26:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
+ void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
+      ^
+inimigo.c:254:6: warning: variable ‘jogador_proximo’ set but not used [-Wunused-but-set-variable]
   int jogador_proximo;
       ^
 inimigo.c: In function ‘Inimigo_Ataque’:
-inimigo.c:485:2: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
+inimigo.c:493:2: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Ataque(inimigo);
   ^
 inimigo.c: In function ‘Inimigo_Toma_Dano’:
-inimigo.c:507:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
+inimigo.c:515:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Toma_Dano(renderer, inimigo);
   ^

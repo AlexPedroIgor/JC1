@@ -17,7 +17,7 @@
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo, int numero);
+void Cria_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int tipo);
 void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
 void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
@@ -33,18 +33,15 @@ void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, 
 //
 
 // Funcao para carregar inimigo
-Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo, int numero)
+void Cria_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int tipo)
 {
-	// Estrutura com informacoes do inimigo
-	Objeto inimigo;
-
-	inimigo.numero = numero;
+	//inimigo.numero = numero;
 
 	// Posicao de colisoes
-	inimigo.colisao.cima = FALSO;
-	inimigo.colisao.baixo = FALSO;
-	inimigo.colisao.esquerda = FALSO;
-	inimigo.colisao.direita = FALSO;
+	inimigo->colisao.cima = FALSO;
+	inimigo->colisao.baixo = FALSO;
+	inimigo->colisao.esquerda = FALSO;
+	inimigo->colisao.direita = FALSO;
 
 	SDL_Surface* Loading_Surf = NULL;
 
@@ -52,53 +49,53 @@ Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo, int numero)
 	{
 		case 1:
 			// Velocidade de movimento do inimigo
-			inimigo.velocidade.x = VEL_INIMIGO_1;
-			inimigo.velocidade.y = VEL_INIMIGO_1;
-			inimigo.tamanho_real.centro.x = 32;
-			inimigo.tamanho_real.centro.y = 39;
-			inimigo.tamanho_real.v = 10;
-			inimigo.tamanho_real.h = 23;
+			inimigo->velocidade.x = VEL_INIMIGO_1;
+			inimigo->velocidade.y = VEL_INIMIGO_1;
+			inimigo->tamanho_real.centro.x = 32;
+			inimigo->tamanho_real.centro.y = 39;
+			inimigo->tamanho_real.v = 10;
+			inimigo->tamanho_real.h = 23;
 			Loading_Surf = IMG_Load(ESQUELETO);
 			break;
 
 		case 2:
 			// Velocidade de movimento do inimigo
-			inimigo.velocidade.x = VEL_INIMIGO_2;
-			inimigo.velocidade.y = VEL_INIMIGO_2;
-			inimigo.tamanho_real.centro.x = 32;
-			inimigo.tamanho_real.centro.y = 40;
-			inimigo.tamanho_real.v = 12;
-			inimigo.tamanho_real.h = 22;
+			inimigo->velocidade.x = VEL_INIMIGO_2;
+			inimigo->velocidade.y = VEL_INIMIGO_2;
+			inimigo->tamanho_real.centro.x = 32;
+			inimigo->tamanho_real.centro.y = 40;
+			inimigo->tamanho_real.v = 12;
+			inimigo->tamanho_real.h = 22;
 			Loading_Surf = IMG_Load(ORC);
 			break;
 
 		case 3:
 			// Velocidade de movimento do inimigo
-			inimigo.velocidade.x = VEL_INIMIGO_3;
-			inimigo.velocidade.y = VEL_INIMIGO_3;
-			inimigo.tamanho_real.centro.x = 32;
-			inimigo.tamanho_real.centro.y = 40;
-			inimigo.tamanho_real.v = 12;
-			inimigo.tamanho_real.h = 24;
+			inimigo->velocidade.x = VEL_INIMIGO_3;
+			inimigo->velocidade.y = VEL_INIMIGO_3;
+			inimigo->tamanho_real.centro.x = 32;
+			inimigo->tamanho_real.centro.y = 40;
+			inimigo->tamanho_real.v = 12;
+			inimigo->tamanho_real.h = 24;
 			Loading_Surf = IMG_Load(BLACKELF);
 			break;
 	}
 
-	inimigo.sprite = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+	inimigo->sprite = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
 	// Dimensoes da imagem do sprite do inimigo
-	inimigo.fullH = SPRITE_FULL_H;
-	inimigo.fullW = SPRITE_FULL_W;
+	inimigo->fullH = SPRITE_FULL_H;
+	inimigo->fullW = SPRITE_FULL_W;
 
 	// Rect do frame do sprite do inimigo
-	inimigo.frame.x = 0;
-	inimigo.frame.y = 512;
-	inimigo.frame.w = SPRITE_FRAME_W;
-	inimigo.frame.h = SPRITE_FRAME_H;
+	inimigo->frame.x = 0;
+	inimigo->frame.y = 512;
+	inimigo->frame.w = SPRITE_FRAME_W;
+	inimigo->frame.h = SPRITE_FRAME_H;
 
 	// Rect para posisao do inimigo em tela
-	inimigo.posicao.w = SPRITE_FRAME_W;
-	inimigo.posicao.h = SPRITE_FRAME_H;
+	inimigo->posicao.w = SPRITE_FRAME_W;
+	inimigo->posicao.h = SPRITE_FRAME_H;
 
 	SDL_FreeSurface(Loading_Surf);
 
@@ -115,7 +112,9 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 	{
 		inimigos->inimigo[0].tipo = tipo;
 		inimigos->inimigo[0].vivo = VERDADEIRO;
-		inimigos->inimigo[0].inf = Cria_Inimigo(renderer, tipo, 1);
+		Cria_Inimigo(renderer,
+						&inimigos->inimigo[0].inf,
+						tipo);
 		Posiciona_Inimigo(renderer, &inimigos->inimigo[0].inf, portal, fase);
 	}
 	else if (inimigos->quantidade + quantidade < 64)
@@ -124,7 +123,9 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 		{
 			inimigos->inimigo[i].tipo = tipo;
 			inimigos->inimigo[i].vivo = VERDADEIRO;
-			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo, i+1);
+			Cria_Inimigo(renderer,
+							&inimigos->inimigo[i].inf,
+							tipo);
 			Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, portal, fase);
 		}
 	}
@@ -282,14 +283,21 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 	
 	if(distancia > 300)
 		loucura = 50;
+	else
+		loucura = rand() % 100;
 
-	if(distancia < 50)
+	if ((quadrante == CIMA || quadrante == BAIXO)
+		&& distancia < 64)
 	{
 		Tomar_dano(inimigo, jogadores);
 		Inimigo_Ataque(inimigo,jogadores);
 	}
-	else
-		loucura = rand() % 100;
+	else if (distancia < 64)
+	{
+		Tomar_dano(inimigo, jogadores);
+		Inimigo_Ataque(inimigo,jogadores);
+	}
+	
 		
 
 	switch (loucura)
