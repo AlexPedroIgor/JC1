@@ -9,7 +9,10 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */ 
 
+// BIBLIOTECAS INTERNAS
 #include "animacao.h"
+
+// **************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -20,7 +23,8 @@ void Inimigo_Animacao_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo);
 void Projetil_Fireball_Animacao(SDL_Renderer* renderer, Objeto* tiro);
 void Fase_Animacao_Portal(Fase* fase);
 void Game_Over(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
+	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+
 // **************************************************************************************
 
 //
@@ -193,11 +197,13 @@ void Game_Over(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 	//Escurecer a tela| inicio
 	//*****************
 	//
+	
 	jogadores->jogador[0].inf.frame.y = 1280;
+	int i;
 	for(i=0; i<768; i+=64);
 		SDL_Delay(50);
 
-	SDL_Texture* gOver = NULL	;
+	SDL_Texture* gOver = NULL;
 
 	Loading_Surf = IMG_Load("arte/fundo/escurecer.png"); 
 

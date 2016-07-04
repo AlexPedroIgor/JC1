@@ -7,6 +7,7 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
+// BIBLIOTECAS INTERNAS
 #include "jogo.h"
 #include "animacao.h"
 #include "menu.h"
@@ -15,6 +16,8 @@
 #include "armas.h"
 #include "rpg.h"
 #include "inimigo.h"
+
+// ********************************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -27,7 +30,13 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 // ***************************************************************************************************
 
+//
+// VARIAVEIS GLOBAIS
+//
+
 int jogoRodando;
+
+// *************************************************************************************************
 
 //
 // JOGO
@@ -83,7 +92,6 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	//
 	// PROJETEIS
 	//
-	jogadores->jogador[0].status.morte = 0;
 
 	Projeteis* projeteis = Inicializa_Projeteis();
 
@@ -110,7 +118,12 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 				Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 
 			Movimentacao_dos_Jogadores(jogadores, inimigos);
-		} else Game_Over(renderer, event, fase, jogadores, inimigos, projeteis)
+		}
+		else
+		{
+			Game_Over(renderer, event, fase, jogadores, inimigos, projeteis);
+			break;
+		}
 
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 

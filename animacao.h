@@ -23,7 +23,7 @@ void Inimigo_Animacao_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo);
 void Projetil_Fireball_Animacao(SDL_Renderer* renderer, Objeto* tiro);
 void Fase_Animacao_Portal(Fase* fase);
 void Game_Over(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
+	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
 // *********************************************************************
 
 #endif

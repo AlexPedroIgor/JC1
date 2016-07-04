@@ -1,4 +1,14 @@
 animacao.c: In function ‘Inimigo_Animacao_Ataque’:
-animacao.c:40:3: warning: statement with no effect [-Wunused-value]
+animacao.c:45:3: warning: statement with no effect [-Wunused-value]
    inimigo->frame.y +256; //diferença entre animação normal e ataque
    ^
+animacao.c: In function ‘Game_Over’:
+animacao.c:213:11: warning: variable ‘gameOver’ set but not used [-Wunused-but-set-variable]
+  SDL_Rect gameOver;
+           ^
+animacao.c:205:15: warning: variable ‘gOver’ set but not used [-Wunused-but-set-variable]
+  SDL_Texture* gOver = NULL;
+               ^
+animacao.c:188:6: warning: unused variable ‘pauseRodando’ [-Wunused-variable]
+  int pauseRodando = VERDADEIRO;
+      ^
