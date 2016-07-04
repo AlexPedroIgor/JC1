@@ -147,49 +147,34 @@ SDL_RenderCopy(renderer, gMP2, NULL, &mp2);
 //Status
 void Definir_status_iniciais(Jogadores* jogadores)
 {
+	Status mago, arqueiro;
+	Ranking ranking;
+
+	DATA_Carrega_Informacoes(&mago, &arqueiro, &ranking);
 
 	switch(jogadores->jogador[0].inf.tipo)
 	{
-		case 1:
-		jogadores->jogador[0].status.destreza = 0;
-		jogadores->jogador[0].status.inteligencia = 15;
-		jogadores->jogador[0].status.constituicao = 7;
-		jogadores->jogador[0].status.lvl = 1;
-		jogadores->jogador[0].status.dano = 0;
-
-		break;
+		case MAGO:
+			jogadores->jogador[0].status = mago;
+			break;
 
 		case 2:
-		jogadores->jogador[0].status.destreza = 15;
-		jogadores->jogador[0].status.inteligencia = 0;
-		jogadores->jogador[0].status.constituicao = 10;
-		jogadores->jogador[0].status.lvl = 1;
-		jogadores->jogador[0].status.dano = 0;
-
-		break;		
+			jogadores->jogador[0].status = arqueiro;
+			break;		
 	}
+
 	if(jogadores->quantidade == 2)
 	{
-	switch(jogadores->jogador[1].inf.tipo)
-	{
-		case 1:
-		jogadores->jogador[1].status.destreza = 0;
-		jogadores->jogador[1].status.inteligencia = 15;
-		jogadores->jogador[1].status.constituicao = 7;
-		jogadores->jogador[1].status.lvl = 1;
-		jogadores->jogador[1].status.dano = 0;
+		switch(jogadores->jogador[1].inf.tipo)
+		{
+			case MAGO:
+				jogadores->jogador[1].status = mago;
+				break;
 
-		break;
-
-		case 2:
-		jogadores->jogador[1].status.destreza = 15;
-		jogadores->jogador[1].status.inteligencia = 0;
-		jogadores->jogador[1].status.constituicao = 10;
-		jogadores->jogador[1].status.lvl = 1;
-		jogadores->jogador[1].status.dano = 0;
-
-		break;
-	}
+			case 2:
+				jogadores->jogador[1].status = arqueiro;
+				break;	
+		}
 	}
 }
  void Manter_status(Jogadores* jogadores)
