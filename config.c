@@ -194,11 +194,11 @@ void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking)
 {
 	rewind(Save_Game);
 
-	fread(mago, sizeof(Status), 1, Save_Game);
+	fread(&mago, sizeof(Status), 1, Save_Game);
 	fread(arqueiro, sizeof(Status), 1, Save_Game);
 	fread(ranking, sizeof(Ranking), 1, Save_Game);
-	//fread(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, Save_Game);
-	//fread(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, Save_Game);
+	//fread(teclas_jogador1, sizeof(Teclas_de_Acao), 1, Save_Game);
+	//fread(teclas_jogador2, sizeof(Teclas_de_Acao), 1, Save_Game);
 }
 
 // ***************************************************************************************************

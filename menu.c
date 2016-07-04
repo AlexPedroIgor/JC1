@@ -18,6 +18,9 @@
 int modoDeMenu;
 int menuRodando;
 
+Status mago, arqueiro;
+Ranking ranking;
+
 // *****************************************************************************************************************
 
 //
@@ -42,6 +45,9 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* joga
 	// Inicia na tela inicial
 	modoDeMenu = TELA_INICIAL;
 	menuRodando = VERDADEIRO;
+
+	// CARREGA STATUS E RANKING
+	DATA_Carrega_Informacoes(&mago, &arqueiro, &ranking);
 
 	// Toca musica da fundo
 	Toca_Musica(MUSICA_INICIAL);
@@ -1167,8 +1173,8 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Texto tValorFor1, tValorFor2;
 
-	tValorFor1.valor_numerico = 15;
-	tValorFor2.valor_numerico = 17;
+	tValorFor1.valor_numerico = mago.forca;
+	tValorFor2.valor_numerico = arqueiro.forca;
 
 	grava_texto = sprintf(texto_auxiliar, "%d", tValorFor1.valor_numerico);
 	Loading_Surf = TTF_RenderText_Blended (Fonte2,

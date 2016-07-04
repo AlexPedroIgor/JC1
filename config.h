@@ -62,8 +62,8 @@ typedef struct
 }Texto;
 
 // PONTEIRO PARA GUARDAR FONTE
-extern TTF_Font* Fonte1;
-extern TTF_Font* Fonte2;
+TTF_Font* Fonte1;
+TTF_Font* Fonte2;
 
 /*
 // CORES DE TEXTO
@@ -93,7 +93,7 @@ void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking);
 // SAVE GAME
 //
 
-extern FILE* Save_Game;
+FILE* Save_Game;
 
 /*
 	ORDEM DOS ARQUIVOS GRAVADOS NA MEMORIA
