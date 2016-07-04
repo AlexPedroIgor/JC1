@@ -1082,6 +1082,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	// COR DO TEXTO
 	SDL_Color cor_do_texto1 = {178,34,34}; // Cor: Firebrick
 	SDL_Color cor_do_texto2 = {245,245,220}; // Cor: Beige
+	SDL_Color cor_do_texto3 = {255,255,255}; // Cor: Branco
 	int grava_texto; // auxiliar para escrita de texto
 	char texto_auxiliar[3];
 
@@ -1192,12 +1193,18 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tValorFor1.posicao1.x = 252;
 	tValorFor1.posicao1.y = 130;
-	tValorFor1.posicao1.w = 17;
+	if (mago.forca < 10)
+		tValorFor1.posicao1.w = 9;
+	else
+		tValorFor1.posicao1.w = 17;
 	tValorFor1.posicao1.h = 20;
 
 	tValorFor2.posicao2.x = 647;
 	tValorFor2.posicao2.y = 130;
-	tValorFor2.posicao2.w = 17;
+	if (arqueiro.forca < 10)
+		tValorFor2.posicao2.w = 9;
+	else
+		tValorFor2.posicao2.w = 17;
 	tValorFor2.posicao2.h = 20;
 
 	// DESTREZA
@@ -1228,8 +1235,8 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Texto tValorDes1, tValorDes2;
 
-	tValorDes1.valor_numerico = 10;
-	tValorDes2.valor_numerico = 16;
+	tValorDes1.valor_numerico = mago.destreza;
+	tValorDes2.valor_numerico = arqueiro.destreza;
 
 	grava_texto = sprintf(texto_auxiliar, "%d", tValorDes1.valor_numerico);
 	Loading_Surf = TTF_RenderText_Blended (Fonte2,
@@ -1247,12 +1254,18 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tValorDes1.posicao1.x = 252;
 	tValorDes1.posicao1.y = 155;
-	tValorDes1.posicao1.w = 17;
+	if (mago.destreza < 10)
+		tValorDes1.posicao1.w = 8;
+	else
+		tValorDes1.posicao1.w = 17;
 	tValorDes1.posicao1.h = 20;
 
 	tValorDes2.posicao2.x = 647;
 	tValorDes2.posicao2.y = 155;
-	tValorDes2.posicao2.w = 17;
+	if (arqueiro.destreza < 10)
+		tValorDes2.posicao2.w = 9;
+	else
+		tValorDes2.posicao2.w = 17;
 	tValorDes2.posicao2.h = 20;
 
 	// INTELIGENCIA
@@ -1283,8 +1296,8 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Texto tValorInt1, tValorInt2;
 
-	tValorInt1.valor_numerico = 17;
-	tValorInt2.valor_numerico = 10;
+	tValorInt1.valor_numerico = mago.inteligencia;
+	tValorInt2.valor_numerico = arqueiro.inteligencia;
 
 	grava_texto = sprintf(texto_auxiliar, "%d", tValorInt1.valor_numerico);
 	Loading_Surf = TTF_RenderText_Blended (Fonte2,
@@ -1302,12 +1315,18 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tValorInt1.posicao1.x = 252;
 	tValorInt1.posicao1.y = 180;
-	tValorInt1.posicao1.w = 17;
+	if (mago.inteligencia < 10)
+		tValorInt1.posicao1.w = 9;
+	else
+		tValorInt1.posicao1.w = 17;
 	tValorInt1.posicao1.h = 20;
 
 	tValorInt2.posicao2.x = 647;
 	tValorInt2.posicao2.y = 180;
-	tValorInt2.posicao2.w = 17;
+	if (arqueiro.inteligencia < 10)
+		tValorInt2.posicao2.w = 9;
+	else
+		tValorInt2.posicao2.w = 17;
 	tValorInt2.posicao2.h = 20;
 
 	// CONSTITUICAO
@@ -1338,8 +1357,8 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	Texto tValorCon1, tValorCon2;
 
-	tValorCon1.valor_numerico = 15;
-	tValorCon2.valor_numerico = 12;
+	tValorCon1.valor_numerico = mago.constituicao;
+	tValorCon2.valor_numerico = arqueiro.constituicao;
 
 	grava_texto = sprintf(texto_auxiliar, "%d", tValorCon1.valor_numerico);
 	Loading_Surf = TTF_RenderText_Blended (Fonte2,
@@ -1357,12 +1376,18 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	tValorCon1.posicao1.x = 252;
 	tValorCon1.posicao1.y = 205;
-	tValorCon1.posicao1.w = 17;
+	if (mago.constituicao < 10)
+		tValorCon1.posicao1.w = 9;
+	else
+		tValorCon1.posicao1.w = 17;
 	tValorCon1.posicao1.h = 20;
 
 	tValorCon2.posicao2.x = 647;
 	tValorCon2.posicao2.y = 205;
-	tValorCon2.posicao2.w = 17;
+	if (arqueiro.constituicao < 10)
+		tValorCon2.posicao2.w = 9;
+	else
+		tValorCon2.posicao2.w = 17;
 	tValorCon2.posicao2.h = 20;
 
 	// NIVEL
@@ -1379,7 +1404,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	SDL_FreeSurface(Loading_Surf);
 
-	tLVL.posicao1.x = 85;
+	tLVL.posicao1.x = 87;
 	tLVL.posicao1.y = 240;
 	tLVL.posicao1.w = 50;
 	tLVL.posicao1.h = 20;
@@ -1391,29 +1416,41 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	// VALOR DO NIVEL
 
-	Texto tValorLVL;
+	Texto tValorLVL1, tValorLVL2;
 
-	tValorLVL.valor_numerico = 1;
+	tValorLVL1.valor_numerico = mago.lvl;
+	tValorLVL2.valor_numerico = arqueiro.lvl;
 
-	grava_texto = sprintf(texto_auxiliar, "%d", tValorLVL.valor_numerico);
-
+	// MAGO
+	grava_texto = sprintf(texto_auxiliar, "%d", tValorLVL1.valor_numerico);
 	Loading_Surf = TTF_RenderText_Blended (Fonte2,
 											texto_auxiliar,
 											cor_do_texto2);
-
-	tValorLVL.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
-
+	tValorLVL1.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+	SDL_FreeSurface(Loading_Surf);
+	// ARQUEIRO
+	grava_texto = sprintf(texto_auxiliar, "%d", tValorLVL2.valor_numerico);
+	Loading_Surf = TTF_RenderText_Blended (Fonte2,
+											texto_auxiliar,
+											cor_do_texto2);
+	tValorLVL2.textura = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 	SDL_FreeSurface(Loading_Surf);
 
-	tValorLVL.posicao1.x = 135;
-	tValorLVL.posicao1.y = 240;
-	tValorLVL.posicao1.w = 10;
-	tValorLVL.posicao1.h = 20;
+	tValorLVL1.posicao1.x = 137;
+	tValorLVL1.posicao1.y = 240;
+	if (mago.lvl < 10)
+		tValorLVL1.posicao1.w = 9;
+	else
+		tValorLVL1.posicao1.w = 17;
+	tValorLVL1.posicao1.h = 20;
 
-	tValorLVL.posicao2.x = 545;
-	tValorLVL.posicao2.y = 240;
-	tValorLVL.posicao2.w = 10;
-	tValorLVL.posicao2.h = 20;
+	tValorLVL2.posicao2.x = 545;
+	tValorLVL2.posicao2.y = 240;
+	if (arqueiro.lvl < 10)
+		tValorLVL2.posicao2.w = 9;
+	else
+		tValorLVL2.posicao2.w = 17;
+	tValorLVL2.posicao2.h = 20;
 
 	//
 	// *******
@@ -1571,9 +1608,9 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		SDL_RenderCopy(renderer, tConstituicao.textura, NULL, &tConstituicao.posicao2); // constituicao:
 		SDL_RenderCopy(renderer, tValorCon2.textura, NULL, &tValorCon2.posicao2); // valor da con
 		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao1); // level:
-		SDL_RenderCopy(renderer, tValorLVL.textura, NULL, &tValorLVL.posicao1); // valor level
+		SDL_RenderCopy(renderer, tValorLVL1.textura, NULL, &tValorLVL1.posicao1); // valor level
 		SDL_RenderCopy(renderer, tLVL.textura, NULL, &tLVL.posicao2); // level:
-		SDL_RenderCopy(renderer, tValorLVL.textura, NULL, &tValorLVL.posicao2); // valor level
+		SDL_RenderCopy(renderer, tValorLVL2.textura, NULL, &tValorLVL2.posicao2); // valor level
 
 		// *************************************************************************************
 
@@ -1757,7 +1794,8 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	SDL_DestroyTexture(tValorCon1.textura);
 	SDL_DestroyTexture(tValorCon2.textura);
 	SDL_DestroyTexture(tLVL.textura);
-	SDL_DestroyTexture(tValorLVL.textura);
+	SDL_DestroyTexture(tValorLVL1.textura);
+	SDL_DestroyTexture(tValorLVL2.textura);
 
 
 	//
