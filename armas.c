@@ -31,7 +31,7 @@ Objeto Cria_Fireball(Objeto* jogador)
 {
 	// Carrega teclas de acao
 	Carrega_Teclas_de_Acao(jogador);
-	Efeito_Sonoro(FIREBALL);
+	Efeito_Sonoro(FIREBALL_FX);
 
 	// Inicializa tiro
 	Objeto fireball;

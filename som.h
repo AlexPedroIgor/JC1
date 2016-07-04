@@ -22,7 +22,7 @@
 #define		TAPA			5
 #define		SOCO			6
 #define		HULK_ESMAGA		7
-#define		FIREBALL		8
+#define		FIREBALL_FX		8
 
 // *********************************************************************
 

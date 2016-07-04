@@ -484,6 +484,7 @@ void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador)
 
 void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo)
 {
+	printf("INIMIGO TOMA DANO\n");
 	switch (tipo)
 	{
 		case 1:
@@ -494,7 +495,6 @@ void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, 
 			status->HP -= 50;
 			break;
 	}
-
 	Inimigo_Animacao_Toma_Dano(renderer, inimigo);
 }
 

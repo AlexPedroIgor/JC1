@@ -233,8 +233,6 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return FALSO;
 	}
-	
-
 }
 
 int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
@@ -441,17 +439,18 @@ void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Ini
 
 		if (inimigos->quantidade > 0)
 		{
-			for (i = 1; i != inimigos->quantidade; i++)
+			for (i = 1; i != projeteis->quantidade; i++)
 			{
 				for (j = 1; j != inimigos->quantidade; j++)
 				{
 					if (Colisao_Circular(&projeteis->tiro[i].inf,
-						&inimigos->inimigo[j].inf));
+								&inimigos->inimigo[j].inf));
 					{
+						printf("COLISAO CIRCULAR FOI VERDADEIRA\n");
 						Inimigo_Toma_Dano(renderer,
-							&inimigos->inimigo[j].inf,
-							&inimigos->inimigo[j].status,
-							projeteis->tiro[i].tipo);
+								&inimigos->inimigo[j].inf,
+								&inimigos->inimigo[j].status,
+								projeteis->tiro[i].tipo);
 					}
 				}
 			}
