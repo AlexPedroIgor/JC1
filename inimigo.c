@@ -231,8 +231,6 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 	
 	//movimento_permitido = VERDADEIRO;
 
-	printf(" IA - movimento : %d\n", movimento_permitido);
-
 
 	// ***************************************************************************
 
@@ -277,7 +275,10 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 		loucura = 50;
 
 	if(distancia < 65)
+	{
+		Tomar_dano(inimigo, jogadores);
 		Inimigo_Ataque(inimigo,jogadores);
+	}
 	else
 		loucura = rand() % 100;
 		
@@ -472,7 +473,6 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 // ATAQUE DE UM INIMIGO
 void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador)
 {
-	printf("birl");
 	Inimigo_Animacao_Ataque(inimigo);
 }
 

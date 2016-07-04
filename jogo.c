@@ -82,6 +82,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	//
 	// PROJETEIS
 	//
+	jogadores->jogador[0].status.morte = 0;
 
 	Projeteis* projeteis = Inicializa_Projeteis();
 
@@ -100,11 +101,14 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	int contador = 1;
 	while (jogoRodando)
 	{		
+		if (jogadores->jogador[0].status.morte == 0)
+		{
 		Manter_status(jogadores);
 			
 		if(jogadores->jogador[0].status.atk_cooldown >= 5)		
 			Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 		Movimentacao_dos_Jogadores(jogadores, inimigos);
+	}
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
 		// ADICIONA INIMIGOS
@@ -139,7 +143,8 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 					Roda_Pause(renderer, event, fase, jogadores, inimigos, projeteis);
 			}
 		}
-
+		
+	
 		// *******************************************************************************************
 
 		//

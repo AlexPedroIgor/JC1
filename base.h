@@ -115,10 +115,10 @@ ARQUEIRO:
 //Status RPG
 typedef struct
 {
-	float HP, MP, HP_Max, MP_Max;
+	int HP, MP, HP_Max, MP_Max, dano;
 	int forca, destreza, inteligencia, constituicao;
-	int ataque, defesa, lvl, dano, exp, next_lvl;
-	int atk_cooldown;
+	int ataque, defesa, lvl, exp, next_lvl;
+	int atk_cooldown, morte;
 	int delay_ataque;
 }Status;
 

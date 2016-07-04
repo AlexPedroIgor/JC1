@@ -34,6 +34,7 @@
 void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
 void Definir_status_iniciais(Jogadores* jogadores);
 void Manter_status(Jogadores* jogadores);
+void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
 
 
 

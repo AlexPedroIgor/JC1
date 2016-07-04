@@ -21,6 +21,7 @@ int carregado = 0;
 void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
 void Definir_status_iniciais(Jogadores* jogadores);
 void Manter_status(Jogadores* jogadores);
+void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
 
 // ****************************************************************************
 
@@ -192,12 +193,15 @@ void Definir_status_iniciais(Jogadores* jogadores)
 }
  void Manter_status(Jogadores* jogadores)
 {
+	
 
 	switch(jogadores->jogador[0].inf.tipo)
 	{
 		case 1:
 		jogadores->jogador[0].status.HP_Max = 500 + jogadores->jogador[0].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
 		jogadores->jogador[0].status.MP_Max = 100 + jogadores->jogador[0].status.inteligencia*5 + jogadores->jogador[0].status.lvl*2;
+		printf("HP MAX : %d \n", jogadores->jogador[0].status.HP_Max);
+		printf("HP : %d \n", jogadores->jogador[0].status.HP);
 		jogadores->jogador[0].status.HP = jogadores->jogador[0].status.HP_Max-jogadores->jogador[0].status.dano;
 		jogadores->jogador[0].status.ataque = 50 + jogadores->jogador[0].status.inteligencia*5;
 		jogadores->jogador[0].status.defesa = jogadores->jogador[0].status.constituicao;
@@ -232,4 +236,18 @@ void Definir_status_iniciais(Jogadores* jogadores)
 	}
 }
 
+void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores)
+{
+
+
+	if(inimigo->inimigo[0].status.ataque < jogadores->jogador[0].status.defesa)
+		jogadores->jogador[0].status.dano += 1; 
+	else
+		jogadores->jogador[0].status.dano += inimigo->inimigo[0].status.ataque -jogadores->jogador[0].status.defesa;
+	if(jogadores->jogador[0].status.dano >= jogadores->jogador[0].status.HP_Max)
+	{
+		printf("MORRI\n");
+			jogadores->jogador[0].status.morte = 1;
+	}
+}
 // FIM
