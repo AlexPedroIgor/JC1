@@ -25,7 +25,7 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int 
 void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
 void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
-void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido);
+void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status, Jogadores* jogadores, int movimento_permitido);
 void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
 void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
 
@@ -116,7 +116,11 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 		Cria_Inimigo(renderer,
 						&inimigos->inimigo[0].inf,
 						tipo);
-		Posiciona_Inimigo(renderer, &inimigos->inimigo[0].inf, portal, fase);
+		Posiciona_Inimigo(renderer,
+							&inimigos->inimigo[0].inf,
+								portal,
+									fase);
+		Define_Status_Inimigo(&inimigos->inimigo[0].status, tipo);
 	}
 	else if (inimigos->quantidade + quantidade < 64)
 	{
@@ -127,7 +131,11 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 			Cria_Inimigo(renderer,
 							&inimigos->inimigo[i].inf,
 							tipo);
-			Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, portal, fase);
+			Posiciona_Inimigo(renderer,
+								&inimigos->inimigo[i].inf,
+									portal,
+										fase);
+			Define_Status_Inimigo(&inimigos->inimigo[i].status, tipo);
 		}
 	}
 	inimigos->quantidade += quantidade;
@@ -234,7 +242,8 @@ void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, 
 //
 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
-void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido)
+void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
+	Jogadores* jogadores, int movimento_permitido)
 {
 	if (Colisao_Perimetro2(inimigo, &jogadores->jogador[0].inf))
 			movimento_permitido = FALSO;
@@ -290,17 +299,20 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 		loucura = rand() % 100;
 
 	if ((quadrante == CIMA || quadrante == BAIXO)
-		&& distancia < 64)
+			&& distancia < 65)
 	{
-		Tomar_dano(inimigo, jogadores);
+		Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
 		Inimigo_Ataque(inimigo,jogadores);
+		//inimigo_status->delay_ataque = 0;
 	}
-	else if (distancia < 64)
+
+	else if (distancia < 55)
 	{
-		Tomar_dano(inimigo, jogadores);
+		Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
 		Inimigo_Ataque(inimigo,jogadores);
+		//inimigo_status->delay_ataque = 0;
 	}
-	
+	//inimigo_status->delay_ataque++;
 		
 
 	switch (loucura)

@@ -31,13 +31,13 @@
 //
 // FUNCOES
 //
+
 void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
 void Definir_status_iniciais(Jogadores* jogadores);
+void Atualiza_Status_Geral(Jogadores* jogadores);
 void Manter_status(Jogadores* jogadores);
-void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
-void Carrega_inimigo_status(Inimigos* inimigo);
-
-
+void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
+void Define_Status_Inimigo(Status* status, int tipo);
 
 // ******************************************************************************
 

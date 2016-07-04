@@ -92,8 +92,6 @@ void Cria_Fireball(Objeto* jogador, Objeto* fireball)
 			fireball->frame.y = 320; // Frame;
 			break;
 	}
-
-	return fireball;
 }
 
 // CARREGA SPRITE

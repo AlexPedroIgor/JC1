@@ -121,24 +121,25 @@ void DATA_Salva_Informacoes_Basicas(FILE* save_game)
 
 	// STATUS BASICOS DO MAGO
 	mago.forca = 5;
-	mago.destreza = 0;
+	mago.destreza = 2;
 	mago.inteligencia = 15;
-	mago.constituicao = 7;
+	mago.constituicao = 9;
 	mago.lvl = 1;
 	mago.dano = 0;
 	mago.HP_Max = 500 + mago.constituicao*10 + mago.lvl*5;
 	mago.HP = mago.HP_Max;
 	mago.MP_Max = 100 + mago.inteligencia*5 + mago.lvl*2;
 	mago.MP = mago.MP_Max;
-	mago.ataque = 50 + mago.inteligencia*5;
-	mago.defesa = mago.constituicao;
+	mago.ataque = 50 + mago.inteligencia*5 + mago.lvl;
+	mago.defesa = 10 + mago.constituicao*2 + mago.lvl;
 	mago.morte = 0;
 	mago.atk_cooldown = 0;
+	mago.delay_ataque = 0;
 
 	// STATUS BASICOS DO ARQUEIRO
 	arqueiro.forca = 12;
 	arqueiro.destreza = 15;
-	arqueiro.inteligencia = 0;
+	arqueiro.inteligencia = 3;
 	arqueiro.constituicao = 10;
 	arqueiro.lvl = 1;
 	arqueiro.exp = 0;
@@ -148,10 +149,11 @@ void DATA_Salva_Informacoes_Basicas(FILE* save_game)
 	arqueiro.HP = arqueiro.HP_Max;
 	arqueiro.MP_Max = 5 + arqueiro.destreza/2;
 	arqueiro.MP = arqueiro.MP_Max;
-	arqueiro.ataque = 50 + arqueiro.destreza*3;
-	arqueiro.defesa = arqueiro.constituicao;
+	arqueiro.ataque = 50 + arqueiro.destreza*3 + arqueiro.lvl;
+	arqueiro.defesa = 10 + arqueiro.constituicao*2 + arqueiro.lvl;
 	arqueiro.morte = 0;
 	arqueiro.atk_cooldown = 0;
+	arqueiro.delay_ataque = 0;
 
 	// ********************************************************************
 

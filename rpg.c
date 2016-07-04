@@ -29,9 +29,10 @@ int carregado = 0;
 
 void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
 void Definir_status_iniciais(Jogadores* jogadores);
+void Atualiza_Status_Geral(Jogadores* jogadores);
 void Manter_status(Jogadores* jogadores);
-void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
-void Carrega_inimigo_status(Inimigos* inimigo);
+void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
+void Define_Status_Inimigo(Status* status, int tipo);
 
 // **********************************************************************************************
 
@@ -190,16 +191,14 @@ void Definir_status_iniciais(Jogadores* jogadores)
 	}
 }
 
- void Manter_status(Jogadores* jogadores)
+void Atualiza_Status_Geral(Jogadores* jogadores)
 {
 	switch(jogadores->jogador[0].inf.tipo)
 	{
 		case MAGO:
 			jogadores->jogador[0].status.HP_Max = 500 + jogadores->jogador[0].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
 			jogadores->jogador[0].status.MP_Max = 100 + jogadores->jogador[0].status.inteligencia*5 + jogadores->jogador[0].status.lvl*2;
-			//printf("HP MAX : %d \n", jogadores->jogador[0].status.HP_Max);
-			//printf("HP : %d \n", jogadores->jogador[0].status.HP);
-			jogadores->jogador[0].status.HP = jogadores->jogador[0].status.HP_Max-jogadores->jogador[0].status.dano;
+			jogadores->jogador[0].status.HP = jogadores->jogador[0].status.HP_Max;
 			jogadores->jogador[0].status.ataque = 50 + jogadores->jogador[0].status.inteligencia*5;
 			jogadores->jogador[0].status.defesa = jogadores->jogador[0].status.constituicao;
 			break;
@@ -207,7 +206,7 @@ void Definir_status_iniciais(Jogadores* jogadores)
 		case ARQUEIRO:
 			jogadores->jogador[0].status.HP_Max = 600 + jogadores->jogador[0].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
 			jogadores->jogador[0].status.MP_Max = 5 + jogadores->jogador[0].status.destreza/2;
-			jogadores->jogador[0].status.HP = jogadores->jogador[0].status.HP_Max-jogadores->jogador[0].status.dano;
+			jogadores->jogador[0].status.HP = jogadores->jogador[0].status.HP_Max;
 			jogadores->jogador[0].status.ataque = 50 + jogadores->jogador[0].status.destreza*3;
 			jogadores->jogador[0].status.defesa = jogadores->jogador[0].status.constituicao;
 			break;		
@@ -220,7 +219,7 @@ void Definir_status_iniciais(Jogadores* jogadores)
 			case MAGO:
 				jogadores->jogador[1].status.HP_Max = 500 + jogadores->jogador[1].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
 				jogadores->jogador[1].status.MP_Max = 100 + jogadores->jogador[1].status.inteligencia*5 + jogadores->jogador[0].status.lvl*2;
-				jogadores->jogador[1].status.HP = jogadores->jogador[1].status.HP_Max-jogadores->jogador[1].status.dano;
+				jogadores->jogador[1].status.HP = jogadores->jogador[1].status.HP_Max;
 				jogadores->jogador[1].status.ataque = 50 + jogadores->jogador[1].status.inteligencia*5;
 				jogadores->jogador[1].status.defesa = jogadores->jogador[1].status.constituicao;
 				break;
@@ -228,7 +227,7 @@ void Definir_status_iniciais(Jogadores* jogadores)
 			case ARQUEIRO:
 				jogadores->jogador[1].status.HP_Max = 600 + jogadores->jogador[1].status.constituicao*10 + jogadores->jogador[0].status.lvl*5;
 				jogadores->jogador[1].status.MP_Max = 5 + jogadores->jogador[1].status.destreza/2;
-				jogadores->jogador[1].status.HP = jogadores->jogador[1].status.HP_Max-jogadores->jogador[1].status.dano;
+				jogadores->jogador[1].status.HP = jogadores->jogador[1].status.HP_Max;
 				jogadores->jogador[1].status.ataque = 50 + jogadores->jogador[1].status.destreza*3;
 				jogadores->jogador[1].status.defesa = jogadores->jogador[1].status.constituicao;
 				break;		
@@ -236,21 +235,29 @@ void Definir_status_iniciais(Jogadores* jogadores)
 	}
 }
 
-void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores)
+void Manter_status(Jogadores* jogadores)
 {
-	Carrega_inimigo_status(inimigo);
+	jogadores->jogador[0].status.HP -= jogadores->jogador[0].status.dano;
+	jogadores->jogador[0].status.dano = 0;
 
-	//printf("%d\n", inimigo->inimigo[0].status.ataque);
+	if (jogadores->quantidade == 2)
+	{
+		jogadores->jogador[0].status.HP -= jogadores->jogador[0].status.dano;
+		jogadores->jogador[0].status.dano = 0;
+	}
+}
 
-	if(inimigo->inimigo[0].status.ataque * 4 < jogadores->jogador[0].status.defesa)
-		jogadores->jogador[0].status.dano = jogadores->jogador[0].status.dano +1 ; 
-	else
-		jogadores->jogador[0].status.dano += (inimigo->inimigo[0].status.ataque *4 -jogadores->jogador[0].status.defesa);
-	if(jogadores->jogador[0].status.dano >= jogadores->jogador[0].status.HP_Max)
+void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo)
+{
+	jogador_proximo--;
+
+	jogadores->jogador[jogador_proximo].status.dano -= (inimigo_status->ataque - jogadores->jogador[jogador_proximo].status.defesa);
+
+	if(jogadores->jogador[jogador_proximo].status.dano >= jogadores->jogador[jogador_proximo].status.HP_Max)
 	{
 		//printf("MORRI\n");
-		jogadores->jogador[0].status.HP = 0;
-		jogadores->jogador[0].status.morte = VERDADEIRO;
+		jogadores->jogador[jogador_proximo].status.HP = 0;
+		jogadores->jogador[jogador_proximo].status.morte = VERDADEIRO;
 	}
 }
 
@@ -261,9 +268,61 @@ void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores)
 //
 
 // CARREGA
-void Carrega_inimigo_status(Inimigos* inimigo)
+void Define_Status_Inimigo(Status* status, int tipo)
 {
-	inimigo->inimigo[0].status.ataque = 3;
+	switch (tipo)
+	{
+		case 1:
+			status->lvl = 1;
+			status->forca = 2;
+			status->destreza = 7;
+			status->inteligencia = 3;
+			status->constituicao = 5;
+			status->ataque = 1 + status->forca*2;
+			status->defesa = status->constituicao;
+			status->HP_Max = 200 + status->constituicao*9 + status->lvl*3;
+			status->MP_Max = 50 + status->inteligencia*4 + status->lvl*2;
+			status->HP = status->HP_Max;
+			status->MP = status->MP_Max;
+			status->morte = FALSO;
+			status->atk_cooldown = 0;
+			status->delay_ataque = 1;
+			break;
+
+		case 2:
+			status->lvl = 1;
+			status->forca = 10;
+			status->destreza = 7;
+			status->inteligencia = 3;
+			status->constituicao = 5;
+			status->ataque = 3 + status->forca*2;
+			status->defesa = status->constituicao;
+			status->HP_Max = 200 + status->constituicao*9 + status->lvl*3;
+			status->MP_Max = 50 + status->inteligencia*4 + status->lvl*2;
+			status->HP = status->HP_Max;
+			status->MP = status->MP_Max;
+			status->morte = FALSO;
+			status->atk_cooldown = 0;
+			status->delay_ataque = 1;
+			break;
+
+		case 3:
+			status->lvl = 1;
+			status->forca = 10;
+			status->destreza = 7;
+			status->inteligencia = 3;
+			status->constituicao = 5;
+			status->ataque = 3 + status->forca*2;
+			status->defesa = status->constituicao;
+			status->HP_Max = 200 + status->constituicao*9 + status->lvl*3;
+			status->MP_Max = 50 + status->inteligencia*4 + status->lvl*2;
+			status->HP = status->HP_Max;
+			status->MP = status->MP_Max;
+			status->morte = FALSO;
+			status->atk_cooldown = 0;
+			status->delay_ataque = 1;
+			break;
+	}
 }
 
 // FIM

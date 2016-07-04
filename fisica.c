@@ -687,7 +687,10 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 				movimento_permitido[0] = VERDADEIRO;
 			}
 			//printf("movimento = %d", movimento_permitido[1]);
-			IA_de_Movimentacao(&inimigos->inimigo[i].inf, jogadores, movimento_permitido[i]);
+			IA_de_Movimentacao(&inimigos->inimigo[i].inf,
+								&inimigos->inimigo[i].status,
+									jogadores,
+										movimento_permitido[i]);
 		}
 	}
 }

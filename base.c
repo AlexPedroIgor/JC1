@@ -11,6 +11,7 @@
 #include "base.h"
 #include "animacao.h"
 #include "armas.h"
+#include "rpg.h"
 
 // ***********************************************************************************
 
