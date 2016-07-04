@@ -128,11 +128,13 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 				{
 				  printf("\n\n\nFrame atual = %d\n\n\n", jogadores->jogador[0].inf.frame.x); 
 				  jogadores->jogador[0].inf.frame.x += 64;
-				}
+				} else
+				  jogadores->jogador[0].status.morte =2;
+				
 			if (jogadores->jogador[0].status.morte == 2)
 			{		
-			jogoRodando = Game_Over(renderer);
-			mainRodando = jogoRodando;
+			mainRodando = Game_Over(renderer);
+			jogoRodando = mainRodando;
 			}
 
 			
