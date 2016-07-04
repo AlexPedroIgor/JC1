@@ -17,7 +17,7 @@
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo);
+Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo, int numero);
 void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
 void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
@@ -33,10 +33,12 @@ void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, 
 //
 
 // Funcao para carregar inimigo
-Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo)
+Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo, int numero)
 {
 	// Estrutura com informacoes do inimigo
 	Objeto inimigo;
+
+	inimigo.numero = numero;
 
 	// Posicao de colisoes
 	inimigo.colisao.cima = FALSO;
@@ -109,17 +111,23 @@ void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos,
 {
 	int i;
 
-	printf("QUANTIDADE %d\n", inimigos->quantidade);
-
-	if (inimigos->quantidade + quantidade < 64)
+	if (inimigos->quantidade == 0)
+	{
+		inimigos->inimigo[0].tipo = tipo;
+		inimigos->inimigo[0].vivo = VERDADEIRO;
+		inimigos->inimigo[0].inf = Cria_Inimigo(renderer, tipo, 1);
+		Posiciona_Inimigo(renderer, &inimigos->inimigo[0].inf, portal, fase);
+	}
+	else if (inimigos->quantidade + quantidade < 64)
+	{
 		for (i = inimigos->quantidade; i != inimigos->quantidade + quantidade; i++)
 		{
 			inimigos->inimigo[i].tipo = tipo;
 			inimigos->inimigo[i].vivo = VERDADEIRO;
-			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo);
+			inimigos->inimigo[i].inf = Cria_Inimigo(renderer, tipo, i+1);
 			Posiciona_Inimigo(renderer, &inimigos->inimigo[i].inf, portal, fase);
 		}
-	
+	}
 	inimigos->quantidade += quantidade;
 }
 
@@ -187,7 +195,7 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase
 		case BAIXO:
 			fase->portal.cima.inimigos--;
 			inimigo->posicao.x = SCREEN_WIDTH/2 - 30;
-			inimigo->posicao.y = 480;
+			inimigo->posicao.y = 470;
 			break;
 
 		case ESQUERDA:
@@ -198,7 +206,7 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase
 
 		case DIREITA:
 			fase->portal.cima.inimigos--;
-			inimigo->posicao.x = 690;
+			inimigo->posicao.x = 680;
 			inimigo->posicao.y = SCREEN_HEIGHT/2-30;
 			break;
 	}
@@ -224,7 +232,6 @@ void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos, int portal, 
 // Funcao para determinar qual vai ser a movimentacao do inimigo
 void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_permitido)
 {
-
 	if (Colisao_Perimetro2(inimigo, &jogadores->jogador[0].inf))
 			movimento_permitido = FALSO;
 
@@ -273,10 +280,10 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 
 	int loucura;
 	
-	if(distancia < 300)
+	if(distancia > 300)
 		loucura = 50;
 
-	if(distancia < 65)
+	if(distancia < 50)
 	{
 		Tomar_dano(inimigo, jogadores);
 		Inimigo_Ataque(inimigo,jogadores);
@@ -465,7 +472,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Jogadores* jogadores, int movimento_per
 	//
 	// Execucao de movimentacao
 	//
-
+	
 	Inimigo_Movimentar(inimigo, movimento_permitido);
 
 	// *************************************************************************************

@@ -7,6 +7,7 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
+// BIBLIOTECAS INTERNAS
 #include "jogo.h"
 #include "animacao.h"
 #include "menu.h"
@@ -15,6 +16,8 @@
 #include "armas.h"
 #include "rpg.h"
 #include "inimigo.h"
+
+// *********************************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -27,7 +30,14 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 // ***************************************************************************************************
 
+//
+// VARIAVEIS GLOBAIS
+//
+
 int jogoRodando;
+int jogadoresMortos = FALSO;
+
+// ***************************************************************************************************
 
 //
 // JOGO
@@ -82,7 +92,6 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	//
 	// PROJETEIS
 	//
-	jogadores->jogador[0].status.morte = 0;
 
 	Projeteis* projeteis = Inicializa_Projeteis();
 
@@ -93,15 +102,16 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// LOOP DO JOGO | inicio
 	// **************
 	//
-	//jogadores->jogador[0].status.atk_cooldown = 0;
 	
 	//auto-explicativo
 	Definir_status_iniciais(jogadores);
 
 	int contador = 1;
 	while (jogoRodando)
-	{		
-		if (jogadores->jogador[0].status.morte == 0)
+	{
+		//Teste_de_Colisao(inimigos, jogadores);
+
+		if (!jogadores->jogador[0].status.morte)
 		{
 			Manter_status(jogadores);
 				

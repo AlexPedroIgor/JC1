@@ -133,6 +133,7 @@ void DATA_Salva_Informacoes_Basicas(FILE* save_game)
 	mago.ataque = 50 + mago.inteligencia*5;
 	mago.defesa = mago.constituicao;
 	mago.morte = 0;
+	mago.atk_cooldown = 0;
 
 	// STATUS BASICOS DO ARQUEIRO
 	arqueiro.forca = 12;
@@ -150,6 +151,7 @@ void DATA_Salva_Informacoes_Basicas(FILE* save_game)
 	arqueiro.ataque = 50 + arqueiro.destreza*3;
 	arqueiro.defesa = arqueiro.constituicao;
 	arqueiro.morte = 0;
+	arqueiro.atk_cooldown = 0;
 
 	// ********************************************************************
 

@@ -22,7 +22,7 @@
 // FUNCOES
 //
 
-Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo);
+Objeto Cria_Inimigo(SDL_Renderer* renderer, int tipo, int numero);
 void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
 void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);

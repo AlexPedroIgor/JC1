@@ -380,7 +380,7 @@ int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 
 	// Superior
 	if ( (objeto1->posicao.y >= objeto2->posicao.y )
-		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h
+		&& objeto1->posicao.y <= objeto2->posicao.y + objeto2->frame.h -7
 		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
 		&& objeto1->posicao.x <= objeto2->posicao.x + 30
 		&& objeto1->movimento.cima)
@@ -388,14 +388,14 @@ int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 
 	// Inferior
 	else if ( (objeto1->posicao.y <= objeto2->posicao.y)
-		&& objeto1->posicao.y   + objeto1->frame.h >= objeto2->posicao.y
+		&& objeto1->posicao.y   + objeto1->frame.h >= objeto2->posicao.y +7
 		&& objeto1->posicao.x + 30 >= objeto2->posicao.x
 		&& objeto1->posicao.x <= objeto2->posicao.x + 30
 		&& objeto1->movimento.baixo)
 		return VERDADEIRO;
 
 	// Lateral esquerda
-	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 35)
+	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 37)
 		&& objeto1->posicao.x >= objeto2->posicao.x 
 		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
 		&& objeto1->posicao.y <= objeto2->posicao.y + 35
@@ -403,7 +403,7 @@ int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 		return VERDADEIRO;
 
 	// Lateral direita
-	else if ( (objeto1->posicao.x + 35 >= objeto2->posicao.x )
+	else if ( (objeto1->posicao.x + 37 >= objeto2->posicao.x )
 		&& objeto1->posicao.x <= objeto2->posicao.x
 		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
 		&& objeto1->posicao.y <= objeto2->posicao.y + 35
@@ -428,50 +428,50 @@ int Colisao_LimiteDeTela(Objeto* objeto)
 	// Superior
 	if (objeto->movimento.cima && y1 <= 40)
 	{
-		objeto->colisao.cima = VERDADEIRO;
+		/*objeto->colisao.cima = VERDADEIRO;
 		objeto->colisao.baixo = FALSO;
 		objeto->colisao.esquerda = FALSO;
-		objeto->colisao.direita = FALSO;
+		objeto->colisao.direita = FALSO;*/
 		return VERDADEIRO;
 	}
 
 	// Inferior
 	else if (objeto->movimento.baixo && y2 >= 545)
 	{
-		objeto->colisao.cima = FALSO;
+		/*objeto->colisao.cima = FALSO;
 		objeto->colisao.baixo = VERDADEIRO;
 		objeto->colisao.esquerda = FALSO;
-		objeto->colisao.direita = FALSO;
+		objeto->colisao.direita = FALSO;*/
 		return VERDADEIRO;
 	}
 
 	// Lateral esquerda
 	else if (objeto->movimento.esquerda && x1 <= 50)
 	{
-		objeto->colisao.cima = FALSO;
+		/*objeto->colisao.cima = FALSO;
 		objeto->colisao.baixo = FALSO;
 		objeto->colisao.esquerda = VERDADEIRO;
-		objeto->colisao.direita = FALSO;
+		objeto->colisao.direita = FALSO;*/
 		return VERDADEIRO;
 	}
 
 	// Lateral direita
 	else if (objeto->movimento.direita && x2 >= 741)
 	{
-		objeto->colisao.cima = FALSO;
+		/*objeto->colisao.cima = FALSO;
 		objeto->colisao.baixo = FALSO;
 		objeto->colisao.esquerda = FALSO;
-		objeto->colisao.direita = VERDADEIRO;
+		objeto->colisao.direita = VERDADEIRO;*/
 		return VERDADEIRO;
 	}
 
 	// Sem colisao
 	else
 	{
-		objeto->colisao.cima = FALSO;
+		/*objeto->colisao.cima = FALSO;
 		objeto->colisao.baixo = FALSO;
 		objeto->colisao.esquerda = FALSO;
-		objeto->colisao.direita = FALSO;
+		objeto->colisao.direita = FALSO;*/
 		return FALSO;
 	}
 }
@@ -513,40 +513,27 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 {
 	int i, j;
 
-
-	// COLISAO ENTRE JOGADORES E INIMIGOS
-	for (i = 1; i != jogadores->quantidade; i++)
-	{
-		if (inimigos->quantidade > 0)
-		{
-			for (i = 1; i != inimigos->quantidade; i++)
-			{
-				Colisao_Perimetro(&jogadores->jogador[i].inf,
-					&inimigos->inimigo[i].inf);
-				Colisao_LimiteDeTela(&jogadores->jogador[i].inf);
-			}
-		}
-	}
-
 	// COLISAO ENTRE INIMIGOS E JOGADORES
 	if (inimigos->quantidade > 0)
 	{
-		for (i = 1; i != inimigos->quantidade; i++)
+		for (i = 0; i != inimigos->quantidade; i++)
 		{
 			// ENTRE OS JOGADORES
-			for (j = 1; j != jogadores->quantidade; j++)
+			for (j = 0; j != jogadores->quantidade; j++)
 			{
-				Colisao_Perimetro(&inimigos->inimigo[i].inf,
-					&jogadores->jogador[j].inf);
+				if (Colisao_Perimetro(&inimigos->inimigo[i].inf,
+										&jogadores->jogador[j].inf))
+											break;
 			}
 
 			// ENTRE OS INIMIGOS
-			for (j = 1; j != inimigos->quantidade; j++)
+			for (j = 0; j != inimigos->quantidade; j++)
 			{
 				if (i != j)
 				{
-					Colisao_Perimetro(&inimigos->inimigo[i].inf,
-						&inimigos->inimigo[j].inf);
+					if (Colisao_Perimetro(&inimigos->inimigo[i].inf,
+											&inimigos->inimigo[j].inf))
+												break;
 				}
 			}
 		}

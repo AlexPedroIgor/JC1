@@ -111,7 +111,7 @@ Inimigos* Inicializa_Inimigos()
 
 	int i;
 
-	for (i = 0; i != 64; i++) // Loop para jogadores
+	for (i = 0; i != 64; i++) // Loop para inimigos
 	{
 		inimigos->inimigo[i].inf.numero = i + 1;
 		
