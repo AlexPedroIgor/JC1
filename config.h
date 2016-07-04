@@ -84,7 +84,7 @@ void Carrega_Teclas_de_Acao(Objeto* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
 FILE* DATA_Carrega_Save_Game();
-void DATA_Salva_Informacoes_Basicas();
+void DATA_Salva_Informacoes_Basicas(FILE* save_game);
 void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking);
 
 // *****************************************************************************************
