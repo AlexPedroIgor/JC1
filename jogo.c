@@ -7,7 +7,6 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
-// BIBLIOTECAS INTERNAS
 #include "jogo.h"
 #include "animacao.h"
 #include "menu.h"
@@ -16,8 +15,6 @@
 #include "armas.h"
 #include "rpg.h"
 #include "inimigo.h"
-
-// *********************************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -30,14 +27,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 // ***************************************************************************************************
 
-//
-// VARIAVEIS GLOBAIS
-//
-
 int jogoRodando;
-int jogadoresMortos = FALSO;
-
-// ***************************************************************************************************
 
 //
 // JOGO
@@ -47,6 +37,7 @@ int jogadoresMortos = FALSO;
 void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 	jogoRodando = VERDADEIRO; // Variavel para manter loop do jogo
+	
 
 	// *********************************************************************************************
 
@@ -92,6 +83,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	//
 	// PROJETEIS
 	//
+	jogadores->jogador[0].status.morte = 0;
 
 	Projeteis* projeteis = Inicializa_Projeteis();
 
@@ -102,16 +94,15 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// LOOP DO JOGO | inicio
 	// **************
 	//
+	//jogadores->jogador[0].status.atk_cooldown = 0;
 	
 	//auto-explicativo
 	Definir_status_iniciais(jogadores);
 
 	int contador = 1;
 	while (jogoRodando)
-	{
-		//Teste_de_Colisao(inimigos, jogadores);
-
-		if (!jogadores->jogador[0].status.morte)
+	{		
+		if (jogadores->jogador[0].status.morte == 0)
 		{
 			Manter_status(jogadores);
 				
@@ -119,7 +110,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 				Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 
 			Movimentacao_dos_Jogadores(jogadores, inimigos);
-		}
+		} else Game_Over(renderer, event, fase, jogadores, inimigos, projeteis)
 
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
