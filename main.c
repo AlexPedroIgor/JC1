@@ -84,6 +84,8 @@ int main (int argc, char **argv)
 	// **********************
 	//
 
+	Save_Game = DATA_Carrega_Save_Game();
+
 	// Carrega jogadores
 	Jogadores* jogadores = Inicializa_Jogadores();
 
@@ -117,6 +119,8 @@ int main (int argc, char **argv)
 	// Finaliza o jogo | inicio
 	// *****************
 	//
+
+	fclose(Save_Game);
 
 	Finaliza_Jogadores(jogadores); // Libera jogadores da memoria
 	TTF_CloseFont(Fonte1); // Fecha a fonte 1

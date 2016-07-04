@@ -18,8 +18,8 @@ void Carrega_Teclas_de_Acao(Objeto* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
 FILE* DATA_Carrega_Save_Game();
-void DATA_Salva_Informacoes_Basicas(FILE* save_game);
-void DATA_Carrega_Informacoes(FILE* save_game, Status* mago, Status* arqueiro, Ranking* ranking);
+void DATA_Salva_Informacoes_Basicas();
+void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking);
 
 
 // ***************************************************************************************************
@@ -105,7 +105,7 @@ FILE* DATA_Carrega_Save_Game()
 		else
 		{
 			printf("Arquivo criado com sucesso\n");
-			DATA_Salva_Informacoes_Basicas(save_game);
+			DATA_Salva_Informacoes_Basicas();
 		}
 		
 	}
@@ -115,7 +115,7 @@ FILE* DATA_Carrega_Save_Game()
 }
 
 // SALVA INFORMACOES BASICAS DO SAVE GAME
-void DATA_Salva_Informacoes_Basicas(FILE* save_game)
+void DATA_Salva_Informacoes_Basicas()
 {
 	Status mago, arqueiro;
 
@@ -180,25 +180,25 @@ void DATA_Salva_Informacoes_Basicas(FILE* save_game)
 	*/
 
 	// GRAVANDO INFORMACOES NO ARQUIVO
-	rewind(save_game);
+	rewind(Save_Game);
 
-	fwrite(&mago, sizeof(Status), 1, save_game);
-	fwrite(&arqueiro, sizeof(Status), 1, save_game);
-	fwrite(&ranking, sizeof(Ranking), 1, save_game);
-	//fwrite(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, save_game);
-	//fwrite(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, save_game);
+	fwrite(&mago, sizeof(Status), 1, Save_Game);
+	fwrite(&arqueiro, sizeof(Status), 1, Save_Game);
+	fwrite(&ranking, sizeof(Ranking), 1, Save_Game);
+	//fwrite(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, Save_Game);
+	//fwrite(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, Save_Game);
 }
 
 // CARREGA DADOS DO SAVE GAME
-void DATA_Carrega_Informacoes(FILE* save_game, Status* mago, Status* arqueiro, Ranking* ranking)
+void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking)
 {
-	rewind(save_game);
+	rewind(Save_Game);
 
-	fread(mago, sizeof(Status), 1, save_game);
-	fread(arqueiro, sizeof(Status), 1, save_game);
-	fread(ranking, sizeof(Ranking), 1, save_game);
-	//fread(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, save_game);
-	//fread(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, save_game);
+	fread(mago, sizeof(Status), 1, Save_Game);
+	fread(arqueiro, sizeof(Status), 1, Save_Game);
+	fread(ranking, sizeof(Ranking), 1, Save_Game);
+	//fread(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, Save_Game);
+	//fread(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, Save_Game);
 }
 
 // ***************************************************************************************************
