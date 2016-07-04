@@ -687,35 +687,18 @@ void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores)
 // JOGADORES
 void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores)
 {
-	//int i;
+	SDL_RenderCopy(renderer,
+						jogadores->jogador[0].inf.sprite,
+						&jogadores->jogador[0].inf.frame,
+						&jogadores->jogador[0].inf.posicao);
 
-	if (jogadores->quantidade == 1)
+	if (jogadores->quantidade == 2)
 	{
 		SDL_RenderCopy(renderer,
-			jogadores->jogador[0].inf.sprite,
-			&jogadores->jogador[0].inf.frame,
-			&jogadores->jogador[0].inf.posicao);
+						jogadores->jogador[1].inf.sprite,
+						&jogadores->jogador[1].inf.frame,
+						&jogadores->jogador[1].inf.posicao);
 	}
-	else if (jogadores->quantidade == 2)
-	{
-		SDL_RenderCopy(renderer,
-			jogadores->jogador[0].inf.sprite,
-			&jogadores->jogador[0].inf.frame,
-			&jogadores->jogador[0].inf.posicao);
-
-		SDL_RenderCopy(renderer,
-			jogadores->jogador[1].inf.sprite,
-			&jogadores->jogador[1].inf.frame,
-			&jogadores->jogador[1].inf.posicao);
-	}
-	/*
-	for (i = 0; i != jogadores->quantidade; i++)
-	{
-		SDL_RenderCopy(renderer,
-			jogadores->jogador[i].inf.sprite,
-			&jogadores->jogador[i].inf.frame,
-			&jogadores->jogador[i].inf.posicao);
-	}*/
 }
 
 // INIMIGOS
@@ -743,13 +726,8 @@ void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
 {
 	int i;
 
-
 	if (projeteis->quantidade > 0)
 	{
-		
-
-		//Anima_Tiro(renderer, &projeteis->tiro[i].inf);
-
 		for (i = 0; i < projeteis->quantidade; i++)
 		{
 			
@@ -762,16 +740,7 @@ void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
 
 			if (i == 64)
 				break;
-
-			//vetor_de_tiros->tiro[i].animacao++;
-
-			//printf("Animcacao: \n", vetor_de_tiros->tiro[i].animacao);
-
-			//if (vetor_de_tiros->tiro[i].animacao > 8)
-			//	vetor_de_tiros->tiro[i].animacao = 1;
 		}
-
-		
 	}
 }
 
