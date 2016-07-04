@@ -19,6 +19,7 @@
 Objeto Cria_Fireball(Objeto* jogador);
 void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador);
 void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador);
+void Apaga_Fireball(SDL_Renderer* renderer, Objeto* fireball);
 
 // **************************************************************************************************************
 
@@ -291,6 +292,13 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 			tiro->posicao.y += 15;
 			break;
 	}
+}
+
+void Apaga_Fireball(SDL_Renderer* renderer, Objeto* fireball)
+{
+	fireball->posicao.x = 1000;
+	fireball->posicao.y = 1000;
+	SDL_DestroyTexture(fireball->sprite);
 }
 
 // ***************************************************************************************************************

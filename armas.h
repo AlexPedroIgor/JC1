@@ -22,6 +22,7 @@ Objeto Cria_Fireball(Objeto* jogador);
 void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador);
 void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador);
 void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro);
+void Apaga_Fireball(SDL_Renderer* renderer, Objeto* fireball);
 
 // *********************************************************************
 

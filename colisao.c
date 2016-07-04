@@ -571,7 +571,7 @@ void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Ini
 		|| projeteis->tiro[projeteis->quantidade-1].inf.posicao.y > 600
 		|| projeteis->tiro[projeteis->quantidade-1].inf.posicao.y < 0)
 	{
-		projeteis->quantidade = 0;
+		projeteis->quantidade = 0; // TIRA PROJETEIS FORA DE TELA
 	}
 
 	if (projeteis->quantidade > 0)
