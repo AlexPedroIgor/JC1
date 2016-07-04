@@ -16,6 +16,7 @@
 
 void Carrega_Teclas_de_Acao(Objeto* jogador);
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
+void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
 
 // ***************************************************************************************************
 
@@ -72,6 +73,12 @@ SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SD
 	SDL_FreeSurface (Loadind_Surf);
 
 	return texto_em_tela;
+}
+
+//ESCREVE NOME DO JOGADOR EM TELA NA SELECAO DE PERSONAGENS
+void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event)
+{
+
 }
 
 // ***************************************************************************************************

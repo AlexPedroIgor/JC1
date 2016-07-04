@@ -1037,6 +1037,18 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	SDL_Rect selecao1, selecao2; // Declarando rect
 
+	// AMARELO
+	
+	SDL_Texture* gSelecao_a = NULL; // Variavel que carrega a opcao do menu de opcoes
+
+	
+	Loading_Surf = IMG_Load("arte/menu/Selecao-amarelo.png"); // Carregando plano de fundo na memoria
+
+	gSelecao_a = SDL_CreateTextureFromSurface(renderer,
+		Loading_Surf); // Carregando imagem na tela
+
+	SDL_FreeSurface(Loading_Surf); // Limpando memoria
+
 	selecao1.x = 55;
 	selecao1.y = 75;
 	selecao1.w = 300;
@@ -1403,6 +1415,14 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	// *******
 	//
 
+	SDL_Texture* nome_escrito;
+	SDL_Rect posicao_do_nome;
+
+	posicao_do_nome.x = 50;
+	posicao_do_nome.y = 500;
+	posicao_do_nome.w = 500;
+	posicao_do_nome.h = 20;
+
 	// *********************************************************************
 
 	//
@@ -1412,11 +1432,11 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	//
 
 	// Variavel para uso do som nas selecoes
-	int SELECIONADO;
+	int SELECIONADO, SELECAO2;
 
-	#define BOTAO_MAGE				1
-	#define BOTAO_ARCHER			2
-	#define PERSONAGE_ESCOLHIDO		3
+	#define BOTAO_MAGE					1
+	#define BOTAO_ARCHER				2
+	#define PERSONAGEM_ESCOLHIDO		3
 
 	SELECIONADO = BOTAO_MAGE;
 
@@ -1424,6 +1444,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 	while(selecaoSPRodando)
 	{
+		// ***************************************************************************
 
 		// Salva posicao do mouse
 		struct POSICAO_DO_MOUSE
@@ -1433,7 +1454,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 
 		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
 
-		printf("X: %d\nY: %d\n", posicao_do_mouse.x, posicao_do_mouse.y);
+		//printf("X: %d\nY: %d\n", posicao_do_mouse.x, posicao_do_mouse.y);
 
 		// ************************************************************
 
@@ -1443,6 +1464,15 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		// Renderiza plano de fundo
 		SDL_RenderCopy(renderer, gFundo, NULL, NULL);
 
+		// ********************************************************************************
+
+		//
+		// JOGADOR ESCREVE O NOME
+		//
+
+		if (SELECIONADO == PERSONAGEM_ESCOLHIDO)
+			Texto_em_Tela_Nome_do_Personagem(renderer, event);
+
 		// **********************************************************************************
 
 		//
@@ -1450,28 +1480,35 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		//
 
 		// MAGE - animacao
-		if ((posicao_do_mouse.x > 65
-			&& posicao_do_mouse.x < 350
-			&& posicao_do_mouse.y > 85
-			&& posicao_do_mouse.y < 420)
-			|| SELECIONADO == BOTAO_MAGE)
+		if (((posicao_do_mouse.x > 65
+					&& posicao_do_mouse.x < 350
+					&& posicao_do_mouse.y > 85
+					&& posicao_do_mouse.y < 420)
+					|| SELECIONADO == BOTAO_MAGE)
+						&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 		{
 			SDL_RenderCopy(renderer, gSelecao_v, NULL, &selecao1);
 			
 			// Animacao de som
 			if (SELECIONADO != BOTAO_MAGE)
 				Efeito_Sonoro(CLICK);
-			SELECIONADO = BOTAO_MAGE;
+					SELECIONADO = BOTAO_MAGE;
 		}
 		else
-			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao1);
+		{
+			if (SELECIONADO == PERSONAGEM_ESCOLHIDO && SELECAO2 == BOTAO_MAGE)
+				SDL_RenderCopy(renderer, gSelecao_a, NULL, &selecao1);
+			else
+				SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao1);
+		}
 
 		// ARCHER - animacao
-		if ((posicao_do_mouse.x > 460
-			&& posicao_do_mouse.x < 745
-			&& posicao_do_mouse.y > 85
-			&& posicao_do_mouse.y < 420)
-			|| SELECIONADO == BOTAO_ARCHER)
+		if (((posicao_do_mouse.x > 460
+					&& posicao_do_mouse.x < 745
+					&& posicao_do_mouse.y > 85
+					&& posicao_do_mouse.y < 420)
+					|| SELECIONADO == BOTAO_ARCHER)
+						&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 		{
 			SDL_RenderCopy(renderer, gSelecao_v, NULL, &selecao2);
 
@@ -1481,7 +1518,12 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 			SELECIONADO = BOTAO_ARCHER;
 		}
 		else
-			SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao2);
+		{
+			if (SELECIONADO == PERSONAGEM_ESCOLHIDO && SELECAO2 == BOTAO_ARCHER)
+				SDL_RenderCopy(renderer, gSelecao_a, NULL, &selecao2);
+			else
+				SDL_RenderCopy(renderer, gSelecao_p, NULL, &selecao2);
+		}
 
 		// ********************************************************************************
 
@@ -1540,19 +1582,34 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 				mainRodando = FALSO;
 			}
 
+			// ************************************************************
+
+			
+
+			// ********************************************************
+
 			//
-			// Eventos de tecla pressionada
+			// TECLA PRESSIONADA
 			//
 			if (event.type == SDL_KEYDOWN)
 			{
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
-						Efeito_Sonoro(VOLTAR);
-						SDL_Delay(400); // Delay de 0.4 segundos
-						modoDeMenu = QND_DE_JOGADORES;
-						selecaoSPRodando = FALSO;
-						Toca_Musica(MUSICA_INICIAL);
+						if (SELECIONADO == PERSONAGEM_ESCOLHIDO)
+						{
+							Efeito_Sonoro(VOLTAR);
+							SELECAO2 = FALSO;
+							SELECIONADO = BOTAO_MAGE;
+						}
+						else
+						{
+							Efeito_Sonoro(VOLTAR);
+							SDL_Delay(400); // Delay de 0.4 segundos
+							modoDeMenu = QND_DE_JOGADORES;
+							selecaoSPRodando = FALSO;
+							Toca_Musica(MUSICA_INICIAL);
+						}
 						break;
 
 					case SDLK_LEFT:
@@ -1587,23 +1644,38 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 							case BOTAO_MAGE:
 								Efeito_Sonoro(SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
+								SELECIONADO = PERSONAGEM_ESCOLHIDO;
+								SELECAO2 = BOTAO_MAGE;
 								jogadores->jogador[0].classe = MAGO;
-								menuRodando = FALSO;
-								selecaoSPRodando = FALSO;
-								estadoDeJogo = JOGO;
+								//menuRodando = FALSO;
+								//selecaoSPRodando = FALSO;
+								//estadoDeJogo = JOGO;
 								break;
 
 							case BOTAO_ARCHER:
 								Efeito_Sonoro(SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
+								SELECIONADO = PERSONAGEM_ESCOLHIDO;
+								SELECAO2 = BOTAO_ARCHER;
+								jogadores->jogador[0].classe = ARQUEIRO;
 								break;
+
+							case PERSONAGEM_ESCOLHIDO:
+								Efeito_Sonoro(SELECT);
+								SDL_Delay(400); // Delay de 0.4 segundos
+								menuRodando = FALSO;
+								selecaoSPRodando = FALSO;
+								estadoDeJogo = JOGO;
+
 						}
 						break;
 				}
 			}
 
+			// ********************************************************
+
 			//
-			// Eventos de clique do mouse
+			// CLIQUE DO MOUSE
 			//
 
 			if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -1614,29 +1686,37 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 				//
 
 				// MAGE
-				if (posicao_do_mouse.x > 65
-					&& posicao_do_mouse.x < 350
-					&& posicao_do_mouse.y > 85
-					&& posicao_do_mouse.y < 420)
+				if ((posicao_do_mouse.x > 65
+						&& posicao_do_mouse.x < 350
+						&& posicao_do_mouse.y > 85
+						&& posicao_do_mouse.y < 420)
+							&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 				{
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
+					SELECIONADO = PERSONAGEM_ESCOLHIDO;
+					SELECAO2 = BOTAO_MAGE;
 					jogadores->jogador[0].classe = MAGO;
-					menuRodando = FALSO;
-					selecaoSPRodando = FALSO;
-					estadoDeJogo = JOGO;
+					//menuRodando = FALSO;
+					//selecaoSPRodando = FALSO;
+					//estadoDeJogo = JOGO;
 				}
 
 				// ARCHER
-				if (posicao_do_mouse.x > 460
-					&& posicao_do_mouse.x < 745
-					&& posicao_do_mouse.y > 85
-					&& posicao_do_mouse.y < 420)
+				if ((posicao_do_mouse.x > 460
+						&& posicao_do_mouse.x < 745
+						&& posicao_do_mouse.y > 85
+						&& posicao_do_mouse.y < 420)
+							&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 				{
+					SELECIONADO = PERSONAGEM_ESCOLHIDO;
+					SELECAO2 = BOTAO_ARCHER;
+					jogadores->jogador[0].classe = ARQUEIRO;
 					Efeito_Sonoro(SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 			}
+			// ********************************************************
 		}
 		
 		// Atualiza tela
@@ -1654,6 +1734,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 	SDL_DestroyTexture(gSelecao_v);
 	SDL_DestroyTexture(gSelecao_b);
 	SDL_DestroyTexture(gSelecao_p);
+	SDL_DestroyTexture(gSelecao_a);
 	SDL_DestroyTexture(tClasse.textura);
 	SDL_DestroyTexture(tMage.textura);
 	SDL_DestroyTexture(tArcher.textura);

@@ -1,4 +1,10 @@
 menu.c: In function ‘Roda_SelecaoDePersonagem_Singleplayer’:
-menu.c:1067:6: warning: variable ‘grava_texto’ set but not used [-Wunused-but-set-variable]
+menu.c:1419:11: warning: variable ‘posicao_do_nome’ set but not used [-Wunused-but-set-variable]
+  SDL_Rect posicao_do_nome;
+           ^
+menu.c:1418:15: warning: unused variable ‘nome_escrito’ [-Wunused-variable]
+  SDL_Texture* nome_escrito;
+               ^
+menu.c:1079:6: warning: variable ‘grava_texto’ set but not used [-Wunused-but-set-variable]
   int grava_texto; // auxiliar para escrita de texto
       ^
