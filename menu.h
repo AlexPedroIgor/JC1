@@ -1,19 +1,48 @@
 // Copyright © 2016 Alex, Pedro e Igor
 // Licensed under the MIT/Expat license.
 
-#ifndef MENU_PRINCIPAL_H
-#define MENU_PRINCIPAL_H
+#ifndef MENU_H
+#define MENU_H
 
-#include "main.h"
+// BIBLIOTECAS DO SDL
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 
-// Funcoes do menu principal
-void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+// BIBLIOTECAS INTERNAS
+#include "config.h"
+#include "base.h"
+#include "som.h"
+
+// **********************************************************************************************
+
+//
+// CONSTANTES
+//
+
+// MENUS
+#define TELA_INICIAL					1
+#define OPCOES							2
+#define QND_DE_JOGADORES				3
+#define SELECAO_DE_PERSONAGEM1			4
+#define SELECAO_DE_PERSONAGEM2			5
+
+// **********************************************************************************************
+
+//
+// FUNCOES
+//
+
+void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event);
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
+void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+
+// ***********************************************************************************************
 
 #endif
 
-// fim
+// FIM

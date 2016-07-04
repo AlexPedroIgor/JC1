@@ -1,25 +1,26 @@
-inimigo.c: In function ‘Remove_Inimigos_Mortos’:
-inimigo.c:148:11: warning: unused variable ‘auxiliar’ [-Wunused-variable]
-   Inimigo auxiliar;
-           ^
 inimigo.c: In function ‘IA_de_Movimentacao’:
-inimigo.c:459:12: warning: assignment makes integer from pointer without a cast [enabled by default]
-  distancia = &vetor_distancia_quadrante[0];
-            ^
-inimigo.c:460:12: warning: assignment makes integer from pointer without a cast [enabled by default]
-  quadrante = &vetor_distancia_quadrante[1];
-            ^
-inimigo.c:478:10: warning: value computed is not used [-Wunused-value]
-   rand() % 100;
-          ^
-inimigo.c: In function ‘Movimentacao_dos_Inimigos’:
-inimigo.c:671:2: warning: implicit declaration of function ‘Teste_de_Colisao_Inimigos’ [-Wimplicit-function-declaration]
-  Teste_de_Colisao_Inimigos(vetor_de_inimigos, jogador1, jogador2);
-  ^
-inimigo.c: At top level:
-inimigo.c:750:6: warning: conflicting types for ‘Teste_de_Colisao_Inimigos’ [enabled by default]
- void Teste_de_Colisao_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2)
+inimigo.c:315:14: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [-Wincompatible-pointer-types]
+   Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
+              ^
+In file included from fisica.h:15:0,
+                 from inimigo.h:16,
+                 from inimigo.c:11:
+rpg.h:39:6: note: expected ‘Inimigos * {aka struct <anonymous> *}’ but argument is of type ‘Objeto * {aka struct <anonymous> *}’
+ void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
       ^
-inimigo.c:671:2: note: previous implicit declaration of ‘Teste_de_Colisao_Inimigos’ was here
-  Teste_de_Colisao_Inimigos(vetor_de_inimigos, jogador1, jogador2);
+inimigo.c:316:3: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
+   Inimigo_Animacao_Ataque(inimigo);
+   ^
+inimigo.c:323:14: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [-Wincompatible-pointer-types]
+   Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
+              ^
+In file included from fisica.h:15:0,
+                 from inimigo.h:16,
+                 from inimigo.c:11:
+rpg.h:39:6: note: expected ‘Inimigos * {aka struct <anonymous> *}’ but argument is of type ‘Objeto * {aka struct <anonymous> *}’
+ void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
+      ^
+inimigo.c: In function ‘Inimigo_Toma_Dano’:
+inimigo.c:542:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
+  Inimigo_Animacao_Toma_Dano(renderer, inimigo);
   ^

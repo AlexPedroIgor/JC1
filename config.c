@@ -7,57 +7,29 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
-#include "main.h"
 #include "config.h"
+#include "base.h"
 
-// Pre carregamento das funcoes
-Jogador Carrega_Jogador(int numero);
-void Carrega_Teclas_de_Acao(Jogador* jogador);
-Fase Inicializa_Fases();
-void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
-void Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
-void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase);
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
+
+void Carrega_Teclas_de_Acao(Objeto* jogador);
+SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
+void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
+FILE* DATA_Carrega_Save_Game();
+void DATA_Salva_Informacoes_Basicas(FILE* save_game);
+void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking);
 
 
-// Carrega parametros iniciais do jogador
-Jogador Carrega_Jogador(int numero)
-{
-	// Estrutura com informacoes do jogador
-	Jogador jogador;
+// ***************************************************************************************************
 
-	// Colisao
-	jogador.colisao = FALSO;
-	jogador.toma_tiro = FALSO;
+//
+// TECLAS DE MOVIMENTACAO
+//
 
-	// Numero do jogador
-	jogador.numero = numero;
-
-	// Velocidade de movimento do jogador
-	jogador.velocidade.x = VEL;
-	jogador.velocidade.y = VEL;
-
-	// Dimensoes da imagem do sprite do jogador
-	jogador.fullH = SPRITE_FULL_H;
-	jogador.fullW = SPRITE_FULL_W;
-
-	// Rect do frame do sprite do jogador
-	jogador.frame.x = 0;
-	jogador.frame.y = 512;
-	jogador.frame.w = SPRITE_FRAME_W;
-	jogador.frame.h = SPRITE_FRAME_H;
-
-	// Rect para posisao do jogador em tela
-	jogador.posicao.w = SPRITE_FRAME_W;
-	jogador.posicao.h = SPRITE_FRAME_H;
-
-	// Variavel para conter imagem do jogador
-	jogador.sprite = NULL;
-
-	return jogador;
-}
-
-// Carrega teclas de acao do jogador
-void Carrega_Teclas_de_Acao(Jogador* jogador)
+// TECLAS DE ACAO DE UM JOGADOR
+void Carrega_Teclas_de_Acao(Objeto* jogador)
 {
 	// Pega estado atual das teclas pressionadas
 	const Uint8 *keystates = SDL_GetKeyboardState(NULL);
@@ -83,402 +55,160 @@ void Carrega_Teclas_de_Acao(Jogador* jogador)
 	}
 }
 
-// ******************************************************************************
+// ***************************************************************************************************
 
 //
-// Funcoes relacionadas as fases
+// TEXTO
 //
 
-// Carrega fases do jogo
-Fase Inicializa_Fases()
+SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto)
 {
-	// Inicializa variavel
-	Fase fase;
+	SDL_Surface* Loadind_Surf = NULL;
 
-	// Inicia na fase 1
-	fase.numero = 0;
+	Loadind_Surf = TTF_RenderText_Solid (fonte,
+		texto,
+		cor_do_texto);
 
-	// Seta 16 inimigos para cada portal
-	fase.portal.cima.inimigos = 16;
-	fase.portal.baixo.inimigos = 16;
-	fase.portal.esquerda.inimigos = 16;
-	fase.portal.direita.inimigos = 16;
+	SDL_Texture* texto_em_tela = NULL;
 
-	// Define portal tipo 1 para todos os lados
-	fase.portal.cima.tipo = 1;
-	fase.portal.baixo.tipo = 1;
-	fase.portal.esquerda.tipo = 1;
-	fase.portal.direita.tipo = 1;
+	texto_em_tela = SDL_CreateTextureFromSurface (renderer,
+		Loadind_Surf);
 
-	//
-	// Posicao nos frames
-	//
+	SDL_FreeSurface (Loadind_Surf);
 
-	// Cima
-	fase.portal.cima.frame.x = 0;
-	fase.portal.cima.frame.y = 0;
-	fase.portal.cima.frame.w = 59;
-	fase.portal.cima.frame.h = 30;
-
-	// Baixo
-	fase.portal.baixo.frame.x = 0;
-	fase.portal.baixo.frame.y = 0;
-	fase.portal.baixo.frame.w = 59;
-	fase.portal.baixo.frame.h = 30;
-
-	// Esquerda
-	fase.portal.esquerda.frame.x = 0;
-	fase.portal.esquerda.frame.y = 0;
-	fase.portal.esquerda.frame.w = 30;
-	fase.portal.esquerda.frame.h = 59;
-
-	// Direita
-	fase.portal.direita.frame.x = 0;
-	fase.portal.direita.frame.y = 0;
-	fase.portal.direita.frame.w = 30;
-	fase.portal.direita.frame.h = 59;
-
-	//
-	// Posicao na tela
-	//
-
-	// Cima
-	fase.portal.cima.posicao.x = 362;
-	fase.portal.cima.posicao.y = 0;
-	fase.portal.cima.posicao.w = 80;
-	fase.portal.cima.posicao.h = 50;
-
-	// Baixo
-	fase.portal.baixo.posicao.x = 362;
-	fase.portal.baixo.posicao.y = 550;
-	fase.portal.baixo.posicao.w = 80;
-	fase.portal.baixo.posicao.h = 50;
-
-	// Esquerda
-	fase.portal.esquerda.posicao.x = 0;
-	fase.portal.esquerda.posicao.y = 280;
-	fase.portal.esquerda.posicao.w = 50;
-	fase.portal.esquerda.posicao.h = 55;
-
-	// Direita
-	fase.portal.direita.posicao.x = 748;
-	fase.portal.direita.posicao.y = 265;
-	fase.portal.direita.posicao.w = 50;
-	fase.portal.direita.posicao.h = 55;
-
-	return fase;
+	return texto_em_tela;
 }
 
-// Carrega sprites das fases no jogo
-void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase)
+//ESCREVE NOME DO JOGADOR EM TELA NA SELECAO DE PERSONAGENS
+void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event)
 {
-	// Variavel para carregar imagens
-	SDL_Surface* Loading_Surf = NULL;
 
-	switch (fase->numero)
+}
+
+// ***************************************************************************************************
+
+//
+// SAVE GAME
+//
+
+// CARREGA SAVE GAME
+FILE* DATA_Carrega_Save_Game()
+{
+	FILE* save_game;
+	char* nome_do_arquivo = "data/data.dat";
+
+	if ((save_game = fopen(nome_do_arquivo, "r+b")) == NULL)
 	{
-		case 0:
-			Loading_Surf = IMG_Load(MAPA_1);
-			break;
-
-		case 1:
-			Loading_Surf = IMG_Load(MAPA_2);
-			break;
-
-		case 2:
-			Loading_Surf = IMG_Load(MAPA_3);
-			break;
-
-		case 3:
-			Loading_Surf = IMG_Load(MAPA_4);
-			break;
+		printf("Criando um novo arquivo\n");
+		if ((save_game = fopen(nome_do_arquivo, "w+b")) == NULL)
+			printf("Arquivo nao pode ser criado\n");
+		else
+		{
+			printf("Arquivo criado com sucesso\n");
+			DATA_Salva_Informacoes_Basicas(save_game);
+		}
+		
 	}
+	else
+		printf("Arquivo carregado com sucesso\n");
+	return save_game;
+}
 
-	// Carrega sprite na textura
-	fase->sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
+// SALVA INFORMACOES BASICAS DO SAVE GAME
+void DATA_Salva_Informacoes_Basicas(FILE* save_game)
+{
+	Status mago, arqueiro;
 
-	// Limpa memoria
-	SDL_FreeSurface (Loading_Surf);
+	// STATUS BASICOS DO MAGO
+	mago.forca = 5;
+	mago.destreza = 2;
+	mago.inteligencia = 15;
+	mago.constituicao = 9;
+	mago.lvl = 1;
+	mago.dano = 0;
+	mago.HP_Max = 500 + mago.constituicao*10 + mago.lvl*5;
+	mago.HP = mago.HP_Max;
+	mago.MP_Max = 100 + mago.inteligencia*5 + mago.lvl*2;
+	mago.MP = mago.MP_Max;
+	mago.ataque = 50 + mago.inteligencia*5 + mago.lvl;
+	mago.defesa = 10 + mago.constituicao*2 + mago.lvl;
+	mago.morte = 0;
+	mago.atk_cooldown = 0;
+	mago.delay_ataque = 0;
 
-	// *****************************************************************************
-
-	//
-	// Carrega portais tipo 1
-	//
-
-	fase->portal.animacao = 1;
-
-	// Cima
-	Loading_Surf = IMG_Load("arte/portal/vermelho_cima.png");
-
-	// Carregando na textura
-	fase->portal.cima.sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpando memoria
-	SDL_FreeSurface(Loading_Surf);
-
-	// ******************************************************************
-
-	// Baixo
-	Loading_Surf = IMG_Load("arte/portal/vermelho_baixo.png");
-
-	// Carrega na textura
-	fase->portal.baixo.sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpando memoria
-	SDL_FreeSurface(Loading_Surf);
-
-	// **************************************************************************
-
-	// Esquerda
-	Loading_Surf = IMG_Load("arte/portal/vermelho_esquerda.png");
-
-	// Carregando na textura
-	fase->portal.esquerda.sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpando memoria
-	SDL_FreeSurface(Loading_Surf);
+	// STATUS BASICOS DO ARQUEIRO
+	arqueiro.forca = 12;
+	arqueiro.destreza = 15;
+	arqueiro.inteligencia = 3;
+	arqueiro.constituicao = 10;
+	arqueiro.lvl = 1;
+	arqueiro.exp = 0;
+	arqueiro.next_lvl = 1000;
+	arqueiro.dano = 0;
+	arqueiro.HP_Max = 600 + arqueiro.constituicao*10 + arqueiro.lvl*5;
+	arqueiro.HP = arqueiro.HP_Max;
+	arqueiro.MP_Max = 5 + arqueiro.destreza/2;
+	arqueiro.MP = arqueiro.MP_Max;
+	arqueiro.ataque = 50 + arqueiro.destreza*3 + arqueiro.lvl;
+	arqueiro.defesa = 10 + arqueiro.constituicao*2 + arqueiro.lvl;
+	arqueiro.morte = 0;
+	arqueiro.atk_cooldown = 0;
+	arqueiro.delay_ataque = 0;
 
 	// ********************************************************************
 
-	// Direita
-	Loading_Surf = IMG_Load("arte/portal/vermelho_direita.png");
+	// RANKING
 
-	// Carrega na textura
-	fase->portal.direita.sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
+	Ranking ranking;
 
-	// Limpando memoria
-	SDL_FreeSurface(Loading_Surf);
+	ranking.rkn[0].nome = "Joaozinho\0";
+	ranking.rkn[0].pontuacao = 100.000;
+	ranking.rkn[1].nome = "Joaozinho\0";
+	ranking.rkn[1].pontuacao = 90.000;
+	ranking.rkn[2].nome = "Joaozinho\0";
+	ranking.rkn[2].pontuacao = 80.000;
+	ranking.rkn[3].nome = "Joaozinho\0";
+	ranking.rkn[3].pontuacao = 70.000;
+	ranking.rkn[4].nome = "Joaozinho\0";
+	ranking.rkn[4].pontuacao = 60.000;
+	ranking.rkn[5].nome = "Joaozinho\0";
+	ranking.rkn[5].pontuacao = 50.000;
+	ranking.rkn[6].nome = "Joaozinho\0";
+	ranking.rkn[6].pontuacao = 40.000;
+	ranking.rkn[7].nome = "Joaozinho\0";
+	ranking.rkn[7].pontuacao = 30.000;
+	ranking.rkn[8].nome = "Joaozinho\0";
+	ranking.rkn[8].pontuacao = 20.000;
+	ranking.rkn[9].nome = "Joaozinho\0";
+	ranking.rkn[9].pontuacao = 10.000;
 
-	//*********************************************************************
+	// TECLAS DE MOVIMENTACAO DOS JOGADORES
+	/*
+		EM BREVE
+	*/
+
+	// GRAVANDO INFORMACOES NO ARQUIVO
+	rewind(save_game);
+
+	fwrite(&mago, sizeof(Status), 1, save_game);
+	fwrite(&arqueiro, sizeof(Status), 1, save_game);
+	fwrite(&ranking, sizeof(Ranking), 1, save_game);
+	//fwrite(&teclas_jogador1, sizeof(Teclas_de_Acao), 1, save_game);
+	//fwrite(&teclas_jogador2, sizeof(Teclas_de_Acao), 1, save_game);
 }
 
-// Altera tipo de portal
-void Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo)
+// CARREGA DADOS DO SAVE GAME
+void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking)
 {
-	// Variavel para carregar imagens
-	SDL_Surface* Loading_Surf = NULL;
+	rewind(Save_Game);
 
-	switch (portal)
-	{
-		case CIMA:
-			// Seleciona o tipo de portal
-			switch (tipo)
-			{
-				case 1:
-					Loading_Surf = IMG_Load("arte/portal/vermelho_cima.png");
-					break;
-
-				case 2:
-					Loading_Surf = IMG_Load("arte/portal/azul_cima.png");
-					break;
-
-				case 3:
-					Loading_Surf = IMG_Load("arte/portal/cinza_cima.png");
-					break;
-			}
-
-			fase->portal.cima.sprite = SDL_CreateTextureFromSurface(renderer,
-				Loading_Surf);
-			break;
-
-			// ***********************************************************************
-
-
-		case BAIXO:
-			// Seleciona o tipo de portal
-			switch (tipo)
-			{
-				case 1:
-					Loading_Surf = IMG_Load("arte/portal/vermelho_baixo.png");
-					break;
-
-				case 2:
-					Loading_Surf = IMG_Load("arte/portal/azul_baixo.png");
-					break;
-
-				case 3:
-					Loading_Surf = IMG_Load("arte/portal/cinza_baixo.png");
-					break;
-			}
-
-			fase->portal.baixo.sprite = SDL_CreateTextureFromSurface(renderer,
-				Loading_Surf);
-			break;
-
-			// *****************************************************************
-
-		case ESQUERDA:
-			// Seleciona o tipo de portal
-			switch (tipo)
-			{
-				case 1:
-					Loading_Surf = IMG_Load("arte/portal/vermelho_esquerda.png");
-					break;
-
-				case 2:
-					Loading_Surf = IMG_Load("arte/portal/azul_esquerda.png");
-					break;
-
-				case 3:
-					Loading_Surf = IMG_Load("arte/portal/cinza_esquerda.png");
-					break;
-			}
-
-			fase->portal.esquerda.sprite = SDL_CreateTextureFromSurface(renderer,
-				Loading_Surf);
-			break;
-
-			// ***********************************************************************
-
-		case DIREITA:
-			// Seleciona o tipo de portal
-			switch (tipo)
-			{
-				case 1:
-					Loading_Surf = IMG_Load("arte/portal/vermelho_direita.png");
-					break;
-
-				case 2:
-					Loading_Surf = IMG_Load("arte/portal/azul_direita.png");
-					break;
-
-				case 3:
-					Loading_Surf = IMG_Load("arte/portal/cinza_direita.png");
-					break;
-			}
-
-			fase->portal.direita.sprite = SDL_CreateTextureFromSurface(renderer,
-				Loading_Surf);
-			break;
-
-			// ***********************************************************************
-	}
-
-	// Limpa memoria
-	SDL_FreeSurface(Loading_Surf);
+	fread(mago, sizeof(Status), 1, Save_Game);
+	fread(arqueiro, sizeof(Status), 1, Save_Game);
+	fread(ranking, sizeof(Ranking), 1, Save_Game);
+	//fread(teclas_jogador1, sizeof(Teclas_de_Acao), 1, Save_Game);
+	//fread(teclas_jogador2, sizeof(Teclas_de_Acao), 1, Save_Game);
 }
 
-// Carrega fundo da fase em tela
-void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase)
-{
-	// Carrega fundo da fase
-	SDL_RenderCopy(renderer, fase->sprite, NULL, NULL);
+// ***************************************************************************************************
 
-	//
-	// Carrega portais
-	//
-
-	Anima_Portal(fase);
-
-	// Troca portais
-	if (fase->portal.cima.inimigos == 0)
-		Troca_Portal(renderer, fase, CIMA, 3);
-	if (fase->portal.baixo.inimigos == 0)
-		Troca_Portal(renderer, fase, BAIXO, 3);
-	if (fase->portal.esquerda.inimigos == 0)
-		Troca_Portal(renderer, fase, ESQUERDA, 3);
-	if (fase->portal.direita.inimigos == 0)
-		Troca_Portal(renderer, fase, DIREITA, 3);
-
-	// Cima
-	SDL_RenderCopy(renderer, fase->portal.cima.sprite,
-		&fase->portal.cima.frame, &fase->portal.cima.posicao);
-
-	// Baixo
-	SDL_RenderCopy(renderer, fase->portal.baixo.sprite,
-		&fase->portal.baixo.frame, &fase->portal.baixo.posicao);
-
-	// Esquerda
-	SDL_RenderCopy(renderer, fase->portal.esquerda.sprite,
-		&fase->portal.esquerda.frame, &fase->portal.esquerda.posicao);
-
-	// Direita
-	SDL_RenderCopy(renderer, fase->portal.direita.sprite,
-		&fase->portal.direita.frame, &fase->portal.direita.posicao);
-
-	fase->portal.animacao++;
-
-	if (fase->portal.animacao > 17)
-		fase->portal.animacao = 1;
-}
-
-void Anima_Portal(Fase *fase)
-{
-	switch (fase->portal.animacao)
-	{
-		case 1:
-			fase->portal.cima.frame.x = 0;
-			fase->portal.baixo.frame.x = 0;
-			fase->portal.esquerda.frame.y = 0;
-			fase->portal.direita.frame.y = 0;
-			break;
-
-		case 3:
-			fase->portal.cima.frame.x = 59;
-			fase->portal.baixo.frame.x = 59;
-			fase->portal.esquerda.frame.y = 59;
-			fase->portal.direita.frame.y = 59;
-			break;
-
-		case 5:
-			fase->portal.cima.frame.x = 118;
-			fase->portal.baixo.frame.x = 118;
-			fase->portal.esquerda.frame.y = 118;
-			fase->portal.direita.frame.y = 118;
-			break;
-
-		case 7:
-			fase->portal.cima.frame.x = 177;
-			fase->portal.baixo.frame.x = 177;
-			fase->portal.esquerda.frame.y = 177;
-			fase->portal.direita.frame.y = 177;
-			break;
-
-		case 9:
-			fase->portal.cima.frame.x = 236;
-			fase->portal.baixo.frame.x = 236;
-			fase->portal.esquerda.frame.y = 236;
-			fase->portal.direita.frame.y = 236;
-			break;
-
-		case 11:
-			fase->portal.cima.frame.x = 295;
-			fase->portal.baixo.frame.x = 295;
-			fase->portal.esquerda.frame.y = 295;
-			fase->portal.direita.frame.y = 295;
-			break;
-
-		case 13:
-			fase->portal.cima.frame.x = 354;
-			fase->portal.baixo.frame.x = 354;
-			fase->portal.esquerda.frame.y = 354;
-			fase->portal.direita.frame.y = 354;
-			break;
-
-		case 15:
-			fase->portal.cima.frame.x = 413;
-			fase->portal.baixo.frame.x = 413;
-			fase->portal.esquerda.frame.y = 413;
-			fase->portal.direita.frame.y = 413;
-			break;
-
-		case 17:
-			fase->portal.cima.frame.x = 472;
-			fase->portal.baixo.frame.x = 472;
-			fase->portal.esquerda.frame.y = 472;
-			fase->portal.direita.frame.y = 472;
-			break;
-	}
-}
-
-// ******************************************************************************
-
-//
-// 
-//
+// FIM

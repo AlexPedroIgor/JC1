@@ -6,21 +6,26 @@
 */
 
 #include "main.h"
-#include "menu.h"
-#include "jogo.h"
-#include "config.h"
-#include "fisica.h"
 
-// Pre carregamento das funcoes
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
+
 void ERRO (int codigo);
 
-// Inicia programa no Menu Principal
-int estadoDeJogo = MENU_PRINCIPAL;
+// *******************************************************************************************
 
-// Evento de jogo rodando para loop
-int jogoRodando = VERDADEIRO;
+//
+// MAIN
+//
 
-// Iniciando o programa
+// INICIALIZA JOGO NO MENU PRINCIPAL
+int estadoDeJogo = MENU;
+
+// VARIAVEL PARA LOOP DO JOGO
+int mainRodando = VERDADEIRO;
+
+// FUNCAO PRINCIPAL
 int main (int argc, char **argv)
 {
 	//
@@ -32,6 +37,10 @@ int main (int argc, char **argv)
 	// Inicializa SDL completo
 	if (SDL_Init (SDL_INIT_EVERYTHING) != 0)
 		ERRO(1);
+
+	// Inicializa leitor de fontes
+	if (TTF_Init() != 0)
+		ERRO(2);
 
 	// Variavel que representa a janela
 	SDL_Window* window = NULL;
@@ -54,6 +63,13 @@ int main (int argc, char **argv)
 	// Inicial o mixer de som
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
+	// Carrega informacoes dde fontes
+	Fonte1 = TTF_OpenFont("data/fontes/SHERWOOD.TTF", 28);
+	Fonte2 = TTF_OpenFont("data/fontes/OpenSans-Regular.ttf", 28);
+
+	TTF_GetFontStyle(Fonte1);
+	TTF_GetFontStyle(Fonte2);
+
 	//
 	// **********************
 	// INICIALIZACAO DO SDL | fim
@@ -68,27 +84,24 @@ int main (int argc, char **argv)
 	// **********************
 	//
 
+	Save_Game = DATA_Carrega_Save_Game();
+
 	// Carrega jogadores
-	Jogador jogador1 = Carrega_Jogador(1);
-	Jogador jogador2 = Carrega_Jogador(2);
+	Jogadores* jogadores = Inicializa_Jogadores();
 
 	// Inicializa teste de eventos
 	SDL_Event event;
 
-	while (jogoRodando)
+	while (mainRodando)
 	{
 		switch (estadoDeJogo)
 		{
-			case MENU_PRINCIPAL:
-				Roda_MenuPrincipal(renderer, event, &jogador1, &jogador2);
+			case MENU:
+				Roda_MenuPrincipal(renderer, event, jogadores);
 				break;
 
-			case JOGO_SINGLEPAYER:
-				Roda_Jogo_Singleplayer(renderer, event, &jogador1);
-				break;
-			
-			case JOGO_MULTIPLAYER:
-				Roda_Jogo_Multiplayer(renderer, event, &jogador1, &jogador2);
+			case JOGO:
+				Roda_Jogo(renderer, event, jogadores);
 				break;
 		}
 	}
@@ -107,8 +120,14 @@ int main (int argc, char **argv)
 	// *****************
 	//
 
-	SDL_DestroyRenderer(renderer); // Finaliza o renderer
+	fclose(Save_Game);
+
+	Finaliza_Jogadores(jogadores); // Libera jogadores da memoria
+	TTF_CloseFont(Fonte1); // Fecha a fonte 1
+	TTF_CloseFont(Fonte2); // Fecha a fonte 2
+	TTF_Quit(); // Finaliza o leitor de fontes
 	Mix_CloseAudio(); // Finaliza o mixer de som
+	SDL_DestroyRenderer(renderer); // Finaliza o renderer
 	SDL_DestroyWindow(window); // Fecha a janela
 
 	//
@@ -122,14 +141,27 @@ int main (int argc, char **argv)
 	return 0;
 }
 
-// Erros
+// *******************************************************************************************
+
+//
+// ERROS
+//
+
 void ERRO (int codigo)
 {
 	switch (codigo)
 	{
-		case 1: // Falha na inicializacao do SDL_INIT_VIDEO
+		case 1: // Falha na inicializacao do SDL
 			printf("Nao foi possivel inicializar o SDL.\n");
 			printf("Falha no SDL_INIT_EVERYTHING: %s\n", SDL_GetError() );
 			break;
+
+		case 2: // Falha na inicializacao do TTF
+			printf("Nao foi possivel inicializar o TTF.\n");
+			break;
 	}
 }
+
+// *******************************************************************************************
+
+// FIM

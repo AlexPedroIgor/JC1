@@ -7,16 +7,22 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */ 
 
-#include "main.h"
 #include "som.h"
 
-// Pre carregamento das funcoes
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
+
 void Efeito_Sonoro(int nome_do_efeito);
 Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
 void Toca_Musica(int nome_da_musica);
 Mix_Music* Carrega_Musica(int nome_da_musica);
 
-// ****************************************************
+// ****************************************************************
+
+//
+// EFEITOS SONOROS
+//
 
 // Roda efeitos sonoros
 void Efeito_Sonoro(int nome_do_efeito)
@@ -38,22 +44,60 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 	// Selecao de efeitos
 	switch (nome_do_efeito)
 	{
-		case CLICK:
-			som = Mix_LoadWAV("sons/efeitos/click.wav");
+		case FX_CLICK:
+			som = Mix_LoadWAV("sons/efeitos/menu/click.wav");
 			break;
 
-		case SELECT:
-			som = Mix_LoadWAV("sons/efeitos/select.wav");
+		case FX_SELECT:
+			som = Mix_LoadWAV("sons/efeitos/menu/select.wav");
 			break;
 
-		case VOLTAR:
-			som = Mix_LoadWAV("sons/efeitos/voltar.wav");
+		case FX_VOLTAR:
+			som = Mix_LoadWAV("sons/efeitos/menu/voltar.wav");
+			break;
+
+		case FX_CURA:
+			som = Mix_LoadWAV("sons/efeitos/magia/cura.wav");
+			break;
+
+		case FX_TAPA:
+			som = Mix_LoadWAV("sons/efeitos/dano/tapa.wav");
+			break;
+
+		case FX_SOCO:
+			som = Mix_LoadWAV("sons/efeitos/dano/soco.wav");
+			break;
+
+		case FX_HULK_ESMAGA:
+			som = Mix_LoadWAV("sons/efeitos/dano/hulk_esmaga.wav");
+			break;
+
+		case FX_FIREBALL:
+			som = Mix_LoadWAV("sons/efeitos/dano/fireball.ogg");
+			break;
+
+		case FX_ESQUELETO:
+			som = Mix_LoadWAV("sons/efeitos/inimigo/esqueleto.wav");
+			break;
+
+		case FX_ORC:
+			som = Mix_LoadWAV("sons/efeitos/inimigo/orc.wav");
+			break;
+
+		case FX_PASSO_1:
+			som = Mix_LoadWAV("sons/efeitos/passo/passo-1.wav");
 			break;
 	}
 
 	// Retorna o efeito para ser tocado
 	return som;
 }
+
+// ****************************************************************
+
+//
+// MUSICAS
+//
 
 void Toca_Musica(int nome_da_musica)
 {
@@ -84,8 +128,24 @@ Mix_Music* Carrega_Musica(int nome_da_musica)
 		case MUSICA_DE_FUNDO_DO_JOGO:
 			musica = Mix_LoadMUS("sons/musicas/jogo.mid");
 			break;
+
+		case MUSICA_BOSS:
+			musica = Mix_LoadMUS("sons/musicas/boss.mp3");
+			break;
+
+		case MUSICA_FIELD_1:
+			musica = Mix_LoadMUS("sons/musicas/field01.mp3");
+			break;
+
+		case MUSICA_FEILD_2:
+			musica = Mix_LoadMUS("sons/musicas/field03.mp3");
+			break;
 	}
 
 	// Retorna musica para ser tocada
 	return musica;
 }
+
+// *****************************************************************
+
+// FIM

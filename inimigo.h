@@ -4,88 +4,34 @@
 #ifndef INIMIGO_H
 #define INIMIGO_H
 
-#include "main.h"
+// BIBLIOTECAS DO SDL
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 
-// Velocidade de movimentacao dos inimigos
-#define VEL_INIMIGO 1.5
+// BIBLIOTECAS INTERNAS
+#include "base.h"
+#include "config.h"
+#include "fisica.h"
+#include "colisao.h"
 
-// Maximo de inimigos em tela
-#define MAX 64
+// ***************************************************************************************
 
-// Estrutura para inimigos
-typedef struct 
-{
-	// Numero do inimigo
-	int tipo;
+//
+// FUNCOES
+//
 
-	// Variavel para receber estado de colisao
-	int colisao, toma_tiro;
+void Cria_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int tipo);
+void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
+void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
+void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
+void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
+void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status, Jogadores* jogadores, int movimento_permitido);
+void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
 
-	// Quadrante da colisao
-	struct
-	{
-		int cima, baixo, esquerda, direita;
-	}quad_colide;
-
-	// Variavel para guardar estado de vida do inimigo
-	int vivo;
-
-	// Movimentacao
-	struct
-	{
-		int cima;
-		int baixo;
-		int esquerda;
-		int direita;
-		int ataque;
-	} movimento;
-
-	// Velocidade de movimento
-	struct
-	{
-		float x, y;
-	}velocidade;
-
-	// Dimensoes dos sprites da imagem
-	int fullW, fullH;
-
-	int animacao;
-
-	// Rect para frame e posicao em tela
-	SDL_Rect frame, posicao;
-
-	// Imagem do sprite do inimigo
-	SDL_Texture* sprite;
-}Inimigo;
-
-// Estrutura para vetor de inimigos
-typedef struct
-{
-	// Quantidade de inimigos em tela
-	int quantidade;
-
-	// Quantidade de inimigos mortos
-	int mortos;
-
-	// Quanditades de inimigos mortos na rodada
-	int mortos_rodada;
-
-	Inimigo inimigo[MAX];
-}Vetor_de_Inimigos;
-
-// Funcoes
-Inimigo Carrega_Inimigo(SDL_Renderer* renderer, int numero);
-Vetor_de_Inimigos Cria_Vetor_de_inimigos(SDL_Renderer* renderer, int quantidade, int tipo);
-void Adiciona_inimigos(SDL_Renderer* renderer,Vetor_de_Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
-void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
-void Posiciona_Inimigo(SDL_Renderer* renderer, Inimigo* inimigo, int portal, Fase* fase);
-void Posiciona_Vetor_de_Inimigos(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos, int portal, Fase* fase);
-void Movimenta_Inimigo(Inimigo* inimigo);
-void IA_de_Movimentacao(Inimigo* inimigo, Jogador* jogador1, Jogador* jogador2);
-void Movimentacao_dos_Inimigos(Vetor_de_Inimigos* vetor_de_inimigos, Jogador* jogador1, Jogador* jogador2);
-void Atualiza_Inimigos_em_Tela(SDL_Renderer* renderer, Vetor_de_Inimigos* vetor_de_inimigos);
-void Atacar_inimigo(Inimigo* inimigo);
+// ********************************************************************************************
 
 #endif
 
-// fim
+// FIM

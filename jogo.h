@@ -4,17 +4,29 @@
 #ifndef JOGO_H
 #define JOGO_H
 
-#include "main.h"
-#include "inimigo.h"
+// BIBLIOTECAS DO SDL
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 
-// Funcoes do jogo
-void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
-void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
+// BIBLIOTECAS INTERNAS
+#include "base.h"
+#include "config.h"
+#include "rpg.h"
+
+// ***********************************************************************************************
+
+//
+// FUNCOES
+//
+
+void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+
+// **********************************************************************************************************************************
 
 #endif
 
-// fim
+// FIM

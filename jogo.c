@@ -7,324 +7,157 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
-#include "main.h"
+// BIBLIOTECAS INTERNAS
 #include "jogo.h"
-#include "som.h"
-#include "config.h"
+#include "animacao.h"
+#include "menu.h"
 #include "fisica.h"
+#include "som.h"
+#include "armas.h"
+#include "rpg.h"
 #include "inimigo.h"
 
-// Pre carregamento das funcoes
-void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1);
-void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2);
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos);
-void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros);
+// *********************************************************************************************
 
-// ********************************************************************
-int contador_balas;
-int singlePlayerRodando, multiPlayerRodando;
+//
+// PRE CARREGAMENTO DAS FUNCOES
+//
 
-// Modo de jogo em Single Player
-void Roda_Jogo_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1)
+void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+
+
+// ***************************************************************************************************
+
+//
+// VARIAVEIS GLOBAIS
+//
+
+int jogoRodando;
+int jogadoresMortos = FALSO;
+
+// ***************************************************************************************************
+
+//
+// JOGO
+//
+
+// Modo de jogo
+void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
-	// Toca musica de fundo
-	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
+	jogoRodando = VERDADEIRO; // Variavel para manter loop do jogo
 
-	// Variavel para manter loop do jogo
-	singlePlayerRodando = VERDADEIRO;
-
-	// Variavel para carregar imagens
-	SDL_Surface* Loading_Surf = NULL;
-
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
-	// ****************
-	// PLANO DE FUNDO | inicio
-	// ****************
+	// MUSICA DE FUNDO
 	//
 
-	Fase fase = Inicializa_Fases();
+	Toca_Musica(MUSICA_FIELD_1);
 
-	Carrega_Fase_Memoria(renderer, &fase);
-
-	//
-	// ****************
-	// PLANO DE FUNDO | fim
-	// ****************
-	//
-
-	
-
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
-	// *********
-	// JOGADOR | inicio
-	// *********
+	// PLANO DE FUNDO DA FASE
 	//
 
-	// Define posicao do jogador em tela
-	jogador1->posicao.x = SCREEN_WIDTH/2;
-	jogador1->posicao.y = SCREEN_HEIGHT/2;
+	Fase* fase = Inicializa_Fases();
 
-	// Carrega imagem na memoria
-	Loading_Surf = IMG_Load(MAGE_W);
+	Carrega_Fase_Memoria(renderer, fase);
 
-	// Carrega imagem na tela
-	jogador1->sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
 
-	// Limpa memoria
-	SDL_FreeSurface (Loading_Surf);
-	contador_balas = 0;
+	// *********************************************************************************************
 
 	//
-	// *********
-	// JOGADOR | fim
-	// *********
+	// JOGADORES
 	//
 
-	// *********************************************************************
+	Posiciona_Jogadores(jogadores);
+
+	Carrega_Jogadores_Memoria(renderer, jogadores);
+
+
+	// *********************************************************************************************
 
 	//
-	// Carrega inimigos
+	// INIMIGOS
 	//
 
-	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
-		1, 1);
+	Inimigos* inimigos = Inicializa_Inimigos();
 
-	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA, &fase);
 
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
-	// Carrega vetor de tiros
+	// PROJETEIS
 	//
 
-	Vetor_de_Tiros vetor_de_tiros = Cria_Vetor_de_Tiros();
+	Projeteis* projeteis = Inicializa_Projeteis();
 
-	// *********************************************************************
+	// *********************************************************************************************
 
 	//
 	// **************
 	// LOOP DO JOGO | inicio
 	// **************
 	//
-	int clo;
-	clo=0;
+	
+	//auto-explicativo
+	Definir_status_iniciais(jogadores);
 
-	int contador;
-	while (singlePlayerRodando)
-	{
-		// Movimentacao dos inimigos
-		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, NULL);
-
-		contador_balas++;
-		if (contador_balas > 5)
+	int contador = 1, aux = 1;
+	while (jogoRodando)
+	{		
+		if (jogadores->jogador[0].status.morte == 0)
 		{
-			//Atirar	
-			Atirar(renderer, jogador1, &vetor_de_tiros);
-		
-		}
-
-
-
-		// Adiciona inimigos
-		contador++;
-		if (contador == 120)
-		{
-			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1, &fase);
-			contador = 1;
-		}
-		Clock(clo);
-		clo =1;
-
-		// ********************************************************************
-		// Movimento do jogador
-		Movimenta_Jogador(jogador1, NULL, &vetor_de_inimigos);
-
-		// Verifica eventos
-		if (SDL_PollEvent (&event))
-		{
-			// Finaliza o jogo
-			if (event.type == SDL_QUIT)
-			{
-				singlePlayerRodando = FALSO;
-				jogoRodando = FALSO;
-			}
-
-			// Eventos de tecla pressionada
-			if (event.type == SDL_KEYDOWN)
-			{
+			Manter_status(jogadores);
 				
+			if(jogadores->jogador[0].status.atk_cooldown >= 5)		
+				Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 
-				// Pause
-				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, &fase, jogador1, NULL, &vetor_de_inimigos);
+			Movimentacao_dos_Jogadores(jogadores, inimigos);
+		} else if (jogadores->jogador[0].status.morte == 1)
+			{
+			jogadores->jogador[0].inf.frame.y = 1280;
+			if(aux==1)
+			{ jogadores->jogador[0].inf.frame.x = 0;
+				aux=0;}
+				
+			if (jogadores->jogador[0].inf.frame.x != 704)
+				{
+				  printf("\n\n\nFrame atual = %d\n\n\n", jogadores->jogador[0].inf.frame.x); 
+				  jogadores->jogador[0].inf.frame.x += 64;
+				} else
+				  jogadores->jogador[0].status.morte =2;
+				
+			if (jogadores->jogador[0].status.morte == 2)
+			{		
+			mainRodando = Game_Over(renderer);
+			jogoRodando = mainRodando;
+			}
+
+			
 			}
 
 
-		}
+		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
-		// Limpa tela anterior
-		SDL_RenderClear(renderer);
-
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, &fase);
-
-		// Renderiza os Tiros
-		Renderiza_Tiros(renderer, &vetor_de_tiros);
-
-		// Renderiza jogador
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
-
-		// Atualiza tela
-		SDL_RenderPresent(renderer);
-
-		// FPS
-		SDL_Delay( 1000/FPS );
-	}
-
-	// Limpando memoria - imagens
-	SDL_DestroyTexture(fase.sprite);
-	SDL_DestroyTexture(jogador1->sprite);
-
-	//
-	// **************
-	// LOOP DO JOGO | fim
-	// **************
-	//
-
-	// *********************************************************************
-}
-
-// Modo de Jogo em MultiPlayer
-void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jogador1, Jogador* jogador2)
-{
-	// Toca musica de fundo
-	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
-
-	// Variavel para manter loop do jogo
-	multiPlayerRodando = VERDADEIRO;
-
-	// Variavel para carregar imagens
-	SDL_Surface* Loading_Surf = NULL;
-
-	// *********************************************************************
-
-	//
-	// ****************
-	// PLANO DE FUNDO | inicio
-	// ****************
-	//
-
-	Fase fase = Inicializa_Fases();
-	
-	Carrega_Fase_Memoria(renderer, &fase);
-
-	//
-	// ****************
-	// PLANO DE FUNDO | inicio
-	// ****************
-	//
-
-	// *********************************************************************
-
-	//
-	// ***********
-	// JOGADOR 1 | inicio
-	// ***********
-	//
-
-	// Define posicao do jogador em tela
-	jogador1->posicao.x = SCREEN_WIDTH/2 + 40;
-	jogador1->posicao.y = SCREEN_HEIGHT/2;
-
-	// Carrega imagem na memoria
-	Loading_Surf = IMG_Load(MAGE_W);
-
-	// Carrega imagem na tela
-	jogador1->sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpa memoria
-	SDL_FreeSurface (Loading_Surf);
-
-	//
-	// ***********
-	// JOGADOR 1 | fim
-	// ***********
-	//
-
-	// *********************************************************************
-
-	//
-	// ***********
-	// JOGADOR 2 | inicio
-	// ***********
-	//
-
-	// Define posicao do jogador em tela
-	jogador2->posicao.x = SCREEN_WIDTH/2 - 85;
-	jogador2->posicao.y = SCREEN_HEIGHT/2;
-
-	// Carrega imagem na memoria
-	Loading_Surf = IMG_Load(MAGE_M);
-
-	// Carrega imagem na tela
-	jogador2->sprite = SDL_CreateTextureFromSurface(renderer,
-		Loading_Surf);
-
-	// Limpa memoria
-	SDL_FreeSurface (Loading_Surf);
-
-	//
-	// ***********
-	// JOGADOR 2 | fim
-	// ***********
-	//
-
-	// *********************************************************************
-
-	//
-	// Carrega inimigos
-	//
-
-	Vetor_de_Inimigos vetor_de_inimigos = Cria_Vetor_de_inimigos(renderer,
-		1, 1);
-
-	Posiciona_Vetor_de_Inimigos(renderer, &vetor_de_inimigos, DIREITA, &fase);
-
-	// *********************************************************************
-
-	//
-	// **************
-	// LOOP DO JOGO | inicio
-	// **************
-	//
-
-	int contador;
-
-	while (multiPlayerRodando)
-	{
-		// Movimentacao dos inimigos
-		Movimentacao_dos_Inimigos(&vetor_de_inimigos, jogador1, jogador2);
-
-		// Adiciona inimigos
+		// ADICIONA INIMIGOS
+		if(jogadores->jogador[0].status.MP < jogadores->jogador[0].status.MP_Max)
+			jogadores->jogador[0].status.MP++;		
+		jogadores->jogador[0].status.atk_cooldown++;
+		
 		contador++;
-		if (contador == 120)
+		if (contador == 120) // A CADA 4 SEGUNDOS
 		{
-			Adiciona_inimigos(renderer, &vetor_de_inimigos, 1, 1, rand()%4+1, &fase);
+			Adiciona_Inimigos(renderer, inimigos, 1, 1, rand()%4+1, fase);
 			contador = 1;
 		}
 
-		// ********************************************************************
+		Teste_de_Impacto_Inimigos(renderer, projeteis, inimigos);
+
+		// ******************************************************************************************
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -332,8 +165,8 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 			// Finaliza o jogo
 			if (event.type == SDL_QUIT)
 			{
-				multiPlayerRodando = FALSO;
 				jogoRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			// Eventos de tecla pressionada
@@ -341,282 +174,67 @@ void Roda_Jogo_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogador* jog
 			{
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, &fase, jogador1, jogador2, &vetor_de_inimigos);
-
-				// Movimentacao do Jogador 1
-				Movimenta_Jogador(jogador1, jogador2, &vetor_de_inimigos);
-
-				// Movimentacao do Jogador 2
-				Movimenta_Jogador(jogador2, jogador1, &vetor_de_inimigos);
+					Roda_Pause(renderer, event, fase, jogadores, inimigos, projeteis);
 			}
 		}
+		
+	
+		// *******************************************************************************************
 
-		// Limpa tela anterior
-		SDL_RenderClear(renderer);
+		//
+		// ATUALIZACAO DE TELA
+		//
 
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, &fase);
+		SDL_RenderClear(renderer); // LIMPA TELA ANTERIOR
 
-		// Renderiza jogador 1
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
+		Renderiza_Plano_de_Fundo(renderer, fase);
+		Renderiza_Jogadores(renderer, jogadores);
+		Renderiza_Inimigos(renderer, inimigos);
+		Renderiza_Projeteis(renderer, projeteis);										
+		carrega_HUD(renderer, jogadores);
+		if (jogadores->jogador[0].status.morte == 1 && jogadores->jogador[0].inf.frame.x <= 704)
+		{
+		printf("esperando animação %d",jogadores->jogador[0].inf.frame.x);	
+			SDL_Delay(200);
+		}
 
-		// Renderiza jogador 2
-		SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
+		
 
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, &vetor_de_inimigos);
+		SDL_RenderPresent(renderer); // PRINTA TELA
 
-		// Atualiza tela
-		SDL_RenderPresent(renderer);
+		SDL_Delay( 1000/FPS ); // FRAMERATE
 
-		// FPS
-		SDL_Delay( 1000/FPS );
-
+		// *******************************************************************************************
 	}
 
-	// Limpando memoria - imagens
-	SDL_DestroyTexture(fase.sprite);
-	SDL_DestroyTexture(jogador1->sprite);
-	SDL_DestroyTexture(jogador2->sprite);
-
 	//
-	// **************
-	// LOOP DO JOGO | fim
-	// **************
+	// LIMPEZA DE MEMORIA
 	//
 
-	// *********************************************************************
+	Finaliza_Inimigos(inimigos);
+	Finaliza_Projeteis(projeteis);
+	Finaliza_Fases(fase);
+	
+	// ************************************************************************************************
+
+	//
+	// *************
+	// FIM DO JOGO |
+	// *************
+	//
+
+	// ************************************************************************************************
 }
 
-// Movimentacao do jogador
-void Movimenta_Jogador(Jogador* jogador, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
-{
-	// Verifica colisao de jogadores caso esteja no multiplayer
-	int movimento_permitido_jogador;
-	if (jogador2 == NULL)
-		movimento_permitido_jogador = VERDADEIRO;
+// ****************************************************************************************************
 
-	else
-	{
-		if (Colisao_Entre_Jogadores(jogador, jogador2))
-			movimento_permitido_jogador = FALSO;
-		else
-			movimento_permitido_jogador = VERDADEIRO;
-	}
-
-	// Atualiza colisoes
-	Teste_de_Colisao_Jogador(jogador, vetor_de_inimigos);
-
-	// Carrega teclas de acao
-	Carrega_Teclas_de_Acao(jogador);
-
-	// Verifica colisao de tela
-	int movimento_permitido;
-	if (Colisao_Jogador_LimiteDeTela(jogador)
-		|| jogador->colisao)
-		movimento_permitido = FALSO;
-	else
-		movimento_permitido = VERDADEIRO;
-
-	//
-	// Movimentos diagonais
-	//
-
-	int atirando = 0;
-		
-	if (jogador->movimento.ataque)
-		atirando = 256;
-	
-			
-	// Nordeste
-	if (jogador->movimento.cima && jogador->movimento.esquerda)
-	{
-		
-		jogador->frame.y = 576 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE2;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y -= jogador->velocidade.y;
-			jogador->posicao.x -= jogador->velocidade.x;
-		}
-		//animação
-		if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-	}
-	
-	// Noroeste
-	else if(jogador->movimento.cima && jogador->movimento.direita)
-	{
-		jogador->frame.y = 704 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE1;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y -= jogador->velocidade.y;
-			jogador->posicao.x += jogador->velocidade.x;
-		}
-		//animação
-		if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-
-		else
-			jogador->frame.x = 0;
-	
-	}
-
-	// Suldeste
-	else if (jogador->movimento.baixo && jogador->movimento.esquerda)
-	{
-		jogador->frame.y = 576 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE3;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y += jogador->velocidade.y;
-			jogador->posicao.x -= jogador->velocidade.x;
-		}
-		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-
-		else{
-			jogador->frame.x = 0;
-		}
-	
-	}
-
-	// Suldoeste
-	else if (jogador->movimento.baixo && jogador->movimento.direita)
-	{
-		jogador->frame.y = 704 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = QUADRANTE4;
-
-		// Movimentacao
-		if (movimento_permitido && movimento_permitido_jogador)
-		{
-			jogador->posicao.y += jogador->velocidade.y;
-			jogador->posicao.x += jogador->velocidade.x;
-		}
-		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-
-		else{
-			jogador->frame.x = 0;
-		}
-
-	}
-
-	//
-	// Movimentos principais
-	//
-
-	// Cima
-	else if (jogador->movimento.cima)
-	{
-		
-		jogador->frame.y = 512 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = CIMA;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.y -= jogador->velocidade.y;
-		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-
-		else{
-			jogador->frame.x = 0;
-		}
-	
-	}
-
-	// Baixo
-	else if (jogador->movimento.baixo)
-	{
-		jogador->frame.y = 640 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = BAIXO;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.y += jogador->velocidade.y;
-		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-
-		else{
-			jogador->frame.x = 0;
-		}
-	
-	}
-
-	// Esquerda
-	else if (jogador->movimento.esquerda)
-	{
-		jogador->frame.y = 576 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = ESQUERDA;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.x -= jogador->velocidade.x;
-		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-
-		else{
-			jogador->frame.x = 0;
-		}
-	
-	}
-
-	// Direita
-	else if (jogador->movimento.direita)
-	{
-		jogador->frame.y = 704 + atirando;
-		// Salva movimento de animacao
-		jogador->animacao = DIREITA;
-
-		// Movimento
-		if (movimento_permitido && movimento_permitido_jogador)
-			jogador->posicao.x += jogador->velocidade.x;
-		//animação
-			if (jogador->frame.x < 512 - atirando*3/4)
-			jogador->frame.x += 64;
-		else{
-			jogador->frame.x = 0;
-		}
-
-	//Parado atirando
-	}else if(jogador->movimento.ataque)
-	{	if (
-jogador->frame.y < 768)
-		jogador->frame.y += atirando;
-			if (jogador->frame.x < 512 - atirando*3/4)
-				jogador->frame.x += 64;
-			else 
-				jogador->frame.x = 0;
-		}
-
-	
-}
+//
+// PAUSE
+//
 
 // Estado de pause
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
+	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
 {
 	// Variavel para manter o loop do pause
 	int pauseRodando = VERDADEIRO;
@@ -861,9 +479,8 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 			if (event.type == SDL_QUIT)
 			{
 				pauseRodando = FALSO;
-				singlePlayerRodando = FALSO;
-				multiPlayerRodando = FALSO;
 				jogoRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			// Eventos de tecla pressionada
@@ -873,7 +490,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE: // Encerra o pause
-						Efeito_Sonoro(SELECT);
+						Efeito_Sonoro(FX_SELECT);
 						SDL_Delay(400); // Delay de 0.4 segundos
 						pauseRodando = FALSO;
 						break;
@@ -886,12 +503,12 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 							case BOTAO_OPCOES:
 								SELECIONADO = BOTAO_CONTINUAR;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_SAIR:
 								SELECIONADO = BOTAO_OPCOES;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 						}
 						break;
@@ -901,12 +518,12 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 						{
 							case BOTAO_CONTINUAR:
 								SELECIONADO = BOTAO_OPCOES;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_OPCOES:
 								SELECIONADO = BOTAO_SAIR;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_SAIR:
@@ -918,19 +535,25 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 						switch (SELECIONADO)
 						{
 							case BOTAO_CONTINUAR:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								pauseRodando = FALSO;
 								break;
 
 							case BOTAO_OPCOES:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								break;
 
 							case BOTAO_SAIR:
-								Efeito_Sonoro(VOLTAR);
+								Efeito_Sonoro(FX_VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
-								Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2, vetor_de_inimigos);
+								Roda_SairDoPause_SN(&pauseRodando,
+									renderer,
+									event,
+									fase,
+									jogadores,
+									inimigos,
+									projeteis);
 								break;
 						}
 						break;
@@ -950,7 +573,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 					&& posicao_do_mouse.y > 250
 					&& posicao_do_mouse.y < 300)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					pauseRodando = FALSO;
 				}
@@ -961,7 +584,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 
@@ -971,9 +594,15 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 					&& posicao_do_mouse.y > 350
 					&& posicao_do_mouse.y < 400)
 				{
-					Efeito_Sonoro(VOLTAR);
+					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
-					Roda_SairDoPause_SN(&pauseRodando, renderer, event, fase, jogador1, jogador2, vetor_de_inimigos);
+					Roda_SairDoPause_SN(&pauseRodando,
+						renderer,
+						event,
+						fase,
+						jogadores,
+						inimigos,
+						projeteis);
 				}
 			}
 		}
@@ -985,18 +614,10 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 		// Rendezira jogo pausado
 		//
 
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, fase);
-
-		// Renderiza jogador 1
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-
-		// Renderiza Jogador 2 caso exista
-		if (jogador2 != NULL)
-			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
-
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, vetor_de_inimigos);
+		Renderiza_Plano_de_Fundo(renderer, fase);
+		Renderiza_Jogadores(renderer, jogadores);
+		Renderiza_Inimigos(renderer, inimigos);
+		Renderiza_Projeteis(renderer, projeteis);
 
 		// **********************************************************************************
 
@@ -1025,7 +646,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_CONTINUAR)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_CONTINUAR;
 		}
 		else
@@ -1042,7 +663,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_OPCOES)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_OPCOES;
 		}
 		else
@@ -1059,7 +680,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_SAIR)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_SAIR;
 		}
 		else
@@ -1087,7 +708,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 // Estado de pause - certeza de sair
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase,
-	Jogador* jogador1, Jogador* jogador2, Vetor_de_Inimigos* vetor_de_inimigos)
+	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
 {
 	// Variavel para manter o loop do pause
 	int pauseRodandoSair = VERDADEIRO;
@@ -1319,9 +940,8 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 			{
 				pauseRodando = FALSO;
 				pauseRodandoSair = FALSO;
-				singlePlayerRodando = FALSO;
-				multiPlayerRodando = FALSO;
 				jogoRodando = FALSO;
+				mainRodando = FALSO;
 			}
 
 			// Eventos de tecla pressionada
@@ -1331,7 +951,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE: // Encerra o pause
-						Efeito_Sonoro(SELECT);
+						Efeito_Sonoro(FX_SELECT);
 						SDL_Delay(400); // Delay de 0.4 segundos
 						pauseRodandoSair = FALSO;
 						break;
@@ -1344,7 +964,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 							case BOTAO_NAO:
 								SELECIONADO = BOTAO_SIM;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 						}
 						break;
@@ -1354,7 +974,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 						{
 							case BOTAO_SIM:
 								SELECIONADO = BOTAO_NAO;
-								Efeito_Sonoro(CLICK);
+								Efeito_Sonoro(FX_CLICK);
 								break;
 
 							case BOTAO_NAO:
@@ -1366,19 +986,18 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 						switch (SELECIONADO)
 						{
 							case BOTAO_NAO:
-								Efeito_Sonoro(SELECT);
+								Efeito_Sonoro(FX_SELECT);
 								SDL_Delay(400); // Delay de 0.4 segundos
 								pauseRodandoSair = FALSO;
 								break;
 
 							case BOTAO_SIM:
-								Efeito_Sonoro(VOLTAR);
+								Efeito_Sonoro(FX_VOLTAR);
 								SDL_Delay(500); // Delay de 0.5 segundos
 								pauseRodandoSair = FALSO;
 								*pauseRodando = FALSO;
-								singlePlayerRodando = FALSO;
-								multiPlayerRodando = FALSO;
-								estadoDeJogo = MENU_PRINCIPAL;
+								jogoRodando = FALSO;
+								estadoDeJogo = MENU;
 								break;
 						}
 						break;
@@ -1398,7 +1017,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(SELECT);
+					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 					pauseRodandoSair = FALSO;
 				}
@@ -1409,14 +1028,13 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 					&& posicao_do_mouse.y > 300
 					&& posicao_do_mouse.y < 350)
 				{
-					Efeito_Sonoro(VOLTAR);
+					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
 					SDL_Delay(500); // Delay de 0.5 segundos
 					pauseRodandoSair = FALSO;
 					*pauseRodando = FALSO;
-					singlePlayerRodando = FALSO;
-					multiPlayerRodando = FALSO;
-					estadoDeJogo = MENU_PRINCIPAL;
+					jogoRodando = FALSO;
+					estadoDeJogo = MENU;
 
 				}
 			}
@@ -1429,18 +1047,10 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 		// Rendezira jogo pausado
 		//
 
-		// Renderiza plano de fundo
-		Atualiza_Plano_de_Fundo(renderer, fase);
-
-		// Renderiza jogador 1
-		SDL_RenderCopy(renderer, jogador1->sprite, &jogador1->frame, &jogador1->posicao);
-
-		// Renderiza Jogador 2 caso exista
-		if (jogador2 != NULL)
-			SDL_RenderCopy(renderer, jogador2->sprite, &jogador2->frame, &jogador2->posicao);
-
-		// Renderiza inimigos em tela
-		Atualiza_Inimigos_em_Tela(renderer, vetor_de_inimigos);
+		Renderiza_Plano_de_Fundo(renderer, fase);
+		Renderiza_Jogadores(renderer, jogadores);
+		Renderiza_Inimigos(renderer, inimigos);
+		Renderiza_Projeteis(renderer, projeteis);
 
 		// **********************************************************************************
 
@@ -1472,7 +1082,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_SIM)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_SIM;
 		}
 		else
@@ -1489,7 +1099,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 			// Animacao de som
 			if (SELECIONADO != BOTAO_NAO)
-				Efeito_Sonoro(CLICK);
+				Efeito_Sonoro(FX_CLICK);
 			SELECIONADO = BOTAO_NAO;
 		}
 		else
@@ -1515,16 +1125,6 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 	SDL_DestroyTexture(gNao_pressionado);
 }
 
-// Atirar
-void Atirar(SDL_Renderer* renderer, Jogador* jogador, Vetor_de_Tiros* vetor_de_tiros)
-{
-	// Carrega teclas de acao
-	Carrega_Teclas_de_Acao(jogador);
+// *****************************************************************************************************
 
-
-		if (jogador->movimento.ataque)
-		{
-			Adiciona_Tiro_ao_Vetor(renderer, vetor_de_tiros, jogador);
-			contador_balas = 1;
-		}
-	}
+// FIM

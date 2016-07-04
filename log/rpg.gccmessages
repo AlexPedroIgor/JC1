@@ -1,0 +1,4 @@
+rpg.c: In function ‘Definir_status_iniciais’:
+rpg.c:166:2: warning: implicit declaration of function ‘DATA_Carrega_Informacoes’ [-Wimplicit-function-declaration]
+  DATA_Carrega_Informacoes(&mago, &arqueiro, &ranking);
+  ^

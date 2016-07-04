@@ -4,185 +4,110 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "main.h"
+// BIBLIOTECAS DO SDL
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 
-// Velocidade de movimento dos jogadores
-#define VEL		5.0
+// BIBLIOTECAS DO C
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-// Localizacao dos sprites de jogador
-#define MAGE_W "arte/personagens/jogador1/Mage w.png"
-#define MAGE_M "arte/personagens/jogador2/Mage m.png"
-#define ARCHER_W "arte/personagens/jogador1/Archer w.png"
-#define ARTHER_M "arte/personagens/jogador2/Archer m.png"
+// BIBLIOTECAS INTERNAS
+#include "base.h"
 
-// Caracteristicas dos sprites de jogador
-#define SPRITE_FULL_W		832
-#define SPRITE_FULL_H		1344
-#define SPRITE_FRAME_W		64
-#define SPRITE_FRAME_H		64
+// ***************************************************************************************
 
-// Movimentos de animacao
-#define CIMA			1
-#define BAIXO			2
-#define ESQUERDA		3
-#define DIREITA			4
-#define QUADRANTE1		5
-#define QUADRANTE2		6
-#define QUADRANTE3		7
-#define QUADRANTE4		8
+//
+// CONSTANTES
+//
 
-// Localizacao dos mapas
-#define MAPA_1 "arte/fundo/fundo01.jpg"
-#define MAPA_2 "arte/fundo/fundo02.jpg"
-#define MAPA_3 "arte/fundo/fundo03.jpg"
-#define MAPA_4 "arte/fundo/fundoB1.jpg"
+// MODOS DE JOGO
+#define	MENU			1
+#define	JOGO			2
 
-// Estrutura para jogador
-typedef struct 
-{
-	// Jogador 1 ou Jogador 2
-	int numero;
+// NOME DO JOGO
+#define NOME_DO_JOGO "SUPER SMASH ARANHA-MORCEGO"
 
-	// Variavel para guardar estado de colisao
-	int colisao, toma_tiro;
+// TAMANHO DA TELA
+#define SCREEN_WIDTH	800
+#define SCREEN_HEIGHT	600
 
-	// Quadrante da colisao
-	struct
-	{
-		int cima, baixo, esquerda, direita;
-	}quad_colide;
+// FRAMERATE DO JOGO
+#define FPS				30
 
-	// Movimentacao
-	struct
-	{
-		int cima;
-		int baixo;
-		int esquerda;
-		int direita;
-		int ataque;
-	} movimento;
+// ****************************************************************************************
 
-	// Animacao de movimentacao
-	int animacao;
+//
+// VARIAVEIS GLOBAIS
+//
 
-	// Velocidade de movimento
-	struct
-	{
-		float x, y;
-	}velocidade;
+// VARIAVEIS DE GERENCIAMENTO DO MAIN
+int mainRodando, estadoDeJogo;
 
-	// Dimensoes dos sprites da imagem
-	int fullW, fullH;
+// ****************************************************************************************
 
-	// Rect para o jogador
-	SDL_Rect frame, posicao;
+//
+// TEXTO
+//
 
-	// Imagem do jogador
-	SDL_Texture* sprite;
-}Jogador;
-
-// Estrutura para objetos
-typedef struct 
-{
-	// Numero do objeto
-	int numero;
-
-	// Tem colisao
-	int colisao;
-
-	// Quadrante da colisao
-	struct
-	{
-		int cima, baixo, esquerda, direita;
-	}quad_colide;
-
-	// Movimentacao
-	struct
-	{
-		int cima;
-		int baixo;
-		int esquerda;
-		int direita;
-	} movimento;
-
-	// Animação do movimento
-	int animacao;
-
-	// Velocidade de movimento
-	struct
-	{
-		float x, y;
-	}velocidade;
-
-	// Dimensoes dos sprites da imagem
-	int fullW, fullH;
-
-	// Rect para frame e posicao em tela
-	SDL_Rect frame, posicao;
-
-	// Imagem do sprite do objeto
-	SDL_Texture* sprite;
-}Objeto;
-
-// Vetor de tiros
 typedef struct
 {
-	// Quantidade de tiros em tela
-	int quantidade;
+	char* mensagem;
+	int valor_numerico;
+	SDL_Rect posicao1, posicao2;
+	SDL_Texture* textura;
+}Texto;
 
-	// Tiros que devem sair de tela
-	int corta_tiro;
+// PONTEIRO PARA GUARDAR FONTE
+TTF_Font* Fonte1;
+TTF_Font* Fonte2;
 
-	// Vetor de tiros
-	Objeto tiro[64];
-}Vetor_de_Tiros;
+/*
+// CORES DE TEXTO
+SDL_Color branco = {255,255,255};
+SDL_Color preto = {0,0,0};
+SDL_Color amarelo = {255,255,0};
+SDL_Color vermelho = {255,0,0};
+SDL_Color verde = {51,255,0};
+*/
 
-// Struct para mapas
-typedef struct
-{
-	// Numero da fase
-	int numero;
+// ****************************************************************************************
 
-	// Sprite
-	SDL_Texture* sprite;
+//
+// FUNCOES
+//
 
-	// Portais
-	struct
-	{
-		// Animacao do portal
-		int animacao;
+void Carrega_Teclas_de_Acao(Objeto* jogador);
+SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
+void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
+FILE* DATA_Carrega_Save_Game();
+void DATA_Salva_Informacoes_Basicas(FILE* save_game);
+void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking);
 
-		struct
-		{		
-			// Tipo de portal
-			int tipo;
-			/*
-			Portal 1 - Portal Vermelho		- Inimigos saindo do portal
-			Portal 2 - Portal Azul			- Jogadores podem passar
-			Portal 3 - Portal Cinza			- Portal desativado
-			*/
+// *****************************************************************************************
 
-			// Quantidade de inimigos saindo do portal
-			int inimigos;
+//
+// SAVE GAME
+//
 
-			// Sprite dos portais
-			SDL_Texture* sprite;
+FILE* Save_Game;
 
-			// Rect para portais
-			SDL_Rect frame, posicao;
+/*
+	ORDEM DOS ARQUIVOS GRAVADOS NA MEMORIA
 
-		}cima, baixo, esquerda, direita;
-	}portal;
-}Fase;
+	1		STRUCT DE STATUS DO MAGO
+	2		STRUCT DE STATUS DO ARQUEIRO
+	3		RANKING DE PONTUACAO DOS JOGADORES
+	4		STRUCT DE TECLAS DE ACAO DO JOGADOR 1
+	5		STRUCT DE TECLAS DE ACAO DO JOGADOR 2
 
-// Funcoes
-Jogador Carrega_Jogador(int numero);
-void Carrega_Teclas_de_Acao(Jogador* jogador);
-Fase Inicializa_Fases();
-void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
-void Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
-void Atualiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase*fase);
+*/
+
+// *****************************************************************************************
 
 #endif
 
-// fim
+// FIM
