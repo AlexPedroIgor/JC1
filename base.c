@@ -718,6 +718,11 @@ void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos)
 	{
 		for (i = 0; i != inimigos->quantidade; i++)
 		{
+			if (inimigos->inimigo[i].inf.movimento.cima)
+			{
+				Inimigo_Animacao_Ataque(&inimigos->inimigo[i].inf);
+			}
+
 			SDL_RenderCopy(renderer,
 				inimigos->inimigo[i].inf.sprite,
 				&inimigos->inimigo[i].inf.frame,

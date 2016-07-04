@@ -37,15 +37,48 @@ int Game_Over(SDL_Renderer* renderer);
 // ANIMACAO DE ATAQUE DO INIMIGO
 void Inimigo_Animacao_Ataque(Objeto* inimigo)
 {
-		inimigo->frame.y +256; //diferença entre animação normal e ataque
-			inimigo->frame.x = 0;
-			
+	/*inimigo->frame.y +256; //diferença entre animação normal e ataque
+	inimigo->frame.x = 0;
+		
+	if (inimigo->frame.x < 320)
+		inimigo->frame.x += 64;
+	else
+		inimigo->frame.x = 0;*/
 
-			if (inimigo->frame.x < 320)
-				inimigo->frame.x += 64;
-			else
-				inimigo->frame.x = 0;
-			
+	// CIMA
+	if (inimigo->frame.y == 768)
+			inimigo->frame.x += 64;
+	else if (inimigo->frame.y == 512)
+	{
+		inimigo->frame.y = 768;
+		inimigo->frame.x = 0;
+	}
+	// BAIXO
+	else if (inimigo->frame.y == 896)
+		inimigo->frame.x += 64;
+	else if (inimigo->frame.y == 640)
+	{
+		inimigo->frame.y = 896;
+		inimigo->frame.x = 0;
+	}
+
+	// ESQUERDA
+	else if (inimigo->frame.y == 832)
+		inimigo->frame.x += 64;
+	else if (inimigo->frame.y == 576)
+	{
+		inimigo->frame.y = 832;
+		inimigo->frame.x = 0;
+	}
+
+	// DIREITA
+	else if (inimigo->frame.y == 960)
+		inimigo->frame.x += 64;
+	else if (inimigo->frame.y == 704)
+	{
+		inimigo->frame.y = 960;
+		inimigo->frame.x = 0;
+	}
 }
 
 // ANIMACAO DE INIMIGO TOMANDO DANO

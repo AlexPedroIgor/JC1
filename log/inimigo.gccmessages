@@ -1,5 +1,5 @@
 inimigo.c: In function ‘IA_de_Movimentacao’:
-inimigo.c:304:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
+inimigo.c:315:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
    Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
    ^
 In file included from fisica.h:15:0,
@@ -8,13 +8,10 @@ In file included from fisica.h:15:0,
 rpg.h:39:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
  void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
       ^
-inimigo.c:305:3: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [enabled by default]
-   Inimigo_Ataque(inimigo,jogadores);
+inimigo.c:316:3: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
+   Inimigo_Animacao_Ataque(inimigo);
    ^
-inimigo.c:29:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
- void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
-      ^
-inimigo.c:311:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
+inimigo.c:323:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
    Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
    ^
 In file included from fisica.h:15:0,
@@ -23,17 +20,7 @@ In file included from fisica.h:15:0,
 rpg.h:39:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
  void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
       ^
-inimigo.c:312:3: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [enabled by default]
-   Inimigo_Ataque(inimigo,jogadores);
-   ^
-inimigo.c:29:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
- void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
-      ^
-inimigo.c: In function ‘Inimigo_Ataque’:
-inimigo.c:508:2: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
-  Inimigo_Animacao_Ataque(inimigo);
-  ^
 inimigo.c: In function ‘Inimigo_Toma_Dano’:
-inimigo.c:530:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
+inimigo.c:542:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Toma_Dano(renderer, inimigo);
   ^

@@ -26,7 +26,6 @@ void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos)
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
 void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
 void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status, Jogadores* jogadores, int movimento_permitido);
-void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
 void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
 
 // ******************************************************************************************************************************
@@ -38,7 +37,7 @@ void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, 
 // Funcao para carregar inimigo
 void Cria_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int tipo)
 {
-	//inimigo.numero = numero;
+	inimigo->tipo = tipo;
 
 	// Posicao de colisoes
 	inimigo->colisao.cima = FALSO;
@@ -184,8 +183,20 @@ void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* inimigos)
 // INIMIGO UNICO
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase)
 {
-	Efeito_Sonoro(FX_ESQUELETO);
+	switch (inimigo->tipo)
+	{
+		case 1:
+			Efeito_Sonoro(FX_ESQUELETO);
+			break;
 
+		case 2:
+			Efeito_Sonoro(FX_ORC);
+			break;
+
+		case 3:
+			break;
+	}
+	
 	// Troca portal
 	if (fase->portal.cima.inimigos == 0)
 		portal = BAIXO;
@@ -302,16 +313,20 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 			&& distancia < 65)
 	{
 		Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
-		Inimigo_Ataque(inimigo,jogadores);
+		Inimigo_Animacao_Ataque(inimigo);
+		inimigo->movimento.ataque = VERDADEIRO;
 		//inimigo_status->delay_ataque = 0;
 	}
 
 	else if (distancia < 55)
 	{
 		Tomar_dano(inimigo, inimigo_status, jogadores, jogador_proximo);
-		Inimigo_Ataque(inimigo,jogadores);
+		Inimigo_Animacao_Ataque(inimigo);
+		inimigo->movimento.ataque = VERDADEIRO;
 		//inimigo_status->delay_ataque = 0;
 	}
+	else
+		inimigo->movimento.ataque = FALSO;
 	//inimigo_status->delay_ataque++;
 		
 
@@ -503,10 +518,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 
 
 // ATAQUE DE UM INIMIGO
-void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador)
-{
-	Inimigo_Animacao_Ataque(inimigo);
-}
+
 
 // ***********************************************************************************
 
