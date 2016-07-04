@@ -241,11 +241,12 @@ void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores)
 
 
 	if(inimigo->inimigo[0].status.ataque < jogadores->jogador[0].status.defesa)
-		jogadores->jogador[0].status.dano += 1; 
+		jogadores->jogador[0].status.HP -= 1; 
 	else
-		jogadores->jogador[0].status.dano += inimigo->inimigo[0].status.ataque -jogadores->jogador[0].status.defesa;
-	if(jogadores->jogador[0].status.dano >= jogadores->jogador[0].status.HP_Max)
+		jogadores->jogador[0].status.HP -= inimigo->inimigo[0].status.ataque -jogadores->jogador[0].status.defesa;
+	if(jogadores->jogador[0].status.HP <= 0)
 	{
+		jogadores->jogador[0].status.HP = 0;
 		printf("MORRI\n");
 			jogadores->jogador[0].status.morte = 1;
 	}
