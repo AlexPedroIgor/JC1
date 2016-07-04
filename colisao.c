@@ -528,16 +528,6 @@ void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores)
 		}
 	}
 
-	// COLISAO ENTRE JOGADORES NO MODO MULTIPLAYER
-	if (jogadores->quantidade == 2)
-	{
-		Colisao_Perimetro(&jogadores->jogador[0].inf,
-						&jogadores->jogador[1].inf);
-
-		Colisao_Perimetro(&jogadores->jogador[1].inf,
-						&jogadores->jogador[0].inf);
-	}
-
 	// COLISAO ENTRE INIMIGOS E JOGADORES
 	if (inimigos->quantidade > 0)
 	{
@@ -584,10 +574,10 @@ void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Ini
 			{
 				for (j = 1; j != inimigos->quantidade; j++)
 				{
-					if (Colisao_Circular(&projeteis->tiro[i].inf,
+					if (Colisao_Perimetro2(&projeteis->tiro[i].inf,
 								&inimigos->inimigo[j].inf));
 					{
-						printf("COLISAO CIRCULAR FOI VERDADEIRA %d %d\n", i, j);
+						printf("COLISAO FOI VERDADEIRA %d %d\n", i, j);
 						Inimigo_Toma_Dano(renderer,
 								&inimigos->inimigo[j].inf,
 								&inimigos->inimigo[j].status,

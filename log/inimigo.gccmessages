@@ -1,5 +1,5 @@
 inimigo.c: In function ‘IA_de_Movimentacao’:
-inimigo.c:279:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
+inimigo.c:281:3: warning: passing argument 1 of ‘Tomar_dano’ from incompatible pointer type [enabled by default]
    Tomar_dano(inimigo, jogadores);
    ^
 In file included from fisica.h:15:0,
@@ -8,20 +8,20 @@ In file included from fisica.h:15:0,
 rpg.h:37:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
  void Tomar_dano(Inimigos* inimigo, Jogadores* jogadores);
       ^
-inimigo.c:280:3: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [enabled by default]
+inimigo.c:282:3: warning: passing argument 1 of ‘Inimigo_Ataque’ from incompatible pointer type [enabled by default]
    Inimigo_Ataque(inimigo,jogadores);
    ^
 inimigo.c:26:6: note: expected ‘struct Inimigos *’ but argument is of type ‘struct Objeto *’
  void Inimigo_Ataque(Inimigos* inimigo, Jogadores* jogador);
       ^
-inimigo.c:244:6: warning: variable ‘jogador_proximo’ set but not used [-Wunused-but-set-variable]
+inimigo.c:246:6: warning: variable ‘jogador_proximo’ set but not used [-Wunused-but-set-variable]
   int jogador_proximo;
       ^
 inimigo.c: In function ‘Inimigo_Ataque’:
-inimigo.c:476:2: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
+inimigo.c:478:2: warning: implicit declaration of function ‘Inimigo_Animacao_Ataque’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Ataque(inimigo);
   ^
 inimigo.c: In function ‘Inimigo_Toma_Dano’:
-inimigo.c:498:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
+inimigo.c:500:2: warning: implicit declaration of function ‘Inimigo_Animacao_Toma_Dano’ [-Wimplicit-function-declaration]
   Inimigo_Animacao_Toma_Dano(renderer, inimigo);
   ^
