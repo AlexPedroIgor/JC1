@@ -71,6 +71,8 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 		case HULK_ESMAGA:
 			som = Mix_LoadWAV("sons/efeitos/hulk_esmaga.wav");
 			break;
+		case FIREBALL:
+			som = Mix_LoadWAV("sons/efeitos/fireball.ogg");
 	}
 
 	// Retorna o efeito para ser tocado

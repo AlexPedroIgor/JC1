@@ -22,6 +22,7 @@
 #define		TAPA			5
 #define		SOCO			6
 #define		HULK_ESMAGA		7
+#define		FIREBALL		8
 
 // *********************************************************************
 
@@ -32,7 +33,7 @@
 //			musica							valor
 #define		MUSICA_INICIAL						1
 #define		MUSICA_DE_SELECAO					2
-#define		MUSICA_DE_FUNDO_DO_JOGO				3
+#define		MUSICA_DE_FUNDO_DO_JOGO					3
 
 // **********************************************************************
 
