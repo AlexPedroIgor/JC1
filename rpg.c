@@ -237,7 +237,7 @@ void Atualiza_Status_Geral(Jogadores* jogadores)
 
 void Manter_status(Jogadores* jogadores)
 {
-	jogadores->jogador[0].status.HP -= jogadores->jogador[0].status.dano;
+	jogadores->jogador[0].status.HP -= jogadores->jogador[0].status.dano/10;
 	jogadores->jogador[0].status.dano = 0;
 
 	if (jogadores->quantidade == 2)
@@ -253,7 +253,7 @@ void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores,
 
 	jogadores->jogador[jogador_proximo].status.dano -= (inimigo_status->ataque - jogadores->jogador[jogador_proximo].status.defesa);
 
-	if(jogadores->jogador[jogador_proximo].status.dano >= jogadores->jogador[jogador_proximo].status.HP_Max)
+	if(jogadores->jogador[jogador_proximo].status.dano >= jogadores->jogador[jogador_proximo].status.HP)
 	{
 		//printf("MORRI\n");
 		jogadores->jogador[jogador_proximo].status.HP = 0;
