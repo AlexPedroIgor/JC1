@@ -336,14 +336,6 @@ void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos)
 // Funcao para executar movimentacao do inimigo
 void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido)
 {
-	printf("Inimigo: %d\n", inimigo->numero);
-	printf("Movimento permitido: %d\n", movimento_permitido);
-	printf("Colisao de tela: %d\n", Colisao_LimiteDeTela2(inimigo));
-	printf("cima: %d\n", inimigo->movimento.cima);
-	printf("baixo: %d\n", inimigo->movimento.baixo);
-	printf("esquerda: %d\n", inimigo->movimento.esquerda);
-	printf("direita: %d\n", inimigo->movimento.direita);
-
 	//
 	// Movimentos diagonais
 	//
