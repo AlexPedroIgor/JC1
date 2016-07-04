@@ -9,9 +9,14 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */ 
 
+
+// BIBLIOTECAS INTERNAS
 #include "fisica.h"
 #include "inimigo.h"
 #include "jogo.h"
+#include "som.h"
+
+// ******************************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -63,6 +68,12 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 			&& !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
 		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;			
 			jogador->posicao.y -= jogador->velocidade.y;
 			jogador->posicao.x -= jogador->velocidade.x;
 		}
@@ -88,6 +99,12 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 			&& !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
 		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;
 			jogador->posicao.y -= jogador->velocidade.y;
 			jogador->posicao.x += jogador->velocidade.x;
 		}
@@ -113,6 +130,12 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 			&& !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
 		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;
 			jogador->posicao.y += jogador->velocidade.y;
 			jogador->posicao.x -= jogador->velocidade.x;
 		}
@@ -138,6 +161,12 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 			&& !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
 		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;
 			jogador->posicao.y += jogador->velocidade.y;
 			jogador->posicao.x += jogador->velocidade.x;
 		}
@@ -164,7 +193,16 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 		// Movimento
 		if (!jogador->colisao.cima && !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
+		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;
 			jogador->posicao.y -= jogador->velocidade.y;
+		}
+
 	}
 
 	// Baixo
@@ -184,7 +222,16 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 		// Movimento
 		if (!jogador->colisao.baixo && !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
+		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;
 			jogador->posicao.y += jogador->velocidade.y;
+		}
+
 	}
 
 	// Esquerda
@@ -204,7 +251,15 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 		// Movimento
 		if (!jogador->colisao.esquerda && !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
+		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;
 			jogador->posicao.x -= jogador->velocidade.x;
+		}
 	}
 
 	// Direita
@@ -224,7 +279,15 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 		// Movimento
 		if (!jogador->colisao.direita && !Colisao_LimiteDeTela(jogador)
 			&& movimento_permitido)
+		{
+			if (jogador->cooldown == 10)
+			{
+				Efeito_Sonoro(FX_PASSO_1);
+				jogador->cooldown = 1;
+			}
+			jogador->cooldown++;
 			jogador->posicao.x += jogador->velocidade.x;
+		}
 	}
 
 	else if(jogador->movimento.ataque)

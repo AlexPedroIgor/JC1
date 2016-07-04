@@ -61,6 +61,8 @@ Jogadores* Inicializa_Jogadores()
 
 		jogadores->jogador[i].tipo_de_ataque = 1;
 
+		jogadores->jogador[i].inf.cooldown = 1;
+
 		// Marca estado de colisao inicial como sem colisao
 		jogadores->jogador[i].inf.colisao.cima = FALSO;
 		jogadores->jogador[i].inf.colisao.baixo = FALSO;

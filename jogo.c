@@ -54,7 +54,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// MUSICA DE FUNDO
 	//
 
-	Toca_Musica(MUSICA_DE_FUNDO_DO_JOGO);
+	Toca_Musica(MUSICA_FIELD_1);
 
 	// *********************************************************************************************
 

@@ -71,8 +71,22 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 		case FX_HULK_ESMAGA:
 			som = Mix_LoadWAV("sons/efeitos/dano/hulk_esmaga.wav");
 			break;
+
 		case FX_FIREBALL:
 			som = Mix_LoadWAV("sons/efeitos/dano/fireball.ogg");
+			break;
+
+		case FX_ESQUELETO:
+			som = Mix_LoadWAV("sons/efeitos/inimigo/esqueleto.wav");
+			break;
+
+		case FX_ORC:
+			som = Mix_LoadWAV("sons/efeitos/inimigo/orc.wav");
+			break;
+
+		case FX_PASSO_1:
+			som = Mix_LoadWAV("sons/efeitos/passo/passo-1.wav");
+			break;
 	}
 
 	// Retorna o efeito para ser tocado
@@ -116,7 +130,15 @@ Mix_Music* Carrega_Musica(int nome_da_musica)
 			break;
 
 		case MUSICA_BOSS:
-			musica = Mix_LoadMUS("sons/musicas/boss.mid");
+			musica = Mix_LoadMUS("sons/musicas/boss.mp3");
+			break;
+
+		case MUSICA_FIELD_1:
+			musica = Mix_LoadMUS("sons/musicas/field01.mp3");
+			break;
+
+		case MUSICA_FEILD_2:
+			musica = Mix_LoadMUS("sons/musicas/field03.mp3");
 			break;
 	}
 

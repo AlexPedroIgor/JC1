@@ -7,11 +7,14 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
+//BIBLIOTECAS INTERNAS
 #include "inimigo.h"
 #include "base.h"
 #include "config.h"
 #include "fisica.h"
+#include "som.h"
 
+// *******************************************************************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -175,6 +178,8 @@ void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* inimigos)
 // INIMIGO UNICO
 void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase)
 {
+	Efeito_Sonoro(FX_ESQUELETO);
+
 	// Troca portal
 	if (fase->portal.cima.inimigos == 0)
 		portal = BAIXO;

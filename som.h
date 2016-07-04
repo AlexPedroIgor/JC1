@@ -23,6 +23,9 @@
 #define		FX_SOCO				6
 #define		FX_HULK_ESMAGA		7
 #define		FX_FIREBALL			8
+#define		FX_ESQUELETO		9
+#define		FX_ORC				10
+#define		FX_PASSO_1			11
 
 // *********************************************************************
 
@@ -35,6 +38,8 @@
 #define		MUSICA_DE_SELECAO					2
 #define		MUSICA_DE_FUNDO_DO_JOGO				3
 #define		MUSICA_BOSS							4
+#define		MUSICA_FIELD_1						5
+#define 	MUSICA_FEILD_2						6
 
 // **********************************************************************
 

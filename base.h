@@ -135,6 +135,8 @@ typedef struct
 
 	int numero; // Armazena o numero do objeto
 
+	int cooldown; // Cooldown para auxiliar funções
+
 	struct
 	{
 		int cima, baixo, esquerda, direita;
