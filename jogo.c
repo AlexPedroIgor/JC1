@@ -17,7 +17,7 @@
 #include "rpg.h"
 #include "inimigo.h"
 
-// ********************************************************************************************
+// *********************************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -35,8 +35,9 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 //
 
 int jogoRodando;
+int jogadoresMortos = FALSO;
 
-// *************************************************************************************************
+// ***************************************************************************************************
 
 //
 // JOGO
@@ -46,7 +47,6 @@ int jogoRodando;
 void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 {
 	jogoRodando = VERDADEIRO; // Variavel para manter loop do jogo
-	
 
 	// *********************************************************************************************
 
@@ -102,12 +102,11 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// LOOP DO JOGO | inicio
 	// **************
 	//
-	//jogadores->jogador[0].status.atk_cooldown = 0;
 	
 	//auto-explicativo
 	Definir_status_iniciais(jogadores);
 
-	int contador = 1;
+	int contador = 1, aux = 1;
 	while (jogoRodando)
 	{		
 		if (jogadores->jogador[0].status.morte == 0)
@@ -118,12 +117,27 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 				Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 
 			Movimentacao_dos_Jogadores(jogadores, inimigos);
-		}
-		else
-		{
-			Game_Over(renderer, event, fase, jogadores, inimigos, projeteis);
-			break;
-		}
+		} else if (jogadores->jogador[0].status.morte == 1)
+			{
+			jogadores->jogador[0].inf.frame.y = 1280;
+			if(aux==1)
+			{ jogadores->jogador[0].inf.frame.x = 0;
+				aux=0;}
+				
+			if (jogadores->jogador[0].inf.frame.x != 704)
+				{
+				  printf("\n\n\nFrame atual = %d\n\n\n", jogadores->jogador[0].inf.frame.x); 
+				  jogadores->jogador[0].inf.frame.x += 64;
+				}
+			if (jogadores->jogador[0].status.morte == 2)
+			{		
+			jogoRodando = Game_Over(renderer);
+			mainRodando = jogoRodando;
+			}
+
+			
+			}
+
 
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
@@ -176,6 +190,12 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);										
 		carrega_HUD(renderer, jogadores);
+		if (jogadores->jogador[0].status.morte == 1 && jogadores->jogador[0].inf.frame.x <= 704)
+		{
+		printf("esperando animação %d",jogadores->jogador[0].inf.frame.x);	
+			SDL_Delay(200);
+		}
+
 		
 
 		SDL_RenderPresent(renderer); // PRINTA TELA
