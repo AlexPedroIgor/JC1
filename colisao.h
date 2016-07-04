@@ -21,6 +21,7 @@
 //
 
 int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
+int Colisao_Circular2(Objeto* objeto1, Objeto* objeto2);
 int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
 int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2);
 int Colisao_LimiteDeTela(Objeto* objeto);

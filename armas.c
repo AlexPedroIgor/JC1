@@ -171,7 +171,6 @@ void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* j
 
 		// Soma o contador de tiros em tela
 		projeteis->quantidade++;
-
 	}
 	else
 		projeteis->quantidade = 0;
@@ -208,9 +207,6 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 				tiro->frame.x = 0;
 
 			tiro->posicao.y += 15;
-			
-
-
 			break;
 
 		//ESQUERDA
@@ -224,8 +220,6 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 				tiro->frame.x = 0;
 			
 			tiro->posicao.x -= 15;
-
-
 			break;
 
 		//DIREITA
@@ -239,7 +233,6 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 				tiro->frame.x = 0;
 
 			tiro->posicao.x += 15;
-
 			break;
 
 		//CIMA DIREITA
@@ -254,8 +247,6 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 
 			tiro->posicao.x += 15;
 			tiro->posicao.y -= 15;
-
-
 			break;
 
 		//CIMA ESQUERDA
@@ -270,8 +261,6 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 
 			tiro->posicao.x -= 15;
 			tiro->posicao.y -= 15;
-
-
 			break;
 
 		//BAIXO ESQUERDA
@@ -286,8 +275,6 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 
 			tiro->posicao.x -= 15;
 			tiro->posicao.y += 15;
-
-
 			break;
 
 		//BAIXO DIREITA
@@ -302,11 +289,10 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 
 			tiro->posicao.x += 15;
 			tiro->posicao.y += 15;
-
-
 			break;
 	}
 }
+
 // ***************************************************************************************************************
 
 //

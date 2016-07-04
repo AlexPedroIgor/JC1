@@ -196,7 +196,7 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase
 
 		case DIREITA:
 			fase->portal.cima.inimigos--;
-			inimigo->posicao.x = 700;
+			inimigo->posicao.x = 690;
 			inimigo->posicao.y = SCREEN_HEIGHT/2-30;
 			break;
 	}

@@ -251,14 +251,14 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 					switch (jogadores->jogador[i].tipo_de_ataque) // VERIFICA O TIPO DE ATAQUE SELECIONADO
 					{
 						case 1: // FIREBALL	
-						if(jogadores->jogador[i].inf.movimento.ataque && jogadores->jogador[i].status.MP > 20)
-						{	
-									Inicializa_Fireball(renderer,
-									projeteis,
-									&jogadores->jogador[i].inf);
-									jogadores->jogador[i].status.atk_cooldown = 0;
-jogadores->jogador[i].status.MP-=20;
-						}			
+							if(jogadores->jogador[i].inf.movimento.ataque && jogadores->jogador[i].status.MP > 20)
+							{	
+								Inicializa_Fireball(renderer,
+													projeteis,
+													&jogadores->jogador[i].inf);
+								jogadores->jogador[i].status.atk_cooldown = 0;
+								jogadores->jogador[i].status.MP-=20;
+							}			
 							break;
 
 						case 2:
@@ -270,6 +270,7 @@ jogadores->jogador[i].status.MP-=20;
 					switch (jogadores->jogador[i].tipo_de_ataque)
 					{
 						case 1: // FLECHA
+							break;
 
 						case 2:
 							break;
