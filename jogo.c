@@ -78,6 +78,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 
 	Carrega_Jogadores_Memoria(renderer, jogadores);
 
+	RPG_Carrega_Status_Inicial(jogadores);
 
 	// *********************************************************************************************
 
@@ -103,9 +104,6 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// LOOP DO JOGO | inicio
 	// **************
 	//
-
-	//auto-explicativo
-	Definir_status_iniciais(jogadores);
 
 	int contador = 1, aux = 1;
 	while (jogoRodando)
@@ -192,7 +190,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);
-		carrega_HUD(renderer, jogadores);
+		RPG_Renderiza_HUD(renderer, jogadores);
 
 
 		if (jogadores->jogador[0].status.morte == 1 && jogadores->jogador[0].inf.frame.x <= 704)
@@ -200,8 +198,6 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
             printf("esperando animação %d",jogadores->jogador[0].inf.frame.x);
             SDL_Delay(100);
 		}
-
-
 
 		SDL_RenderPresent(renderer); // PRINTA TELA
 
@@ -622,6 +618,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);
+		RPG_Renderiza_HUD(renderer, jogadores);
 
 		// **********************************************************************************
 
@@ -1055,6 +1052,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
 		Renderiza_Projeteis(renderer, projeteis);
+		RPG_Renderiza_HUD(renderer, jogadores);
 
 		// **********************************************************************************
 
@@ -1183,6 +1181,7 @@ void Roda_Game_Over(SDL_Renderer* renderer, SDL_Event event)
 
         // *************************************************
     }
+    SDL_DestroyTexture(gGame_Over);
 }
 
 // *****************************************************************************************************

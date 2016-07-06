@@ -13,17 +13,12 @@
 // BIBLIOTECAS INTERNAS
 #include "base.h"
 
+// ******************************************************************************
+
 //
 // ESTRUTURAS
 //
 
-/*typedef struct
-{
-	float HP, MP, HP_Max, MP_Max;
-	int forca, destreza, inteligencia, constituicao;
-	int ataque, defesa, lvl;
-	int cooldown;
-}Status;*/
 
 
 // *****************************************************************************
@@ -32,8 +27,8 @@
 // FUNCOES
 //
 
-void carrega_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
-void Definir_status_iniciais(Jogadores* jogadores);
+void RPG_Renderiza_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
+void RPG_Carrega_Status_Inicial(Jogadores* jogadores);
 void Atualiza_Status_Geral(Jogadores* jogadores);
 void Manter_status(Jogadores* jogadores);
 void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
