@@ -135,7 +135,10 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
                 jogadores->jogador[0].status.morte =2;
 
 			if (jogadores->jogador[0].status.morte == 2)
+			{
+				jogoRodando = FALSO;
                 gameOver = VERDADEIRO;
+			}
 
         }
 

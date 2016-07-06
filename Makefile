@@ -8,9 +8,9 @@
 ############################### Makefile ###############################
 
 all: meujogo
-meujogo: main.o base.o config.o rpg.o som.o colisao.o fisica.o inimigo.o animacao.o armas.o creditos.o menu.o jogo.o resource.o
+meujogo: main.o base.o config.o rpg.o som.o colisao.o fisica.o inimigo.o animacao.o armas.o creditos.o menu.o jogo.o
 		# Compilando o jogo
-		gcc -o meujogo base.o som.o jogo.o menu.o config.o main.o fisica.o inimigo.o rpg.o animacao.o colisao.o armas.o resource.o -lm -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/meujogo.gccmessages
+		gcc -o meujogo base.o som.o jogo.o menu.o config.o main.o fisica.o inimigo.o rpg.o animacao.o colisao.o armas.o -lm -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/meujogo.gccmessages
 #------> Execucao dos arquivos
 #
 main.o: main.c main.h base.h menu.h jogo.h config.h
@@ -51,9 +51,6 @@ menu.o: menu.c som.h main.h config.h base.h
 #
 jogo.o: jogo.c main.h base.h som.h config.h fisica.h inimigo.h colisao.h animacao.h rpg.h
 		gcc -o jogo.o -c jogo.c -Wall -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 2>log/jogo.gccmessages
-#
-resource.o: resource.rc
-		gcc -o resource.o -c resource.rc -Wall 2>log/resource.gccmessages
 #
 clean:
 		rm -rf *.o
