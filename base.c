@@ -100,7 +100,7 @@ Jogadores* Inicializa_Jogadores()
 		jogadores->jogador[i].status.atk_cooldown = 10;
 		jogadores->jogador[i].status.MP_Max = 100;
 		jogadores->jogador[i].status.MP= 100;
-		
+
 	}
 	return jogadores;
 }
@@ -120,7 +120,7 @@ Inimigos* Inicializa_Inimigos()
 	for (i = 0; i != 64; i++) // Loop para inimigos
 	{
 		inimigos->inimigo[i].inf.numero = i + 1;
-		
+
 		inimigos->inimigo[i].vivo = 0;
 
 		inimigos->inimigo[i].inf.animacao = 1;
@@ -718,16 +718,13 @@ void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos)
 	{
 		for (i = 0; i != inimigos->quantidade; i++)
 		{
-			if (inimigos->inimigo[i].inf.movimento.cima)
-			{
-				Inimigo_Animacao_Ataque(&inimigos->inimigo[i].inf);
-			}
-
-			SDL_RenderCopy(renderer,
-				inimigos->inimigo[i].inf.sprite,
-				&inimigos->inimigo[i].inf.frame,
-				&inimigos->inimigo[i].inf.posicao);
-
+            if (inimigos->inimigo[i].vivo == VERDADEIRO)
+            {
+                SDL_RenderCopy(renderer,
+                    inimigos->inimigo[i].inf.sprite,
+                    &inimigos->inimigo[i].inf.frame,
+                    &inimigos->inimigo[i].inf.posicao);
+            }
 			if (i == 64)
 				break;
 		}
@@ -743,7 +740,7 @@ void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
 	{
 		for (i = 0; i < projeteis->quantidade; i++)
 		{
-			
+
 
 			Anima_Fireball(renderer, &projeteis->tiro[i].inf);
 			SDL_RenderCopy(renderer,
