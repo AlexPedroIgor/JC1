@@ -7,9 +7,12 @@
 	FUNCOES DE ANIMACAO DOS SPRITES DO JOGO
 
 	Jogo de desenvolvido para projeto de computacao 1
-*/ 
+*/
 
+// BIBLIOTECAS INTERNAS
 #include "animacao.h"
+
+// ************************************************************************************
 
 //
 // PRE CARREGAMENTO DAS FUNCOES
@@ -19,7 +22,7 @@ void Inimigo_Animacao_Ataque(Objeto* inimigo);
 void Inimigo_Animacao_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo);
 void Projetil_Fireball_Animacao(SDL_Renderer* renderer, Objeto* tiro);
 void Fase_Animacao_Portal(Fase* fase);
-int Game_Over(SDL_Renderer* renderer);
+
 // **************************************************************************************
 
 //
@@ -39,7 +42,7 @@ void Inimigo_Animacao_Ataque(Objeto* inimigo)
 {
 	/*inimigo->frame.y +256; //diferença entre animação normal e ataque
 	inimigo->frame.x = 0;
-		
+
 	if (inimigo->frame.x < 320)
 		inimigo->frame.x += 64;
 	else
@@ -98,35 +101,35 @@ void Projetil_Fireball_Animacao(SDL_Renderer* renderer, Objeto* tiro)
 {
 	switch (tiro->animacao)
 	{
-		case 1:
+		case CIMA:
 			tiro->frame.x = 0; // Frame
 			break;
 
-		case 2:
+		case BAIXO:
 			tiro->frame.x = 64; // Frame
 			break;
 
-		case 3:
+		case ESQUERDA:
 			tiro->frame.x = 128; // Frame
 			break;
 
-		case 4:
+		case DIREITA:
 			tiro->frame.x = 192; // Frame
 			break;
 
-		case 5:
+		case QUADRANTE1:
 			tiro->frame.x = 256; // Frame
 			break;
 
-		case 6:
+		case QUADRANTE2:
 			tiro->frame.x = 320; // Frame
 			break;
 
-		case 7:
+		case QUADRANTE3:
 			tiro->frame.x = 384; // Frame
 			break;
 
-		case 8:
+		case QUADRANTE4:
 			tiro->frame.x = 448; // Frame
 			break;
 	}
@@ -209,29 +212,5 @@ void Fase_Animacao_Portal(Fase* fase)
 }
 
 // ***************************************************************************************
-int Game_Over(SDL_Renderer* renderer)
-{
-	SDL_Surface* Loading_Surf = NULL;
 
-	SDL_Texture* gOver = NULL	;
-
-	Loading_Surf = IMG_Load("arte/menu/gamover.png"); 
-
-	gOver = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
-
-	SDL_FreeSurface(Loading_Surf);
-
-	SDL_Rect gameover;
-
-	gameover.x = 0;
-	gameover.y = 0;
-	gameover.w = SCREEN_WIDTH;
-	gameover.h = SCREEN_HEIGHT;
-
-	SDL_RenderCopy(renderer, gOver, NULL, &gameover);
-	SDL_Delay(200);
-	
-	return FALSO;
-
-}
 // FIM

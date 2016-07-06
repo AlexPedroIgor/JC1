@@ -721,9 +721,9 @@ void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos)
             if (inimigos->inimigo[i].vivo == VERDADEIRO)
             {
                 SDL_RenderCopy(renderer,
-                    inimigos->inimigo[i].inf.sprite,
-                    &inimigos->inimigo[i].inf.frame,
-                    &inimigos->inimigo[i].inf.posicao);
+                                inimigos->inimigo[i].inf.sprite,
+                                &inimigos->inimigo[i].inf.frame,
+                                &inimigos->inimigo[i].inf.posicao);
             }
 			if (i == 64)
 				break;
@@ -740,13 +740,20 @@ void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis)
 	{
 		for (i = 0; i < projeteis->quantidade; i++)
 		{
+		    switch (projeteis->tiro[i].inf.tipo)
+		    {
+                case FIREBALL:
+                    Anima_Fireball(renderer, &projeteis->tiro[i].inf);
+                    break;
 
+                case FLECHA:
+                    break;
+		    }
 
-			Anima_Fireball(renderer, &projeteis->tiro[i].inf);
 			SDL_RenderCopy(renderer,
-				projeteis->tiro[i].inf.sprite,
-				&projeteis->tiro[i].inf.frame,
-				&projeteis->tiro[i].inf.posicao);
+                            projeteis->tiro[i].inf.sprite,
+                            &projeteis->tiro[i].inf.frame,
+                            &projeteis->tiro[i].inf.posicao);
 
 			if (i == 64)
 				break;
@@ -762,9 +769,9 @@ void Renderiza_Boss(SDL_Renderer* renderer, Boss* boss)
 	for (i = 0; i != boss->quantidade; i++)
 	{
 		SDL_RenderCopy(renderer,
-			boss->chefe[i].inf.sprite,
-			&boss->chefe[i].inf.frame,
-			&boss->chefe[i].inf.posicao);
+                        boss->chefe[i].inf.sprite,
+                        &boss->chefe[i].inf.frame,
+                        &boss->chefe[i].inf.posicao);
 	}
 }
 

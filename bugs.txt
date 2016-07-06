@@ -1,6 +1,8 @@
 Bugs para corrigir com pressa:
 
-- Menu fica lento quando clica pelo mouse
+- MELHORAR LOGICA PARA GAME OVER
+
+- 
 
 
 Bugs para corrigir sem pressa:

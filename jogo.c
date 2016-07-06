@@ -26,7 +26,7 @@
 void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
 void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-
+void Roda_Game_Over(SDL_Renderer* renderer, SDL_Event event);
 
 // ***************************************************************************************************
 
@@ -36,6 +36,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 int jogoRodando;
 int jogadoresMortos = FALSO;
+int gameOver = FALSO;
 
 // ***************************************************************************************************
 
@@ -102,52 +103,52 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	// LOOP DO JOGO | inicio
 	// **************
 	//
-	
+
 	//auto-explicativo
 	Definir_status_iniciais(jogadores);
 
 	int contador = 1, aux = 1;
 	while (jogoRodando)
-	{		
+	{
 		if (jogadores->jogador[0].status.morte == 0)
 		{
 			Manter_status(jogadores);
-				
-			if(jogadores->jogador[0].status.atk_cooldown >= 5)		
+
+			if(jogadores->jogador[0].status.atk_cooldown >= 5)
 				Ataque_dos_Jogadores(renderer, jogadores, projeteis);
 
 			Movimentacao_dos_Jogadores(jogadores, inimigos);
-		} else if (jogadores->jogador[0].status.morte == 1)
-			{
+		}
+		else if (jogadores->jogador[0].status.morte == 1)
+		{
 			jogadores->jogador[0].inf.frame.y = 1280;
 			if(aux==1)
-			{ jogadores->jogador[0].inf.frame.x = 0;
-				aux=0;}
-				
-			if (jogadores->jogador[0].inf.frame.x != 704)
-				{
-				  printf("\n\n\nFrame atual = %d\n\n\n", jogadores->jogador[0].inf.frame.x); 
-				  jogadores->jogador[0].inf.frame.x += 64;
-				} else
-				  jogadores->jogador[0].status.morte =2;
-				
-			if (jogadores->jogador[0].status.morte == 2)
-			{		
-			mainRodando = Game_Over(renderer);
-			jogoRodando = mainRodando;
-			}
+            {
+                jogadores->jogador[0].inf.frame.x = 0;
+				aux=0;
+            }
 
-			
-			}
+			if (jogadores->jogador[0].inf.frame.x != 704)
+            {
+                printf("\n\n\nFrame atual = %d\n\n\n", jogadores->jogador[0].inf.frame.x);
+                jogadores->jogador[0].inf.frame.x += 64;
+            }
+            else
+                jogadores->jogador[0].status.morte =2;
+
+			if (jogadores->jogador[0].status.morte == 2)
+                gameOver = VERDADEIRO;
+
+        }
 
 
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
 		// ADICIONA INIMIGOS
 		if(jogadores->jogador[0].status.MP < jogadores->jogador[0].status.MP_Max)
-			jogadores->jogador[0].status.MP++;		
+			jogadores->jogador[0].status.MP++;
 		jogadores->jogador[0].status.atk_cooldown++;
-		
+
 		contador++;
 		if (contador == 120) // A CADA 4 SEGUNDOS
 		{
@@ -177,8 +178,8 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 					Roda_Pause(renderer, event, fase, jogadores, inimigos, projeteis);
 			}
 		}
-		
-	
+
+
 		// *******************************************************************************************
 
 		//
@@ -190,15 +191,17 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 		Renderiza_Plano_de_Fundo(renderer, fase);
 		Renderiza_Jogadores(renderer, jogadores);
 		Renderiza_Inimigos(renderer, inimigos);
-		Renderiza_Projeteis(renderer, projeteis);										
+		Renderiza_Projeteis(renderer, projeteis);
 		carrega_HUD(renderer, jogadores);
+
+
 		if (jogadores->jogador[0].status.morte == 1 && jogadores->jogador[0].inf.frame.x <= 704)
 		{
-		printf("esperando animação %d",jogadores->jogador[0].inf.frame.x);	
-			SDL_Delay(200);
+            printf("esperando animação %d",jogadores->jogador[0].inf.frame.x);
+            SDL_Delay(100);
 		}
 
-		
+
 
 		SDL_RenderPresent(renderer); // PRINTA TELA
 
@@ -214,9 +217,10 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 	Finaliza_Inimigos(inimigos);
 	Finaliza_Projeteis(projeteis);
 	Finaliza_Fases(fase);
-	
-	// ************************************************************************************************
 
+	// ************************************************************************************************
+    if (gameOver)
+        Roda_Game_Over(renderer, event);
 	//
 	// *************
 	// FIM DO JOGO |
@@ -252,7 +256,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 
 	SDL_Texture* gEscurecer = NULL	;
 
-	Loading_Surf = IMG_Load("arte/fundo/escurecer.png"); 
+	Loading_Surf = IMG_Load("arte/fundo/escurecer.png");
 
 	gEscurecer = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -486,7 +490,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				
+
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE: // Encerra o pause
@@ -726,7 +730,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 
 	SDL_Texture* gEscurecer = NULL	;
 
-	Loading_Surf = IMG_Load("arte/fundo/escurecer.png"); 
+	Loading_Surf = IMG_Load("arte/fundo/escurecer.png");
 
 	gEscurecer = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
 
@@ -947,7 +951,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 			// Eventos de tecla pressionada
 			if (event.type == SDL_KEYDOWN)
 			{
-				
+
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE: // Encerra o pause
@@ -1123,6 +1127,62 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 	SDL_DestroyTexture(gSim_pressionado);
 	SDL_DestroyTexture(gNao);
 	SDL_DestroyTexture(gNao_pressionado);
+}
+
+// *****************************************************************************************************
+
+//
+// GAME OVER
+//
+
+void Roda_Game_Over(SDL_Renderer* renderer, SDL_Event event)
+{
+    Toca_Musica(MUSICA_FEILD_2);
+
+    int gameoverRodando = VERDADEIRO;
+
+	SDL_Surface* Loading_Surf = NULL;
+
+	SDL_Texture* gGame_Over = NULL	;
+
+	Loading_Surf = IMG_Load("arte/menu/gamover.png");
+
+	gGame_Over = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+
+	SDL_FreeSurface(Loading_Surf);
+
+	while (gameoverRodando)
+    {
+        //
+        // EVENTOS
+        //
+
+		if (SDL_PollEvent (&event)) // VERIFICA EVENTOS
+		{
+			// Finaliza o jogo
+			if (event.type == SDL_QUIT)
+			{
+				gameoverRodando = FALSO;
+				mainRodando = FALSO;
+			}
+		}
+
+        // ******************************************************
+
+        //
+        // ATUALIZAÇÃO DE TELA
+        //
+
+        SDL_RenderClear(renderer); // LIMPA TELA ANTERIOR
+
+        SDL_RenderCopy(renderer, gGame_Over, NULL, NULL);
+
+        SDL_RenderPresent(renderer); // PRINTA TELA
+
+        SDL_Delay( 1000/FPS);
+
+        // *************************************************
+    }
 }
 
 // *****************************************************************************************************
