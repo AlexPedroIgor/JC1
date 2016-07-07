@@ -99,7 +99,7 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 void Efeito_Sonoro_Volume(int volume)
 {
     /*
-        VOLUME MIN:     -1
+        VOLUME MIN:     0
         VOLUME MAX:     128
     */
     Mix_Volume(0,volume);
@@ -162,7 +162,7 @@ Mix_Music* Carrega_Musica(int nome_da_musica)
 void Musica_Volume(int volume)
 {
     /*
-        VOLUME MIN:     -1
+        VOLUME MIN:     0
         VOLUME MAX:     128
     */
     Mix_VolumeMusic(volume);
