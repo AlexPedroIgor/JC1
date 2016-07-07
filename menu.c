@@ -27,12 +27,12 @@ Ranking ranking;
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event);
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
+void Roda_MenuPrincipal(SDL_Renderer* renderer, Jogadores* jogadores);
+void Roda_TelaInicial(SDL_Renderer* renderer);
+void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, Jogadores* jogadores);
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jogadores);
+void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, Jogadores* jogadores);
+void Roda_Opcoes(SDL_Renderer* renderer, Jogadores* jogadores);
 
 // *********************************************************************************************************************
 
@@ -40,7 +40,7 @@ void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
 // MENU
 //
 
-void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
+void Roda_MenuPrincipal(SDL_Renderer* renderer, Jogadores* jogadores)
 {
 	// Inicia na tela inicial
 	modoDeMenu = TELA_INICIAL;
@@ -57,24 +57,24 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* joga
 		switch (modoDeMenu)
 		{
 			case TELA_INICIAL:
-				Roda_TelaInicial(renderer, event);
+				Roda_TelaInicial(renderer);
 				break;
 
 			case OPCOES:
-				Roda_Opcoes(renderer, event, jogadores);
+				Roda_Opcoes(renderer, jogadores);
 				break;
 
 			case QND_DE_JOGADORES:
 				Toca_Musica(MUSICA_DE_SELECAO);
-				Roda_Escolha_de_jogadores(renderer, event, jogadores);
+				Roda_Escolha_de_jogadores(renderer, jogadores);
 				break;
 
 			case SELECAO_DE_PERSONAGEM1:
-				Roda_SelecaoDePersonagem_Singleplayer(renderer, event, jogadores);
+				Roda_SelecaoDePersonagem_Singleplayer(renderer, jogadores);
 				break;
 
 			case SELECAO_DE_PERSONAGEM2:
-				Roda_SelecaoDePersonagem_Multiplayer(renderer, event, jogadores);
+				Roda_SelecaoDePersonagem_Multiplayer(renderer, jogadores);
 				break;
 		}
 	}
@@ -86,7 +86,7 @@ void Roda_MenuPrincipal(SDL_Renderer* renderer, SDL_Event event, Jogadores* joga
 // TELA INICIAL
 //
 
-void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
+void Roda_TelaInicial(SDL_Renderer* renderer)
 {
 	// Variavel para manter menu
 	int telaInicialRodando = VERDADEIRO;
@@ -287,13 +287,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 	while(telaInicialRodando)
 	{
 
-		// Salva posicao do mouse
-		struct POSICAO_DO_MOUSE
-		{
-			int x, y;
-		}posicao_do_mouse;
-
-		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+		MOUSE_Atualiza_Posicao();
 
 		// ***********************************************************************
 
@@ -308,10 +302,10 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 		//
 
 		// Iniciar jogo - animacao
-		if ((posicao_do_mouse.x > 465
-			&& posicao_do_mouse.x < 685
-			&& posicao_do_mouse.y > 250
-			&& posicao_do_mouse.y < 300)
+		if ((Mouse.posicao.x > 465
+			&& Mouse.posicao.x < 685
+			&& Mouse.posicao.y > 250
+			&& Mouse.posicao.y < 300)
 			|| SELECIONADO == BOTAO_INICIAR_JOGO)
 		{
 			SDL_RenderCopy(renderer, gIniciar_Jogo_pressionado, NULL, &iniciar_jogo);
@@ -325,10 +319,10 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 			SDL_RenderCopy(renderer, gIniciar_Jogo, NULL, &iniciar_jogo);
 
 		// Menu de opcoes - animacao
-		if ((posicao_do_mouse.x > 500
-			&& posicao_do_mouse.x < 650
-			&& posicao_do_mouse.y > 300
-			&& posicao_do_mouse.y < 350)
+		if ((Mouse.posicao.x > 500
+			&& Mouse.posicao.x < 650
+			&& Mouse.posicao.y > 300
+			&& Mouse.posicao.y < 350)
 			|| SELECIONADO == BOTAO_OPCOES)
 		{
 			SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
@@ -342,10 +336,10 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 			SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
 
 		// Sair do jogo - animacao
-		if ((posicao_do_mouse.x > 535
-			&& posicao_do_mouse.x < 620
-			&& posicao_do_mouse.y > 350
-			&& posicao_do_mouse.y < 400)
+		if ((Mouse.posicao.x > 535
+			&& Mouse.posicao.x < 620
+			&& Mouse.posicao.y > 350
+			&& Mouse.posicao.y < 400)
 			|| SELECIONADO == BOTAO_SAIR)
 		{
 			SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
@@ -444,8 +438,6 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 			// Eventos de clique do mouse
 			//
 
-			SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
-
 			if (event.type == SDL_MOUSEBUTTONDOWN)
 			{
 
@@ -454,10 +446,10 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 				//
 
 				// Iniciar jogo
-				if (posicao_do_mouse.x > 465
-					&& posicao_do_mouse.x < 685
-					&& posicao_do_mouse.y > 250
-					&& posicao_do_mouse.y < 300)
+				if (Mouse.posicao.x > 465
+					&& Mouse.posicao.x < 685
+					&& Mouse.posicao.y > 250
+					&& Mouse.posicao.y < 300)
 				{
 					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(300); // Delay de 0.4 segundos
@@ -466,20 +458,20 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 				}
 
 				// Menu de opcoes
-				if (posicao_do_mouse.x > 500
-					&& posicao_do_mouse.x < 650
-					&& posicao_do_mouse.y > 300
-					&& posicao_do_mouse.y < 350)
+				if (Mouse.posicao.x > 500
+					&& Mouse.posicao.x < 650
+					&& Mouse.posicao.y > 300
+					&& Mouse.posicao.y < 350)
 				{
 					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 
 				// Sair do jogo
-				if (posicao_do_mouse.x > 535
-					&& posicao_do_mouse.x < 620
-					&& posicao_do_mouse.y > 350
-					&& posicao_do_mouse.y < 400)
+				if (Mouse.posicao.x > 535
+					&& Mouse.posicao.x < 620
+					&& Mouse.posicao.y > 350
+					&& Mouse.posicao.y < 400)
 				{
 					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(400); // Delay de 0.5 segundos
@@ -522,7 +514,7 @@ void Roda_TelaInicial(SDL_Renderer* renderer, SDL_Event event)
 // QUANTIDADE DE JOGADORES
 //
 
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
+void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, Jogadores* jogadores)
 {
 	// Variavel para manter menu
 	int escolhaDeJogadoresRodando = VERDADEIRO;
@@ -680,7 +672,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 			int x, y;
 		}posicao_do_mouse;
 
-		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+		SDL_GetMouseState(&Mouse.posicao.x, &Mouse.posicao.y);
 
 		// ************************************************************
 
@@ -695,10 +687,10 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 		//
 
 		// 1 Jogador - animacao
-		if ((posicao_do_mouse.x > 310
-			&& posicao_do_mouse.x < 500
-			&& posicao_do_mouse.y > 250
-			&& posicao_do_mouse.y < 300)
+		if ((Mouse.posicao.x > 310
+			&& Mouse.posicao.x < 500
+			&& Mouse.posicao.y > 250
+			&& Mouse.posicao.y < 300)
 			|| SELECIONADO == BOTAO_1JOGADOR)
 		{
 			SDL_RenderCopy(renderer, g1Jogador_pressionado, NULL, &iniciar_jogo);
@@ -712,10 +704,10 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 			SDL_RenderCopy(renderer, g1Jogador, NULL, &iniciar_jogo);
 
 		// 2 Jogadores - animacao
-		if ((posicao_do_mouse.x > 285
-			&& posicao_do_mouse.x < 520
-			&& posicao_do_mouse.y > 300
-			&& posicao_do_mouse.y < 350)
+		if ((Mouse.posicao.x > 285
+			&& Mouse.posicao.x < 520
+			&& Mouse.posicao.y > 300
+			&& Mouse.posicao.y < 350)
 			|| SELECIONADO == BOTAO_2JOGADORES)
 		{
 			SDL_RenderCopy(renderer, g2Jogadores_pressionado, NULL, &opcoes);
@@ -818,10 +810,10 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 				//
 
 				// 1 Jogador
-				if (posicao_do_mouse.x > 310
-					&& posicao_do_mouse.x < 500
-					&& posicao_do_mouse.y > 250
-					&& posicao_do_mouse.y < 300)
+				if (Mouse.posicao.x > 310
+					&& Mouse.posicao.x < 500
+					&& Mouse.posicao.y > 250
+					&& Mouse.posicao.y < 300)
 				{
 					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
@@ -831,10 +823,10 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 				}
 
 				// 2 Jogadores
-				if (posicao_do_mouse.x > 285
-					&& posicao_do_mouse.x < 520
-					&& posicao_do_mouse.y > 300
-					&& posicao_do_mouse.y < 350)
+				if (Mouse.posicao.x > 285
+					&& Mouse.posicao.x < 520
+					&& Mouse.posicao.y > 300
+					&& Mouse.posicao.y < 350)
 				{
 					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
@@ -878,7 +870,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, SDL_Event event, Jogadore
 //
 
 // SINGLEPLAYER
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
+void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jogadores)
 {
 	// Variavel para manter menu
 	int selecaoSPRodando = VERDADEIRO;
@@ -1495,9 +1487,9 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 			int x, y;
 		}posicao_do_mouse;
 
-		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+		SDL_GetMouseState(&Mouse.posicao.x, &Mouse.posicao.y);
 
-		//printf("X: %d\nY: %d\n", posicao_do_mouse.x, posicao_do_mouse.y);
+		//printf("X: %d\nY: %d\n", Mouse.posicao.x, Mouse.posicao.y);
 
 		// ************************************************************
 
@@ -1523,10 +1515,10 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		//
 
 		// MAGE - animacao
-		if (((posicao_do_mouse.x > 65
-					&& posicao_do_mouse.x < 350
-					&& posicao_do_mouse.y > 85
-					&& posicao_do_mouse.y < 420)
+		if (((Mouse.posicao.x > 65
+					&& Mouse.posicao.x < 350
+					&& Mouse.posicao.y > 85
+					&& Mouse.posicao.y < 420)
 					|| SELECIONADO == BOTAO_MAGE)
 						&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 		{
@@ -1546,10 +1538,10 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 		}
 
 		// ARCHER - animacao
-		if (((posicao_do_mouse.x > 460
-					&& posicao_do_mouse.x < 745
-					&& posicao_do_mouse.y > 85
-					&& posicao_do_mouse.y < 420)
+		if (((Mouse.posicao.x > 460
+					&& Mouse.posicao.x < 745
+					&& Mouse.posicao.y > 85
+					&& Mouse.posicao.y < 420)
 					|| SELECIONADO == BOTAO_ARCHER)
 						&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 		{
@@ -1729,10 +1721,10 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 				//
 
 				// MAGE
-				if ((posicao_do_mouse.x > 65
-						&& posicao_do_mouse.x < 350
-						&& posicao_do_mouse.y > 85
-						&& posicao_do_mouse.y < 420)
+				if ((Mouse.posicao.x > 65
+						&& Mouse.posicao.x < 350
+						&& Mouse.posicao.y > 85
+						&& Mouse.posicao.y < 420)
 							&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 				{
 					Efeito_Sonoro(FX_SELECT);
@@ -1746,10 +1738,10 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 				}
 
 				// ARCHER
-				if ((posicao_do_mouse.x > 460
-						&& posicao_do_mouse.x < 745
-						&& posicao_do_mouse.y > 85
-						&& posicao_do_mouse.y < 420)
+				if ((Mouse.posicao.x > 460
+						&& Mouse.posicao.x < 745
+						&& Mouse.posicao.y > 85
+						&& Mouse.posicao.y < 420)
 							&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 				{
 					SELECIONADO = PERSONAGEM_ESCOLHIDO;
@@ -1808,7 +1800,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, SDL_Event eve
 }
 
 // MULTIPLAYER
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
+void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, Jogadores* jogadores)
 {
 
 }
@@ -1819,7 +1811,7 @@ void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, SDL_Event even
 // OPCOES
 //
 
-void Roda_Opcoes(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
+void Roda_Opcoes(SDL_Renderer* renderer, Jogadores* jogadores)
 {
 
 }

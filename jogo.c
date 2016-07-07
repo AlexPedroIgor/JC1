@@ -23,10 +23,10 @@
 // PRE CARREGAMENTO DAS FUNCOES
 //
 
-void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores);
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Roda_Game_Over(SDL_Renderer* renderer, SDL_Event event);
+void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores);
+void Roda_Pause(SDL_Renderer* renderer, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
+void Roda_Game_Over(SDL_Renderer* renderer);
 
 // ***************************************************************************************************
 
@@ -45,7 +45,7 @@ int gameOver = FALSO;
 //
 
 // Modo de jogo
-void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
+void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores)
 {
 	jogoRodando = VERDADEIRO; // Variavel para manter loop do jogo
 
@@ -176,7 +176,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 			{
 				// Pause
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					Roda_Pause(renderer, event, fase, jogadores, inimigos, projeteis);
+					Roda_Pause(renderer, fase, jogadores, inimigos, projeteis);
 			}
 		}
 
@@ -219,7 +219,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 
 	// ************************************************************************************************
     if (gameOver)
-        Roda_Game_Over(renderer, event);
+        Roda_Game_Over(renderer);
 	//
 	// *************
 	// FIM DO JOGO |
@@ -236,7 +236,7 @@ void Roda_Jogo(SDL_Renderer* renderer, SDL_Event event, Jogadores* jogadores)
 //
 
 // Estado de pause
-void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
+void Roda_Pause(SDL_Renderer* renderer, Fase* fase,
 	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
 {
 	// Variavel para manter o loop do pause
@@ -467,13 +467,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 	// Loop do pause
 	while (pauseRodando)
 	{
-		// Salva posicao do mouse
-		struct POSICAO_DO_MOUSE
-		{
-			int x, y;
-		}posicao_do_mouse;
-
-		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+		MOUSE_Atualiza_Posicao();
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -552,7 +546,6 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 								SDL_Delay(500); // Delay de 0.5 segundos
 								Roda_SairDoPause_SN(&pauseRodando,
 									renderer,
-									event,
 									fase,
 									jogadores,
 									inimigos,
@@ -571,10 +564,10 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 				//
 
 				// Continuar jogo
-				if (posicao_do_mouse.x > 300
-					&& posicao_do_mouse.x < 500
-					&& posicao_do_mouse.y > 250
-					&& posicao_do_mouse.y < 300)
+				if (Mouse.posicao.x > 300
+					&& Mouse.posicao.x < 500
+					&& Mouse.posicao.y > 250
+					&& Mouse.posicao.y < 300)
 				{
 					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
@@ -582,26 +575,25 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 				}
 
 				// Opcoes
-				if (posicao_do_mouse.x > 325
-					&& posicao_do_mouse.x < 475
-					&& posicao_do_mouse.y > 300
-					&& posicao_do_mouse.y < 350)
+				if (Mouse.posicao.x > 325
+					&& Mouse.posicao.x < 475
+					&& Mouse.posicao.y > 300
+					&& Mouse.posicao.y < 350)
 				{
 					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
 				}
 
 				// Sair
-				if (posicao_do_mouse.x > 360
-					&& posicao_do_mouse.x < 440
-					&& posicao_do_mouse.y > 350
-					&& posicao_do_mouse.y < 400)
+				if (Mouse.posicao.x > 360
+					&& Mouse.posicao.x < 440
+					&& Mouse.posicao.y > 350
+					&& Mouse.posicao.y < 400)
 				{
 					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
 					Roda_SairDoPause_SN(&pauseRodando,
 						renderer,
-						event,
 						fase,
 						jogadores,
 						inimigos,
@@ -640,10 +632,10 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 		//
 
 		// Continuar jogo - animacao
-		if ((posicao_do_mouse.x > 300
-			&& posicao_do_mouse.x < 500
-			&& posicao_do_mouse.y > 250
-			&& posicao_do_mouse.y < 300)
+		if ((Mouse.posicao.x > 300
+			&& Mouse.posicao.x < 500
+			&& Mouse.posicao.y > 250
+			&& Mouse.posicao.y < 300)
 			|| SELECIONADO == BOTAO_CONTINUAR)
 		{
 			SDL_RenderCopy(renderer, gContinuar_pressionado, NULL, &continuar);
@@ -657,10 +649,10 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 			SDL_RenderCopy(renderer, gContinuar, NULL, &continuar);
 
 		// Menu de opcoes - animacao
-		if ((posicao_do_mouse.x > 325
-			&& posicao_do_mouse.x < 475
-			&& posicao_do_mouse.y > 300
-			&& posicao_do_mouse.y < 350)
+		if ((Mouse.posicao.x > 325
+			&& Mouse.posicao.x < 475
+			&& Mouse.posicao.y > 300
+			&& Mouse.posicao.y < 350)
 			|| SELECIONADO == BOTAO_OPCOES)
 		{
 			SDL_RenderCopy(renderer, gOpcoes_pressionado, NULL, &opcoes);
@@ -674,10 +666,10 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 			SDL_RenderCopy(renderer, gOpcoes, NULL, &opcoes);
 
 		// Sair do jogo - animacao
-		if ((posicao_do_mouse.x > 360
-			&& posicao_do_mouse.x < 440
-			&& posicao_do_mouse.y > 350
-			&& posicao_do_mouse.y < 400)
+		if ((Mouse.posicao.x > 360
+			&& Mouse.posicao.x < 440
+			&& Mouse.posicao.y > 350
+			&& Mouse.posicao.y < 400)
 			|| SELECIONADO == BOTAO_SAIR)
 		{
 			SDL_RenderCopy(renderer, gSair_pressionado, NULL, &sair);
@@ -711,7 +703,7 @@ void Roda_Pause(SDL_Renderer* renderer, SDL_Event event, Fase* fase,
 }
 
 // Estado de pause - certeza de sair
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event event, Fase* fase,
+void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, Fase* fase,
 	Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis)
 {
 	// Variavel para manter o loop do pause
@@ -928,13 +920,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 	// Loop do pause
 	while (pauseRodandoSair)
 	{
-		// Salva posicao do mouse
-		struct POSICAO_DO_MOUSE
-		{
-			int x, y;
-		}posicao_do_mouse;
-
-		SDL_GetMouseState(&posicao_do_mouse.x, &posicao_do_mouse.y);
+		MOUSE_Atualiza_Posicao();
 
 		// Verifica eventos
 		if (SDL_PollEvent (&event))
@@ -1016,10 +1002,10 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 				//
 
 				// Nao
-				if (posicao_do_mouse.x > 485
-					&& posicao_do_mouse.x < 570
-					&& posicao_do_mouse.y > 300
-					&& posicao_do_mouse.y < 350)
+				if (Mouse.posicao.x > 485
+					&& Mouse.posicao.x < 570
+					&& Mouse.posicao.y > 300
+					&& Mouse.posicao.y < 350)
 				{
 					Efeito_Sonoro(FX_SELECT);
 					SDL_Delay(400); // Delay de 0.4 segundos
@@ -1027,10 +1013,10 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 				}
 
 				// Sim
-				if (posicao_do_mouse.x > 240
-					&& posicao_do_mouse.x < 320
-					&& posicao_do_mouse.y > 300
-					&& posicao_do_mouse.y < 350)
+				if (Mouse.posicao.x > 240
+					&& Mouse.posicao.x < 320
+					&& Mouse.posicao.y > 300
+					&& Mouse.posicao.y < 350)
 				{
 					Efeito_Sonoro(FX_VOLTAR);
 					SDL_Delay(500); // Delay de 0.5 segundos
@@ -1077,10 +1063,10 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 		//
 
 		// Sim - animacao
-		if ((posicao_do_mouse.x > 240
-			&& posicao_do_mouse.x < 320
-			&& posicao_do_mouse.y > 300
-			&& posicao_do_mouse.y < 350)
+		if ((Mouse.posicao.x > 240
+			&& Mouse.posicao.x < 320
+			&& Mouse.posicao.y > 300
+			&& Mouse.posicao.y < 350)
 			|| SELECIONADO == BOTAO_SIM)
 		{
 			SDL_RenderCopy(renderer, gSim_pressionado, NULL, &sim);
@@ -1094,10 +1080,10 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 			SDL_RenderCopy(renderer, gSim, NULL, &sim);
 
 		// Nao - animacao
-		if ((posicao_do_mouse.x > 485
-			&& posicao_do_mouse.x < 570
-			&& posicao_do_mouse.y > 300
-			&& posicao_do_mouse.y < 350)
+		if ((Mouse.posicao.x > 485
+			&& Mouse.posicao.x < 570
+			&& Mouse.posicao.y > 300
+			&& Mouse.posicao.y < 350)
 			|| SELECIONADO == BOTAO_NAO)
 		{
 			SDL_RenderCopy(renderer, gNao_pressionado, NULL, &nao);
@@ -1136,7 +1122,7 @@ void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, SDL_Event ev
 // GAME OVER
 //
 
-void Roda_Game_Over(SDL_Renderer* renderer, SDL_Event event)
+void Roda_Game_Over(SDL_Renderer* renderer)
 {
     Toca_Musica(MUSICA_FEILD_2);
 

@@ -7,6 +7,7 @@
 	Jogo de desenvolvido para projeto de computacao 1
 */
 
+// BIBLIOTECAS INTERNAS
 #include "config.h"
 #include "base.h"
 
@@ -15,6 +16,7 @@
 //
 
 void Carrega_Teclas_de_Acao(Objeto* jogador);
+void MOUSE_Atualiza_Posicao();
 SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
 void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
 FILE* DATA_Carrega_Save_Game();
@@ -53,6 +55,16 @@ void Carrega_Teclas_de_Acao(Objeto* jogador)
 			jogador->movimento.ataque = keystates[SDL_SCANCODE_BACKSPACE];
 			break;
 	}
+}
+
+// ***************************************************************************************************
+
+//
+// MOUSE
+//
+void MOUSE_Atualiza_Posicao()
+{
+	SDL_GetMouseState(&Mouse.posicao.x, &Mouse.posicao.y);
 }
 
 // ***************************************************************************************************

@@ -276,12 +276,6 @@ typedef struct
 	}rkn[10];
 }Ranking;
 
-// TECLAS DE ACAO
-typedef struct
-{
-	int cima, baixo, esquerda, direita, ataque;
-}Teclas_de_Acao;
-
 // **************************************************************************
 
 //

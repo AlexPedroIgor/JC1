@@ -89,19 +89,16 @@ int main (int argc, char **argv)
 	// Carrega jogadores
 	Jogadores* jogadores = Inicializa_Jogadores();
 
-	// Inicializa teste de eventos
-	SDL_Event event;
-
 	while (mainRodando)
 	{
 		switch (estadoDeJogo)
 		{
 			case MENU:
-				Roda_MenuPrincipal(renderer, event, jogadores);
+				Roda_MenuPrincipal(renderer, jogadores);
 				break;
 
 			case JOGO:
-				Roda_Jogo(renderer, event, jogadores);
+				Roda_Jogo(renderer, jogadores);
 				break;
 		}
 	}
