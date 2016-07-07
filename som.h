@@ -1,4 +1,4 @@
-// Copyright Â© 2016 Alex, Pedro e Igor
+// Copyright © 2016 Alex, Pedro e Igor
 // Licensed under the MIT/Expat license.
 
 #ifndef SOM_H
@@ -14,7 +14,7 @@
 // LISTA DE EFEITOS SONOROS
 //
 
-//			efeito			valor	
+//			efeito			valor
 #define		FX_CLICK			1
 #define		FX_SELECT			2
 #define		FX_VOLTAR			3
@@ -44,13 +44,23 @@
 // **********************************************************************
 
 //
+// VOLUMES
+//
+
+int Volume_Musica, Volume_Efeitos;
+
+// **********************************************************************
+
+//
 // FUNCOES
 //
 
 void Efeito_Sonoro(int nome_do_efeito);
 Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
+void Efeito_Sonoro_Volume(int volume);
 void Toca_Musica(int nome_da_musica);
 Mix_Music* Carrega_Musica(int nome_da_musica);
+void Musica_Volume(int volume);
 
 // **********************************************************************
 

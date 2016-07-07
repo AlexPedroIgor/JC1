@@ -1,11 +1,11 @@
-// Copyright Â© 2016 Alex, Pedro e Igor
+// Copyright © 2016 Alex, Pedro e Igor
 // Licensed under the MIT/Expat license.
 
 /*
 	EFEITOS SONOROS
 
 	Jogo de desenvolvido para projeto de computacao 1
-*/ 
+*/
 
 #include "som.h"
 
@@ -15,8 +15,10 @@
 
 void Efeito_Sonoro(int nome_do_efeito);
 Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
+void Efeito_Sonoro_Volume(int volume);
 void Toca_Musica(int nome_da_musica);
 Mix_Music* Carrega_Musica(int nome_da_musica);
+void Musica_Volume(int volume);
 
 // ****************************************************************
 
@@ -93,6 +95,16 @@ Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito)
 	return som;
 }
 
+// VOLUME
+void Efeito_Sonoro_Volume(int volume)
+{
+    /*
+        VOLUME MIN:     -1
+        VOLUME MAX:     128
+    */
+    Mix_Volume(0,volume);
+}
+
 // ****************************************************************
 
 //
@@ -144,6 +156,16 @@ Mix_Music* Carrega_Musica(int nome_da_musica)
 
 	// Retorna musica para ser tocada
 	return musica;
+}
+
+// VOLUME
+void Musica_Volume(int volume)
+{
+    /*
+        VOLUME MIN:     -1
+        VOLUME MAX:     128
+    */
+    Mix_VolumeMusic(volume);
 }
 
 // *****************************************************************
