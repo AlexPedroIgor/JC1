@@ -92,7 +92,7 @@ SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SD
 }
 
 //ESCREVE NOME DO JOGADOR EM TELA NA SELECAO DE PERSONAGENS
-void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event)
+void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer)
 {
 
 }
@@ -119,7 +119,7 @@ FILE* DATA_Carrega_Save_Game()
 			printf("Arquivo criado com sucesso\n");
 			DATA_Salva_Informacoes_Basicas(save_game);
 		}
-		
+
 	}
 	else
 		printf("Arquivo carregado com sucesso\n");
