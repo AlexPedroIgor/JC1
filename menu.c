@@ -481,13 +481,13 @@ void Roda_TelaInicial(SDL_Renderer* renderer)
 				}
 			}
 		}
-		
+
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
 		// FPS
 		SDL_Delay( 1000/FPS );
-		
+
 	}
 
 	// Limpando memoria - imagens
@@ -694,7 +694,7 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, Jogadores* jogadores)
 			|| SELECIONADO == BOTAO_1JOGADOR)
 		{
 			SDL_RenderCopy(renderer, g1Jogador_pressionado, NULL, &iniciar_jogo);
-			
+
 			// Animacao de som
 			if (SELECIONADO != BOTAO_1JOGADOR)
 				Efeito_Sonoro(FX_CLICK);
@@ -837,13 +837,13 @@ void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, Jogadores* jogadores)
 				}
 			}
 		}
-		
+
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
 		// FPS
 		SDL_Delay( 1000/FPS );
-		
+
 	}
 
 	// Limpando memoria - imagens
@@ -1003,17 +1003,17 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 	SDL_Texture* gSelecao_v = NULL; // Variavel que carrega a opcao do menu de opcoes
 
 	Loading_Surf = IMG_Load("arte/menu/Selecao-vermelho.png"); // Carregando plano de fundo na memoria
-	
+
 	gSelecao_v = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf); // Carregando imagem na tela
 
 	SDL_FreeSurface(Loading_Surf); // Limpando memoria
 
 	// BRANCO
-	
+
 	SDL_Texture* gSelecao_b = NULL; // Variavel que carrega a opcao do menu de opcoes
 
-	
+
 	Loading_Surf = IMG_Load("arte/menu/Selecao-branco.png"); // Carregando plano de fundo na memoria
 
 	gSelecao_b = SDL_CreateTextureFromSurface(renderer,
@@ -1025,7 +1025,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 
 	SDL_Texture* gSelecao_p = NULL; // Variavel que carrega a opcao do menu de opcoes pressionado
 
-	
+
 	Loading_Surf = IMG_Load("arte/menu/Selecao-preto.png"); // Carregando plano de fundo na memoria
 
 	gSelecao_p = SDL_CreateTextureFromSurface(renderer,
@@ -1036,10 +1036,10 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 	SDL_Rect selecao1, selecao2; // Declarando rect
 
 	// AMARELO
-	
+
 	SDL_Texture* gSelecao_a = NULL; // Variavel que carrega a opcao do menu de opcoes
 
-	
+
 	Loading_Surf = IMG_Load("arte/menu/Selecao-amarelo.png"); // Carregando plano de fundo na memoria
 
 	gSelecao_a = SDL_CreateTextureFromSurface(renderer,
@@ -1523,7 +1523,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 						&& SELECIONADO != PERSONAGEM_ESCOLHIDO)
 		{
 			SDL_RenderCopy(renderer, gSelecao_v, NULL, &selecao1);
-			
+
 			// Animacao de som
 			if (SELECIONADO != BOTAO_MAGE)
 				Efeito_Sonoro(FX_CLICK);
@@ -1572,7 +1572,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 		SDL_RenderCopy(renderer, gMage, NULL, &mage);
 		SDL_RenderCopy(renderer, gArcher, NULL, &archer);
 
-		
+
 		// *********************************************************************************
 
 		//
@@ -1619,7 +1619,7 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 
 			// ************************************************************
 
-			
+
 
 			// ********************************************************
 
@@ -1634,8 +1634,8 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 						if (SELECIONADO == PERSONAGEM_ESCOLHIDO)
 						{
 							Efeito_Sonoro(FX_VOLTAR);
+							SELECIONADO = SELECAO2;
 							SELECAO2 = FALSO;
-							SELECIONADO = BOTAO_MAGE;
 						}
 						else
 						{
@@ -1753,13 +1753,13 @@ void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jo
 			}
 			// ********************************************************
 		}
-		
+
 		// Atualiza tela
 		SDL_RenderPresent(renderer);
 
 		// FPS
 		SDL_Delay( 1000/FPS );
-		
+
 	}
 
 	// Limpando memoria - imagens
