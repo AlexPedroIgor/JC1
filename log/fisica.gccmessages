@@ -1,4 +1,0 @@
-fisica.c: In function ‘Distancia_Quadrante’:
-fisica.c:725:6: warning: unused variable ‘raios’ [-Wunused-variable]
-  int raios = circulo1.raio + circulo2.raio;
-      ^
