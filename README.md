@@ -24,3 +24,7 @@ Para compilar o jogo e necessaria a instalaçao das seguintes bibliotecas:
 - libsdl2-ttf-dev
 
 Em seguida basta utilizar o comando "make" para compilar um excecutavel.
+
+## Update: 17/07/2016
+
+O projeto será finalizado em Unity. - [Link para o repositório](https://github.com/AlexPedroIgor/SMA-M-Unity)
