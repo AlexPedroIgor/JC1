@@ -55,12 +55,12 @@ int Volume_Musica, Volume_Efeitos;
 // FUNCOES
 //
 
-void Efeito_Sonoro(int nome_do_efeito);
-Mix_Chunk* Carrega_Efeito_Sonoro(int nome_do_efeito);
-void Efeito_Sonoro_Volume(int volume);
-void Toca_Musica(int nome_da_musica);
-Mix_Music* Carrega_Musica(int nome_da_musica);
-void Musica_Volume(int volume);
+void Efeito_Sonoro(int);
+Mix_Chunk* Carrega_Efeito_Sonoro(int);
+void Efeito_Sonoro_Volume(int);
+void Toca_Musica(int);
+Mix_Music* Carrega_Musica(int);
+void Musica_Volume(int);
 
 // **********************************************************************
 
