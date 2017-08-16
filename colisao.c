@@ -7,24 +7,10 @@
 	FUNCOES DE COLISAO
 
 	Jogo de desenvolvido para projeto de computacao 1
-*/ 
+*/
 
 #include "colisao.h"
 #include "inimigo.h"
-
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
-
-int Colisao_Circular(Objeto* objeto1, Objeto* objeto2);
-int Colisao_Circular2(Objeto* objeto1, Objeto* objeto2);
-int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2);
-int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2);
-int Colisao_LimiteDeTela(Objeto* objeto);
-int Colisao_LimiteDeTela2(Objeto* objeto);
-void Teste_de_Colisao(Inimigos* inimigos, Jogadores* jogadores);
-void Teste_de_Impacto_Inimigos(SDL_Renderer* renderer, Projeteis* projeteis, Inimigos* inimigos);
-
 
 // ***********************************************************************************************
 
@@ -156,6 +142,7 @@ int Colisao_Circular(Objeto* objeto1, Objeto* objeto2)
 	}
 	else
 		return FALSO;
+    return FALSO;
 }
 
 int Colisao_Circular2(Objeto* objeto1, Objeto* objeto2)
@@ -288,6 +275,7 @@ int Colisao_Circular2(Objeto* objeto1, Objeto* objeto2)
 	}
 	else
 		return FALSO;
+    return FALSO;
 }
 
 // VERIFICA PONTOS DO RETANGULO
@@ -308,8 +296,8 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 	y3 = objeto2->posicao.y + objeto2->tamanho_real.centro.y - objeto2->tamanho_real.h;
 	y4 = objeto2->posicao.y + objeto2->tamanho_real.centro.y + objeto2->tamanho_real.h;
 
-	
-	
+
+
 	// Superior
 	if (objeto1->movimento.cima
 		&& ((x3 < x2 && x2 < x4) || (x3 < x1 && x1 < x4)))
@@ -320,7 +308,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return VERDADEIRO;
 	}
-	
+
 
 	// Inferior
 	else if (objeto1->movimento.baixo
@@ -332,7 +320,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return VERDADEIRO;
 	}
-	
+
 
 	// Lateral esquerda
 	else if (objeto1->movimento.esquerda
@@ -344,7 +332,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = FALSO;
 		return VERDADEIRO;
 	}
-	
+
 
 	// Lateral direita
 	else if (objeto1->movimento.direita
@@ -356,7 +344,7 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 		objeto1->colisao.direita = VERDADEIRO;
 		return VERDADEIRO;
 	}
-	
+
 
 	else
 	{
@@ -370,13 +358,13 @@ int Colisao_Perimetro(Objeto* objeto1, Objeto* objeto2)
 
 int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 {
-	
+
 	// Imprime posicao dos objetos
 	//printf("Objeto 1\n");
 	//printf("X: %d\nY: %d\n", objeto1->posicao.x, objeto1->posicao.y);
 	//printf("Objeto 2\n");
 	//printf("X: %d\nY: %d\n", objeto2->posicao.x, objeto2->posicao.y);
-	
+
 
 	// Superior
 	if ( (objeto1->posicao.y >= objeto2->posicao.y )
@@ -396,7 +384,7 @@ int Colisao_Perimetro2(Objeto* objeto1, Objeto* objeto2)
 
 	// Lateral esquerda
 	else if ( (objeto1->posicao.x <= objeto2->posicao.x + 37)
-		&& objeto1->posicao.x >= objeto2->posicao.x 
+		&& objeto1->posicao.x >= objeto2->posicao.x
 		&& objeto1->posicao.y + 35 >= objeto2->posicao.y
 		&& objeto1->posicao.y <= objeto2->posicao.y + 35
 		&& objeto1->movimento.esquerda)

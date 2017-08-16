@@ -12,14 +12,7 @@
 #include "armas.h"
 #include "base.h"
 #include "som.h"
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
 
-void Cria_Fireball(Objeto* jogador, Objeto* fireball);
-void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador);
-void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador);
-void Apaga_Fireball(SDL_Renderer* renderer, Objeto* fireball);
 
 // **************************************************************************************************************
 

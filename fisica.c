@@ -7,7 +7,7 @@
 	FUNCOES DE MOVIMENTACAO DE OBJETOS EM TELA
 
 	Jogo de desenvolvido para projeto de computacao 1
-*/ 
+*/
 
 
 // BIBLIOTECAS INTERNAS
@@ -15,20 +15,6 @@
 #include "inimigo.h"
 #include "jogo.h"
 #include "som.h"
-
-// ******************************************************************************************
-
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
-
-void Jogador_Movimentar(Objeto* jogador, int movimento_permitido);
-void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projeteis* projeteis);
-void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos);
-void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido);
-void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores);
-Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
-
 
 // ********************************************************************************************
 
@@ -43,7 +29,7 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	// Movimentos diagonais
 	//
 	int atirando = 0;
-		
+
 	if (jogador->movimento.ataque)
 		atirando = 256;
 
@@ -73,7 +59,7 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 				Efeito_Sonoro(FX_PASSO_1);
 				jogador->cooldown = 1;
 			}
-			jogador->cooldown++;			
+			jogador->cooldown++;
 			jogador->posicao.y -= jogador->velocidade.y;
 			jogador->posicao.x -= jogador->velocidade.x;
 		}
@@ -291,14 +277,14 @@ void Jogador_Movimentar(Objeto* jogador, int movimento_permitido)
 	}
 
 	else if(jogador->movimento.ataque)
-	{	
+	{
 		if (jogador->frame.y < 768)
 			jogador->frame.y += atirando;
 
 		if (jogador->frame.x < 512 - atirando*3/4)
 			jogador->frame.x += 64;
 
-		else 
+		else
 			jogador->frame.x = 0;
 	}
 }
@@ -319,15 +305,15 @@ void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projetei
 				case MAGO:
 					switch (jogadores->jogador[i].tipo_de_ataque) // VERIFICA O TIPO DE ATAQUE SELECIONADO
 					{
-						case 1: // FIREBALL	
+						case 1: // FIREBALL
 							if(jogadores->jogador[i].inf.movimento.ataque && jogadores->jogador[i].status.MP > 20)
-							{	
+							{
 								Inicializa_Fireball(renderer,
 													projeteis,
 													&jogadores->jogador[i].inf);
 								jogadores->jogador[i].status.atk_cooldown = 0;
 								jogadores->jogador[i].status.MP-=20;
-							}			
+							}
 							break;
 
 						case 2:
@@ -383,7 +369,7 @@ void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos)
 			{
 				if (Colisao_Perimetro2(&jogadores->jogador[1].inf, &jogadores->jogador[0].inf))
 					movimento_permitido = FALSO;
-			}	
+			}
 		}
 		Carrega_Teclas_de_Acao(&jogadores->jogador[i].inf);
 		Jogador_Movimentar(&jogadores->jogador[i].inf, movimento_permitido);
@@ -652,7 +638,7 @@ void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores)
 					movimento_permitido[i] = FALSO;
 					//printf("1st\n");
 					//printf("movimento = %d", movimento_permitido[1]);
-					
+
 				}
 
 				if (jogadores->quantidade == 2)
@@ -722,7 +708,7 @@ Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2)
 	circulo2.centro.y = objeto2->posicao.y + objeto2->tamanho_real.centro.y;
 	circulo2.raio = objeto2->tamanho_real.v;
 
-	int raios = circulo1.raio + circulo2.raio;
+	//int raios = circulo1.raio + circulo2.raio;
 
 	int distancia, quadrante;
 

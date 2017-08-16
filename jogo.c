@@ -17,17 +17,6 @@
 #include "rpg.h"
 #include "inimigo.h"
 
-// *********************************************************************************************
-
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
-
-void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores);
-void Roda_Pause(SDL_Renderer* renderer, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Roda_Game_Over(SDL_Renderer* renderer);
-
 // ***************************************************************************************************
 
 //
