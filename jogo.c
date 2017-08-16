@@ -86,7 +86,7 @@ void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores)
 	// INIMIGOS
 	//
 
-	Inimigos* inimigos = Inicializa_Inimigos();
+	void* inimigos = Inicializa_Inimigos();
 
 
 	// *********************************************************************************************
@@ -95,7 +95,7 @@ void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores)
 	// PROJETEIS
 	//
 
-	Projeteis* projeteis = Inicializa_Projeteis();
+	void* projeteis = Inicializa_Projeteis();
 
 	// *********************************************************************************************
 
@@ -141,7 +141,6 @@ void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores)
 			}
 
         }
-
 
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 
