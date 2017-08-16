@@ -21,19 +21,6 @@ int menuRodando;
 Status mago, arqueiro;
 Ranking ranking;
 
-// *****************************************************************************************************************
-
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
-
-void Roda_MenuPrincipal(SDL_Renderer* renderer, Jogadores* jogadores);
-void Roda_TelaInicial(SDL_Renderer* renderer);
-void Roda_Escolha_de_jogadores(SDL_Renderer* renderer, Jogadores* jogadores);
-void Roda_SelecaoDePersonagem_Singleplayer(SDL_Renderer* renderer, Jogadores* jogadores);
-void Roda_SelecaoDePersonagem_Multiplayer(SDL_Renderer* renderer, Jogadores* jogadores);
-void Roda_Opcoes(SDL_Renderer* renderer, Jogadores* jogadores);
-
 // *********************************************************************************************************************
 
 //
