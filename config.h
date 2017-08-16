@@ -107,13 +107,13 @@ SDL_Color verde = {51,255,0};
 // FUNCOES
 //
 
-void Carrega_Teclas_de_Acao(Objeto* jogador);
+void Carrega_Teclas_de_Acao(Objeto*);
 void MOUSE_Atualiza_Posicao();
-SDL_Texture* Cria_Texto(SDL_Renderer* renderer, char* texto, TTF_Font* fonte, SDL_Color cor_do_texto);
-void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer* renderer, SDL_Event event);
+SDL_Texture* Cria_Texto(SDL_Renderer*, char*, TTF_Font*, SDL_Color);
+void Texto_em_Tela_Nome_do_Personagem(SDL_Renderer*, SDL_Event);
 FILE* DATA_Carrega_Save_Game();
-void DATA_Salva_Informacoes_Basicas(FILE* save_game);
-void DATA_Carrega_Informacoes(Status* mago, Status* arqueiro, Ranking* ranking);
+void DATA_Salva_Informacoes_Basicas(FILE*);
+void DATA_Carrega_Informacoes(Status*, Status*, Ranking*);
 
 // *****************************************************************************************
 
