@@ -142,6 +142,7 @@ int Colisao_Circular(Objeto* objeto1, Objeto* objeto2)
 	}
 	else
 		return FALSO;
+    return FALSO;
 }
 
 int Colisao_Circular2(Objeto* objeto1, Objeto* objeto2)
@@ -274,6 +275,7 @@ int Colisao_Circular2(Objeto* objeto1, Objeto* objeto2)
 	}
 	else
 		return FALSO;
+    return FALSO;
 }
 
 // VERIFICA PONTOS DO RETANGULO
