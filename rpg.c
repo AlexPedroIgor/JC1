@@ -12,6 +12,7 @@
 // BIBLIOTECAS INTERNAS
 #include "rpg.h"
 #include "base.h"
+#include "config.h"
 
 // ***********************************************************************************************
 
@@ -234,7 +235,7 @@ void Manter_status(Jogadores* jogadores)
 	}
 }
 
-void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo)
+void Tomar_dano(Objeto* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo)
 {
 	jogador_proximo--;
 

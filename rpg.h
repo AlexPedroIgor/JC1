@@ -31,7 +31,7 @@ void RPG_Renderiza_HUD(SDL_Renderer*, Jogadores*);
 void RPG_Carrega_Status_Inicial(Jogadores*);
 void Atualiza_Status_Geral(Jogadores*);
 void Manter_status(Jogadores*);
-void Tomar_dano(Inimigos*, Status*, Jogadores*, int);
+void Tomar_dano(Objeto*, Status*, Jogadores*, int);
 void Define_Status_Inimigo(Status*, int);
 
 // ******************************************************************************
