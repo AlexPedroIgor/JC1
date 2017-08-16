@@ -87,7 +87,7 @@ int main (int argc, char **argv)
 	Save_Game = DATA_Carrega_Save_Game();
 
 	// Carrega jogadores
-	Jogadores* jogadores = Inicializa_Jogadores();
+	void* jogadores = Inicializa_Jogadores();
 
 	while (mainRodando)
 	{
