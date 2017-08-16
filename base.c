@@ -13,32 +13,6 @@
 #include "armas.h"
 #include "rpg.h"
 
-// ***********************************************************************************
-
-//
-// PRE CARREGAMENTO DAS FUCOES
-//
-
-Jogadores* Inicializa_Jogadores();
-Inimigos* Inicializa_Inimigos();
-Projeteis* Inicializa_Projeteis();
-Boss* Inicializa_Boss();
-Fase* Inicializa_Fases();
-void Finaliza_Jogadores(Jogadores* jogadores);
-void Finaliza_Inimigos(Inimigos* inimigos);
-void Finaliza_Projeteis(Projeteis* projeteis);
-void Finaliza_Boss(Boss* boss);
-void Finaliza_Fases(Fase* fase);
-void Carrega_Fase_Memoria(SDL_Renderer* renderer, Fase* fase);
-void Fase_Troca_Portal(SDL_Renderer* renderer, Fase* fase, int portal, int tipo);
-void Posiciona_Jogadores(Jogadores* jogadores);
-void Carrega_Jogadores_Memoria(SDL_Renderer* renderer, Jogadores* jogadores);
-void Renderiza_Plano_de_Fundo(SDL_Renderer* renderer, Fase* fase);
-void Renderiza_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores);
-void Renderiza_Inimigos(SDL_Renderer* renderer, Inimigos* inimigos);
-void Renderiza_Projeteis(SDL_Renderer* renderer, Projeteis* projeteis);
-void Renderiza_Boss(SDL_Renderer* renderer, Boss* boss);
-
 // ***************************************************************************
 
 //

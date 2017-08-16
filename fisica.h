@@ -33,12 +33,12 @@ typedef struct
 // Funcoes
 //
 
-void Jogador_Movimentar(Objeto* jogador, int movimento_permitido);
-void Ataque_dos_Jogadores(SDL_Renderer* renderer, Jogadores* jogadores, Projeteis* projeteis);
-void Movimentacao_dos_Jogadores(Jogadores* jogadores, Inimigos* inimigos);
-void Inimigo_Movimentar(Objeto* inimigo, int movimento_permitido);
-void Movimentacao_dos_Inimigos(Inimigos* inimigos, Jogadores* jogadores);
-Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto* objeto1, Objeto* objeto2);
+void Jogador_Movimentar(Objeto*, int);
+void Ataque_dos_Jogadores(SDL_Renderer*, Jogadores*, Projeteis*);
+void Movimentacao_dos_Jogadores(Jogadores*, Inimigos*);
+void Inimigo_Movimentar(Objeto*, int);
+void Movimentacao_dos_Inimigos(Inimigos*, Jogadores*);
+Vetor_Distancia_Quadrante Distancia_Quadrante(Objeto*, Objeto*);
 
 // *************************************************************************************************
 

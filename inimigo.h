@@ -22,13 +22,13 @@
 // FUNCOES
 //
 
-void Cria_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int tipo);
-void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
-void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
-void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
-void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
-void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status, Jogadores* jogadores, int movimento_permitido);
-void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
+void Cria_Inimigo(SDL_Renderer*, Objeto*, int);
+void Adiciona_Inimigos(SDL_Renderer*, Inimigos*, int, int, int, Fase*);
+void Remove_Inimigos_Mortos(SDL_Renderer*, Inimigos*);
+void Posiciona_Inimigo(SDL_Renderer*, Objeto*, int, Fase*);
+void Posiciona_Inimigos(SDL_Renderer*, Inimigos*, int, Fase*);
+void IA_de_Movimentacao(Objeto*, Status*, Jogadores*, int);
+void Inimigo_Toma_Dano(SDL_Renderer*, Objeto*, Status*, int);
 
 // ********************************************************************************************
 

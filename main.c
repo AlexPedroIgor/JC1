@@ -7,12 +7,6 @@
 
 #include "main.h"
 
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
-
-void ERRO (int codigo);
-
 // *******************************************************************************************
 
 //
@@ -87,7 +81,7 @@ int main (int argc, char **argv)
 	Save_Game = DATA_Carrega_Save_Game();
 
 	// Carrega jogadores
-	Jogadores* jogadores = Inicializa_Jogadores();
+	void* jogadores = Inicializa_Jogadores();
 
 	while (mainRodando)
 	{
@@ -135,7 +129,7 @@ int main (int argc, char **argv)
 
 	// *********************************************************************
 
-	return 0;
+	return EXIT_SUCCESS;
 }
 
 // *******************************************************************************************

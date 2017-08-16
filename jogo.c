@@ -17,17 +17,6 @@
 #include "rpg.h"
 #include "inimigo.h"
 
-// *********************************************************************************************
-
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
-
-void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores);
-void Roda_Pause(SDL_Renderer* renderer, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Roda_SairDoPause_SN(int* pauseRodando, SDL_Renderer* renderer, Fase* fase, Jogadores* jogadores, Inimigos* inimigos, Projeteis* projeteis);
-void Roda_Game_Over(SDL_Renderer* renderer);
-
 // ***************************************************************************************************
 
 //
@@ -86,7 +75,7 @@ void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores)
 	// INIMIGOS
 	//
 
-	Inimigos* inimigos = Inicializa_Inimigos();
+	void* inimigos = Inicializa_Inimigos();
 
 
 	// *********************************************************************************************
@@ -95,7 +84,7 @@ void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores)
 	// PROJETEIS
 	//
 
-	Projeteis* projeteis = Inicializa_Projeteis();
+	void* projeteis = Inicializa_Projeteis();
 
 	// *********************************************************************************************
 
@@ -141,7 +130,6 @@ void Roda_Jogo(SDL_Renderer* renderer, Jogadores* jogadores)
 			}
 
         }
-
 
 		Movimentacao_dos_Inimigos(inimigos, jogadores); // Movimentacao dos inimigos
 

@@ -18,11 +18,11 @@
 // FUNCOES
 //
 
-void Cria_Fireball(Objeto* jogador, Objeto* fireball);
-void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador);
-void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* jogador);
-void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro);
-void Apaga_Fireball(SDL_Renderer* renderer, Objeto* fireball);
+void Cria_Fireball(Objeto*, Objeto*);
+void Carrega_Fireball(SDL_Renderer*, Objeto*, Objeto*);
+void Inicializa_Fireball(SDL_Renderer*, Projeteis*, Objeto*);
+void Anima_Fireball(SDL_Renderer*, Objeto*);
+void Apaga_Fireball(SDL_Renderer*, Objeto*);
 
 // *********************************************************************
 

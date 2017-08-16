@@ -13,20 +13,8 @@
 #include "config.h"
 #include "fisica.h"
 #include "som.h"
-
-// *******************************************************************************************************************************
-
-//
-// PRE CARREGAMENTO DAS FUNCOES
-//
-
-void Cria_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int tipo);
-void Adiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int quantidade, int tipo, int portal, Fase* fase);
-void Remove_Inimigos_Mortos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos);
-void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase* fase);
-void Posiciona_Inimigos(SDL_Renderer* renderer, Inimigos* vetor_de_inimigos, int portal, Fase* fase);
-void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status, Jogadores* jogadores, int movimento_permitido);
-void Inimigo_Toma_Dano(SDL_Renderer* renderer, Objeto* inimigo, Status* status, int tipo);
+#include "fisica.h"
+#include "animacao.h"
 
 // ******************************************************************************************************************************
 
@@ -196,7 +184,7 @@ void Posiciona_Inimigo(SDL_Renderer* renderer, Objeto* inimigo, int portal, Fase
 		case 3:
 			break;
 	}
-	
+
 	// Troca portal
 	if (fase->portal.cima.inimigos == 0)
 		portal = BAIXO;
@@ -261,7 +249,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 
 	if (jogadores->quantidade == 2 && Colisao_Perimetro2(inimigo, &jogadores->jogador[0].inf))
 		movimento_permitido = FALSO;
-	
+
 	//movimento_permitido = VERDADEIRO;
 
 
@@ -303,7 +291,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 	int randomico = rand() % 8;
 
 	int loucura;
-	
+
 	if(distancia > 300)
 		loucura = 50;
 	else
@@ -328,7 +316,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 	else
 		inimigo->movimento.ataque = FALSO;
 	//inimigo_status->delay_ataque++;
-		
+
 
 	switch (loucura)
 	{
@@ -425,7 +413,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 					inimigo->movimento.baixo = FALSO;
 					inimigo->movimento.esquerda = FALSO;
 					inimigo->movimento.direita = VERDADEIRO;
-					break;	
+					break;
 
 				case 4:
 					inimigo->movimento.cima = FALSO;
@@ -468,7 +456,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 	// ***************************************************************************
 
 	// Caso tenha colisao vai afastar
-	/*	
+	/*
 	// Cima
 	if (inimigo->colisao.cima)
 	{
@@ -494,7 +482,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 		inimigo->movimento.baixo = FALSO;
 		inimigo->movimento.esquerda = FALSO;
 		inimigo->movimento.direita = VERDADEIRO;
-	}	
+	}
 
 	// Direita
 	else if (inimigo->colisao.direita)
@@ -510,7 +498,7 @@ void IA_de_Movimentacao(Objeto* inimigo, Status* inimigo_status,
 	//
 	// Execucao de movimentacao
 	//
-	
+
 	Inimigo_Movimentar(inimigo, movimento_permitido);
 
 	// *************************************************************************************

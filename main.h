@@ -24,8 +24,8 @@
 // FUNCOES
 //
 
-int main (int argc, char **argv);
-void ERRO (int erro);
+int main (int, char **);
+void ERRO (int);
 
 // ********************************************************************
 
