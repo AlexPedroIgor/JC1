@@ -7,7 +7,7 @@
 	FUNCOES DE RENDERIZACAO E ORGANIZACAO DE ARMAS
 
 	Jogo de desenvolvido para projeto de computacao 1
-*/ 
+*/
 
 #include "armas.h"
 #include "base.h"
@@ -98,9 +98,9 @@ void Cria_Fireball(Objeto* jogador, Objeto* fireball)
 void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 {
 	SDL_Surface* Loading_Surf;
-	
 
-	Loading_Surf = IMG_Load("arte/ataques/fireball.png"); 
+
+	Loading_Surf = IMG_Load("arte/ataques/fireball.png");
 
 	fireball->sprite = SDL_CreateTextureFromSurface(renderer,
 		Loading_Surf);
@@ -137,7 +137,7 @@ void Carrega_Fireball(SDL_Renderer* renderer, Objeto* fireball, Objeto* jogador)
 			break;
 
 		case QUADRANTE2:
-			fireball->posicao.x -= 20;	
+			fireball->posicao.x -= 20;
 			fireball->posicao.y -= 20;
 			break;
 
@@ -174,7 +174,7 @@ void Inicializa_Fireball(SDL_Renderer* renderer, Projeteis* projeteis, Objeto* j
 
 void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 {
-	
+
 	switch (tiro->animacao)
 	{
 		//CIMA
@@ -214,7 +214,7 @@ void Anima_Fireball(SDL_Renderer* renderer, Objeto* tiro)
 			}
 			else
 				tiro->frame.x = 0;
-			
+
 			tiro->posicao.x -= 15;
 			break;
 
