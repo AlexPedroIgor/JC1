@@ -27,12 +27,12 @@
 // FUNCOES
 //
 
-void RPG_Renderiza_HUD(SDL_Renderer* renderer, Jogadores* jogadores);
-void RPG_Carrega_Status_Inicial(Jogadores* jogadores);
-void Atualiza_Status_Geral(Jogadores* jogadores);
-void Manter_status(Jogadores* jogadores);
-void Tomar_dano(Inimigos* inimigo, Status* inimigo_status, Jogadores* jogadores, int jogador_proximo);
-void Define_Status_Inimigo(Status* status, int tipo);
+void RPG_Renderiza_HUD(SDL_Renderer*, Jogadores*);
+void RPG_Carrega_Status_Inicial(Jogadores*);
+void Atualiza_Status_Geral(Jogadores*);
+void Manter_status(Jogadores*);
+void Tomar_dano(Inimigos*, Status*, Jogadores*, int);
+void Define_Status_Inimigo(Status*, int);
 
 // ******************************************************************************
 
